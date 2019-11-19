@@ -305,6 +305,12 @@ origin
 
 ### 跟踪分支
 
+>`-u <upstream>`
+>`--set-upstream-to=<upstream>`
+
+>Set up `<branchname>`'s tracking information so `<upstream>` is considered `<branchname>`'s upstream branch. If no `<branchname>` is specified, then it defaults to the current branch.
+
+
 `git checkout -b [branch] [remotename]/[branch]`
 `git checkout -b serverfix origin/serverfix`
 
