@@ -155,6 +155,12 @@ test line9.
 >`git remote add origin git@server-name:path/repo-name.git`
 >`origin` 是远程仓库的名字
 
+### 查看某个远程仓库
+
+`git remote show [remote-name]` 命令。
+`remote-name` 如 `origin`
+
+
 ### 从远程获取信息
 
 `git fetch [remote-name]`
@@ -249,13 +255,6 @@ for a ref that was up to date and did not need pushing.
 
 >Fetch all remotes.
 
-
-### 查看某个远程仓库
-
-`git remote show [remote-name]` 命令。
-
-`remote-name` 如 `origin`
-
 ### 远程仓库的移除与重命名
 
 `git remote rename`
@@ -305,6 +304,12 @@ origin
 > 远程跟踪分支是远程分支状态的引用。 它们是你不能移动的本地引用，当你做任何网络通信操作时，它们会自动移动。 远程跟踪分支像是你上次连接到远程仓库时，那些分支所处状态的书签。
 
 ### 跟踪分支
+
+>`-u <upstream>`
+>`--set-upstream-to=<upstream>`
+
+>Set up `<branchname>`'s tracking information so `<upstream>` is considered `<branchname>`'s upstream branch. If no `<branchname>` is specified, then it defaults to the current branch.
+
 
 `git checkout -b [branch] [remotename]/[branch]`
 `git checkout -b serverfix origin/serverfix`
