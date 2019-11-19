@@ -7,12 +7,14 @@ and
 ## alias （别名）
 
 ### 配置文件
+
 >配置文件放哪了？每个仓库的Git配置文件都放在.git/config文件中：
 >而当前用户的Git配置文件放在用户主目录下的一个隐藏文件.gitconfig中：
 >别名就在[alias]后面，要删除别名，直接把对应的行删掉即可。
 >配置别名也可以直接修改这个文件，如果改错了，可以删掉文件重新通过命令配置。
 
 ### git status git st
+
 `git config --global alias.st status`
 
 ### git unstage
@@ -25,6 +27,7 @@ and
 >这样看起来更清楚一些。
 
 ### git last
+
 >通常也会添加一个 `last` 命令，像这样：
 >`$ git config --global alias.last 'log -1 HEAD'`
 >这样，可以轻松地看到最后一次提交：
@@ -32,6 +35,7 @@ and
 ###  logpretty
 
 >甚至还有人丧心病狂地把lg配置成了：
+
 `git config --global alias.logpretty "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"`
 
 ## 创建版本库
@@ -39,6 +43,7 @@ and
 ### 初始化一个git仓库
 
 `git init`
+
 初始化一个git仓库
 
 ## 添加修改
@@ -114,11 +119,13 @@ test line9.
 ### 查看提交历史
 
 `git log`
+
 >穿梭前，用`git log`可以查看提交历史，以便确定要回退到哪个版本
 
 ### 重返未来
 
 `git reflog`
+
 >要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
 
 ### 丢弃工作区的修改
@@ -128,6 +135,7 @@ test line9.
 ###  大恢复
 
 `git reset HEAD file`
+
 当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令 `git reset HEAD file`，就回到了场景1，第二步按场景1操作
 
 ### 删除一个文件
@@ -150,6 +158,7 @@ test line9.
 ### 从远程获取信息
 
 `git fetch [remote-name]`
+
 >这个命令会访问远程仓库，从中拉取所有你还没有的数据。 执行完成后，你将会拥有那个远程仓库中所有分支的引用，可以随时合并或查看
 
 >git fetch 命令会将数据拉取到你的本地仓库——它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作
@@ -160,11 +169,13 @@ test line9.
 ### 克隆远程
 
 `git clone`
+
 要克隆一个仓库，首先必须知道仓库的地址，然后使用`git clone`命令克隆。
 
 ### 推到远程
 
-当你想分享你的项目时，必须将其推送到上游。 这个命令很简单：
+>当你想分享你的项目时，必须将其推送到上游。 这个命令很简单：
+
 `git push [remote-name] [branch-name]。`
 `git push -u origin master`
 
@@ -197,9 +208,11 @@ test line9.
 
 
 ### 查看某个远程仓库
+
 `git remote show [remote-name]` 命令。 如果想以一个特定的缩写名运行这个命令，例如 `origin`
 
 ### 远程仓库的移除与重命名
+
 `git remote rename`
 
 >如果想要重命名引用的名字可以运行 git remote rename 去修改一个远程仓库的简写名。 例如，想>要将 pb 重命名为 paul，可以用 git remote rename 这样做：
@@ -224,15 +237,23 @@ origin
 
 如果在远程版本库上删除了某一分支，该命令并不会删除本地的远程追踪分支，
 这时候，有另一个命令
+
 `$ git remote prune`
 
 该命令可以删除本地版本库上那些失效的远程追踪分支，具体用法是，假如你的远程版本库名是 origin,则使用如下命令先查看哪些分支需要清理：
+
 `$ git remote prune origin --dry-run`
 
 然后执行
+
 `$ git remote prune origin`
+
 这样，就完成了无效的远程追踪分支的清理工作。
-需要注意，这里远程追踪分支批位于`.git/refs/remote/origin` 下的分支，如果有本地分支作为下游存在的话，还需要手动清理
+需要注意，这里远程追踪分支批位于
+
+`.git/refs/remote/origin`
+
+下的分支，如果有本地分支作为下游存在的话，还需要手动清理
 
 ### 远程分支
 
@@ -259,6 +280,7 @@ Branch serverfix set up to track remote branch serverfix from origin.
 ```
 
 `git branch -vv`
+
 >如果想要查看设置的所有跟踪分支，可以使用 git branch 的 -vv 选项
 
 ### 删除远程分支
@@ -311,7 +333,6 @@ Note that the current worktree’s HEAD will not have its path printed (it will 
 ### 创建并切换到分支
 
 `git checkout -b`
-
 `git checkout -b "branchname " "startpoint"`
 
 >The new branch **head**  will point to **this commit**. It may be given as a **branch name**, a **commit-id**, or **a tag**. If this option is omitted, the **current HEAD** will be used instead.
@@ -321,6 +342,7 @@ Note that the current worktree’s HEAD will not have its path printed (it will 
 用 `git log --graph` 命令可以看到分支合并图。
 
 ### 分支管理策略
+
 Git分支十分强大，在团队开发中应该充分应用。
 合并 **临时分支 **到 **feature分支** 后(并删除 **临时分支** )，
 如果加上了 `--no-ff` 参数就可以用普通模式合并，合并后的 **log** 有分支，能看出来曾经做过合并，
@@ -331,29 +353,36 @@ Git分支十分强大，在团队开发中应该充分应用。
 ### git tag
 
 `git tag`
+
 列出已有的标签
 
 `git tag -l 'v1.8.5*'`
+
 查找  `'v1.8.5*'` 
 
 ### 创建附注标签
 
 即完整标签
+
 `git tag -a v1.4 -m "my version 1.4"`
+
 -m 选项指定了一条将会存储在标签中的信息
 
 `git show v1.4`
+
 git show 命令可以看到标签信息与对应的提交信息
 
 ### 轻量标签
 
-git tag v1.4-lw
+`git tag v1.4-lw`
+
 轻量标签本质上是将提交校验和存储到一个文件中——没有保存任何其他信息。 
 创建轻量标签，不需要使用 -a、-s 或 -m 选项，只需要提供标签名字
 
 ### 后期打标签
 
 `git tag -a v1.2 9fceb02`
+
 在命令的末尾指定提交的校验和（或部分校验和)
 
 ### 推送标签
@@ -372,6 +401,7 @@ git tag v1.4-lw
 >Deleted tag 'v1.4-lw' (was e7d5add)
 
 `git push <remote> :refs/tags/<tagname>` 
+
 >你必须使用 `git push <remote> :refs/tags/<tagname>` 来更新你的远程仓库：
 >`$ git push origin :refs/tags/v1.4-lw`
 >`To /git@github.com:schacon/simplegit.git`
@@ -380,12 +410,14 @@ git tag v1.4-lw
 ### checkout 到某个 标签
 
 >比如说你正在修复旧版本的错误——这通常需要创建一个新分支：
+>
 >`$ git checkout -b version2 v2.0.0`
 >`Switched to a new branch 'version2'`
 
 ## 自定义 git
 
 ### 忽略特殊文件
+
 >忽略某些文件时，需要编写.gitignore；
 >.gitignore文件本身要放到版本库里，并且可以对.gitignore做版本管理！
 
