@@ -206,8 +206,7 @@ test line9.
 `git push origin :`
 
 >Push "matching" branches to origin. See `<refspec>`  in the OPTIONS section above for a 
-description of "matching" branches.
-git push origin master:refs/heads/experimental
+>description of "matching" branches.
 
 `git push origin master:refs/heads/experimental`
 
