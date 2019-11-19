@@ -155,6 +155,12 @@ test line9.
 >`git remote add origin git@server-name:path/repo-name.git`
 >`origin` 是远程仓库的名字
 
+### 查看某个远程仓库
+
+`git remote show [remote-name]` 命令。
+`remote-name` 如 `origin`
+
+
 ### 从远程获取信息
 
 `git fetch [remote-name]`
@@ -248,13 +254,6 @@ for a ref that was up to date and did not need pushing.
 `--all`
 
 >Fetch all remotes.
-
-
-### 查看某个远程仓库
-
-`git remote show [remote-name]` 命令。
-
-`remote-name` 如 `origin`
 
 ### 远程仓库的移除与重命名
 
