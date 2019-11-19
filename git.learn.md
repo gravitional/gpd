@@ -187,6 +187,16 @@ test line9.
 
 >只有当你有所克隆服务器的写入权限，并且之前没有人推送过时，这条命令才能生效。 当你和其他人在同一时间克隆，他们先推送到上游然后你再推送到上游，你的推送就会毫无疑问地被拒绝。 你必须先将他们的工作拉取下来并将其合并进你的工作后才能推送
 
+#### default behavior
+
+>the **current branch** is pushed to the corresponding **upstream branch**, but as a safety measure, the push is aborted if the upstream branch does not have **the same name** as the local one.
+
+>Specify what destination ref to update with what source object. The format of a `<refspec>` parameter is an optional plus +, followed by the source object `<src>`, followed by a colon :, followed by the destination ref `<dst>`.
+
+>The `<src>` is often the name of the branch you would want to push, but it can be any arbitrary "SHA-1 expression", such as `master~4` or `HEAD`
+
+>If git push `[<repository>]` without any`<refspec>` argument is set to update some ref at the destination with `<src>` with remote
+
 `git push origin :`
 
 >Push "matching" branches to origin. See `<refspec>`  in the OPTIONS section above for a 
@@ -195,7 +205,7 @@ git push origin master:refs/heads/experimental
 
 `git push origin master:refs/heads/experimental`
 
->Create the branch experimental in the origin repository by copying the current master branch. This form is only needed to create a new branch or tag in the remote repository when the local name and the remote name are different; otherwise, the ref name on its own will work.
+>Create **the branch experimental in the origin** repository by copying the **current master branch**. This form is only needed to create a new branch or tag in the remote repository when the local name and the remote name are different; otherwise, the ref name on its own will work.
 
 ### push flag
 
