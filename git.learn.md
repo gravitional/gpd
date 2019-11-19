@@ -17,40 +17,35 @@ and
 
 ### git unstage
 
-例如，为了解决取消暂存文件的易用性问题，可以向 Git 中添加你自己的取消暂存别名：
-`$ git config --global alias.unstage 'reset HEAD --'`
-这会使下面的两个命令等价：
-`$ git unstage fileA`
-`$ git reset HEAD -- fileA`
-这样看起来更清楚一些。
+>例如，为了解决取消暂存文件的易用性问题，可以向 Git 中添加你自己的取消暂存别名：
+>`$ git config --global alias.unstage 'reset HEAD --'`
+>这会使下面的两个命令等价：
+>`$ git unstage fileA`
+>`$ git reset HEAD -- fileA`
+>这样看起来更清楚一些。
 
 ### git last
-通常也会添加一个 `last` 命令，像这样：
-`$ git config --global alias.last 'log -1 HEAD'`
-这样，可以轻松地看到最后一次提交：
-
-### explorer ... open
-
-`git config --global alias.open '!explorer'`
-将 open 设置为 explorer 的别名
+>通常也会添加一个 `last` 命令，像这样：
+>`$ git config --global alias.last 'log -1 HEAD'`
+>这样，可以轻松地看到最后一次提交：
 
 ###  logpretty
->甚至还有人丧心病狂地把lg配置成了：
 
+>>甚至还有人丧心病狂地把lg配置成了：
 `git config --global alias.logpretty "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"`
-
 
 ## 创建版本库
 
-### git init
+### 初始化一个git仓库
 
+`git init`
 初始化一个git仓库
 
 ## 添加修改
 
-###  git add file
+###  添加文件 
 
-添加文件 
+`git add`
 
 >git add -A 和 git add .   git add -u在功能上看似很相近，但还是存在一点差别
 
@@ -59,11 +54,12 @@ and
 >git add -u ：他仅监控已经被add的文件（即tracked file），他会将被修改的文件提交到暂存区。add -u 不会提交新文件（untracked file）。（git add --update的缩写）
 
 >git add -A ：是上面两个功能的合集（git add --all的缩写）
-原文链接：https://blog.csdn.net/caseywei/article/details/90945295
 
-### git commit -m message
+>[原文链接](https://blog.csdn.net/caseywei/article/details/90945295)
 
-提交更改
+### 提交更改
+
+`git commit -m [message]`
 
 ## 时光机穿梭
 
@@ -73,10 +69,10 @@ and
 
 ### git diff
 
-如果`git status`告诉你有文件被修改过，用`git diff`可以查看修改内容。
-查看和上一版本的具体变动内容 显示内容如下： 
+>如果`git status`告诉你有文件被修改过，用`git diff`可以查看修改内容。
+>查看和上一版本的具体变动内容 显示内容如下： 
 
-```diff
+```bash
 diff --git a/test.txt b/test.txt 
 index 629d9c8..3d98a7f 100644 
 --- a/test.txt 
@@ -97,38 +93,48 @@ test line9.
 
 ### git diff 详解
 
-`diff --git a/test.txt b/test.txt `
-——对比两个文件，其中a改动前，b是改动后，以git的diff格式显示； 
+>`diff --git a/test.txt b/test.txt `
+>——对比两个文件，其中a改动前，b是改动后，以git的diff格式显示； 
 
-index 629d9c8..3d98a7f 100644`
-——两个版本的git哈希值，index区域（add之后）的 629d9c8  对象和工作区域的 3d98a7f 对象， 
-100表示普通文件，644表示权限控制；
+>index 629d9c8..3d98a7f 100644`
+>——两个版本的git哈希值，index区域（add之后）的 629d9c8  对象和工作区域的 3d98a7f 对象， 
+>100表示普通文件，644表示权限控制；
 
-`--- a/test.txt`
-`+++ b/test.txt`
-——减号表示变动前，加号表示变动后；
+>`--- a/test.txt`
+>`+++ b/test.txt`
+>——减号表示变动前，加号表示变动后；
 
-`@@ -4,8 +4,9 @@ test line3.  
-test line4.  test line5.  test line6.  `
+>`@@ -4,8 +4,9 @@ test line3.  
+>test line4.  test line5.  test line6.  `
 ——@@表示文件变动描述合并显示的开始和结束，一般在变动前后多显示3行，
 其中-+表示变动前后，逗号前是起始行位置，逗号后为从起始行往后几行。
 合起来就是变动前后都是从第4行开始，变动前文件往后数8行对应变动后文件往后数9行。  
 变动内容 ——+表示增加了这一行，-表示删除了这一行，没符号表示此行没有变动。
 
-### git log
-穿梭前，用`git log`可以查看提交历史，以便确定要回退到哪个版本
+### 查看提交历史
 
-### git reflog
-要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+`git log`
+>穿梭前，用`git log`可以查看提交历史，以便确定要回退到哪个版本
 
-### git restore file
-丢弃工作区的修改
+### 重返未来
 
-### git reset HEAD file
+`git reflog`
+>要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+
+### 丢弃工作区的修改
+
+`git restore file`
+
+###  大恢复
+
+`git reset HEAD file`
 当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令 `git reset HEAD file`，就回到了场景1，第二步按场景1操作
 
-### git rm
-命令`git rm`用于删除一个文件。
+### 删除一个文件
+
+`git rm`
+
+>命令`git rm`用于删除一个文件。
 如果一个文件已经被提交到版本库，那么你永远不用担心误删，但是要小心，你只能恢复文件到最新版本，你会丢失最近一次提交后你修改的内容。
 
 ## 远程仓库
@@ -136,8 +142,10 @@ test line4.  test line5.  test line6.  `
 ### 添加远程
 
 `git remote add`
-要关联一个远程库，使用命令`git remote add origin git@server-name:path/repo-name.git`
-`origin` 是远程仓库的名字
+
+>要关联一个远程库，使用命令
+>`git remote add origin git@server-name:path/repo-name.git`
+>`origin` 是远程仓库的名字
 
 ### 从远程获取信息
 
@@ -379,3 +387,5 @@ git tag v1.4-lw
 ### 忽略特殊文件
 >忽略某些文件时，需要编写.gitignore；
 >.gitignore文件本身要放到版本库里，并且可以对.gitignore做版本管理！
+
+
