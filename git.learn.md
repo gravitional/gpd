@@ -1,6 +1,6 @@
 # Git-Learn
 
-[廖雪峰](liaoxuefeng.com)
+[廖雪峰git教程](https://www.liaoxuefeng.com/wiki/896043488029600)
 and
 [git-scm.com/book/](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-Git-%E5%88%AB%E5%90%8D)
 
@@ -31,7 +31,7 @@ and
 
 ###  logpretty
 
->>甚至还有人丧心病狂地把lg配置成了：
+>甚至还有人丧心病狂地把lg配置成了：
 `git config --global alias.logpretty "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"`
 
 ## 创建版本库
@@ -59,7 +59,7 @@ and
 
 ### 提交更改
 
-`git commit -m [message]`
+`git commit -m [comment message]`
 
 ## 时光机穿梭
 
@@ -354,12 +354,13 @@ git tag v1.4-lw
 ### 后期打标签
 
 `git tag -a v1.2 9fceb02`
-在命令的末尾指定提交的校验和（或部分校验和
+在命令的末尾指定提交的校验和（或部分校验和)
 
 ### 推送标签
 
-`git push origin v1.5
+`git push origin v1.5`
 `git push origin [tagname]`
+
 >默认情况下，git push 命令并不会传送标签到远程仓库服务器上。
 >在创建完标签后你必须显式地推送标签到共享服务器上,这个过程就像共享远程分支一样
 
