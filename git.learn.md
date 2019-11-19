@@ -1,7 +1,9 @@
 # Git-Learn
 
 [廖雪峰](liaoxuefeng.com)
+and
 [git-scm.com/book/](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-Git-%E5%88%AB%E5%90%8D)
+
 ## alias （别名）
 
 ### 配置文件
