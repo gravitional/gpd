@@ -179,15 +179,48 @@ test line9.
 `git push [remote-name] [branch-name]。`
 `git push -u origin master`
 
+`-u` == `--set-upstream`
+
 >git push -u origin master第一次推送master分支的所有内容
 加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令
 此后，每次本地提交后，就可以使用命令`git push origin master`推送最新修改
 
 >只有当你有所克隆服务器的写入权限，并且之前没有人推送过时，这条命令才能生效。 当你和其他人在同一时间克隆，他们先推送到上游然后你再推送到上游，你的推送就会毫无疑问地被拒绝。 你必须先将他们的工作拉取下来并将其合并进你的工作后才能推送
 
-### git pull 
+`git push origin :`
 
-拉取远程仓库
+>Push "matching" branches to origin. See `<refspec>`  in the OPTIONS section above for a 
+description of "matching" branches.
+git push origin master:refs/heads/experimental
+
+`git push origin master:refs/heads/experimental`
+
+>Create the branch experimental in the origin repository by copying the current master branch. This form is only needed to create a new branch or tag in the remote repository when the local name and the remote name are different; otherwise, the ref name on its own will work.
+
+### push flag
+
+>A single character indicating the status of the ref:
+
+>`(space)`
+for a successfully pushed fast-forward;
+
+>`+`
+for a successful forced update;
+
+>`-`
+for a successfully deleted ref;
+
+>`*`
+for a successfully pushed new ref;
+
+>`!`
+for a ref that was rejected or failed to push; and
+
+>`=`
+for a ref that was up to date and did not need pushing.
+
+
+### 拉取远程仓库
 
 `git pull [<options>] [<repository> [<refspec>…]]`
 
