@@ -136,7 +136,7 @@ test line9.
 
 `git reset HEAD file`
 
-当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令 `git reset HEAD file`，就回到了场景1，第二步按场景1操作
+> 当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令 `git reset HEAD file`，就回到了场景1，第二步按场景1操作
 
 ### 删除一个文件
 
@@ -170,7 +170,7 @@ test line9.
 
 `git clone`
 
-要克隆一个仓库，首先必须知道仓库的地址，然后使用`git clone`命令克隆。
+> 要克隆一个仓库，首先必须知道仓库的地址，然后使用`git clone`命令克隆。
 
 ### 推到远程
 
@@ -209,7 +209,9 @@ test line9.
 
 ### 查看某个远程仓库
 
-`git remote show [remote-name]` 命令。 如果想以一个特定的缩写名运行这个命令，例如 `origin`
+`git remote show [remote-name]` 命令。
+
+`remote-name` 如 `origin`
 
 ### 远程仓库的移除与重命名
 
@@ -235,29 +237,29 @@ origin
 
 ### 清理无效远程追踪
 
-如果在远程版本库上删除了某一分支，该命令并不会删除本地的远程追踪分支，
-这时候，有另一个命令
+> 如果在远程版本库上删除了某一分支，该命令并不会删除本地的远程追踪分支，
+> 这时候，有另一个命令
 
 `$ git remote prune`
 
-该命令可以删除本地版本库上那些失效的远程追踪分支，具体用法是，假如你的远程版本库名是 origin,则使用如下命令先查看哪些分支需要清理：
+> 该命令可以删除本地版本库上那些失效的远程追踪分支，具体用法是，假如你的远程版本库名是 origin,则使用如下命令先查看哪些分支需要清理：
 
 `$ git remote prune origin --dry-run`
 
-然后执行
+> 然后执行
 
 `$ git remote prune origin`
 
-这样，就完成了无效的远程追踪分支的清理工作。
-需要注意，这里远程追踪分支批位于
+> 这样，就完成了无效的远程追踪分支的清理工作。
+> 需要注意，这里远程追踪分支批位于
 
 `.git/refs/remote/origin`
 
-下的分支，如果有本地分支作为下游存在的话，还需要手动清理
+> 下的分支，如果有本地分支作为下游存在的话，还需要手动清理
 
 ### 远程分支
 
-远程跟踪分支是远程分支状态的引用。 它们是你不能移动的本地引用，当你做任何网络通信操作时，它们会自动移动。 远程跟踪分支像是你上次连接到远程仓库时，那些分支所处状态的书签。
+> 远程跟踪分支是远程分支状态的引用。 它们是你不能移动的本地引用，当你做任何网络通信操作时，它们会自动移动。 远程跟踪分支像是你上次连接到远程仓库时，那些分支所处状态的书签。
 
 ### 跟踪分支
 
@@ -272,7 +274,7 @@ Branch serverfix set up to track remote branch serverfix from origin.
 Switched to a new branch 'serverfix'
 ```
 
-你可以在任意时间使用 -u 或 --set-upstream-to 选项运行 git branch 来显式地设置
+> 你可以在任意时间使用 -u 或 --set-upstream-to 选项运行 git branch 来显式地设置
 
 ```bash
 $ git branch -u origin/serverfix
@@ -303,19 +305,19 @@ To https://github.com/schacon/simplegit
 
 ### 各种本地分支命令
 
-Git鼓励大量使用分支：
+> Git鼓励大量使用分支：
 
-查看分支：`git branch`
+> 查看分支：`git branch`
 
-创建分支：`git branch name`
+> 创建分支：`git branch name`
 
-切换分支： `git switch name`
+> 切换分支： `git switch name`
 
-新建+切换 到新分支： `git checkout -b branchname`
+> 新建+切换 到新分支： `git checkout -b branchname`
 
-合并某分支到当前分支：`git merge name`
+> 合并某分支到当前分支：`git merge name`
 
-删除分支：`git branch -d name`
+> 删除分支：`git branch -d name`
 
 ### 查看分支
 
@@ -338,15 +340,15 @@ Note that the current worktree’s HEAD will not have its path printed (it will 
 >The new branch **head**  will point to **this commit**. It may be given as a **branch name**, a **commit-id**, or **a tag**. If this option is omitted, the **current HEAD** will be used instead.
 
 ### 解决冲突
-解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
-用 `git log --graph` 命令可以看到分支合并图。
+> 解决冲突就是把Git合并失败的文件手动编辑为我们希望的内容，再提交。
+> 用 `git log --graph` 命令可以看到分支合并图。
 
 ### 分支管理策略
 
-Git分支十分强大，在团队开发中应该充分应用。
-合并 **临时分支 **到 **feature分支** 后(并删除 **临时分支** )，
-如果加上了 `--no-ff` 参数就可以用普通模式合并，合并后的 **log** 有分支，能看出来曾经做过合并，
-而默认的 `fast forward` 合并就看不出来曾经做过合并。
+> Git分支十分强大，在团队开发中应该充分应用。
+> 合并 **临时分支 **到 **feature分支** 后(并删除 **临时分支** )，
+> 如果加上了 `--no-ff` 参数就可以用普通模式合并，合并后的 **log** 有分支，能看出来曾经做过合并，
+> 而默认的 `fast forward` 合并就看不出来曾经做过合并。
 
 ### 快进（fast-forward)
 
@@ -362,28 +364,28 @@ Git分支十分强大，在团队开发中应该充分应用。
 
 ### 创建附注标签
 
-即完整标签
+> 即完整标签
 
 `git tag -a v1.4 -m "my version 1.4"`
 
--m 选项指定了一条将会存储在标签中的信息
+> -m 选项指定了一条将会存储在标签中的信息
 
 `git show v1.4`
 
-git show 命令可以看到标签信息与对应的提交信息
+> git show 命令可以看到标签信息与对应的提交信息
 
 ### 轻量标签
 
 `git tag v1.4-lw`
 
-轻量标签本质上是将提交校验和存储到一个文件中——没有保存任何其他信息。 
-创建轻量标签，不需要使用 -a、-s 或 -m 选项，只需要提供标签名字
+> 轻量标签本质上是将提交校验和存储到一个文件中——没有保存任何其他信息。 
+> 创建轻量标签，不需要使用 -a、-s 或 -m 选项，只需要提供标签名字
 
 ### 后期打标签
 
 `git tag -a v1.2 9fceb02`
 
-在命令的末尾指定提交的校验和（或部分校验和)
+> 在命令的末尾指定提交的校验和（或部分校验和)
 
 ### 推送标签
 
