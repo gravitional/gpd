@@ -193,7 +193,15 @@ test line9.
 
 >只有当你有所克隆服务器的写入权限，并且之前没有人推送过时，这条命令才能生效。 当你和其他人在同一时间克隆，他们先推送到上游然后你再推送到上游，你的推送就会毫无疑问地被拒绝。 你必须先将他们的工作拉取下来并将其合并进你的工作后才能推送
 
-#### default behavior
+### git push -f origin master
+`-f`
+`--force`
+
+>Usually, the command refuses to update a remote ref that is not an ancestor of the local ref used to overwrite it. Also, when --force-with-lease option is used, the command refuses to update a remote ref whose current value does not match what is expected.
+
+> This flag disables these checks, and can cause the remote repository to lose commits; use it with care.
+
+### default behavior
 
 >the **current branch** is pushed to the corresponding **upstream branch**, but as a safety measure, the push is aborted if the upstream branch does not have **the same name** as the local one.
 
@@ -303,6 +311,8 @@ origin
 > 远程跟踪分支是远程分支状态的引用。 它们是你不能移动的本地引用，当你做任何网络通信操作时，它们会自动移动。 远程跟踪分支像是你上次连接到远程仓库时，那些分支所处状态的书签。
 
 ### 跟踪分支
+
+`git branch -u origin/serverfix`
 
 >`-u <upstream>`
 >`--set-upstream-to=<upstream>`
