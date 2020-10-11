@@ -36,6 +36,7 @@ echo[x_]:=Print["----------------------------","\n",forcestr[x],"\n","----------
 (*\:521d\:59cb\:5316\:7528\:6765\:8f93\:51fa\:7684\:5173\:8054*)
 
 
+echo["initial export variables"]
 export`vars=<||>
 
 
@@ -43,8 +44,8 @@ export`vars=<||>
 (*\:8ba1\:7b97\:73af\:5883\:53c2\:91cf\:ff0c\:6bd4\:5982\:8def\:5f84*)
 
 
-(*\:7ed9\:51fa\:8fdc\:7a0bgit\:4ed3\:5e93\:7684\:540d\:5b57*)
-git`remote`name="gpd";
+(*\:7ed9\:51fa\:8fdc\:7a0bgit\:4ed3\:5e93\:7684\:540d\:5b57\:ff0c\:53ea\:80fd\:662f\:4e00\:4e2a\:5b57\:7b26\:4e32\:ff0c\:4e0d\:5305\:542b/ or \ *)
+git`remote`name=forcestr["gpd"];
 (*\:811a\:672c\:7684\:8fd0\:884c\:6a21\:5f0f\:5224\:65ad\:ff0cTrue\:4ee3\:8868\:547d\:4ee4\:884c\:ff0cFalse\:4ee3\:8868\:524d\:7aef*)
 boole`incmd=Not[SameQ[$ScriptCommandLine,{}]];
 
@@ -74,7 +75,11 @@ If[boole`incmd,echo["Ready to execute this script"]]
 
 
 echo["the git`local`name is"]
-git`local`name=FileNameJoin[Append[TakeWhile[FileNameSplit[ExpandFileName[filename]],UnsameQ[#1,git`remote`name]&],git`remote`name]]
+If[MemberQ[FileNameSplit[ExpandFileName[filename]],git`remote`name],
+git`local`name=FileNameJoin[Append[TakeWhile[FileNameSplit[ExpandFileName[filename]],
+UnsameQ[#1,git`remote`name]&],git`remote`name]],
+echo["this *.wl is in inappropriate directory"]
+]
 
 
 (* ::Text:: *)
@@ -145,6 +150,59 @@ mfiles`list=ToExpression[input`cml[[2]]]
 parameter`order`string="full"
 parameter`lambda0`string=ToString[NumberForm[0.90,{3,2}]]
 parameter`ci`string=ToString[NumberForm[1.50,{3,2}]]
+
+
+(* ::Chapter:: *)
+(*Lagrangian*)
+
+
+(* ::Text:: *)
+(*\:7c92\:5b50\:77e9\:9635\:ff0c\:5f20\:91cf\:ff0c\:516b\:91cd\:6001\:ff0c\:5341\:91cd\:6001\:ff0c\:4ecb\:5b50*)
+
+
+par`oct
+par`dec
+par`mes
+
+
+(* ::Text:: *)
+(*\:4f4e\:80fd\:8026\:5408\:5e38\:6570*)
+
+
+lec`D
+lec`F
+lec`f
+lec`sc
+lec`sh
+
+
+(* ::Text:: *)
+(*\:7c92\:5b50\:8d28\:91cf\:ff0c\:516b\:91cd\:6001\:ff0c\:5341\:91cd\:6001\:ff0c\:4ecb\:5b50*)
+
+
+mas`oct
+mas`dec
+mas`mes
+
+
+(* ::Text:: *)
+(*\:65cb\:91cf\:7ed3\:6784\:ff0c2\:8868\:793a\:4e24\:4e2a\:6307\:6807\:ff0c3\:8868\:793a3\:4e2a\:6307\:6807*)
+
+
+(*\[Gamma]\[Mu]\[Nu]*)
+spi`ga2
+(*\[Gamma]\[Mu]\[Nu]\[Alpha]*)
+spi`ga3
+(*\[CapitalTheta]\[Mu]\[Nu]*)
+spi`th2
+
+
+(* ::Text:: *)
+(*\:5e38\:6570\:77e9\:9635*)
+
+
+(*Gellman\:77e9\:9635*)
+mat`gel
 
 
 (* ::Chapter:: *)
