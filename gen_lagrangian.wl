@@ -16,6 +16,10 @@
 (*\:5c1d\:8bd5\:4f7f\:7528\:51fd\:6570\:63a5\:53e3: f[i,j,k]\:ff0c\:5c06\:4e0d\:592a\:786e\:5b9a\:7684\:5b9e\:73b0\:90fd\:5b9a\:4e49\:6210\:51fd\:6570*)
 
 
+(* ::Chapter::Closed:: *)
+(*initial*)
+
+
 (* ::Text:: *)
 (*\:5f00\:59cb\:6b64\:5305*)
 
@@ -23,7 +27,7 @@
 BeginPackage["chptgpd`"]
 
 
-(* ::Chapter:: *)
+(* ::Section:: *)
 (*usage*)
 
 
@@ -32,10 +36,6 @@ BeginPackage["chptgpd`"]
 
 
 f::usage="aaaa"
-
-
-(* ::Chapter:: *)
-(*initial*)
 
 
 (* ::Text:: *)
@@ -55,6 +55,11 @@ Begin["`Private`"]
 
 (*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570*)
 forcestr[x_,form_:InputForm]:=If[StringQ[x],x,ToString[x,form]]
+
+
+(*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5bf9\:8c61\:662f\:5217\:8868\:7684\:51fd\:6570*)
+forcelist::usage="forcelist \:786e\:4fdd\:5bf9\:8c61\:53d8\:6210\:5217\:8868";
+forcelist[x_]:=If[ListQ[x],x,{x}]
 
 
 (*\:5b9a\:4e49\:4e00\:4e2a\:6253\:5370\:51fd\:6570*)
@@ -191,22 +196,30 @@ parameter`ci`string=ToString[NumberForm[1.50,{3,2}]]
 (*encode input*)
 
 
-(* ::Text:: *)
-(*\:5bf9 Lagrangian \:4e2d\:7684\:5bf9\:8c61\:8fdb\:884c\:7f16\:7801\:ff0c\:5f53\:524d\:4e0a\:4e0b\:6587\:4e3a `lag`*)
-
-
-Begin["`lag`"]
-
-
 (* ::Subsection:: *)
 (*constants*)
 
 
 (* ::Text:: *)
-(*\:5e38\:6570\:77e9\:9635\:ff0c\:6bd4\:5982 Gellman \:77e9\:9635*)
+(*\:5e38\:6570\:77e9\:9635\:ff0c\:6bd4\:5982\[Lambda],Gellman \:77e9\:9635\:ff0c\:6839\:636e\:540e\:6587\:4e2d\:5b88\:6052\:6d41\:7684\:5b9a\:4e49\:ff0c\:53ef\:4ee5\:77e5\:9053\:ff0c\:6587\:4e2d\:7684\[Lambda]\:662f\:751f\:6210\:5143\:76842\:500d\:ff0c*)
 
 
-gellman[]
+(* ::Text:: *)
+(*SU(3) group \:7684\:751f\:6210\:5143 Gellman=\[Lambda]/2*)
+
+
+\[Lambda][x_]:={
+IdentityMatrix[3],
+{{0,1,0},{1,0,0},{0,0,0}},
+{{0,-I,0},{I,0,0},{0,0,0}},
+{{1,0,0},{0,-1,0},{0,0,0}},
+{{0,0,1},{0,0,0},{1,0,0}},
+{{0,0,-I},{0,0,0},{I,0,0}},
+{{0,0,0},{0,0,1},{0,1,0}},
+{{0,0,0},{0,0,-I},{0,I,0}},
+{{1/Sqrt[3],0,0},{0,1/Sqrt[3],0},{0,0,-(2/Sqrt[3])}}
+}[[x]];
+gellman[x_]:=1/2*\[Lambda][x];
 
 
 (* ::Text:: *)
@@ -217,23 +230,64 @@ levi=LeviCivitaTensor[3];
 
 
 (* ::Text:: *)
-(*\:5bf9\:6613 \:548c \:53cd\:5bf9\:6613*)
+(*\:5b9a\:4e49\:5e7f\:4e49\:7684\:5bf9\:6613\:548c\:53cd\:5bf9\:6613\:ff0c\:5bf9\:4e8e\:67d0\:79cd\:8fd0\:7b97f\:ff0c*)
 
 
-comutate[]
-antitate[]
+comutate[f_,x_,y_]:=f[x,y]-f[y,x];
+comutate[f_,x_,y_]:=f[x,y]+f[y,x];
+
+
+(* ::Text:: *)
+(*\:7ed9\:51fa\:4e09\:79cd\:7c92\:5b50\:7684\:5b57\:7b26\:4e32\:8868\:793a\:ff0c\:4f9d\:6b21\:662f\:4ecb\:5b50\:ff0c\:516b\:91cd\:6001\:ff0c\:5341\:91cd\:6001*)
+
+
+ptc::kind="#1 kind \:7c92\:5b50\:79cd\:7c7b \:7684\:5e8f\:53f7\:8303\:56f4\:8d8a\:754c";
+ptc[kind:_:1]:=If[SubsetQ[{1,2,3,All,""},forcelist[kind]],
+{"M","B","T"}[[kind]],
+Message[ptc::kind];Abort[];
+]
+
+
+(* ::Text:: *)
+(*\:7ed9\:51fa\:5404\:79cd\:7c92\:5b50\:7684\:5e8f\:53f7\:8303\:56f4\:ff0c\:5373\:5de6\:8fb9\:754c\:548c\:53f3\:8fb9\:754c*)
+
+
+partnum::usage="partnum[ptc[1]] \:7ed9\:51fa {0,8},\:5176\:4ed6\:7c7b\:4f3c"
+partnum[kind:_:1]:=AssociationThread[
+ptc[All],
+{
+Join[Range[0,8,1],{"",All}],
+Join[Range[1,8,1],{"",All}],
+Join[Range[1,10,1],{"",All}]
+}][ptc[kind]];
+
+
+(* ::Text:: *)
+(*\:8fd9\:4e2a\:51fd\:6570\:7528\:6765\:786e\:5b9a\:ff0c\:7ed9\:51fa\:7684\:7c92\:5b50\:5404\:79cd\:5c5e\:6027\:7684\:5e8f\:53f7\:662f\:5426\:5728\:6307\:5b9a\:8303\:56f4\:5185*)
+
+
+bool`partnum::index=" #2 index \:7684\:5e8f\:53f7\:8303\:56f4\:8d8a\:754c";
+bool`partnum::anti=" #3 anti \:7684\:5e8f\:53f7\:8303\:56f4\:8d8a\:754c";
+bool`partnum[kind:_:1,index:_:"",anti:_:""]:=Which[
+Not[SubsetQ[partnum[kind],forcelist[index]]],
+Message[bool`partnum::index];Abort[],
+Not[SubsetQ[{0,1,""},forcelist[anti]]],
+Message[bool`partnum::anti];Abort[]
+]
 
 
 (* ::Text:: *)
 (*\:7c92\:5b50\:8d28\:91cf\:ff0c*)
-(*\:4ecb\:5b50::{meson, 0}*)
-(*\:516b\:91cd\:6001::{octet, 1}*)
-(*\:5341\:91cd\:6001::{decuplet, 2}*)
+(*\:4ecb\:5b50::{m, 0}*)
+(*\:516b\:91cd\:6001::{b, 1}*)
+(*\:5341\:91cd\:6001::{t, 2}*)
 
 
-mass["mes"]
-mass["oct"]
-mass["dec"]
+mass::usage="\:7528\:6cd5: mass[1,1]";
+mass[kind:_ "",index:_:""]:=CompoundExpression[
+bool`partnum[kind,index],
+Subscript[Symbol[Context[]<>"M"],ptc[kind],index]
+];
 
 
 (* ::Text:: *)
@@ -256,11 +310,8 @@ mass["dec"]
 (*decuplet costant::\[ScriptCapitalH]*)
 
 
-lecs["f"]
-lecs["D"]
-lecs["F"]
-lecs["calC"]
-lecs["calH"]
+lecs::usage="\:7528\:6cd5: lecs[\"calC\"]";
+lecs[name:_String]:=Symbol[Context[]<>name];
 
 
 (* ::Subsection:: *)
@@ -272,26 +323,74 @@ lecs["calH"]
 
 
 (* ::Text:: *)
-(*\:7b2c\:4e00\:4e2a\:53c2\:6570\:53d6\:5b57\:7b26\:4e32\:ff0c"par"\:4ee3\:8868\:7c92\:5b50\:ff0c"ant"\:4ee3\:8868\:53cd\:7c92\:5b50*)
+(*\:7b2c\:4e00\:4e2a\:53c2\:6570\:53d6\:6574\:6570\:ff0c0\:4ee3\:8868\:7c92\:5b50\:ff0c1\:4ee3\:8868\:53cd\:7c92\:5b50*)
 
 
 (* ::Text:: *)
 (*\:7b2c\:4e8c\:4e2a\:53c2\:6570\:53d6\:5b57\:7b26\:4e32\:ff0c\:542b\:4e49\:5982\:4e0b:*)
-(*\:4ecb\:5b50::meson, "mes"*)
-(*\:516b\:91cd\:6001::octet,"oct" *)
-(*\:5341\:91cd\:6001::decuplet, "dec"*)
+(*\:4ecb\:5b50::meson, 1 \:ff0c\:7f16\:53f7::0--8*)
+(*\:516b\:91cd\:6001::octet,2 \:ff0c\:7f16\:53f7::1--8*)
+(*\:5341\:91cd\:6001::decuplet, 3\:ff0c\:7f16\:53f7:: 1--10*)
 
 
 (* ::Text:: *)
-(*\:53ef\:4ee5\:8c03\:7528\:7684\:5355\:4e2a\:7c92\:5b50\:573a \:548c \:6536\:96c6\:5355\:4e2a\:573a\:505a\:6210\:7684\:77e9\:9635*)
+(*\:53ef\:4ee5\:8c03\:7528\:7684\:5355\:4e2a\:7c92\:5b50\:573a, \:548c\:6536\:96c6\:5355\:4e2a\:573a\:505a\:6210\:7684\:77e9\:9635*)
+
+
+(* ::Text:: *)
+(*\:7c92\:5b50\:573a*)
+
+
+parti::usage="\:7528\:6cd5: parti[0|1\:ff0c1|2|3,1]";
+parti[kind:_Integer:1,index:_:1,anti:_Integer:1]:=Module[{prefix},
+CompoundExpression[
+bool`partnum[kind,index,anti],
+If[SameQ[index,{}],(*\:9ed8\:8ba4\:53c2\:6570\:4e3a{}*)
+(*true*)
+Switch[{anti,kind},
+{_String,"mes"},prefix=Identity,
+{"anti","oct"|"dec"},prefix=OverBar,
+_,Message[parti::anti];Abort[](*\:505c\:6b62\:8ba1\:7b97*)
+];
+Association[
+"mes"->(prefix/@Symbol[Context[]<>"\[Phi]"]/@Range[0,8,1])[[index]],
+"oct"->(prefix/@Symbol[Context[]<>"B"]/@Range[1,8,1])[[index]],
+"dec"->(prefix/@Symbol[Context[]<>"T"]/@Range[1,10,1])[[index]]
+][kind]
+]
+]
+];
 
 
 (* ::Text:: *)
 (*\:4ecb\:5b50\:77e9\:9635*)
 
 
-parti["part","mes",{i,j}]
 matr["part","mes",{i,j}]
+
+
+matr::usage="\:7528\:6cd5: matr[\"part\" | \"anti\"\:ff0c\"mes\" | \"oct\" |\"dec\"\:ff0c{1,2}]";
+matr::anti="\:7b2c\:4e00\:4e2a\:53c2\:6570\:5e94\:8be5\:662f \"part\" or \"anti\" ";
+
+
+matr[anti:_String,kind:_String,index:_List:All]:=Module[{prefix},
+Switch[anti,
+"part",prefix=Identity,
+"anti",prefix=OverBar,
+_,Message[parti::anti];Abort[](*\:505c\:6b62\:8ba1\:7b97*)
+];
+Association[
+"mes"->{
+{1/Sqrt[2]}
+},
+prefix[Symbol[Context[]<>"\[Phi]"]],
+"oct"->prefix[Symbol[Context[]<>"B"]],
+"dec"->prefix[Symbol[Context[]<>"T"]]
+][kind,index]
+];
+
+
+
 
 
 (* ::Text:: *)
@@ -335,11 +434,11 @@ curr["vector",{i,j}]
 
 
 (* ::Text:: *)
-(*\:6d1b\:4f26\:5179\:5bf9\:8c61,\:901a\:8fc7\:4e0a\:503c ^:= \:5b9a\:4e49\:5b83\:548c\:5bf9\:8c61\:7684\:4f5c\:7528*)
+(*\:6d1b\:4f26\:5179\:5bf9\:8c61,\:901a\:8fc7\:4e0a\:503c ^:= \:5b9a\:4e49\:5b83\:548c\:5bf9\:8c61\:7684\:4f5c\:7528\:ff0c\:6bd4\:5982*)
 
 
 (* ::DisplayFormula:: *)
-(*\:6bd4\:5982 \[Gamma]\[Mu]\[Nu],\[Gamma]\[Mu]\[Nu]\[Alpha],\[CapitalTheta]\[Mu]\[Nu]*)
+(* \[Gamma]\[Mu]\[Nu],\[Gamma]\[Mu]\[Nu]\[Alpha],\[CapitalTheta]\[Mu]\[Nu]*)
 
 
 (* ::Text:: *)
@@ -446,20 +545,13 @@ lecs["calH"]*
 lore[matr["ant","dec",{i,j,k}],{"\[Mu]"}]*
 lore["gamma",{"\[Mu]","\[Nu]","\[Alpha]","5"}]*
 lore[curr["axial",{k,l}],{"\[Alpha]"}]*
-lore[matr["par","oct",{i,j,l}],{"\[Nu]"}]
+lore[matr["par","dec",{i,j,l}],{"\[Nu]"}]
 ,{i,1,decnumber,1}
 ,{j,1,decnumber,1}
 ,{k,1,decnumber,1}
 ,{l,1,decnumber,1}
 ]
 ]
-
-
-(* ::Text:: *)
-(*\:7ed3\:675f\:5f53\:524d\:4e0a\:4e0b\:6587 *)
-
-
-End[(*`lag`*)] 
 
 
 (* ::Chapter:: *)
@@ -525,3 +617,10 @@ End[]
 
 
 EndPackage[] 
+
+
+(* ::Text:: *)
+(*\:5982\:679c\:5728\:524d\:7aef\:7b14\:8bb0\:672c\:4e2d\:6267\:884c\:ff0c\:6e05\:9664\:6240\:6709\:8f93\:51fa\:7ed3\:679c\:ff0c\:51cf\:5c0f\:6587\:4ef6\:4f53\:79ef*)
+
+
+If[Not[boole`incmd],FrontEndExecute[FrontEndToken["DeleteGeneratedCells"]]]
