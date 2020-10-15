@@ -24,25 +24,7 @@
 (*\:5f00\:59cb\:6b64\:5305*)
 
 
-BeginPackage["chptgpd`"]
-
-
-(* ::Section:: *)
-(*usage*)
-
-
-(* ::Text:: *)
-(*\:8fd9\:4e2a\:5305\:6253\:7b97\:63d0\:4f9b\:7684\:51fd\:6570\:ff0c\:8fd9\:91cc\:4ecb\:7ecd\:4e00\:4e0b\:7528\:6cd5\:3002*)
-
-
-f::usage="aaaa"
-
-
-(* ::Text:: *)
-(*\:5f00\:59cb\:5305\:7684\:79c1\:6709\:4e0a\:4e0b\:6587\:ff0c\:4e5f\:5c31\:662f\:5185\:90e8\:8ba1\:7b97\:7ec6\:8282*)
-
-
-Begin["`Private`"]
+BeginPackage["chptgpd`"];
 
 
 (* ::Section:: *)
@@ -88,7 +70,7 @@ boole`incmd=Not[SameQ[$ScriptCommandLine,{}]];
 filename=If[Not[boole`incmd],NotebookFileName[],$ScriptCommandLine[[1]]]
 
 
-(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c\:ff0c\:5c31\:5237\:65b0\:7b14\:8bb0\:672c\:7684\:540d\:5b57\:ff0c\:5e76\:8c03\:51fa EditBar *)
+(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c\:ff0c\:5c31\:5237\:65b0\:7b14\:8bb0\:672c\:7684\:540d\:5b57\:ff0c\:5e76\:8c03\:51fa EditBar\:ff0c\:8bbe\:7f6e\:7f29\:653e\:6bd4\:4f8b\:4e3a1.6 *)
 Once[If[
 (* if $ScriptCommandLine==={}, the environment is frontend*)
 Not[boole`incmd],
@@ -99,8 +81,8 @@ cell`title=(Cells[][[1]]),
 (*\:5237\:65b0\:7b2c\:4e00\:4e2a\:5355\:5143\:7684\:540d\:5b57*)
 NotebookWrite[cell`title,Cell[FileNameSplit[filename][[-1]],"Title"]],
 (*\:8c03\:51fa EditBar*)
-SetOptions[EvaluationNotebook[],WindowToolbars->{"EditBar"}]
-]
+SetOptions[EvaluationNotebook[],WindowToolbars->{"EditBar"},Magnification:>1.6]
+];
 ]];
 (*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c\:ff0c\:5c31\:6253\:5370\:63d0\:793a\:4fe1\:606f*)
 If[boole`incmd,echo["Ready to execute this script"]]
@@ -193,23 +175,27 @@ parameter`ci`string=ToString[NumberForm[1.50,{3,2}]]
 
 
 (* ::Section:: *)
-(*encode input*)
-
-
-(* ::Subsection:: *)
 (*constants*)
 
 
 (* ::Text:: *)
-(*\:5e38\:6570\:77e9\:9635\:ff0c\:6bd4\:5982\[Lambda],Gellman \:77e9\:9635\:ff0c\:6839\:636e\:540e\:6587\:4e2d\:5b88\:6052\:6d41\:7684\:5b9a\:4e49\:ff0c\:53ef\:4ee5\:77e5\:9053\:ff0c\:6587\:4e2d\:7684\[Lambda]\:662f\:751f\:6210\:5143\:76842\:500d\:ff0c*)
+(*Constant matrix, such as \[Lambda], Gellman *)
 
 
 (* ::Text:: *)
-(*SU(3) group \:7684\:751f\:6210\:5143 Gellman=\[Lambda]/2*)
+(*Matrix, according to the definition of conserved current in the following text, we can know that \[Lambda] in the paper is twice the generator,*)
 
 
-\[Lambda][x_]:={
-IdentityMatrix[3],
+(* ::Text:: *)
+(*The generator of SU(3) group, Gellman=\[Lambda]/2*)
+
+
+dim=3;
+dim::usage="\:4e3a\:5bf9\:79f0\:7fa4SU(3)\:9009\:53d6\:7684\:8868\:793a\:7684\:7ef4\:5ea6";
+
+
+\[Lambda][num_]:={
+IdentityMatrix[dim],
 {{0,1,0},{1,0,0},{0,0,0}},
 {{0,-I,0},{I,0,0},{0,0,0}},
 {{1,0,0},{0,-1,0},{0,0,0}},
@@ -218,8 +204,12 @@ IdentityMatrix[3],
 {{0,0,0},{0,0,1},{0,1,0}},
 {{0,0,0},{0,0,-I},{0,I,0}},
 {{1/Sqrt[3],0,0},{0,1/Sqrt[3],0},{0,0,-(2/Sqrt[3])}}
-}[[x]];
-gellman[x_]:=1/2*\[Lambda][x];
+}[[num]];
+\[Lambda]::usage="\[Lambda][1]\:ff0c\:7ed9\:51fa\:7b2c1\:4e2a\[Lambda]\:77e9\:9635\:ff0c\:5b83\:662fGell-mann\:77e9\:9635\:76842\:500d";
+
+
+glmn[x_]:=1/2*\[Lambda][x];
+glmn::usage="glmn[1]\:ff0c\:7ed9\:51fa\:7b2c1\:4e2aGell-mann\:77e9\:9635";
 
 
 (* ::Text:: *)
@@ -233,204 +223,290 @@ levi=LeviCivitaTensor[3];
 (*\:5b9a\:4e49\:5e7f\:4e49\:7684\:5bf9\:6613\:548c\:53cd\:5bf9\:6613\:ff0c\:5bf9\:4e8e\:67d0\:79cd\:8fd0\:7b97f\:ff0c*)
 
 
-comutate[f_,x_,y_]:=f[x,y]-f[y,x];
-comutate[f_,x_,y_]:=f[x,y]+f[y,x];
+cmt`m[f_,x_,y_]:=f[x,y]-f[y,x];
+cmt`m::usage="cmt`m[f,x,y]=f[x,y]-f[y,x] \:8fdb\:884c\:5bf9\:6613\:8fd0\:7b97";
+
+
+cmt`p[f_,x_,y_]:=f[x,y]+f[y,x];
+cmt`p::usage="cmt`m[f,x,y]=f[x,y]+f[y,x] \:8fdb\:884c\:53cd\:5bf9\:6613\:8fd0\:7b97";
 
 
 (* ::Text:: *)
-(*\:7ed9\:51fa\:4e09\:79cd\:7c92\:5b50\:7684\:5b57\:7b26\:4e32\:8868\:793a\:ff0c\:4f9d\:6b21\:662f\:4ecb\:5b50\:ff0c\:516b\:91cd\:6001\:ff0c\:5341\:91cd\:6001*)
+(*\:5404\:79cd\:8026\:5408\:5e38\:6570*)
 
 
-ptc::kind="#1 kind \:7c92\:5b50\:79cd\:7c7b \:7684\:5e8f\:53f7\:8303\:56f4\:8d8a\:754c";
-ptc[kind:_:1]:=If[SubsetQ[{1,2,3,All,""},forcelist[kind]],
-{"M","B","T"}[[kind]],
-Message[ptc::kind];Abort[];
-]
+lecs::usage="lecs[1]\:ff0c\:901a\:8fc7\:6574\:6570\:ff0c\:6307\:5b9a\:8981\:4f7f\:7528\:7684\:8026\:5408\:5e38\:6570\:ff0c\:987a\:5e8f
+1,f,D,F,::1,4
+calC,calH,::5,6
+c1,c2,c3,::7,9
+b9,b10,b11::10,2";
 
 
-(* ::Text:: *)
-(*\:7ed9\:51fa\:5404\:79cd\:7c92\:5b50\:7684\:5e8f\:53f7\:8303\:56f4\:ff0c\:5373\:5de6\:8fb9\:754c\:548c\:53f3\:8fb9\:754c*)
-
-
-partnum::usage="partnum[ptc[1]] \:7ed9\:51fa {0,8},\:5176\:4ed6\:7c7b\:4f3c"
-partnum[kind:_:1]:=AssociationThread[
-ptc[All],
-{
-Join[Range[0,8,1],{"",All}],
-Join[Range[1,8,1],{"",All}],
-Join[Range[1,10,1],{"",All}]
-}][ptc[kind]];
-
-
-(* ::Text:: *)
-(*\:8fd9\:4e2a\:51fd\:6570\:7528\:6765\:786e\:5b9a\:ff0c\:7ed9\:51fa\:7684\:7c92\:5b50\:5404\:79cd\:5c5e\:6027\:7684\:5e8f\:53f7\:662f\:5426\:5728\:6307\:5b9a\:8303\:56f4\:5185*)
-
-
-bool`partnum::index=" #2 index \:7684\:5e8f\:53f7\:8303\:56f4\:8d8a\:754c";
-bool`partnum::anti=" #3 anti \:7684\:5e8f\:53f7\:8303\:56f4\:8d8a\:754c";
-bool`partnum[kind:_:1,index:_:"",anti:_:""]:=Which[
-Not[SubsetQ[partnum[kind],forcelist[index]]],
-Message[bool`partnum::index];Abort[],
-Not[SubsetQ[{0,1,""},forcelist[anti]]],
-Message[bool`partnum::anti];Abort[]
-]
-
-
-(* ::Text:: *)
-(*\:7c92\:5b50\:8d28\:91cf\:ff0c*)
-(*\:4ecb\:5b50::{m, 0}*)
-(*\:516b\:91cd\:6001::{b, 1}*)
-(*\:5341\:91cd\:6001::{t, 2}*)
-
-
-mass::usage="\:7528\:6cd5: mass[1,1]";
-mass[kind:_ "",index:_:""]:=CompoundExpression[
-bool`partnum[kind,index],
-Subscript[Symbol[Context[]<>"M"],ptc[kind],index]
-];
-
-
-(* ::Text:: *)
-(*\:4f4e\:80fd\:8026\:5408\:5e38\:6570, low energy constants,lecs*)
-
-
-(* ::DisplayFormula:: *)
-(*decay constant :: f*)
-
-
-(* ::DisplayFormula:: *)
-(*veilbein D,veilbein F,*)
-
-
-(* ::DisplayFormula:: *)
-(*mix constant:: \[ScriptCapitalC]*)
-
-
-(* ::DisplayFormula:: *)
-(*decuplet costant::\[ScriptCapitalH]*)
-
-
-lecs::usage="\:7528\:6cd5: lecs[\"calC\"]";
-lecs[name:_String]:=Symbol[Context[]<>name];
+(* ::Section:: *)
+(*matrix and Lorentz objects*)
 
 
 (* ::Subsection:: *)
-(*particles lorentz*)
+(*convention*)
+
+
+(* ::DisplayFormula:: *)
+(*kind::1,2,3*)
+(*anti::0,1*)
+
+
+(* ::Subsection:: *)
+(*fields*)
 
 
 (* ::Text:: *)
-(*\:7c92\:5b50\:77e9\:9635\:ff0c\:5f20\:91cf\:ff0cparticle,*)
+(*\:4f7f\:7528\:7684\:5355\:4e2a\:7684\:7c92\:5b50\:573a*)
+
+
+fd::usage="fd[kind,num,anti],{kind::\:573a\:7684\:7c7b\:578b\:ff0c0,meson\:ff0c1\:ff0coctet,2,decuplet},{num::\:573a\:7684\:7f16\:53f7},{anti::0,\:7c92\:5b50,1,\:53cd\:7c92\:5b50,2,\:573a\:7684\:8d28\:91cf}\:ff0c
+\:5176\:4e2d\:5404\:79cd\:7c92\:5b50\:7684 num \:987a\:5e8f\:662f\:ff0c
+meson
+\[Eta]0,::0
+\[Pi]p,\[Pi]0,\[Pi]m,::1,2,3
+kp,km,::4,5
+k0,k0b,::6,7
+\[Eta]8::8
+\[Pi]0-\[Eta]8::28
+octet
+p,n::1,2
+\[CapitalSigma]p,\[CapitalSigma]0,\[CapitalSigma]m::3,4,5
+\[CapitalXi]0,\[CapitalXi]m::6,7
+\[CapitalLambda]::8
+\[CapitalSigma]0--\[CapitalLambda]::48
+decuplet
+\[CapitalDelta]pp,\[CapitalDelta]p,\[CapitalDelta]0,\[CapitalDelta]m::1,2,3,4
+\[CapitalSigma]sp,\[CapitalSigma]s0,\[CapitalSigma]sm::5,6,7
+\[CapitalXi]s0,\[CapitalXi]sm::8,9
+\[CapitalOmega]m::10";
 
 
 (* ::Text:: *)
-(*\:7b2c\:4e00\:4e2a\:53c2\:6570\:53d6\:6574\:6570\:ff0c0\:4ee3\:8868\:7c92\:5b50\:ff0c1\:4ee3\:8868\:53cd\:7c92\:5b50*)
+(*\:7ed9\:51fa\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
 
 
-(* ::Text:: *)
-(*\:7b2c\:4e8c\:4e2a\:53c2\:6570\:53d6\:5b57\:7b26\:4e32\:ff0c\:542b\:4e49\:5982\:4e0b:*)
-(*\:4ecb\:5b50::meson, 1 \:ff0c\:7f16\:53f7::0--8*)
-(*\:516b\:91cd\:6001::octet,2 \:ff0c\:7f16\:53f7::1--8*)
-(*\:5341\:91cd\:6001::decuplet, 3\:ff0c\:7f16\:53f7:: 1--10*)
-
-
-(* ::Text:: *)
-(*\:53ef\:4ee5\:8c03\:7528\:7684\:5355\:4e2a\:7c92\:5b50\:573a, \:548c\:6536\:96c6\:5355\:4e2a\:573a\:505a\:6210\:7684\:77e9\:9635*)
-
-
-(* ::Text:: *)
-(*\:7c92\:5b50\:573a*)
-
-
-parti::usage="\:7528\:6cd5: parti[0|1\:ff0c1|2|3,1]";
-parti[kind:_Integer:1,index:_:1,anti:_Integer:1]:=Module[{prefix},
-CompoundExpression[
-bool`partnum[kind,index,anti],
-If[SameQ[index,{}],(*\:9ed8\:8ba4\:53c2\:6570\:4e3a{}*)
-(*true*)
-Switch[{anti,kind},
-{_String,"mes"},prefix=Identity,
-{"anti","oct"|"dec"},prefix=OverBar,
-_,Message[parti::anti];Abort[](*\:505c\:6b62\:8ba1\:7b97*)
+(*\:7c92\:5b50\:7684\:8bb0\:53f7*)
+fdptc[0]=AssociationThread[
+Range[1,3,1],
+{
+AssociationThread[
+Range[0,8,1],
+{
+Subscript["\[Eta]","0"],
+Superscript["\[Pi]","+"],Superscript["\[Pi]","0"],Superscript["\[Pi]","-"],
+Superscript["K","+"],Superscript["K","-"],
+Superscript["K","0"],OverBar[Superscript["K","0"]],
+Subscript["\[Eta]","8"]
+}],
+AssociationThread[
+Range[1,8,1],
+{
+Superscript["p",""],Superscript["n",""],
+Superscript["\[CapitalSigma]","+"],Superscript["\[CapitalSigma]","0"],Superscript["\[CapitalSigma]","-"],
+Superscript["\[CapitalXi]","0"],Superscript["\[CapitalXi]","-"],
+Subscript["\[CapitalLambda]",""]
+}],
+AssociationThread[
+Range[1,10,1],
+{
+Superscript["\[CapitalDelta]","++"],Superscript["\[CapitalDelta]","+"],Superscript["\[CapitalDelta]","0"],Superscript["\[CapitalDelta]","-"],
+Superscript["\[CapitalSigma]","\[SixPointedStar]+"],Superscript["\[CapitalSigma]","\[SixPointedStar]0"],Superscript["\[CapitalSigma]","\[SixPointedStar]-"],
+Superscript["\[CapitalXi]","\[SixPointedStar]0"],Superscript["\[CapitalXi]","\[SixPointedStar]-"],
+Subscript["\[CapitalOmega]","-"]
+}]
+}
 ];
-Association[
-"mes"->(prefix/@Symbol[Context[]<>"\[Phi]"]/@Range[0,8,1])[[index]],
-"oct"->(prefix/@Symbol[Context[]<>"B"]/@Range[1,8,1])[[index]],
-"dec"->(prefix/@Symbol[Context[]<>"T"]/@Range[1,10,1])[[index]]
-][kind]
-]
-]
+
+
+(*\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
+fdptc[1]=AssociationThread[
+Range[1,3,1],
+{
+AssociationThread[
+Range[0,8,1],
+{
+Subscript["\[Eta]","0"],
+Superscript["\[Pi]","-"],Superscript["\[Pi]","0"],Superscript["\[Pi]","+"],
+Superscript["K","-"],Superscript["K","+"],
+OverBar[Superscript["K","0"]],Superscript["K","0"],
+Subscript["\[Eta]","8"]
+}],
+OverBar/@fdptc[0][2],
+OverBar/@fdptc[0][3]
+}
 ];
+
+
+(*\:5404\:79cd\:7c92\:5b50\:7684\:8d28\:91cf*)
+fdptc[2]=Map[
+Subscript["M",#1]&,fdptc[0],{2}
+];
+
+
+fd[kind_,num_,anti_]:=fdptc[anti][kind,num]
+
+
+(*\:7279\:6b8a\:60c5\:51b5 \[Pi]0 \[Eta]8 \:6df7\:5408*)
+fd[1,28,2]=\!\(\*
+TagBox[
+StyleBox[
+RowBox[{"Subscript", "[", 
+RowBox[{"\"\<M\>\"", ",", 
+RowBox[{"Superscript", "[", 
+RowBox[{"\"\<\\[Pi]\>\"", ",", "\"\<0\>\""}], "]"}], ",", 
+RowBox[{"Subscript", "[", 
+RowBox[{"\"\<\\[Eta]\>\"", ",", "\"\<8\>\""}], "]"}]}], "]"}],
+ShowSpecialCharacters->False,
+ShowStringCharacters->True,
+NumberMarks->True],
+FullForm]\);
+(*\:7279\:6b8a\:60c5\:51b5 \[CapitalSigma]0 \[CapitalLambda] \:6df7\:5408*)
+fd[2,48,2]=\!\(\*
+TagBox[
+StyleBox[
+RowBox[{"Subscript", "[", 
+RowBox[{"\"\<M\>\"", ",", 
+RowBox[{"Superscript", "[", 
+RowBox[{"\"\<\\[CapitalSigma]\>\"", ",", "\"\<0\>\""}], "]"}], ",", 
+RowBox[{"Subscript", "[", 
+RowBox[{"\"\<\\[CapitalLambda]\>\"", ",", "\"\<\>\""}], "]"}]}], "]"}],
+ShowSpecialCharacters->False,
+ShowStringCharacters->True,
+NumberMarks->True],
+FullForm]\);
+
+
+(* ::Text:: *)
+(*\:6536\:96c6\:5355\:4e2a\:573a\:505a\:6210\:7684\:77e9\:9635*)
 
 
 (* ::Text:: *)
 (*\:4ecb\:5b50\:77e9\:9635*)
 
 
-matr["part","mes",{i,j}]
-
-
-matr::usage="\:7528\:6cd5: matr[\"part\" | \"anti\"\:ff0c\"mes\" | \"oct\" |\"dec\"\:ff0c{1,2}]";
-matr::anti="\:7b2c\:4e00\:4e2a\:53c2\:6570\:5e94\:8be5\:662f \"part\" or \"anti\" ";
-
-
-matr[anti:_String,kind:_String,index:_List:All]:=Module[{prefix},
-Switch[anti,
-"part",prefix=Identity,
-"anti",prefix=OverBar,
-_,Message[parti::anti];Abort[](*\:505c\:6b62\:8ba1\:7b97*)
-];
-Association[
-"mes"->{
-{1/Sqrt[2]}
-},
-prefix[Symbol[Context[]<>"\[Phi]"]],
-"oct"->prefix[Symbol[Context[]<>"B"]],
-"dec"->prefix[Symbol[Context[]<>"T"]]
-][kind,index]
-];
-
-
-
+mat::usage="mat[kind,num,anti],{kind::\:573a\:7684\:7c7b\:578b\:ff0c0,meson\:ff0c1\:ff0coctet,2,decuplet},{num::\:573a\:7684\:7f16\:53f7},
+{anti::0,\:6b63\:5e38\:7684\:77e9\:9635,1,\:573a\:7684\:5171\:8f6d,2,\:573a\:7684\:8d28\:91cf}\:ff0c
+\:5176\:4e2d\:4ece\:5404\:79cd\:7c92\:5b50\:6536\:96c6\:5230\:7684\:77e9\:9635\:987a\:5e8f\:662f
+meson
+1,1,0,::\[Phi]
+1,2,0,::u
+1,3,0,::U
+1,1,1,::\[Phi]\[ConjugateTranspose]
+1,2,1,::u\[ConjugateTranspose]
+1,3,1,::U\[ConjugateTranspose]
+1,1,2,::M\[Phi]
+octet
+2,1,0,::B
+2,1,1,::\!\(\*OverscriptBox[\(B\), \(_\)]\)
+2,1,2,::MB
+decuplet
+3,1,0,::T
+3,1,1,::\!\(\*OverscriptBox[\(T\), \(_\)]\)
+3,1,2,::MT";
 
 
 (* ::Text:: *)
-(*\:4ecb\:5b50 u \:77e9\:9635 and dagger*)
-
-
-matr["par","u",{i,j,k}]
-matr["dag","u",{i,j,k}]
+(*\:4ecb\:5b50\:77e9\:9635 and dagger*)
 
 
 (* ::Text:: *)
-(*\:4ecb\:5b50 U \:77e9\:9635 and dagger*)
+(*\:8d28\:91cf\:9879*)
 
 
-matr["par","U",{i,j,k}]
-matr["dag","U",{i,j,k}]
+mat[1,1,2]={
+{fd[1,28,2],fd[1,1,2],fd[1,4,2]},
+{fd[1,3,2],fd[1,28,2],fd[1,6,2]},
+{fd[1,5,2],fd[1,7,2],fd[1,8,2]}
+};
+
+
+mat[1,1,0]={
+{1/Sqrt[2] fd[1,2,0]+1/Sqrt[6] fd[1,8,0],fd[1,1,0],fd[1,4,0]},
+{fd[1,3,0],-1/Sqrt[2] fd[1,2,0]+1/Sqrt[6] fd[1,8,0],fd[1,6,0]},
+{fd[1,5,0],fd[1,7,0],-2/Sqrt[6] fd[1,8,0]}
+};
+mat[1,2,0]=IdentityMatrix[dim]+I/Sqrt[2]*mat[1,1,0];
+mat[1,3,0]=IdentityMatrix[dim]+I*Sqrt[2]*mat[1,1,0];
+
+
+(* ::DisplayFormula:: *)
+(*1,2,0,::u*)
+(*1,3,0,::U*)
+
+
+mat[1,1,1]=mat[1,1,0];
+mat[1,2,1]=IdentityMatrix[dim]-I/Sqrt[2]*mat[1,1,0];
+mat[1,3,1]=IdentityMatrix[dim]-I*Sqrt[2]*mat[1,1,0];
 
 
 (* ::Text:: *)
 (*\:516b\:91cd\:6001\:77e9\:9635*)
 
 
-parti["par","oct",{i,j}]
-matr["par","oct",{i,j}]
+(* ::Text:: *)
+(*\:8d28\:91cf\:9879*)
+
+
+mat[2,1,2]={
+{fd[2,48,2],fd[2,3,2],fd[2,1,2]},
+{fd[2,5,2],fd[2,48,2],fd[2,2,2]},
+{fd[2,7,2],fd[2,6,2],fd[2,8,2]}
+};
+
+
+mat[2,1,0]={
+{1/Sqrt[2] fd[2,4,0]+1/Sqrt[6] fd[2,8,0],fd[2,3,0],fd[2,1,0]},
+{fd[2,5,0],-1/Sqrt[2] fd[2,4,0]+1/Sqrt[6] fd[2,8,0],fd[2,2,0]},
+{fd[2,7,0],fd[2,6,0],-2/Sqrt[6] fd[2,8,0]}
+};
+mat[2,1,1]={
+{1/Sqrt[2] fd[2,4,1]+1/Sqrt[6] fd[2,8,1],fd[2,5,1],fd[2,7,1]},
+{fd[2,3,1],-1/Sqrt[2] fd[2,4,1]+1/Sqrt[6] fd[2,8,1],fd[2,6,1]},
+{fd[2,1,1],fd[2,2,1],-2/Sqrt[6] fd[2,8,1]}
+};
 
 
 (* ::Text:: *)
 (*\:5341\:91cd\:6001\:77e9\:9635*)
 
 
-parti["par","dec",{i,j,k}]
-matr["par","dec",{i,j,k}]
-
-
 (* ::Text:: *)
-(*\:5404\:79cd\:6d41\:ff0c\:77e2\:91cf\:6d41\:ff0c\:8f74\:77e2\:6d41\:ff0c\:6807\:91cf\:6d41*)
+(*\:8d28\:91cf\:9879*)
 
 
-curr["axial",{l,j}]
-curr["vector",{i,j}]
+mat[3,1,2]=SymmetrizedArray[
+{
+{1,1,1}->fd[3,1,2],{1,1,2}->fd[3,2,2],{1,2,2}->fd[3,3,2],{2,2,2}->fd[3,4,2],
+{1,1,3}->fd[3,5,2],{1,2,3}->fd[3,6,2],{2,2,3}->fd[3,7,2],
+{1,3,3}->fd[3,8,2],{2,3,3}->fd[3,9,2],
+{3,3,3}->fd[3,10,2]
+}, {3,3,3}, 
+Symmetric[All]
+];
+
+
+mat[3,1,0]=SymmetrizedArray[
+{
+{1,1,1}->fd[3,1,0],{1,1,2}->1/Sqrt[3]*fd[3,2,0],{1,2,2}->1/Sqrt[3]*fd[3,3,0],{2,2,2}->fd[3,4,0],
+{1,1,3}->1/Sqrt[3] fd[3,5,0],{1,2,3}->1/Sqrt[6] fd[3,6,0],{2,2,3}->1/Sqrt[3] fd[3,7,0],
+{1,3,3}->1/Sqrt[3] fd[3,8,0],{2,3,3}->1/Sqrt[3] fd[3,9,0],
+{3,3,3}->fd[3,10,0]
+}, {3,3,3}, 
+Symmetric[All]
+];
+mat[3,1,1]=SymmetrizedArray[
+{
+{1,1,1}->fd[3,1,1],{1,1,2}->1/Sqrt[3]*fd[3,2,1],{1,2,2}->1/Sqrt[3]*fd[3,3,1],{2,2,2}->fd[3,4,1],
+{1,1,3}->1/Sqrt[3] fd[3,5,1],{1,2,3}->1/Sqrt[6] fd[3,6,1],{2,2,3}->1/Sqrt[3] fd[3,7,1],
+{1,3,3}->1/Sqrt[3] fd[3,8,1],{2,3,3}->1/Sqrt[3] fd[3,9,1],
+{3,3,3}->fd[3,10,1]
+}, {3,3,3}, 
+Symmetric[All]
+];
 
 
 (* ::Text:: *)
@@ -442,28 +518,91 @@ curr["vector",{i,j}]
 
 
 (* ::Text:: *)
+(*\:6d1b\:4ed1\:5179\:6307\:6807\:7684\:96c6\:5408*)
+
+
+ltzidx[index:_]:=If[StringQ[index],
+index,
+Sequence@@((forcestr/@{\[Mu],\[Nu],\[Alpha],\[Beta],5})[[index]])
+];
+ltzidx::usage="ltzidx[index] \:7ed9\:51fa\:9884\:5b9a\:4e49\:7684\:7b2c index \:4e2a\:6d1b\:4f26\:5179\:6307\:6807,\:53ef\:4ee5\:6307\:5b9a\:591a\:4e2a
+\:9ed8\:8ba4\:7ed9\:51fa\:4e86 forcestr/@{\[Mu],\[Nu],\[Alpha],\[Beta],5}";
+
+
+(* ::Text:: *)
 (*\:8d1f\:8d23\:7ed9\:5355\:4e2a\:5bf9\:8c61\:52a0\:4e0a\:6307\:6807*)
 
 
-lore["gamma",{"\[Mu]","\[Nu]"}]
-lore["gamma",{"\[Mu]","5"}]
-lore["gamma",{"\[Mu]","\[Nu]","\[Alpha]"}]
-lore["\[CapitalTheta]",{"\[Mu]","\[Nu]"}]
-
-
-lore[parti["ant","dec",{i,j,k}],{"\[Mu]"}]
-lore[parti["par","dec",{i,j,k}],{"\[Nu]"}]
-
-
-lore[curr["axial",{l,j}],{"\[Mu]"}]
-lore[curr["vector",{i,j}],{"\[Mu]"}]
+Options[ltz]={"index"->""};
+ltz[sym:_,OptionsPattern[ltz]]:=Subscript[sym,OptionValue["index"]]
+Attributes[ltz]={Listable};
+ltz::usage=" ltz[\[Gamma],\"index\"\[Rule]ltzidx[{1,2}]] \:7ed9\:7b26\:53f7\:52a0\:4e0a\:9884\:5b9a\:4e49\:7684\:6d1b\:4f26\:5179\:6307\:6807\:ff0c\:4e5f\:53ef\:4ee5\:4f20\:5165\:81ea\:5b9a\:4e49\:7684\:6307\:6807
+\:9ed8\:8ba4\:7ed9\:51fa\:4e86 forcestr/@{\[Mu],\[Nu],\[Alpha],\[Beta],5}";
 
 
 (* ::Text:: *)
 (*\:534f\:53d8\:5bfc\:6570\:ff0c\:901a\:8fc7\:4e0a\:503c ^:= \:5b9a\:4e49\:5b83\:548c\:7c92\:5b50\:ff0c\:4e5f\:5c31\:662f particle \:7684\:4f5c\:7528*)
 
 
-covde["oct",{"\[Alpha]"}]
+Options[cvd]={"index"->""};
+cvd[sym:_,OptionsPattern[cvd]]:=CenterDot[Subscript["\[PartialD]",OptionValue["index"]],sym]
+Attributes[cvd]={Listable};
+cvd::usage=" cvd[u,\"index\"\[Rule]ltzidx[{1,2}]] \:7ed9\:7b26\:53f7\:52a0\:4e0a\:6d1b\:4f26\:5179\:534f\:53d8\:7684\:5bfc\:6570\:ff0c\:4e5f\:53ef\:4ee5\:4f20\:5165\:81ea\:5b9a\:4e49\:7684\:6307\:6807
+\:9ed8\:8ba4\:7ed9\:51fa\:4e86 forcestr/@{\[Mu],\[Nu],\[Alpha],\[Beta],5}";
+
+
+(* ::Text:: *)
+(*\:5404\:4e2a\:5916\:77e2\:91cf\:573a*)
+
+
+Options[vfd]={"index"->""};
+vfd::usage="vfd[8],\:5404\:4e2a\:5916\:77e2\:91cf\:573a\:ff0c\:4ece0\:52308";
+vfd[a_,OptionsPattern[vfd]]:=Subsuperscript["v",OptionValue["index"],forcestr[a]] 
+
+
+Options[gma]={"index"->""};
+gma[sym:_,OptionsPattern[gma]]:=CenterDot[Subscript["\[Gamma]",OptionValue["index"]],sym]
+Attributes[gma]={Listable};
+gma::usage="gma[T,\"index\"\[Rule]ltzidx[{1,2}]] \:5728T\:7684\:5de6\:8fb9\:4e58\:4e0a\:4e00\:4e2a \!\(\*SuperscriptBox[\(\[Gamma]\), \(\[Mu]\[Nu]\)]\),\:4e5f\:53ef\:4ee5\:4f20\:5165\:81ea\:5b9a\:4e49\:7684\:6307\:6807
+\:9ed8\:8ba4\:7ed9\:51fa\:4e86 forcestr/@{\[Mu],\[Nu],\[Alpha],\[Beta],5}";
+
+
+CenterDot[x:_,Times[y:_,z:_]]:=Times[y,CenterDot[x,z]]
+CenterDot::usage="CenterDot \:4e0e \:4e58\:6cd5\:53ef\:4ee5\:4ea4\:6362\:6b21\:5e8f";
+
+
+(* ::Text:: *)
+(*\:5404\:79cd\:6d41\:ff0c\:77e2\:91cf\:6d41\:ff0c\:8f74\:77e2\:6d41\:ff0c\:6807\:91cf\:6d41*)
+
+
+crt::usage="crt[num] \:7ed9\:51fa\:9884\:5b9a\:4e49\:7684\:7b2c num \:4e2a\:5f3a\:5b50\:6d41\:ff0c\:987a\:5e8f\:5982\:4e0b\:ff1a
+\!\(\*SubscriptBox[\(\[CapitalGamma]\), \(\[Mu]\)]\)::1
+\!\(\*SubscriptBox[\(u\), \(\[Mu]\)]\)::2";
+
+
+crt[1,index:_]:=1/2 (mat[1,2,0].cvd[mat[1,2,1],"index"->ltzidx[index]]+mat[1,2,1].cvd[mat[1,2,0],"index"->ltzidx[index]])-I/2 Sum[
+(mat[1,2,0].\[Lambda][a].mat[1,2,1]+mat[1,2,1].\[Lambda][a].mat[1,2,0])*vfd[a,"index"->ltzidx[index]]
+,{a,1,8,1}];
+crt[2,index:_]:=I/2 (mat[1,2,0].cvd[mat[1,2,1],"index"->ltzidx[index]]-mat[1,2,1].cvd[mat[1,2,0],"index"->ltzidx[index]])+1/2 Sum[
+(mat[1,2,0].\[Lambda][a].mat[1,2,1]-mat[1,2,1].\[Lambda][a].mat[1,2,0])*vfd[a,"index"->ltzidx[index]]
+,{a,1,8,1}];
+
+
+(* ::Subsection:: *)
+(*gauge covariant derivative \:89c4\:8303\:534f\:53d8\:5bfc\:6570*)
+
+
+gcd[2,vec:_,index:_,sym:_]:=cvd[sym,"index"->ltzidx[index]]+cmt`m[Dot,vec,sym]-I*ltz[vfd[0],"index"->ltzidx[index]]*IdentityMatrix[dim].sym;
+gcd[3,vec:_,index:_,sym:_]:=Module[{inner},
+CompoundExpression[
+inner=Dot[vec,sym],
+cvd[sym,"index"->ltzidx[index]]+inner+TensorTranspose[inner,{2,3,1}]+TensorTranspose[inner,{3,1,2}]]-
+I*ltz[vfd[0],"index"->ltzidx[index]]*IdentityMatrix[dim].sym
+]
+gcd::usage="\:91cd\:5b50\:573a\:7684\:534f\:53d8\:5bfc\:6570\:9879\:ff0c
+gcd[2,crt[1],1,mat[2,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)B,
+gcd[3,crt[1],1,mat[3,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)T,
+#3->1::\:7ed9\:504f\:5bfc\:6570\:52a0\:4e0a\:6d1b\:4f26\:5179\:6307\:6807";
 
 
 (* ::Section:: *)
@@ -471,14 +610,28 @@ covde["oct",{"\[Alpha]"}]
 
 
 (* ::Text:: *)
-(*\:624b\:5f81 Lagrangian \:7684\:5404\:9879*)
+(*\:624b\:5f81 Lagrangian \:7684\:5404\:9879\:ff0c\:6309\:7167\:8026\:5408\:5e38\:6570\:8fdb\:884c\:6392\:5217\:ff1a*)
+
+
+lag=<||>;
+
+
+lag[lecs[1]]=Tr[I*mat[2,1,1].gcd[2,crt[1,1],1,mat[2,1,0]]-mat[2,1,2]*mat[2,1,1].mat[2,1,0]]+
+CompoundExpression[
+temp=Flatten[
+mat[3,1,1].(
+I*gma[gcd[3,crt[1,1],1,mat[3,1,0]],"index"->ltzidx[{1,2,3}]]-
+mat[3,1,2]*gma[mat[3,1,0],"index"->ltzidx[{1,2}]]
+)],
+temp.temp
+];
 
 
 (* ::Text:: *)
 (*\:4ecb\:5b50\:9879*)
 
 
-lag["mes"]=f^2/4*Tr[covde["mes",{"\[Mu]"}].matr["par","U"].ConjugateTranspose(covde["mes",{"\[Mu]"}].matr["dag","U"])]
+lag[lecs[2]]=f^2/4*Tr[covde["mes",{"\[Mu]"}].matr["par","U"].ConjugateTranspose(covde["mes",{"\[Mu]"}].matr["dag","U"])]
 
 
 (* ::Text:: *)
@@ -555,6 +708,23 @@ lore[matr["par","dec",{i,j,l}],{"\[Nu]"}]
 
 
 (* ::Chapter:: *)
+(*formatting*)
+
+
+(* ::Text:: *)
+(*\:7ed9\:51fa\:8f93\:51fa\:5f62\:5f0f\:ff0c\:7ed3\:5408\:5404\:79cd\:65e0\:5185\:7f6e\:610f\:4e49\:7684\:7ed3\:6784\:ff0c\:5982 Superscript[]*)
+
+
+(* ::Text:: *)
+(*\:7136\:540e\:5bf9\:4e8e\:67d0\:4e00\:7c7b\:ff0c\:5b83\:7684\:5206\:91cf\:6709\:4e24\:79cd\:7f16\:7801\:65b9\:5f0f\:ff0c\:4e00\:79cd\:662f\:6570\:5b57\:ff0c\:4e00\:79cd\:662f\:5b57\:7b26\:4e32\:3002*)
+
+
+setmode[x:_Integer:1]:=CompoundExpression[
+mes
+];
+
+
+(* ::Chapter:: *)
 (*export*)
 
 
@@ -603,13 +773,6 @@ echo["Done"]
 ]
 
 ]
-
-
-(* ::Text:: *)
-(*\:7ed3\:675f\:79c1\:6709\:4e0a\:4e0b\:6587*)
-
-
-End[]
 
 
 (* ::Text:: *)
