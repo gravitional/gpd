@@ -296,27 +296,27 @@ Range[1,3,1],
 AssociationThread[
 Range[0,8,1],
 {
-Subscript["\[Eta]","0"],
-Superscript["\[Pi]","+"],Superscript["\[Pi]","0"],Superscript["\[Pi]","-"],
-Superscript["K","+"],Superscript["K","-"],
-Superscript["K","0"],OverBar[Superscript["K","0"]],
-Subscript["\[Eta]","8"]
+FieldScript["\[Eta]","0"],
+FieldScript["\[Pi]","+"],FieldScript["\[Pi]","0"],FieldScript["\[Pi]","-"],
+FieldScript["K","+"],FieldScript["K","-"],
+FieldScript["K","0"],OverBar[FieldScript["K","0"]],
+FieldScript["\[Eta]","8"]
 }],
 AssociationThread[
 Range[1,8,1],
 {
-Superscript["p",""],Superscript["n",""],
-Superscript["\[CapitalSigma]","+"],Superscript["\[CapitalSigma]","0"],Superscript["\[CapitalSigma]","-"],
-Superscript["\[CapitalXi]","0"],Superscript["\[CapitalXi]","-"],
-Subscript["\[CapitalLambda]",""]
+FieldScript["p",""],FieldScript["n",""],
+FieldScript["\[CapitalSigma]","+"],FieldScript["\[CapitalSigma]","0"],FieldScript["\[CapitalSigma]","-"],
+FieldScript["\[CapitalXi]","0"],FieldScript["\[CapitalXi]","-"],
+FieldScript["\[CapitalLambda]",""]
 }],
 AssociationThread[
 Range[1,10,1],
 {
-Superscript["\[CapitalDelta]","++"],Superscript["\[CapitalDelta]","+"],Superscript["\[CapitalDelta]","0"],Superscript["\[CapitalDelta]","-"],
-Superscript["\[CapitalSigma]","\[SixPointedStar]+"],Superscript["\[CapitalSigma]","\[SixPointedStar]0"],Superscript["\[CapitalSigma]","\[SixPointedStar]-"],
-Superscript["\[CapitalXi]","\[SixPointedStar]0"],Superscript["\[CapitalXi]","\[SixPointedStar]-"],
-Subscript["\[CapitalOmega]","-"]
+FieldScript["\[CapitalDelta]","++"],FieldScript["\[CapitalDelta]","+"],FieldScript["\[CapitalDelta]","0"],FieldScript["\[CapitalDelta]","-"],
+FieldScript["\[CapitalSigma]","\[SixPointedStar]+"],FieldScript["\[CapitalSigma]","\[SixPointedStar]0"],FieldScript["\[CapitalSigma]","\[SixPointedStar]-"],
+FieldScript["\[CapitalXi]","\[SixPointedStar]0"],FieldScript["\[CapitalXi]","\[SixPointedStar]-"],
+FieldScript["\[CapitalOmega]","-"]
 }]
 }
 ];
@@ -329,11 +329,11 @@ Range[1,3,1],
 AssociationThread[
 Range[0,8,1],
 {
-Subscript["\[Eta]","0"],
-Superscript["\[Pi]","-"],Superscript["\[Pi]","0"],Superscript["\[Pi]","+"],
-Superscript["K","-"],Superscript["K","+"],
-OverBar[Superscript["K","0"]],Superscript["K","0"],
-Subscript["\[Eta]","8"]
+FieldScript["\[Eta]","0"],
+FieldScript["\[Pi]","-"],FieldScript["\[Pi]","0"],FieldScript["\[Pi]","+"],
+FieldScript["K","-"],FieldScript["K","+"],
+OverBar[FieldScript["K","0"]],FieldScript["K","0"],
+FieldScript["\[Eta]","8"]
 }],
 OverBar/@fdptc[0][2],
 OverBar/@fdptc[0][3]
@@ -343,7 +343,7 @@ OverBar/@fdptc[0][3]
 
 (*\:5404\:79cd\:7c92\:5b50\:7684\:8d28\:91cf*)
 fdptc[2]=Map[
-Subscript["M",#1]&,fdptc[0],{2}
+MassScript["M",#1]&,fdptc[0],{2}
 ];
 
 
@@ -354,11 +354,11 @@ fd[kind_,num_,anti_]:=fdptc[anti][kind,num]
 fd[1,28,2]=\!\(\*
 TagBox[
 StyleBox[
-RowBox[{"Subscript", "[", 
+RowBox[{"MassScript", "[", 
 RowBox[{"\"\<M\>\"", ",", 
-RowBox[{"Superscript", "[", 
+RowBox[{"FieldScript", "[", 
 RowBox[{"\"\<\\[Pi]\>\"", ",", "\"\<0\>\""}], "]"}], ",", 
-RowBox[{"Subscript", "[", 
+RowBox[{"FieldScript", "[", 
 RowBox[{"\"\<\\[Eta]\>\"", ",", "\"\<8\>\""}], "]"}]}], "]"}],
 ShowSpecialCharacters->False,
 ShowStringCharacters->True,
@@ -368,11 +368,11 @@ FullForm]\);
 fd[2,48,2]=\!\(\*
 TagBox[
 StyleBox[
-RowBox[{"Subscript", "[", 
+RowBox[{"MassScript", "[", 
 RowBox[{"\"\<M\>\"", ",", 
-RowBox[{"Superscript", "[", 
+RowBox[{"FieldScript", "[", 
 RowBox[{"\"\<\\[CapitalSigma]\>\"", ",", "\"\<0\>\""}], "]"}], ",", 
-RowBox[{"Subscript", "[", 
+RowBox[{"FieldScript", "[", 
 RowBox[{"\"\<\\[CapitalLambda]\>\"", ",", "\"\<\>\""}], "]"}]}], "]"}],
 ShowSpecialCharacters->False,
 ShowStringCharacters->True,
