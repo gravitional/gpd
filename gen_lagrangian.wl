@@ -143,7 +143,7 @@ inputsimulation=forcestr[
 inputcml
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*processing parameters*)
 
 
@@ -165,9 +165,6 @@ mfileslist=ToExpression[inputcml[[2]]]
 (*\:811a\:672c\:5185\:7f6e\:9884\:5b9a\:4e49\:53c2\:6570*)
 
 
-
-
-
 (* ::Chapter:: *)
 (*Lagrangian*)
 
@@ -181,7 +178,7 @@ mfileslist=ToExpression[inputcml[[2]]]
 (*anti::0,1*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*constants*)
 
 
@@ -243,14 +240,14 @@ cmtp::usage="cmtm[f,x,y]=f[x,y]+f[y,x] \:8fdb\:884c\:53cd\:5bf9\:6613\:8fd0\:7b9
 
 
 lecs::usage="lecs[1]\:ff0c\:901a\:8fc7\:6574\:6570\:ff0c\:6307\:5b9a\:8981\:4f7f\:7528\:7684\:8026\:5408\:5e38\:6570\:ff0c\:987a\:5e8f
-1,1/f,D,F,::1,4
-calC,calH,::5,6
-c1,c2,c3,::7,9
-b9,b10,b11::10,12
-\:5176\:4e2d 1 \:4fdd\:7559\:4e3a\:52a8\:80fd\:9879\:7684\:8026\:5408\:5e38\:6570";
+1,1/f,f,D,F,::1,5
+calC,calH,::6,7
+c1,c2,c3,::8,10
+b9,b10,b11::11,13
+\:5176\:4e2d lecs[1] \:4fdd\:7559\:4e3a\:52a8\:80fd\:9879\:7684\:8026\:5408\:5e38\:6570";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*fields*)
 
 
@@ -510,7 +507,7 @@ Symmetric[All]
 ];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Lorentz objects*)
 
 
@@ -545,13 +542,15 @@ idxes=ltzidx[OptionValue["index"]];
 Switch[OptionValue["type"],
 "ltz",ltzScriptip1[sym,idxes],
 "\[PartialD]",pdeip1[ltzScriptip1["\[PartialD]",idxes],sym],
-"\[Gamma]",gmaip1[ltzScriptip1["\[Gamma]",idxes],sym]
+"\[Gamma]",gmaip1[ltzScriptip1["\[Gamma]",idxes],sym],
+"\[CapitalTheta]",gmaip1[ltzScriptip1["\[CapitalTheta]",idxes],sym]
 ]
 ]
 ltz::usage="\:7ed9\:7b26\:53f7\:52a0\:4e0a\:9884\:5b9a\:4e49\:7684\:6d1b\:4f26\:5179\:6307\:6807,\:6d1b\:4f26\:5179\:504f\:5bfc\:6570,\:4f3d\:9a6c\:77e9\:9635,\:7b49\:7b49\:3002\:4e5f\:53ef\:4ee5\:4f20\:5165\:81ea\:5b9a\:4e49\:7684\:6307\:6807,\:9ed8\:8ba4\:7ed9\:51fa\:4e86 forcestr/@{\[Mu],\[Nu],\[Alpha],\[Beta],5}
 ltz[B,\"type\"\[Rule]\"ltz\",\"index\"\[Rule]{1,2}] 
 ltz[B,\"type\"\[Rule]\"\[PartialD]\",\"index\"\[Rule]{1,2}] 
-ltz[\[Gamma],\"type\"\[Rule]\"\[Gamma]\",\"index\"\[Rule]{1,2}]";
+ltz[B,\"type\"\[Rule]\"\[Gamma]\",\"index\"\[Rule]{1,2}]
+ltz[B,\"type\"\[Rule]\"\[CapitalTheta]\",\"index\"\[Rule]{1,2}]";
 
 
 constantHeadList::usage="\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684\:5404\:79cd\:5e38\:6570\:7684\:5934\:90e8\:7684\:5217\:8868";
@@ -574,8 +573,8 @@ sym*gm,gma[gm,sym]
 ]
 (*\:4e0a\:9762\:4f7f\:7528\:4e86 ltzScriptip1 \:51fd\:6570*)
 ltzScriptip1::usage="\:7ed9\:5bf9\:8c61\:52a0\:4e0a\:6d1b\:4f26\:5179\:6307\:6807\:ff0c\:6ee1\:8db3\:52a0\:6cd5\:ff0c\:4e58\:6cd5\:5206\:914d\:ff0c\:65e0\:5e8f\:6027";
-ltzScriptip1[pd:_,Plus[x:_,y:__]]:=Plus[ltzScriptip1[pd,x],ltzScriptip1[pd,Plus[y]]]
-ltzScriptip1[pd:_,Times[x:_,y:__]]:=Times[ltzScriptip1[pd,x],ltzScriptip1[pd,Times[y]]]
+ltzScriptip1[Plus[x:_,y:__],index:_]:=Plus[ltzScriptip1[x,index],ltzScriptip1[Plus[y],index]]
+ltzScriptip1[Times[x:_,y:__],index:_]:=Times[ltzScriptip1[x,index],ltzScriptip1[Times[y],index]]
 ltzScriptip1[sym:_,idxes:__]:=If[MemberQ[constantHeadList,Head[N[sym,3]]],
 sym,ltzScript[sym,idxes]
 ]
@@ -594,7 +593,8 @@ vfd::usage="vfd[8],\:5404\:4e2a\:5916\:77e2\:91cf\:573a,\:4ece0\:52308";
 
 crt::usage="crt[num,index] \:7ed9\:51fa\:9884\:5b9a\:4e49\:7684\:7b2c num \:4e2a\:5f3a\:5b50\:6d41,\:5e26\:6709\:6307\:6807index,\:987a\:5e8f\:5982\:4e0b\:ff1a
 \!\(\*SubscriptBox[\(\[CapitalGamma]\), \(\[Mu]\)]\)::1
-\!\(\*SubscriptBox[\(u\), \(\[Mu]\)]\)::2";
+\!\(\*SubscriptBox[\(u\), \(\[Mu]\)]\)::2
+\[Lambda][a]*v[a]\[Mu] ::3";
 
 
 (* meson vector current *)
@@ -615,14 +615,21 @@ mat[1,2,1].ltz[mat[1,2,0],"type"->"\[PartialD]","index"->index]
 mat[1,2,0].\[Lambda][a].mat[1,2,1]-mat[1,2,1].\[Lambda][a].mat[1,2,0]
 )*
 ltz[vfd[a],"type"->"ltz","index"->index],{a,1,8,1}];
+(*current 3 \[Lambda][a] v[a]\[Mu]*)
+crt[3,index:_]:=Sum[\[Lambda][a]*ltz[vfd[a],"type"->"ltz","index"->index],{a,1,8,1}]
 
 
-(* ::Subsection:: *)
+(* ::Section::Closed:: *)
 (*gauge covariant derivative \:89c4\:8303\:534f\:53d8\:5bfc\:6570*)
+
+
+gcd[1,vec:_,index:_,sym:_]:=ltz[lecs[1]*sym,"type"->"\[PartialD]","index"->index]-I*cmtm[Dot,vec,sym];
 
 
 gcd[2,vec:_,index:_,sym:_]:=ltz[lecs[1]*sym,"type"->"\[PartialD]","index"->index]+
 cmtm[Dot,vec,sym]-I*ltz[vfd[0],"type"->"ltz","index"->index]*IdentityMatrix[dim].sym;
+
+
 gcd[3,vec:_,index:_,sym:_]:=Module[{inner},
 CompoundExpression[
 inner=Dot[vec,sym],
@@ -630,9 +637,14 @@ ltz[lecs[1]*sym,"type"->"\[PartialD]","index"->index]+
 inner+TensorTranspose[inner,{2,3,1}]+TensorTranspose[inner,{3,1,2}]]-
 I*ltz[vfd[0],"type"->"ltz","index"->index]*IdentityMatrix[dim].sym
 ]
+
+
 gcd::usage="\:91cd\:5b50\:573a\:7684\:534f\:53d8\:5bfc\:6570\:9879,gcd[2|3,vec,index,sym]
-gcd[2,crt[1],1,mat[2,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)B,
-gcd[3,crt[1],1,mat[3,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)T,
+crt[kind,index] [\:6d41\:7684\:7c7b\:578b\:ff0c\:6d41\:7684\:6d1b\:4f26\:5179\:6307\:6807]
+gcd[1,crt[3,1],1,mat[1,3,0]]\:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)U,
+gcd[1,crt[3,1],1,mat[1,3,1]]\:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)U\[ConjugateTranspose],
+gcd[2,crt[1,1],1,mat[2,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)B,
+gcd[3,crt[1,1],1,mat[3,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)T,
 #3->1::\:7ed9\:504f\:5bfc\:6570\:52a0\:4e0a\:6d1b\:4f26\:5179\:6307\:6807";
 
 
@@ -649,6 +661,12 @@ massScript->Subscript,fieldScript->Superscript,pde->CenterDot,ltzScript->Subscri
 }];
 
 
+lagfmt2=ReplaceAll[{
+lecs[1]->1,lecs[2]->1/f,lecs[3]->f,lecs[4]->D,lecs[5]->F,
+lecs[6]->\[ScriptCapitalC],lecs[7]->\[ScriptCapitalH]
+}];
+
+
 (* ::Text:: *)
 (*\:624b\:5f81 Lagrangian \:7684\:5404\:9879,\:6309\:7167\:8026\:5408\:5e38\:6570\:8fdb\:884c\:6392\:5217\:ff1a*)
 
@@ -657,82 +675,73 @@ lag=<||>;
 
 
 (* ::Text:: *)
-(*\:8026\:5408\:7cfb\:6570lecs[1]*)
+(*octet*)
 
 
 (*(Times[lecs[1],#1]&)/@*)
-lag[1]=Tr[mat[2,1,1].(
+lag["oct"]=Tr[mat[2,1,1].(
 gcd[2,crt[1,1(*\:6d41\:7684\:6307\:6807*)],1(*\:504f\:5bfc\:7684\:6307\:6807*),I*ltz[mat[2,1,0],"type"->"\[Gamma]","index"->1]]
 -mat[2,1,2](*\:8d28\:91cf\:9879*)*mat[2,1,0]
 )];
+
+
+(* ::Text:: *)
+(*decuplet*)
 
 
 Module[{temp},
 CompoundExpression[
 temp=I*gcd[3,crt[1,3(*\:6d41\:7684\:6307\:6807*)],3(*\:504f\:5bfc\:7684\:6307\:6807*),ltz[mat[3,1,0],"type"->"\[Gamma]","index"->{1,2,3}]]-
 mat[3,1,2]*ltz[mat[3,1,0],"type"->"\[Gamma]","index"->{1,2}],
-lag[2]=Flatten[mat[3,1,1]].Flatten[temp]
+lag["dec"]=Flatten[mat[3,1,1]].Flatten[temp]
 ]];
 
 
 (* ::Text:: *)
-(*\:4ecb\:5b50\:9879*)
+(*meson*)
 
 
-lag[lecs[2]]=f^2/4*Tr[covde["mes",{"\[Mu]"}].matr["par","U"].ConjugateTranspose(covde["mes",{"\[Mu]"}].matr["dag","U"])]
-
-
-(* ::Text:: *)
-(*\:91cd\:5b50\:516b\:91cd\:6001\:9879*)
-
-
-lag["oct"]=Tr[matr["anti","oct"].(I*covde["oct"]-mass["oct"]).matr["par","oct"]]
-
-
-lag["D"]=lecs["D"]*Tr[matr["ant","oct"].lore["gamma",{"\[Mu]","5"}].
-antitate[lore[curr["axial"],{"\[Mu]"}],matr["par","oct"]]]
-
-
-lag["F"]=lecs["F"]*Tr[matr["ant","oct"].lore["gamma",{"\[Mu]","5"}].
-comutate[lore[curr["axial"],{"\[Mu]"}],matr["par","oct"]]]
+lag["mes"]=lecs[3]^2/4*Tr[gcd[1,crt[3,1],1,mat[1,3,0]].gcd[1,crt[3,1],1,mat[1,3,1]]];
 
 
 (* ::Text:: *)
-(*\:91cd\:5b50\:5341\:91cd\:6001\:9879*)
+(*D,F*)
 
 
-Module[{decnumber},
-decnumber=Length[matr["par","dec"]];
-lag["dec"]=Sum[
-lore[matr["ant","dec",{i,j,k}],{"\[Mu]"}]*
-(I*lore["gamma",{"\[Mu]","\[Nu]","\[Alpha]"}]*covde["dec",{"\[Alpha]"}]-mass["dec"]*lore["gamma",{"\[Mu]","\[Nu]"}])*
-lore[matr["par","dec",{i,j,k}],{"\[Nu]"}]
-,{i,1,decnumber,1}
-,{j,1,decnumber,1}
-,{k,1,decnumber,1}
-]
-]
+lag["D"]=lecs[4]*Tr[mat[2,1,1].cmtp[Dot,crt[2,1],ltz[mat[2,1,0],"type"->"\[Gamma]","index"->{1,5}]]];
+
+
+lag["F"]=lecs[5]*Tr[mat[2,1,1].cmtm[Dot,crt[2,1],ltz[mat[2,1,0],"type"->"\[Gamma]","index"->{1,5}]]];
 
 
 (* ::Text:: *)
-(*BT\[Phi]\:8026\:5408\:9879 calC*)
+(*calC,*)
 
 
-Module[{decnumber},
-decnumber=Length[matr["par","dec",All]];
-lag["calC"]=Sum[
-lecs["calC"]*levi[i,j,k]*
-lore[matr["ant","dec",{i,l,m}],{"\[Mu]"}]*
-lore["\[CapitalTheta]",{"\[Mu]","\[Nu]"}]*
-lore[curr["axial",{l,j}],{"\[Nu]"}]*
-lore[matr["par","oct",{m,k}]]
-,{i,1,decnumber,1}
-,{j,1,decnumber,1}
-,{k,1,decnumber,1}
-,{l,1,decnumber,1}
-,{m,1,decnumber,1}
-]
-]
+(* ::DisplayFormula:: *)
+(*\[CapitalTheta]\[Mu]\[Nu]=g\[Mu]\[Nu]-(z+1/2)\[Gamma]\[Mu]*\[Gamma]\[Nu],set,z=-1,*)
+
+
+(* ::DisplayFormula:: *)
+(*\[CapitalTheta]\[Mu]\[Nu]=g\[Mu]\[Nu]+1/2\[Gamma]\[Mu]*\[Gamma]\[Nu],\[Gamma]0.\[CapitalTheta]\[Mu]\[Nu].\[Gamma]0=g\[Mu]\[Nu]+1/2\[Gamma]\[Nu]*\[Gamma]\[Mu]=-g\[Mu]\[Nu]-1/2\[Gamma]\[Mu]*\[Gamma]\[Nu]=-\[CapitalTheta]\[Mu]\[Nu]*)
+
+
+(* ::DisplayFormula:: *)
+(*\:5176\:4ed6\:7684\:9879,\[CurlyEpsilon][ijk],u[jl],\:5747\:4e3a\:5b9e\:6570\:ff0c\:4f5c\:590d\:5171\:8f6d\:4e0d\:4f1a\:51fa\:8d1f\:53f7\:ff0c\:6240\:4ee5\:8fd9\:4e00\:9879\:53ef\:80fd\:6709\:4e2a\:989d\:5916\:8d1f\:53f7\:3002*)
+
+
+lag["calC"]=lecs[6]*(
+TensorContract[TensorContract[levi.
+ltz[mat[3,1,1],"type"->"ltz","index"->1].
+crt[2,2],{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)].
+ltz[mat[2,1,0],"type"->"\[CapitalTheta]","index"->{1,2}],
+{{1,2}}(*1,2\:6307\:6807\:7f29\:5e76*)]-
+TensorContract[TensorContract[levi.
+ltz[mat[3,1,0],"type"->"ltz","index"->1].
+crt[2,2],{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)].
+ltz[mat[2,1,1],"type"->"\[CapitalTheta]","index"->{1,2}],
+{{1,2}}(*1,2\:6307\:6807\:7f29\:5e76*)]
+);
 
 
 (* ::Text:: *)
