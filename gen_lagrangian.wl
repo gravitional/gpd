@@ -16,7 +16,7 @@
 (*\:5c1d\:8bd5\:4f7f\:7528\:51fd\:6570\:63a5\:53e3: f[i,j,k]\:ff0c\:5c06\:4e0d\:592a\:786e\:5b9a\:7684\:5b9e\:73b0\:90fd\:5b9a\:4e49\:6210\:51fd\:6570*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*initial*)
 
 
@@ -278,107 +278,6 @@ decuplet
 
 
 (* ::Text:: *)
-(*\:7ed9\:51fa\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
-
-
-fieldScript::usage="\:573a\:7684\:5934\:90e8\:ff0c\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f\:ff0c\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0";
-
-
-(*\:7c92\:5b50\:7684\:8bb0\:53f7*)
-fdptc[0]=AssociationThread[
-Range[1,3,1],
-{
-AssociationThread[
-Range[0,8,1],
-{
-fieldScript["\[Eta]","0"],
-fieldScript["\[Pi]","+"],fieldScript["\[Pi]","0"],fieldScript["\[Pi]","-"],
-fieldScript["K","+"],fieldScript["K","-"],
-fieldScript["K","0"],OverBar[fieldScript["K","0"]],
-fieldScript["\[Eta]","8"]
-}],
-AssociationThread[
-Range[1,8,1],
-{
-fieldScript["p",""],fieldScript["n",""],
-fieldScript["\[CapitalSigma]","+"],fieldScript["\[CapitalSigma]","0"],fieldScript["\[CapitalSigma]","-"],
-fieldScript["\[CapitalXi]","0"],fieldScript["\[CapitalXi]","-"],
-fieldScript["\[CapitalLambda]",""]
-}],
-AssociationThread[
-Range[1,10,1],
-{
-fieldScript["\[CapitalDelta]","++"],fieldScript["\[CapitalDelta]","+"],fieldScript["\[CapitalDelta]","0"],fieldScript["\[CapitalDelta]","-"],
-fieldScript["\[CapitalSigma]","\[SixPointedStar]+"],fieldScript["\[CapitalSigma]","\[SixPointedStar]0"],fieldScript["\[CapitalSigma]","\[SixPointedStar]-"],
-fieldScript["\[CapitalXi]","\[SixPointedStar]0"],fieldScript["\[CapitalXi]","\[SixPointedStar]-"],
-fieldScript["\[CapitalOmega]","-"]
-}]
-}
-];
-
-
-(*\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
-fdptc[1]=AssociationThread[
-Range[1,3,1],
-{
-AssociationThread[
-Range[0,8,1],
-{
-fieldScript["\[Eta]","0"],
-fieldScript["\[Pi]","-"],fieldScript["\[Pi]","0"],fieldScript["\[Pi]","+"],
-fieldScript["K","-"],fieldScript["K","+"],
-OverBar[fieldScript["K","0"]],fieldScript["K","0"],
-fieldScript["\[Eta]","8"]
-}],
-OverBar/@fdptc[0][2],
-OverBar/@fdptc[0][3]
-}
-];
-
-
-massScript::usage="\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8\:ff0c\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f\:ff0c\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0";
-
-
-(*\:5404\:79cd\:7c92\:5b50\:7684\:8d28\:91cf*)
-fdptc[2]=Map[
-massScript["M",#1]&,fdptc[0],{2}
-];
-
-
-fd[kind_,num_,anti_]:=fdptc[anti][kind,num]
-
-
-(*\:7279\:6b8a\:60c5\:51b5 \[Pi]0 \[Eta]8 \:6df7\:5408*)
-fd[1,28,2]=\!\(\*
-TagBox[
-StyleBox[
-RowBox[{"massScript", "[", 
-RowBox[{"\"\<M\>\"", ",", 
-RowBox[{"fieldScript", "[", 
-RowBox[{"\"\<\\[Pi]\>\"", ",", "\"\<0\>\""}], "]"}], ",", 
-RowBox[{"fieldScript", "[", 
-RowBox[{"\"\<\\[Eta]\>\"", ",", "\"\<8\>\""}], "]"}]}], "]"}],
-ShowSpecialCharacters->False,
-ShowStringCharacters->True,
-NumberMarks->True],
-FullForm]\);
-(*\:7279\:6b8a\:60c5\:51b5 \[CapitalSigma]0 \[CapitalLambda] \:6df7\:5408*)
-fd[2,48,2]=\!\(\*
-TagBox[
-StyleBox[
-RowBox[{"massScript", "[", 
-RowBox[{"\"\<M\>\"", ",", 
-RowBox[{"fieldScript", "[", 
-RowBox[{"\"\<\\[CapitalSigma]\>\"", ",", "\"\<0\>\""}], "]"}], ",", 
-RowBox[{"fieldScript", "[", 
-RowBox[{"\"\<\\[CapitalLambda]\>\"", ",", "\"\<\>\""}], "]"}]}], "]"}],
-ShowSpecialCharacters->False,
-ShowStringCharacters->True,
-NumberMarks->True],
-FullForm]\);
-
-
-(* ::Text:: *)
 (*\:6536\:96c6\:5355\:4e2a\:573a\:505a\:6210\:7684\:77e9\:9635*)
 
 
@@ -507,7 +406,7 @@ Symmetric[All]
 ];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Lorentz objects*)
 
 
@@ -621,7 +520,7 @@ crt[3,index:_]:=Sum[\[Lambda][a]*vfd[index,a]
 ,{a,1,8,1}]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*gauge covariant derivative \:89c4\:8303\:534f\:53d8\:5bfc\:6570*)
 
 
@@ -650,27 +549,8 @@ gcd[3,crt[1,1],1,mat[3,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)
 #3->1::\:7ed9\:504f\:5bfc\:6570\:52a0\:4e0a\:6d1b\:4f26\:5179\:6307\:6807";
 
 
-(* ::Section:: *)
-(*Lagrangian*)
-
-
-(* ::Text:: *)
-(*\:5bf9 Lagrangian \:8fdb\:884c\:683c\:5f0f\:5316\:8f93\:51fa\:7684\:51fd\:6570*)
-
-
-vfdFmt[x_,y_]:=Subsuperscript["v",ltzidx[x],y];
-
-
-lagfmt=ReplaceAll[{
-massScript->Subscript,fieldScript->Superscript,pde->CenterDot,ltzScript->Subscript,gma->CenterDot,vfd->vfdFmt,
-lecs[1]->1,lecs[2]->1/Subscript["f",""],lecs[3]->Subscript["f",""],lecs[4]->Subscript["D",""],lecs[5]->Subscript["F",""],
-lecs[6]->Subscript["\[ScriptCapitalC]",""],lecs[7]->Subscript["\[ScriptCapitalH]",""]
-}];
-
-
-lagfmt2=ReplaceAll[{
-
-}];
+(* ::Section::Closed:: *)
+(*Lagrangians*)
 
 
 (* ::Text:: *)
@@ -783,7 +663,143 @@ lag["calH"]=lecs[7]*(Flatten[temp1].Flatten[temp2])
 ]
 
 
-lag["gpd"]=lag["oct"]+lag["dec"]+lag["mes"]+lag["D"]+lag["F"]+lag["calC"];
+(* ::Section:: *)
+(*Lagrangian interaction*)
+
+
+lag["tot"]=lag["oct"]+lag["dec"]+lag["mes"]+lag["D"]+lag["F"]+lag["calC"];
+lag["int"]=lag["tot"]/.{lecs[1]->0,vfd[__]->0,fd[_,_,2]->0};
+
+
+(* ::Section:: *)
+(*formatting*)
+
+
+(* ::Text:: *)
+(*\:5bf9 Lagrangian \:8fdb\:884c\:683c\:5f0f\:5316\:8f93\:51fa\:7684\:51fd\:6570*)
+
+
+(* ::Text:: *)
+(*\:7ed9\:51fa\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
+
+
+fieldScript::usage="\:573a\:7684\:5934\:90e8\:ff0c\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f\:ff0c\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0";
+
+
+(*\:7c92\:5b50\:7684\:8bb0\:53f7*)
+fdptc[0]=AssociationThread[
+Range[1,3,1],
+{
+AssociationThread[
+Range[0,8,1],
+{
+fieldScript["\[Eta]","0"],
+fieldScript["\[Pi]","+"],fieldScript["\[Pi]","0"],fieldScript["\[Pi]","-"],
+fieldScript["K","+"],fieldScript["K","-"],
+fieldScript["K","0"],OverBar[fieldScript["K","0"]],
+fieldScript["\[Eta]","8"]
+}],
+AssociationThread[
+Range[1,8,1],
+{
+fieldScript["p",""],fieldScript["n",""],
+fieldScript["\[CapitalSigma]","+"],fieldScript["\[CapitalSigma]","0"],fieldScript["\[CapitalSigma]","-"],
+fieldScript["\[CapitalXi]","0"],fieldScript["\[CapitalXi]","-"],
+fieldScript["\[CapitalLambda]",""]
+}],
+AssociationThread[
+Range[1,10,1],
+{
+fieldScript["\[CapitalDelta]","++"],fieldScript["\[CapitalDelta]","+"],fieldScript["\[CapitalDelta]","0"],fieldScript["\[CapitalDelta]","-"],
+fieldScript["\[CapitalSigma]","\[SixPointedStar]+"],fieldScript["\[CapitalSigma]","\[SixPointedStar]0"],fieldScript["\[CapitalSigma]","\[SixPointedStar]-"],
+fieldScript["\[CapitalXi]","\[SixPointedStar]0"],fieldScript["\[CapitalXi]","\[SixPointedStar]-"],
+fieldScript["\[CapitalOmega]","-"]
+}]
+}
+];
+
+
+(*\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
+fdptc[1]=AssociationThread[
+Range[1,3,1],
+{
+AssociationThread[
+Range[0,8,1],
+{
+fieldScript["\[Eta]","0"],
+fieldScript["\[Pi]","-"],fieldScript["\[Pi]","0"],fieldScript["\[Pi]","+"],
+fieldScript["K","-"],fieldScript["K","+"],
+OverBar[fieldScript["K","0"]],fieldScript["K","0"],
+fieldScript["\[Eta]","8"]
+}],
+OverBar/@fdptc[0][2],
+OverBar/@fdptc[0][3]
+}
+];
+
+
+massScript::usage="\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8\:ff0c\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f\:ff0c\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0";
+
+
+(*\:5404\:79cd\:7c92\:5b50\:7684\:8d28\:91cf*)
+fdptc[2]=Map[
+massScript["M",#1]&,fdptc[0],{2}
+];
+
+
+(* ::Text:: *)
+(*\:573a\:6392\:7248\:7684\:5b9e\:73b0\:51fd\:6570*)
+
+
+fdFmt[kind_,num_,anti_]:=fdptc[anti][kind,num]
+
+
+(*\:7279\:6b8a\:60c5\:51b5 \[Pi]0 \[Eta]8 \:6df7\:5408*)
+fdFmt[1,28,2]=\!\(\*
+TagBox[
+StyleBox[
+RowBox[{"massScript", "[", 
+RowBox[{"\"\<M\>\"", ",", 
+RowBox[{"fieldScript", "[", 
+RowBox[{"\"\<\\[Pi]\>\"", ",", "\"\<0\>\""}], "]"}], ",", 
+RowBox[{"fieldScript", "[", 
+RowBox[{"\"\<\\[Eta]\>\"", ",", "\"\<8\>\""}], "]"}]}], "]"}],
+ShowSpecialCharacters->False,
+ShowStringCharacters->True,
+NumberMarks->True],
+FullForm]\);
+(*\:7279\:6b8a\:60c5\:51b5 \[CapitalSigma]0 \[CapitalLambda] \:6df7\:5408*)
+fdFmt[2,48,2]=\!\(\*
+TagBox[
+StyleBox[
+RowBox[{"massScript", "[", 
+RowBox[{"\"\<M\>\"", ",", 
+RowBox[{"fieldScript", "[", 
+RowBox[{"\"\<\\[CapitalSigma]\>\"", ",", "\"\<0\>\""}], "]"}], ",", 
+RowBox[{"fieldScript", "[", 
+RowBox[{"\"\<\\[CapitalLambda]\>\"", ",", "\"\<\>\""}], "]"}]}], "]"}],
+ShowSpecialCharacters->False,
+ShowStringCharacters->True,
+NumberMarks->True],
+FullForm]\);
+
+
+(* ::Text:: *)
+(*\:5916\:6e90\:6392\:7248\:7684\:5b9e\:73b0\:51fd\:6570*)
+
+
+vfdFmt[index_,a_]:=Subsuperscript["v",ltzidx[index],a];
+vfdFmt::usage="vfdFmt[x_,y_],\:5c06\:8026\:5408\:7684\:5916\:90e8\:6d41\:683c\:5f0f\:5316";
+
+
+lagfmt[x_]:=x/.{fd->fdFmt,vfd->vfdFmt}(*\:4ee3\:5165\:573a\:6392\:7248\:7684\:5177\:4f53\:5b9e\:73b0*)/.{
+massScript->Subscript,fieldScript->Superscript,
+pde->CenterDot,ltzScript->Subscript,gma->CenterDot,
+lecs[1]->1,lecs[2]->1/Subscript["f",""],lecs[3]->Subscript["f",""],
+lecs[4]->Subscript["D",""],lecs[5]->Subscript["F",""],
+lecs[6]->Subscript["\[ScriptCapitalC]",""],lecs[7]->Subscript["\[ScriptCapitalH]",""]
+}(*\:4ee3\:5165\:5404\:79cd\:7ed3\:6784\:7684\:5177\:4f53\:5b9e\:73b0*);
+lagfmt::usage="lagfmt[x_]\:ff0c\:5bf9\:8ba1\:7b97\:7ed3\:679c\:8fdb\:884c\:6392\:7248";
 
 
 (* ::Chapter:: *)
