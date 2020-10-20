@@ -27,7 +27,7 @@
 BeginPackage["chptgpd`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*path*)
 
 
@@ -165,11 +165,11 @@ mfileslist=ToExpression[inputcml[[2]]]
 (*\:811a\:672c\:5185\:7f6e\:9884\:5b9a\:4e49\:53c2\:6570*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Lagrangian*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*convention*)
 
 
@@ -178,7 +178,7 @@ mfileslist=ToExpression[inputcml[[2]]]
 (*anti::0,1*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*constants*)
 
 
@@ -247,8 +247,8 @@ b9,b10,b11::11,13
 \:5176\:4e2d lecs[1] \:4fdd\:7559\:4e3a\:52a8\:80fd\:9879\:7684\:8026\:5408\:5e38\:6570";
 
 
-(* ::Section:: *)
-(*fields*)
+(* ::Section::Closed:: *)
+(*fields matrix*)
 
 
 (* ::Text:: *)
@@ -458,11 +458,11 @@ constantHeadList={Integer,Real,Rational,Complex,lecs};
 
 (*\:4e0a\:9762\:4f7f\:7528\:4e86 pde,gma \:51fd\:6570*)
 pdeip1::usage="pde[\[PartialD]\[Mu],B] \:504f\:5bfc\:6570\:51fd\:6570,\:5bf9\:5e38\:6570\:6c42\:5bfc\:7b49\:4e8e\:96f6,\[PartialD].(A.B)=A*\[PartialD]B+B*\[PartialD]A,\[PartialD].(A+B)=\[PartialD]A+\[PartialD]B";
-pdeip1[pd:_,Plus[x:_,y:__]]:=Plus[pdeip1[pd,x],pdeip1[pd,Plus[y]]]
-pdeip1[pd:_,Times[x:_,y:__]]:=Times[x,pdeip1[pd,Times[y]]]+Times[Times[y],pdeip1[pd,x]]
+pdeip1[pd:_,Plus[x:_,y:__]]:=Plus[pdeip1[pd,x],pdeip1[pd,Plus[y]]];
+pdeip1[pd:_,Times[x:_,y:__]]:=Times[x,pdeip1[pd,Times[y]]]+Times[Times[y],pdeip1[pd,x]];
 pdeip1[pd:_,sym:_]:=If[MemberQ[constantHeadList,Head[N[sym,3]]],
 0,pde[pd,sym]
-]
+];
 (*\:4e0a\:9762\:4f7f\:7528\:4e86 pde,gma \:51fd\:6570*)
 gmaip1::usage="gma[\[Gamma]\[Mu],B,\"direction\"] \:4e58\:4e0a\[Gamma]\:51fd\:6570,\:9ed8\:8ba4\:662f\:4ece\:5de6\:8fb9\:4e58\:4e0a\:7684,\[Gamma].(A+B)=\[Gamma].A+\[Gamma].B, \[Gamma]C*B=C*\[Gamma].B";
 gmaip1[gm:_,Plus[x:_,y:__]]:=Plus[gmaip1[gm,x],gmaip1[gm,Plus[y]]];
@@ -514,19 +514,30 @@ mat[1,2,0].\[Lambda][a].mat[1,2,1]-mat[1,2,1].\[Lambda][a].mat[1,2,0]
 )*vfd[index,a]
 ,{a,1,8,1}];
 (*current 3 \[Lambda][a] v[a]\[Mu]*)
-crt[3,index:_]:=Sum[\[Lambda][a]*vfd[index,a]
-,{a,1,8,1}]
+crt[3,index:_]:=Sum[\[Lambda][a]*vfd[index,a],{a,1,8,1}]
 
 
 (* ::Section:: *)
 (*gauge covariant derivative \:89c4\:8303\:534f\:53d8\:5bfc\:6570*)
 
 
+(* ::Text:: *)
+(*\:4ecb\:5b50\:7684\:534f\:53d8\:5bfc\:6570*)
+
+
 gcd[1,vec:_,index:_,sym:_]:=ltz[lecs[1]*sym,"type"->"\[PartialD]","index"->index]-I*cmtm[Dot,vec,sym];
+
+
+(* ::Text:: *)
+(*\:516b\:91cd\:6001\:7684\:534f\:53d8\:5bfc\:6570*)
 
 
 gcd[2,vec:_,index:_,sym:_]:=ltz[lecs[1]*sym,"type"->"\[PartialD]","index"->index]+
 cmtm[Dot,vec,sym]-I*vfd[index,0]*IdentityMatrix[dim].sym;
+
+
+(* ::Text:: *)
+(*\:5341\:91cd\:6001\:7684\:534f\:53d8\:5bfc\:6570*)
 
 
 gcd[3,vec:_,index:_,sym:_]:=Module[{inner},
@@ -539,7 +550,7 @@ I*vfd[index,0]*IdentityMatrix[dim].sym
 
 
 gcd::usage="\:91cd\:5b50\:573a\:7684\:534f\:53d8\:5bfc\:6570\:9879,gcd[2|3,vec,index,sym]
-crt[kind,index] [\:6d41\:7684\:7c7b\:578b\:ff0c\:6d41\:7684\:6d1b\:4f26\:5179\:6307\:6807]
+crt[kind,index] [\:6d41\:7684\:7c7b\:578b,\:6d41\:7684\:6d1b\:4f26\:5179\:6307\:6807]
 gcd[1,crt[3,1],1,mat[1,3,0]]\:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)U,
 gcd[1,crt[3,1],1,mat[1,3,1]]\:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)U\[ConjugateTranspose],
 gcd[2,crt[1,1],1,mat[2,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)B,
@@ -547,7 +558,7 @@ gcd[3,crt[1,1],1,mat[3,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)
 #3->1::\:7ed9\:504f\:5bfc\:6570\:52a0\:4e0a\:6d1b\:4f26\:5179\:6307\:6807";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Lagrangians*)
 
 
@@ -567,8 +578,8 @@ lag=<||>;
 
 
 lag["oct"]=Expand[Tr[mat[2,1,1].(
-gcd[2,crt[1,1(*\:6d41\:7684\:6307\:6807*)],1(*\:504f\:5bfc\:7684\:6307\:6807*),I*ltz[mat[2,1,0],"type"->"\[Gamma]","index"->1]]
--mat[2,1,2](*\:8d28\:91cf\:9879*)*mat[2,1,0]
+gcd[2(*oct \:504f\:5bfc\:6570*),crt[1,1(*\:6d41\:7684\:6307\:6807*)],1(*\:504f\:5bfc\:7684\:6307\:6807*),I*ltz[mat[2,1,0],"type"->"\[Gamma]","index"->1]]
+-mat[2,1,2]*mat[2,1,0](*\:8d28\:91cf\:9879*)
 )]
 ];
 
@@ -628,21 +639,31 @@ lag["F"]=Expand[lecs[5]*Tr[mat[2,1,1].cmtm[Dot,crt[2,1],ltz[mat[2,1,0],"type"->"
 
 
 (* ::DisplayFormula:: *)
-(*\:5176\:4ed6\:7684\:9879,\[CurlyEpsilon][ijk],u[jl],\:5747\:4e3a\:5b9e\:6570\:ff0c\:4f5c\:590d\:5171\:8f6d\:4e0d\:4f1a\:51fa\:8d1f\:53f7\:ff0c\:6240\:4ee5\:8fd9\:4e00\:9879\:53ef\:80fd\:6709\:4e2a\:989d\:5916\:8d1f\:53f7\:3002*)
+(*\:5176\:4ed6\:7684\:9879,\[CurlyEpsilon][ijk],u[jl],\:5747\:4e3a\:5b9e\:6570,\:4f5c\:590d\:5171\:8f6d\:4e0d\:4f1a\:51fa\:8d1f\:53f7,\:6240\:4ee5\:8fd9\:4e00\:9879\:53ef\:80fd\:6709\:4e2a\:989d\:5916\:8d1f\:53f7\:3002*)
 
 
 lag["calC"]=Expand[lecs[6]*(
-TensorContract[TensorContract[levi.
+Tr[
+TensorContract[
+levi.
 ltz[mat[3,1,1],"type"->"ltz","index"->1].
-crt[2,2],{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)].
-ltz[mat[2,1,0],"type"->"\[CapitalTheta]","index"->{1,2}],
-{{1,2}}(*1,2\:6307\:6807\:7f29\:5e76*)]-
-TensorContract[TensorContract[levi.
-ltz[mat[3,1,0],"type"->"ltz","index"->1].
-crt[2,2],{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)].
-ltz[mat[2,1,1],"type"->"\[CapitalTheta]","index"->{1,2}],
-{{1,2}}(*1,2\:6307\:6807\:7f29\:5e76*)]
+crt[2,2]
+,{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)].
+ltz[mat[2,1,0],"type"->"\[CapitalTheta]","index"->{1,2}]
+(*\:6700\:540e\:6c42 Trace*)]
+-Tr[
+mat[2,1,1].
+TensorContract[
+crt[2,2].
+ltz[ltz[mat[3,1,0],"type"->"ltz","index"->1],"type"->"\[CapitalTheta]","index"->{1,2}].
+levi
+,{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)]
+]
 )];
+
+
+(* ::DisplayFormula:: *)
+(**)
 
 
 (* ::Text:: *)
@@ -662,12 +683,12 @@ lag["calH"]=Expand[lecs[7]*(Flatten[temp1].Flatten[temp2])];
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Lagrangian interaction*)
 
 
 lag["tot"]=lag["oct"]+lag["dec"]+lag["mes"]+lag["D"]+lag["F"]+lag["calC"];
-lag["int"]=lag["tot"]/.{lecs[1]->0,lecs[3]->0,lecs[7]->0,vfd[__]->0,fd[_,_,2]->0};(*\:53bb\:6389\:52a8\:80fd\:9879\:ff0c\[ScriptCapitalH]\:9879\:ff0c\:8d28\:91cf\:9879\:5f97\:5230 \[ScriptCapitalL]int*)
+lag["int"]=lag["tot"]/.{lecs[1]->0,lecs[3]->0,lecs[7]->0,vfd[__]->0,fd[_,_,2]->0};(*\:53bb\:6389\:52a8\:80fd\:9879,\[ScriptCapitalH]\:9879,\:8d28\:91cf\:9879\:5f97\:5230 \[ScriptCapitalL]int*)
 
 
 (* ::Section:: *)
@@ -682,7 +703,7 @@ lag["int"]=lag["tot"]/.{lecs[1]->0,lecs[3]->0,lecs[7]->0,vfd[__]->0,fd[_,_,2]->0
 (*\:7ed9\:51fa\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
 
 
-fieldScript::usage="\:573a\:7684\:5934\:90e8\:ff0c\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f\:ff0c\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0";
+fieldScript::usage="\:573a\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0";
 
 
 (*\:7c92\:5b50\:7684\:8bb0\:53f7*)
@@ -737,7 +758,7 @@ OverBar/@fdptc[0][3]
 ];
 
 
-massScript::usage="\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8\:ff0c\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f\:ff0c\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0";
+massScript::usage="\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0";
 
 
 (*\:5404\:79cd\:7c92\:5b50\:7684\:8d28\:91cf*)
@@ -838,7 +859,7 @@ gma->CenterDot
 KeyValueMap[assApp,assFmt];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Gather and sort*)
 
 
@@ -857,22 +878,22 @@ fdForms::usage="\:573a\:5bf9\:8c61\:7684\:6a21\:5f0f";
 
 
 fdOrder1[x_]:=If[ContainsAny[Head/@x,fdHeads],0,1];
-fdOrder1::usage="\:62c9\:6c0f\:91cf\:4e2d\:6bcf\:4e00\:9879Times[...]\:5185\:90e8\:7684\:987a\:5e8f\:ff0c\:8ba9\:573a\:6392\:5728\:524d\:9762\:ff0c\:7cfb\:6570\:6392\:5728\:540e\:9762\:ff0c
-\:5bf9\:4e8e\:6574\:6570\:503c\:ff0cf[e]\:662f\:6309\:71671,2,3,4\:ff0c\:5373\:4ece\:5c0f\:5230\:5927\:7684\:987a\:5e8f\:6392\:5217\:7684";
+fdOrder1::usage="\:62c9\:6c0f\:91cf\:4e2d\:6bcf\:4e00\:9879Times[...]\:5185\:90e8\:7684\:987a\:5e8f,\:8ba9\:573a\:6392\:5728\:524d\:9762,\:7cfb\:6570\:6392\:5728\:540e\:9762,
+\:5bf9\:4e8e\:6574\:6570\:503c,f[e]\:662f\:6309\:71671,2,3,4,\:5373\:4ece\:5c0f\:5230\:5927\:7684\:987a\:5e8f\:6392\:5217\:7684";
 
 
 (* ::Text:: *)
-(*\:5bf9\:4e8e lag[] \:7684\:6bcf\:4e00\:4e2avalue\:ff0c\:7528\:4e0b\:9762\:7684\:51fd\:6570\:628a\:573a\:5bf9\:8c61\:548c\:7cfb\:6570\:63d0\:53d6\:51fa\:6765\:ff0c\:5148\:628a Plus and Times \:66ff\:6362\:6210 List\:ff0c\:518d\:7528 GatherBy \:5206\:7ec4*)
+(*\:5bf9\:4e8e lag[] \:7684\:6bcf\:4e00\:4e2avalue,\:7528\:4e0b\:9762\:7684\:51fd\:6570\:628a\:573a\:5bf9\:8c61\:548c\:7cfb\:6570\:63d0\:53d6\:51fa\:6765,\:5148\:628a Plus and Times \:66ff\:6362\:6210 List,\:518d\:7528 GatherBy \:5206\:7ec4*)
 
 
 lagGather[lag:_]:=Map[(*\:5bf9\:5f97\:5230\:7684\:62c9\:6c0f\:91cf\:6c42\:548c\:5f0f\:5e94\:7528\:5206\:7c7b\:548c\:6392\:5e8f\:51fd\:6570*)
-(Times@@@((*\:6392\:5e8f\:5b8c\:6210\:540e\:ff0c\:66ff\:6362\:7b2c\:4e00\:5c42\:7684\:5934\:90e8\:4e3aTimes,\:6062\:590d\:4e58\:79ef\:5f62\:5f0f*)
-SortBy[(*\:5bf9\:5f97\:5230\:7684\:5217\:8868\:8fdb\:884c\:6392\:5e8f\:ff0c\:8ba9\:542b\:6709\:573a\:7684\:9879\:6392\:5728\:524d\:9762\:ff0c\:7cfb\:6570\:6392\:5728\:540e\:9762*)
+(Times@@@((*\:6392\:5e8f\:5b8c\:6210\:540e,\:66ff\:6362\:7b2c\:4e00\:5c42\:7684\:5934\:90e8\:4e3aTimes,\:6062\:590d\:4e58\:79ef\:5f62\:5f0f*)
+SortBy[(*\:5bf9\:5f97\:5230\:7684\:5217\:8868\:8fdb\:884c\:6392\:5e8f,\:8ba9\:542b\:6709\:573a\:7684\:9879\:6392\:5728\:524d\:9762,\:7cfb\:6570\:6392\:5728\:540e\:9762*)
 GatherBy[
-#1,(MatchQ[#1,fdForms]&)(*\:6309\:7167\:662f\:5426\:5305\:542b\:573a\:5bf9\:8c61\:ff0c\:5206\:6210\:4e24\:7c7b*)
+#1,(MatchQ[#1,fdForms]&)(*\:6309\:7167\:662f\:5426\:5305\:542b\:573a\:5bf9\:8c61,\:5206\:6210\:4e24\:7c7b*)
 ],fdOrder1
 ]))&,
-Apply[List,lag,{0,1}(*\:8ba9\:62c9\:6c0f\:91cf\:4e2d\:7684\:6c42\:548c\:4e0e\:4e58\:79ef\:53d8\:6210\:5217\:8868\:ff0c\:5e94\:7528\:5230\:7b2c0\:5c42\:548c\:7b2c1\:5c42*)]
+Apply[List,lag,{0,1}(*\:8ba9\:62c9\:6c0f\:91cf\:4e2d\:7684\:6c42\:548c\:4e0e\:4e58\:79ef\:53d8\:6210\:5217\:8868,\:5e94\:7528\:5230\:7b2c0\:5c42\:548c\:7b2c1\:5c42*)]
 ,{1}(*\:53ea\:5e94\:7528\:5230\:7b2c1\:5c42*)
 ]
 lagGather::usage="lagGather[lag:_],\:5bf9\:62c9\:6c0f\:91cf\:4e2d\:7684\:573a\:5bf9\:8c61\:548c\:7cfb\:6570\:8fdb\:884c\:5206\:7ec4,
@@ -906,7 +927,7 @@ Map[(*\:5728\:7b2c\:4e00\:5c42\:5e94\:7528Rule,\:628a gather \:7684\:7ed3\:679c\
 fds=Keys[assoc];coes=Values[assoc];
 (*\:6c42\:51fa\:4e0a\:9762\:751f\:6210\:7684\:5173\:8054\:7684 keys and values,\:4e5f\:5c31\:662f \:573a\:5bf9\:8c61 \:548c \:7cfb\:6570*)
 ptc=(SortBy[Cases[Level[#1,{-2}],fd[__]],
-{(*\:63d0\:53d6\:51fa\:6bcf\:4e00\:7ec4\:573a\:5bf9\:8c61\:4e2d\:7684\:7c92\:5b50\:ff0c\:5e76\:8fdb\:884c\:6392\:5e8f,\:4f9d\:6b21\:6309\:7167\:7c92\:5b50\:79cd\:7c7b,\:6b63\:53cd\:7c92\:5b50,\:4f8b\:5b50\:7f16\:53f7\:6392\:5e8f*)
+{(*\:63d0\:53d6\:51fa\:6bcf\:4e00\:7ec4\:573a\:5bf9\:8c61\:4e2d\:7684\:7c92\:5b50,\:5e76\:8fdb\:884c\:6392\:5e8f,\:4f9d\:6b21\:6309\:7167\:7c92\:5b50\:79cd\:7c7b,\:6b63\:53cd\:7c92\:5b50,\:4f8b\:5b50\:7f16\:53f7\:6392\:5e8f*)
 Function[{x},Part[x,1]],
 Function[{x},Part[x,3]],
 Function[{x},Part[x,2]]
