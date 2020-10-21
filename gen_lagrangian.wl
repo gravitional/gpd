@@ -27,7 +27,7 @@
 BeginPackage["chptgpd`"];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*path*)
 
 
@@ -406,7 +406,7 @@ Symmetric[All]
 ];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Lorentz objects*)
 
 
@@ -558,7 +558,7 @@ gcd[3,crt[1,1],1,mat[3,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)
 #3->1::\:7ed9\:504f\:5bfc\:6570\:52a0\:4e0a\:6d1b\:4f26\:5179\:6307\:6807";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Lagrangians*)
 
 
@@ -630,33 +630,87 @@ lag["F"]=Expand[lecs[5]*Tr[mat[2,1,1].cmtm[Dot,crt[2,1],ltz[mat[2,1,0],"type"->"
 (*calC,*)
 
 
-(* ::DisplayFormula:: *)
-(*\[CapitalTheta]\[Mu]\[Nu]=g\[Mu]\[Nu]-(z+1/2)\[Gamma]\[Mu]*\[Gamma]\[Nu],set,z=-1,*)
+(* ::Text:: *)
+(*\:8fd9\:4e00\:9879\:6bd4\:8f83\:590d\:6742\:ff0c\:6c42\:548c\:5728\:4e09\:4e2a\:5c42\:6b21\:4e0a\:8fdb\:884c\:ff0cSU(3)\:5473\:9053\:7a7a\:95f4\:ff0cltz \:6d1b\:4f26\:5179\:6307\:6807\:7a7a\:95f4\:ff0cSpinor \:65cb\:91cf\:5206\:91cf\:3002\:4ed6\:4eec\:662f\:76f8\:4e92\:72ec\:7acb\:7684\:3002*)
+
+
+(* ::Text:: *)
+(*SU(3)\:5473\:9053\:7a7a\:95f4 \:662f\:9ad8\:7ef4\:77e9\:9635\:76f8\:4e58\:548c\:6307\:6807\:6536\:7f29\:ff0cltz \:7a7a\:95f4\:662f\:5f20\:91cf\:6536\:7f29\:ff0cspinor \:90e8\:5206\:662f\:4e8c\:6b21\:578b\:ff0c\:6700\:540e\:53d8\:6210\:4e00\:7ef4\:8868\:8fbe\:5f0f\:3002*)
 
 
 (* ::DisplayFormula:: *)
-(*\[CapitalTheta]\[Mu]\[Nu]=g\[Mu]\[Nu]+1/2\[Gamma]\[Mu]*\[Gamma]\[Nu],\[Gamma]0.\[CapitalTheta]\[Mu]\[Nu].\[Gamma]0=g\[Mu]\[Nu]+1/2\[Gamma]\[Nu]*\[Gamma]\[Mu]=-g\[Mu]\[Nu]-1/2\[Gamma]\[Mu]*\[Gamma]\[Nu]=-\[CapitalTheta]\[Mu]\[Nu]*)
+(*\[CapitalTheta]\[Mu]\[Nu]=g\[Mu]\[Nu]-(z+1/2)\[Gamma]\[Mu]*\[Gamma]\[Nu],\:5728\:8ba1\:7b97\:4e2d\:9009\:53d6,z=1/2,*)
 
 
 (* ::DisplayFormula:: *)
-(*\:5176\:4ed6\:7684\:9879,\[CurlyEpsilon][ijk],u[jl],\:5747\:4e3a\:5b9e\:6570,\:4f5c\:590d\:5171\:8f6d\:4e0d\:4f1a\:51fa\:8d1f\:53f7,\:6240\:4ee5\:8fd9\:4e00\:9879\:53ef\:80fd\:6709\:4e2a\:989d\:5916\:8d1f\:53f7\:3002*)
+(*\[CapitalTheta]\[Mu]\[Nu]=g\[Mu]\[Nu]-\[Gamma]\[Mu].\[Gamma]\[Nu]=1/2 \[Gamma]\[Mu].\[Gamma]\[Nu]+1/2 \[Gamma]\[Nu].\[Gamma]\[Mu]-\[Gamma]\[Mu].\[Gamma]\[Nu]=1/2 \[Gamma]\[Nu].\[Gamma]\[Mu]-\[Gamma]\[Mu].\[Gamma]\[Nu]=I*\[Sigma]\[Mu]\[Nu],*)
+
+
+(* ::DisplayFormula:: *)
+(*\[Gamma]0.(I*\[Sigma]\[Mu]\[Nu])\[ConjugateTranspose].\[Gamma]0=-I*\[Sigma]\[Mu]\[Nu],*)
+
+
+(* ::Text:: *)
+(*\:6311\:9009\:4e00\:9879\:ff0c\:6bd4\:5982\:ff0c*)
+
+
+(* ::DisplayFormula:: *)
+(*\!\(\*OverscriptBox[\(p\), \(_\)]\).(I*\[Sigma]\[Mu]\[Nu]).\!\(\*SubsuperscriptBox[\(\[CapitalDelta]\), \(\[Mu]\), \(0\)]\)*\!\( *)
+(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
+(*\*SuperscriptBox[\(\[Pi]\), \(+\)]\)*)
+
+
+(* ::Text:: *)
+(*\:8fd9\:4e00\:9879\:4f5c\:5384\:7c73\:5171\:8f6d\:7684\:65f6\:5019\:ff0c\:4f1a\:4ea7\:751f\:4e00\:4e2a\:8d1f\:53f7\:ff0c\:5176\:4ed6\:7684\:7c7b\:4f3c\:4e8e Dirac \:573a\:3002\:8003\:8651\:8fd9\:4e2a\:8d1f\:53f7\:4e4b\:540e,\:73b0\:5728\:8fd9\:4e00\:9879\:662f\:5384\:7c73\:7684.*)
+
+
+(* ::DisplayFormula:: *)
+(*\!\(\*OverscriptBox[\(p\), \(_\)]\).(I*\[Sigma]\[Mu]\[Nu]).\!\(\*SubsuperscriptBox[\(\[CapitalDelta]\), \(\[Mu]\), \(0\)]\)*\!\( *)
+(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
+(*\*SuperscriptBox[\(\[Pi]\), \(+\)]\)+\!\(\*OverscriptBox[*)
+(*SubsuperscriptBox[\(\[CapitalDelta]\), \(\[Mu]\), \(0\)], \(_\)]\).(I*\[Sigma]\[Mu]\[Nu]).p*\!\( *)
+(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
+(*\*SuperscriptBox[\(\[Pi]\), \(-\)]\)*)
+
+
+(* ::Text:: *)
+(*\:800c\:5728 C \:53d8\:6362\:4e0b\:ff0c\:65cb\:91cf\:7ed3\:6784 \!\(\*OverscriptBox[\(\[Psi]\), \(_\)]\) \[Sigma]^\[Mu]\[Nu] \[Psi] \:51fa\:4e00\:4e2a\:989d\:5916\:8d1f\:53f7\:ff0c\:8fd9\:4e2a\:8d1f\:53f7\:4e0e\:7535\:8377\:5171\:8f6d\:65f6 \!\( *)
+(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
+(*\*SuperscriptBox[\(\[Pi]\), \(+\)]\)-\!\( *)
+(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
+(*\*SuperscriptBox[\(\[Pi]\), \(-\)]\) \:7684\:8d1f\:53f7\:62b5\:6d88\:6389\:4e86\:ff0c\:6240\:4ee5\:6574\:4f53\:662f C \:4e0d\:53d8\:7684\:3002*)
+
+
+(* ::Text:: *)
+(*\:8fd9\:9700\:8981\:5047\:8bbe \:77e2\:91cf\:7ed3\:6784 T^\[Mu] \:5728 C \:53d8\:6362\:4e0b\:4e0d\:53d8\:ff0c\:56e0\:4e3a\:5b83\:6ca1\:6709\:548c \!\(\*OverscriptBox[\(\[Psi]\), \(_\)]\) \[Gamma]^\[Mu] \[Psi] \:8026\:5408\:3002\:800c\:5728\:6574\:4f53 CPT \:4e0b\:ff0c\:5047\:8bbeT^\[Mu]->-T^\[Mu]\:ff0c\:5982\:540c\:666e\:901a\:4f4d\:7f6e\:77e2\:91cfx\:3002*)
+(*\:518d\:52a0\:4e0a\!\(\*OverscriptBox[\(\[Psi]\), \(_\)]\) \[Sigma]^\[Mu]\[Nu] \[Psi] ->\!\(\*OverscriptBox[\(\[Psi]\), \(_\)]\) \[Sigma]^\[Mu]\[Nu] \[Psi] ,\!\( *)
+(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
+(*\*SuperscriptBox[\(\[Pi]\), \(+\)]\)-\!\( *)
+(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
+(*\*SuperscriptBox[\(\[Pi]\), \(-\)]\)->-(\!\( *)
+(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
+(*\*SuperscriptBox[\(\[Pi]\), \(+\)]\)-\!\( *)
+(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
+(*\*SuperscriptBox[\(\[Pi]\), \(-\)]\))\:ff0c\:90a3\:4e48\:8fd9\:4e00\:9879\:6574\:4f53\:4e5f\:662f CPT \:4e0d\:53d8\:7684\:3002\:6240\:4ee5\:8fd9\:91cc\:5e94\:8be5\:6709\:4e2a\:8d1f\:53f7\:3002*)
 
 
 lag["calC"]=Expand[lecs[6]*(
 Tr[
 TensorContract[
 levi.
-ltz[mat[3,1,1],"type"->"ltz","index"->1].
-crt[2,2]
+ltz[mat[3,1,1],"type"->"ltz","index"->1(*dec\:7684\:6307\:6807*)].
+crt[2,2(*\:6d41\:7684\:6307\:6807*)]
 ,{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)].
 ltz[mat[2,1,0],"type"->"\[CapitalTheta]","index"->{1,2}]
 (*\:6700\:540e\:6c42 Trace*)]
--Tr[
++Tr[
 mat[2,1,1].
 TensorContract[
-crt[2,2].
-ltz[ltz[mat[3,1,0],"type"->"ltz","index"->1],"type"->"\[CapitalTheta]","index"->{1,2}].
-levi
+crt[2,2(*\:6d41\:7684\:6307\:6807*)].
+ltz[
+ltz[mat[3,1,0],"type"->"ltz","index"->1(*dec\:7684\:6307\:6807*)],
+"type"->"\[CapitalTheta]","index"->{2,1}].
+(-levi)(*\:8fd9\:91cc\:4f1a\:6709\:4e00\:4e2a\:8d1f\:53f7*)
 ,{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)]
 ]
 )];
@@ -691,7 +745,7 @@ lag["tot"]=lag["oct"]+lag["dec"]+lag["mes"]+lag["D"]+lag["F"]+lag["calC"];
 lag["int"]=lag["tot"]/.{lecs[1]->0,lecs[3]->0,lecs[7]->0,vfd[__]->0,fd[_,_,2]->0};(*\:53bb\:6389\:52a8\:80fd\:9879,\[ScriptCapitalH]\:9879,\:8d28\:91cf\:9879\:5f97\:5230 \[ScriptCapitalL]int*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*formatting*)
 
 
@@ -859,11 +913,11 @@ gma->CenterDot
 KeyValueMap[assApp,assFmt];
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Gather and sort*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*fields forms*)
 
 
