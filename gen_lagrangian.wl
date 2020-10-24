@@ -27,7 +27,7 @@
 BeginPackage["chptgpd`"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*path*)
 
 
@@ -165,7 +165,7 @@ mfileslist=ToExpression[inputcml[[2]]]
 (*\:811a\:672c\:5185\:7f6e\:9884\:5b9a\:4e49\:53c2\:6570*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Lagrangian*)
 
 
@@ -406,7 +406,7 @@ Symmetric[All]
 ];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Lorentz objects*)
 
 
@@ -442,7 +442,8 @@ Switch[OptionValue["type"],
 "ltz",ltzScriptip1[sym,idxes],
 "\[PartialD]",pdeip1[ltzScriptip1["\[PartialD]",idxes],sym],
 "\[Gamma]",gmaip1[ltzScriptip1["\[Gamma]",idxes],sym],
-"\[CapitalTheta]",gmaip1[ltzScriptip1["\[CapitalTheta]",idxes],sym]
+"\[CapitalTheta]",gmaip1[ltzScriptip1["\[CapitalTheta]",idxes],sym],
+"\[Sigma]",gmaip1[ltzScriptip1["\[Sigma]",idxes],sym]
 ]
 ]
 ltz::usage="\:7ed9\:7b26\:53f7\:52a0\:4e0a\:9884\:5b9a\:4e49\:7684\:6d1b\:4f26\:5179\:6307\:6807,\:6d1b\:4f26\:5179\:504f\:5bfc\:6570,\:4f3d\:9a6c\:77e9\:9635,\:7b49\:7b49\:3002\:4e5f\:53ef\:4ee5\:4f20\:5165\:81ea\:5b9a\:4e49\:7684\:6307\:6807,\:9ed8\:8ba4\:7ed9\:51fa\:4e86 forcestr/@{\[Mu],\[Nu],\[Alpha],\[Beta],5}
@@ -488,13 +489,7 @@ a \:662f SU(3)\:6307\:6807\:ff0cindex \:662f\:6d1b\:4f26\:5179\:6307\:6807";
 
 
 (* ::Text:: *)
-(*\:5404\:79cd\:6d41,\:77e2\:91cf\:6d41,\:8f74\:77e2\:6d41,\:6807\:91cf\:6d41*)
-
-
-crt::usage="crt[num,index] \:7ed9\:51fa\:9884\:5b9a\:4e49\:7684\:7b2c num \:4e2a\:5f3a\:5b50\:6d41,\:5e26\:6709\:6307\:6807index,\:987a\:5e8f\:5982\:4e0b\:ff1a
-\!\(\*SubscriptBox[\(\[CapitalGamma]\), \(\[Mu]\)]\)::1
-\!\(\*SubscriptBox[\(u\), \(\[Mu]\)]\)::2
-\[Lambda][a]*v[a]\[Mu] ::3";
+(*\:5404\:79cd\:6d41,\:77e2\:91cf\:6d41,\:8f74\:77e2\:6d41,\:6807\:91cf\:4ecb\:5b50\:534f\:53d8\:5bfc\:6570\:4e2d\:7684\:6d41*)
 
 
 (* meson vector current *)
@@ -515,6 +510,28 @@ mat[1,2,0].\[Lambda][a].mat[1,2,1]-mat[1,2,1].\[Lambda][a].mat[1,2,0]
 ,{a,1,8,1}];
 (*current 3 \[Lambda][a] v[a]\[Mu]*)
 crt[3,index:_]:=Sum[\[Lambda][a]*vfd[index,a],{a,1,8,1}]
+
+
+(* ::Text:: *)
+(*\:53cd\:5e38\:78c1\:77e9\:7684\:6d41*)
+
+
+vfduv[vfd_,index_]:=ltz[ltz[vfd,"type"->"ltz","index"->index[[2]]],"type"->"\[PartialD]","index"->index[[1]]]-
+ltz[ltz[vfd,"type"->"ltz","index"->index[[1]]],"type"->"\[PartialD]","index"->index[[2]]];
+vfduv::usage="fuv[vfd_,index_],\:4ea7\:751f\:7535\:78c1\:573a\:5f3a\:5f20\:91cf";
+
+
+crt[4,index:_]:=-1/2 Sum[
+vfduv[vfd[a],index]*
+(mat[1,2,1].\[Lambda][a].mat[1,2,0]+mat[1,2,0].\[Lambda][a].mat[1,2,1])
+,{a,1,8,1}]
+
+
+crt::usage="crt[num,index] \:7ed9\:51fa\:9884\:5b9a\:4e49\:7684\:7b2c num \:4e2a\:5f3a\:5b50\:6d41,\:5e26\:6709\:6307\:6807index,\:987a\:5e8f\:5982\:4e0b\:ff1a
+\!\(\*SubscriptBox[\(\[CapitalGamma]\), \(\[Mu]\)]\)::1
+\!\(\*SubscriptBox[\(u\), \(\[Mu]\)]\)::2
+\[Lambda][a]*v[a]\[Mu] ::3
+crt[4,{1,2}],Fuv\[ConjugateTranspose]";
 
 
 (* ::Section:: *)
@@ -683,7 +700,7 @@ lag["F"]=Expand[lecs[5]*Tr[mat[2,1,1].cmtm[Dot,crt[2,1],ltz[mat[2,1,0],"type"->"
 
 (* ::Text:: *)
 (*\:8fd9\:9700\:8981\:5047\:8bbe \:77e2\:91cf\:7ed3\:6784 T^\[Mu] \:5728 C \:53d8\:6362\:4e0b\:4e0d\:53d8\:ff0c\:56e0\:4e3a\:5b83\:6ca1\:6709\:548c \!\(\*OverscriptBox[\(\[Psi]\), \(_\)]\) \[Gamma]^\[Mu] \[Psi] \:8026\:5408\:3002\:800c\:5728\:6574\:4f53 CPT \:4e0b\:ff0c\:5047\:8bbeT^\[Mu]->-T^\[Mu]\:ff0c\:5982\:540c\:666e\:901a\:4f4d\:7f6e\:77e2\:91cfx\:3002*)
-(*\:518d\:52a0\:4e0a\!\(\*OverscriptBox[\(\[Psi]\), \(_\)]\) \[Sigma]^\[Mu]\[Nu] \[Psi] ->\!\(\*OverscriptBox[\(\[Psi]\), \(_\)]\) \[Sigma]^\[Mu]\[Nu] \[Psi] ,\!\( *)
+(*\:518d\:52a0\:4e0a \!\(\*OverscriptBox[\(\[Psi]\), \(_\)]\) \[Sigma]^\[Mu]\[Nu] \[Psi] ->\!\(\*OverscriptBox[\(\[Psi]\), \(_\)]\) \[Sigma]^\[Mu]\[Nu] \[Psi] ,\!\( *)
 (*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
 (*\*SuperscriptBox[\(\[Pi]\), \(+\)]\)-\!\( *)
 (*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
@@ -737,6 +754,20 @@ lag["calH"]=Expand[lecs[7]*(Flatten[temp1].Flatten[temp2])];
 ]
 
 
+lag["mag"]=1/4 (
+lecs[8]*Tr[mat[2,1,1].cmtp[Dot,crt[4,{1,2}],ltz[mat[2,1,0],"type"->"\[Sigma]","index"->{1,2}]]]+
+lecs[9]*Tr[mat[2,1,1].cmtm[Dot,crt[4,{1,2}],ltz[mat[2,1,0],"type"->"\[Sigma]","index"->{1,2}]]]+
+lecs[10]*Tr[mat[2,1,1].ltz[mat[2,1,0],"type"->"\[Sigma]","index"->{1,2}]]*Tr[crt[4,{1,2}]]
+);
+
+
+1/4 (
+lecs[8]*Tr[mat[2,1,1].cmtp[Dot,crt[4,{1,2}],ltz[mat[2,1,0],"type"->"\[Sigma]","index"->{1,2}]]]+
+lecs[9]*Tr[mat[2,1,1].cmtm[Dot,crt[4,{1,2}],ltz[mat[2,1,0],"type"->"\[Sigma]","index"->{1,2}]]]+
+lecs[10]*Tr[mat[2,1,1].ltz[mat[2,1,0],"type"->"\[Sigma]","index"->{1,2}]]*Tr[crt[4,{1,2}]]
+);
+
+
 (* ::Section::Closed:: *)
 (*Lagrangian interaction*)
 
@@ -745,7 +776,7 @@ lag["tot"]=lag["oct"]+lag["dec"]+lag["mes"]+lag["D"]+lag["F"]+lag["calC"];
 lag["int"]=lag["tot"]/.{lecs[1]->0,lecs[3]->0,lecs[7]->0,vfd[__]->0,fd[_,_,2]->0};(*\:53bb\:6389\:52a8\:80fd\:9879,\[ScriptCapitalH]\:9879,\:8d28\:91cf\:9879\:5f97\:5230 \[ScriptCapitalL]int*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*formatting*)
 
 
@@ -873,7 +904,9 @@ vfdFmt::usage="vfdFmt[x_,y_],\:5c06\:8026\:5408\:7684\:5916\:90e8\:6d41\:683c\:5
 lecsFmt[x:_]:=<|
 1->1,2->1/Subscript["f",""],3->Subscript["f",""],
 4->Subscript["D",""],5->Subscript["F",""],
-6->Subscript["\[ScriptCapitalC]",""],7->Subscript["\[ScriptCapitalH]",""]
+6->Subscript["\[ScriptCapitalC]",""],7->Subscript["\[ScriptCapitalH]",""],
+8->Subscript["c","1"],9->Subscript["c","2"],10->Subscript["c","3"],
+11->Subscript["b","9"],12->Subscript["b","10"],13->Subscript["b","11"]
 |>[x];
 
 
@@ -955,7 +988,7 @@ lag\:5e94\:5177\:6709\:5982\:4e0b\:5f62\:5f0f\:ff1a
 Plus[Times[],Times[],...]";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Associations*)
 
 
@@ -1064,3 +1097,6 @@ EndPackage[]
 
 
 If[Not[booleincmd],FrontEndExecute[FrontEndToken["DeleteGeneratedCells"]]]
+
+
+test=AbsoluteOptions[EvaluationNotebook[]];
