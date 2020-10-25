@@ -165,7 +165,7 @@ mfileslist=ToExpression[inputcml[[2]]]
 (*\:811a\:672c\:5185\:7f6e\:9884\:5b9a\:4e49\:53c2\:6570*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Lagrangian*)
 
 
@@ -406,7 +406,7 @@ Symmetric[All]
 ];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Lorentz objects*)
 
 
@@ -534,7 +534,7 @@ crt::usage="crt[num,index] \:7ed9\:51fa\:9884\:5b9a\:4e49\:7684\:7b2c num \:4e2a
 crt[4,{1,2}],Fuv\[ConjugateTranspose]";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*gauge covariant derivative \:89c4\:8303\:534f\:53d8\:5bfc\:6570*)
 
 
@@ -575,7 +575,7 @@ gcd[3,crt[1,1],1,mat[3,1,0]] \:7ed9\:51fa \!\(\*SubscriptBox[\(D\), \(\[Mu]\)]\)
 #3->1::\:7ed9\:504f\:5bfc\:6570\:52a0\:4e0a\:6d1b\:4f26\:5179\:6307\:6807";
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Lagrangians*)
 
 
@@ -776,7 +776,7 @@ lag["tot"]=lag["oct"]+lag["dec"]+lag["mes"]+lag["D"]+lag["F"]+lag["calC"];
 lag["int"]=lag["tot"]/.{lecs[1]->0,lecs[3]->0,lecs[7]->0,vfd[__]->0,fd[_,_,2]->0};(*\:53bb\:6389\:52a8\:80fd\:9879,\[ScriptCapitalH]\:9879,\:8d28\:91cf\:9879\:5f97\:5230 \[ScriptCapitalL]int*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*formatting*)
 
 
