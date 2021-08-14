@@ -1,0 +1,163 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      5531,        155]
+NotebookOptionsPosition[      4607,        131]
+NotebookOutlinePosition[      5043,        148]
+CellTagsIndexPosition[      5000,        145]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["a", "Title",
+ CellChangeTimes->{{3.837946348551139*^9, 
+  3.837946350443851*^9}},ExpressionUUID->"e77a1c43-3b43-43a1-8e53-\
+27e07a067614"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"xChannel", "::", "usage"}], "=", 
+   "\"\<xChannel[vtx_,tag_,fd_],\:6839\:636e tag,\:4ece vtx \
+\:63d0\:53d6\:51fa fd \:7c7b\:578b\:7684\:573a\:ff0c\:4e5f\:5c31\:662f\:63d0\
+\:53d6\:53cd\:5e94\:9053\>\""}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"xChannel", "[", 
+   RowBox[{"vtx_", ",", "tag_", ",", "fd_"}], "]"}], ":=", 
+  RowBox[{"Cases", "[", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"KeySelect", "[", 
+      RowBox[{"vtx", ",", 
+       RowBox[{"ContainsAll", "[", "tag", "]"}]}], "]"}], "//", "Keys"}], ",",
+     "fd", ",", 
+    RowBox[{"{", 
+     RowBox[{"-", "2"}], "}"}]}], "]"}]}]}], "Code",
+ CellChangeTimes->{{3.837946020936494*^9, 3.837946024616878*^9}, {
+  3.8379460665010357`*^9, 3.83794607134892*^9}, {3.837946112969955*^9, 
+  3.8379461142654533`*^9}, {3.837946158606379*^9, 3.837946187782716*^9}, {
+  3.837946227087226*^9, 3.837946431828916*^9}, {3.8379465049386787`*^9, 
+  3.837946522500022*^9}},
+ CellLabel->"In[94]:=",ExpressionUUID->"c7e39b3c-7dbf-4f46-926d-5777377c1c52"],
+
+Cell[BoxData[
+ RowBox[{"mesChnnel", "=", 
+  RowBox[{"xChannel", "[", 
+   RowBox[{
+    RowBox[{"vtx", "[", 
+     RowBox[{"unq", "[", 
+      RowBox[{"\"\<strong\>\"", ",", "\"\<DF\>\""}], "]"}], "]"}], ",", 
+    RowBox[{"unq", "[", 
+     RowBox[{"oct", "[", "\"\<pb\>\"", "]"}], "]"}], ",", 
+    RowBox[{"fd", "[", 
+     RowBox[{"1", ",", "_", ",", "0"}], "]"}]}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.837946443080459*^9, 3.8379464584501047`*^9}, {
+  3.837946528198888*^9, 3.837946532189867*^9}, {3.8379466141525307`*^9, 
+  3.8379466444555073`*^9}},
+ CellLabel->
+  "In[102]:=",ExpressionUUID->"66523756-98c6-4826-bde4-b767238636b1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"vtx", "[", 
+    RowBox[{"unq", "[", 
+     RowBox[{"\"\<strong\>\"", ",", "\"\<DF\>\""}], "]"}], "]"}], "[", 
+   "\[IndentingNewLine]", 
+   RowBox[{"unq", "[", 
+    RowBox[{
+     RowBox[{"oct", "[", "\"\<pb\>\"", "]"}], ",", 
+     RowBox[{"oct", "[", "\"\<p\>\"", "]"}], ",", 
+     RowBox[{"mes", "[", "\"\<\[Pi]0\>\"", "]"}]}], "]"}], 
+   "\[IndentingNewLine]", "]"}], "*", 
+  RowBox[{
+   RowBox[{"vtx", "[", 
+    RowBox[{"unq", "[", 
+     RowBox[{"\"\<F1\>\"", ",", "\"\<MMA\>\""}], "]"}], "]"}], "[", 
+   "\[IndentingNewLine]", "ds", "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.837946673595194*^9, 3.837946692517838*^9}, {
+  3.837946902670681*^9, 
+  3.837946949090897*^9}},ExpressionUUID->"f75ca82d-cffb-4a4b-beb9-\
+145b116c2c71"],
+
+Cell[CellGroupData[{
+
+Cell["dsaf", "Chapter",
+ CellChangeTimes->{{3.837946959846917*^9, 
+  3.8379469599787292`*^9}},ExpressionUUID->"3a6b7d9e-fe36-4f4e-bfa0-\
+90144529f3df"],
+
+Cell[BoxData[{
+ RowBox[{"KeySelect", "[", 
+  RowBox[{
+   RowBox[{"vtx", "[", 
+    RowBox[{"unq", "[", 
+     RowBox[{"\"\<strong\>\"", ",", "\"\<DF\>\""}], "]"}], "]"}], ",", 
+   RowBox[{"ContainsAll", "[", 
+    RowBox[{"unq", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"oct", "[", "\"\<pb\>\"", "]"}], ",", 
+      RowBox[{"oct", "[", "\"\<p\>\"", "]"}], ",", 
+      RowBox[{"mes", "[", "\"\<\[Pi]0\>\"", "]"}]}], "\[IndentingNewLine]", 
+     "]"}], "\[IndentingNewLine]", "]"}]}], " ", "\[IndentingNewLine]", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{"KeySelect", "[", 
+  RowBox[{
+   RowBox[{"vtx", "[", 
+    RowBox[{"unq", "[", 
+     RowBox[{"\"\<F1\>\"", ",", "\"\<MMA\>\""}], "]"}], "]"}], ",", 
+   RowBox[{"ContainsAll", "[", 
+    RowBox[{"unq", "[", "\[IndentingNewLine]", 
+     RowBox[{"mes", "[", "\"\<\[Pi]0\>\"", "]"}], "\[IndentingNewLine]", 
+     "]"}], "\[IndentingNewLine]", "]"}]}], " ", "\[IndentingNewLine]", 
+  "]"}]}], "Input",
+ CellChangeTimes->{{3.837946962919438*^9, 3.837947120861644*^9}, {
+  3.837947210349814*^9, 3.837947213915947*^9}, {3.837947374302455*^9, 
+  3.8379473750870523`*^9}},ExpressionUUID->"1dd187d4-fe5e-4ada-8ef6-\
+d5c4c23fe431"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1920, 1020},
+WindowMargins->{{216, Automatic}, {Automatic, 100}},
+Magnification:>1.7 Inherited,
+FrontEndVersion->"12.2 for Linux x86 (64-bit) (2020\:5e7412\:67083\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"105343ee-dbaa-4c5e-8963-866d7cbb9d81"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 144, 3, 205, "Title",ExpressionUUID->"e77a1c43-3b43-43a1-8e53-27e07a067614"],
+Cell[727, 27, 1051, 24, 149, "Code",ExpressionUUID->"c7e39b3c-7dbf-4f46-926d-5777377c1c52"],
+Cell[1781, 53, 634, 15, 93, "Input",ExpressionUUID->"66523756-98c6-4826-bde4-b767238636b1"],
+Cell[2418, 70, 799, 21, 240, "Input",ExpressionUUID->"f75ca82d-cffb-4a4b-beb9-145b116c2c71"],
+Cell[CellGroupData[{
+Cell[3242, 95, 151, 3, 144, "Chapter",ExpressionUUID->"3a6b7d9e-fe36-4f4e-bfa0-90144529f3df"],
+Cell[3396, 100, 1183, 27, 536, "Input",ExpressionUUID->"1dd187d4-fe5e-4ada-8ef6-d5c4c23fe431"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
