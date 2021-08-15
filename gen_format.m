@@ -45,6 +45,12 @@ fieldScript::usage="\:573a\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:621
 massScript::usage="\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0";
 
 
+fdType::usage="fdTp[mes],\:573a\:7684\:79cd\:7c7b";
+vtxCoe::usage="\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:5934\:90e8";
+vtxType::usage="\:8d39\:66fc\:9876\:70b9\:79cd\:7c7b\:7684\:5934\:90e8";
+fyDiag::usage="\:8d39\:66fc\:56fe\:7684\:5934\:90e8";
+
+
 vfd::usage="\:77e2\:91cf\:573a";
 fv::usage="\:5149\:5b50\:573aA";
 F\[Mu]\[Nu]::usage="\:5149\:5b50\:573aF\[Mu]\[Nu]";
@@ -67,13 +73,13 @@ Begin["`Private`"]
 
 
 (*\:5404\:79cd\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f *)
-(*\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
+(*\:516b\:91cd\:6001\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
 {
 mes["\[Eta]0"],
 mes["\[Pi]+"],mes["\[Pi]0"],mes["\[Pi]-"],
 mes["K+"],mes["K-"],mes["K0"],mes["K0b"],
 mes["\[Eta]8"]
-}={
+}=fdType["mes",0]->#&/@{
 fd[1,0,0],
 fd[1,1,0],fd[1,2,0],fd[1,3,0],
 fd[1,4,0],fd[1,5,0],fd[1,6,0],fd[1,7,0],
@@ -83,14 +89,18 @@ fd[1,8,0]
 {
 oct["p"],oct["n"],
 oct["\[CapitalSigma]+"],oct["\[CapitalSigma]0"],oct["\[CapitalSigma]-"],
-oct["\[CapitalXi]0"],oct["\[CapitalXi]-"],oct["\[CapitalLambda]"],
+oct["\[CapitalXi]0"],oct["\[CapitalXi]-"],oct["\[CapitalLambda]"]
+}=fdType["oct",0]->#&/@{
+fd[2,1,0],fd[2,2,0],
+fd[2,3,0],fd[2,4,0],fd[2,5,0],
+fd[2,6,0],fd[2,7,0],fd[2,8,0]
+};
+(*\:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
+{
 oct["pb"],oct["nb"],
 oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]-b"],
 oct["\[CapitalXi]0b"],oct["\[CapitalXi]-b"],oct["\[CapitalLambda]b"]
-}={
-fd[2,1,0],fd[2,2,0],
-fd[2,3,0],fd[2,4,0],fd[2,5,0],
-fd[2,6,0],fd[2,7,0],fd[2,8,0],
+}=fdType["oct",1]->#&/@{
 fd[2,1,1],fd[2,2,1],
 fd[2,3,1],fd[2,4,1],fd[2,5,1],
 fd[2,6,1],fd[2,7,1],
@@ -100,14 +110,18 @@ fd[2,8,1]
 {
 dec["\[CapitalDelta]++"],dec["\[CapitalDelta]+"],dec["\[CapitalDelta]0"],dec["\[CapitalDelta]-"],
 dec["\[CapitalSigma]*+"],dec["\[CapitalSigma]*0"],dec["\[CapitalSigma]*-"],
-dec["\[CapitalXi]*0"],dec["\[CapitalXi]*-"],dec["\[CapitalOmega]-"],
+dec["\[CapitalXi]*0"],dec["\[CapitalXi]*-"],dec["\[CapitalOmega]-"]
+}=fdType["dec",0]->#&/@{
+fd[3,1,0],fd[3,2,0],fd[3,3,0],fd[3,4,0],
+fd[3,5,0],fd[3,6,0],fd[3,7,0],
+fd[3,8,0],fd[3,9,0],fd[3,10,0]
+};
+(*\:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
+{
 dec["\[CapitalDelta]++b"],dec["\[CapitalDelta]+b"],dec["\[CapitalDelta]0b"],dec["\[CapitalDelta]-b"],
 dec["\[CapitalSigma]*+b"],dec["\[CapitalSigma]*0b"],dec["\[CapitalSigma]*-b"],
 dec["\[CapitalXi]*0b"],dec["\[CapitalXi]*-b"],dec["\[CapitalOmega]-b"]
-}={
-fd[3,1,0],fd[3,2,0],fd[3,3,0],fd[3,4,0],
-fd[3,5,0],fd[3,6,0],fd[3,7,0],
-fd[3,8,0],fd[3,9,0],fd[3,10,0],
+}=fdType["dec",1]->#&/@{
 fd[3,1,1],fd[3,2,1],fd[3,3,1],fd[3,4,1],
 fd[3,5,1],fd[3,6,1],fd[3,7,1],
 fd[3,8,1],fd[3,9,1],fd[3,10,1]
@@ -189,6 +203,10 @@ lecsFmt[x:_]:=<|(*\:8026\:5408\:5e38\:6570\:7684\:5177\:4f53\:5b9e\:73b0*)
 
 
 chFmt[x_]:=<|"u"->Subscript["u",""],"d"->Subscript["d",""],"s"->Subscript["s",""]|>[x](*\:7535\:8377\:77e9\:9635\:7684\:5b9e\:73b0*)
+fdTypeFmt[mes_,anti_]:=Subscript[mes,anti](*\:8868\:793a\:573a\:7684\:79cd\:7c7b,fieldKind, i.e. fdkd["mes"]*)
+vtxCoeFmt[x:__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
+vtxTypeFmt[x:__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
+fyDiagFmt[x:__]:=Subscript["f",x](*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:663e\:793a\:683c\:5f0f*)
 
 
 (* ::Section:: *)
@@ -242,7 +260,8 @@ lecs->lecsFmt,cc->lecsFmt,ch->chFmt,
 fd->fdFmt,vfd->vfdFmt,fv->fvFmt,F\[Mu]\[Nu]->F\[Mu]\[Nu]Fmt,
 massScript->Subscript,fieldScript->Superscript,
 pde->pdeFmt,ltzScript->Subscript,gma->gmaFmt,(*ldx\[Rule]ldxFmt,*)
-lagint->lagintFmt,lagcoe->lagcoeFmt
+lagint->lagintFmt,lagcoe->lagcoeFmt,
+fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt
 |>;
 
 
