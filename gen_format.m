@@ -6,6 +6,7 @@ BeginPackage["gpd`"]
 
 
 fd::usage="fd[kind,num,anti],{kind::\:573a\:7684\:7c7b\:578b\:ff0c1:meson\:ff0c2:octet,3:decuplet},{num::\:573a\:7684\:7f16\:53f7},{anti,0:\:6b63\:573a,1:\:5e26bar\:573a,2:\:573a\:7684\:8d28\:91cf}\:ff0c
+\:573a\:7684\:79cd\:7c7b1,2,3\:662f\:56e0\:4e3a\:4f7f\:7528\:4e86\:5217\:8868\:ff0c\:4ece1\:5f00\:59cb\:6bd4\:8f83\:65b9\:4fbf.
 \:5176\:4e2d\:5404\:79cd\:7c92\:5b50\:7684 num \:987a\:5e8f\:662f\:ff0c
 meson
 \[Eta]0,::0
