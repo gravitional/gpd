@@ -71,6 +71,8 @@ fyCoe::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8";
 (*+++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 Begin["`Private`"]
 (*+++++++++++++++++++++++++++++++++++++++++++++++++++++*)
+enList[x__]:=Replace[{x},{{y__}}:>{y},{0}](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5217\:8868\:7684\:51fd\:6570*)
+enString[x__]:=StringJoin[ToString[#1]&/@enList[x]](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570*)
 
 
 (* ::Section:: *)
@@ -197,14 +199,17 @@ fdFmt[1,{2,8},2]=massScript["M",fieldScript["\[Pi]","0"],fieldScript["\[Eta]","8
 fdFmt[2,{4,8},2]=massScript["M",fieldScript["\[CapitalSigma]","0"],fieldScript["\[CapitalLambda]",""]];(*\:7279\:6b8a\:60c5\:51b5 \[CapitalSigma]0 \[CapitalLambda] \:6df7\:5408\:7684\:8d28\:91cf*)
 
 
+lecsScript=enString;(*\:4e4b\:524d\:662f\:4e0b\:89d2\:6807\:683c\:5f0f: lecsScript=Subscript*)
 lecsFmt[x:_]:=<|(*\:8026\:5408\:5e38\:6570\:7684\:5177\:4f53\:5b9e\:73b0*)
-"1"->1,"1/f"->1/Subscript["f","\[Phi]"],"f"->Subscript["f","\[Phi]"],
-"D"->Subscript["D",""],"F"->Subscript["F",""],
-"C"->Subscript["\[ScriptCapitalC]",""],"H"->Subscript["\[ScriptCapitalH]",""],
-"c1"->Subscript["c","1"],"c2"->Subscript["c","2"],"c3"->Subscript["c","3"],
-"c4"->Subscript["c","4"],"cT"->Superscript["c","T"],
-"b9"->Subscript["b","9"],"b10"->Subscript["b","10"],"b11"->Subscript["b","11"]
+"1"->1,"1/f"->1/lecsScript["f","\[Phi]"],"f"->lecsScript["f","\[Phi]"],
+"D"->lecsScript["D",""],"F"->lecsScript["F",""],
+"C"->lecsScript["\[ScriptCapitalC]",""],"H"->lecsScript["\[ScriptCapitalH]",""],
+"c1"->lecsScript["c","1"],"c2"->lecsScript["c","2"],"c3"->lecsScript["c","3"],
+"c4"->lecsScript["c","4"],"cT"->Superscript["c","T"],
+"b9"->lecsScript["b","9"],"b10"->lecsScript["b","10"],"b11"->lecsScript["b","11"]
 |>[x];
+(*\:7535\:8377\:77e9\:9635\:7684\:5b9e\:73b0*)
+chFmt[x_]:=<|"u"->lecsScript["u",""],"d"->lecsScript["d",""],"s"->lecsScript["s",""]|>[x]
 
 
 (* ::Section:: *)
@@ -234,7 +239,6 @@ Frame->All,FrameStyle->Directive[Lighter[Black,.7]],ItemStyle->{"InlineFormula"}
 lagcoeFmt[x:__]:=Style[x,"InlineFormula"]
 
 
-chFmt[x_]:=<|"u"->Subscript["u",""],"d"->Subscript["d",""],"s"->Subscript["s",""]|>[x](*\:7535\:8377\:77e9\:9635\:7684\:5b9e\:73b0*)
 fdTypeFmt[mes_,anti_]:=Subscript[mes,anti](*\:8868\:793a\:573a\:7684\:79cd\:7c7b,fieldKind, i.e. fdkd["mes"]*)
 vtxCoeFmt[x:__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
 vtxTypeFmt[x:__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
@@ -269,7 +273,8 @@ assApp[expr:_,display:_]:=(Format[expr[x__],StandardForm]:=display[x])
 assFmt=<|
 lecs->lecsFmt,cc->lecsFmt,ch->chFmt,
 fd->fdFmt,vfd->vfdFmt,fv->fvFmt,F\[Mu]\[Nu]->F\[Mu]\[Nu]Fmt,
-massScript->Subscript,fieldScript->Superscript,
+(*\:573a\:7684\:663e\:793a\:65b9\:5f0f\:ff0c\:4e4b\:524d\:662f fieldScript->Superscript,massScript->Subscript *)
+massScript->Subscript,fieldScript->enString,
 pde->pdeFmt,ltzScript->Subscript,gma->gmaFmt,(*ldx\[Rule]ldxFmt,*)
 lagint->lagintFmt,lagcoe->lagcoeFmt,
 fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt,
