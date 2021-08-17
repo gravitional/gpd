@@ -46,12 +46,6 @@ fieldScript::usage="\:573a\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:621
 massScript::usage="\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0";
 
 
-fdType::usage="fdTp[mes],\:573a\:7684\:79cd\:7c7b";
-vtxCoe::usage="\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:5934\:90e8";
-vtxType::usage="\:8d39\:66fc\:9876\:70b9\:79cd\:7c7b\:7684\:5934\:90e8";
-fyDiag::usage="\:8d39\:66fc\:56fe\:7684\:5934\:90e8";
-
-
 vfd::usage="\:77e2\:91cf\:573a";
 fv::usage="\:5149\:5b50\:573aA";
 F\[Mu]\[Nu]::usage="\:5149\:5b50\:573aF\[Mu]\[Nu]";
@@ -62,6 +56,16 @@ ltzScript::usage="\:6d1b\:4f26\:5179\:6307\:6807";
 gma::usage="\[Gamma]\:77e9\:9635";
 lagint::usage="\:62c9\:683c\:6717\:65e5\:91cf\:7684\:5934\:90e8";
 lagcoe::usage="\:62c9\:683c\:6717\:65e5\:91cf\:7cfb\:6570\:7684\:5934\:90e8";
+
+
+fdType::usage="fdTp[mes],\:573a\:7684\:79cd\:7c7b";
+vtxCoe::usage="\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:5934\:90e8";
+vtxType::usage="\:8d39\:66fc\:9876\:70b9\:79cd\:7c7b\:7684\:5934\:90e8";
+fyDiagKey::usage="\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:952e";
+fyDiag::usage="\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:5934\:90e8";
+fyMassKey::usage="\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:7684\:8d28\:91cf\:7684\:5934\:90e8";
+fyCoeKey::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:952e";
+fyCoe::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8";
 
 
 (*+++++++++++++++++++++++++++++++++++++++++++++++++++++*)
@@ -203,13 +207,6 @@ lecsFmt[x:_]:=<|(*\:8026\:5408\:5e38\:6570\:7684\:5177\:4f53\:5b9e\:73b0*)
 |>[x];
 
 
-chFmt[x_]:=<|"u"->Subscript["u",""],"d"->Subscript["d",""],"s"->Subscript["s",""]|>[x](*\:7535\:8377\:77e9\:9635\:7684\:5b9e\:73b0*)
-fdTypeFmt[mes_,anti_]:=Subscript[mes,anti](*\:8868\:793a\:573a\:7684\:79cd\:7c7b,fieldKind, i.e. fdkd["mes"]*)
-vtxCoeFmt[x:__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
-vtxTypeFmt[x:__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
-fyDiagFmt[x:__]:=Subscript["f",x](*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:663e\:793a\:683c\:5f0f*)
-
-
 (* ::Section:: *)
 (*Lorentz\:5bf9\:8c61*)
 
@@ -237,6 +234,19 @@ Frame->All,FrameStyle->Directive[Lighter[Black,.7]],ItemStyle->{"InlineFormula"}
 lagcoeFmt[x:__]:=Style[x,"InlineFormula"]
 
 
+chFmt[x_]:=<|"u"->Subscript["u",""],"d"->Subscript["d",""],"s"->Subscript["s",""]|>[x](*\:7535\:8377\:77e9\:9635\:7684\:5b9e\:73b0*)
+fdTypeFmt[mes_,anti_]:=Subscript[mes,anti](*\:8868\:793a\:573a\:7684\:79cd\:7c7b,fieldKind, i.e. fdkd["mes"]*)
+vtxCoeFmt[x:__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
+vtxTypeFmt[x:__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
+
+
+fyDiagKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:952e\:7684\:663e\:793a*)
+fyDiagFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:503c\:7684\:663e\:793a*)
+fyCoeKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:952e*)
+fyCoeFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
+fyMassKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
+
+
 (* ::Section:: *)
 (*\:5e94\:7528\:6392\:7248*)
 
@@ -262,7 +272,9 @@ fd->fdFmt,vfd->vfdFmt,fv->fvFmt,F\[Mu]\[Nu]->F\[Mu]\[Nu]Fmt,
 massScript->Subscript,fieldScript->Superscript,
 pde->pdeFmt,ltzScript->Subscript,gma->gmaFmt,(*ldx\[Rule]ldxFmt,*)
 lagint->lagintFmt,lagcoe->lagcoeFmt,
-fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt
+fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt,
+fyMassKey->fyMassKeyFmt,fyCoe->fyCoeFmt,fyCoeKey->fyCoeKeyFmt,
+fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt
 |>;
 
 
