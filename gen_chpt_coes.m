@@ -75,7 +75,7 @@ Get[FileNameJoin[{gitLocalName,"gen_format.m"}]];(*\:5bfc\:5165\:4e00\:4e9b\:683
 
 unq[fiels__]:=Association[fiels]
 unq::usage="\:5c06\:8f93\:5165\:53c2\:6570\:7ec4\:6210\:5217\:8868\:ff0c\:6216\:8005\:5173\:8054,\:9884\:7559\:7684\:51fd\:6570\:63a5\:53e3";
-(*\:8f93\:5165\:9876\:70b9\:7cfb\:6570\:7684\:63a5\:53e3*)
+coeIn::usage="\:8f93\:5165\:9876\:70b9\:7cfb\:6570\:7684\:63a5\:53e3";
 coeIn[type_,x_]:=type->vtxCoe[x]
 
 
@@ -465,19 +465,11 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mes["K0b"],coeIn[
 
 
 (* ::Section:: *)
-(*\:7535\:78c1\:6d41, BBA, BB\[Phi]\[Phi]A*)
+(*\:7535\:78c1\:6d41, BBA,*)
 
 
 (* ::DisplayFormula:: *)
-(*\!\(\*OverscriptBox[\(p\), \(_\)]\) . \[Sigma]^\[Mu]\[Nu] . p(\!\( *)
-(*\*SubscriptBox[\(\[PartialD]\), \(\[Mu]\)]*)
-(*\*SuperscriptBox[\(\[Pi]\), \(+\)]\) . \!\( *)
-(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
-(*\*SuperscriptBox[\(\[Pi]\), \(-\)]\)-\!\( *)
-(*\*SubscriptBox[\(\[PartialD]\), \(\[Mu]\)]*)
-(*\*SuperscriptBox[\(\[Pi]\), \(-\)]\) . \!\( *)
-(*\*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]*)
-(*\*SuperscriptBox[\(\[Pi]\), \(+\)]\))->1/\!\(\*SubsuperscriptBox[\(f\), \(\[Phi]\), \(2\)]\) i(Subscript[b, 10]+Subscript[b, 11])*)
+(*\!\(\*OverscriptBox[\(p\), \(_\)]\) . \[Gamma]^\[Mu] . p . Subscript[\[ScriptCapitalA], \[Mu]]->2u+d*)
 
 
 (*++++++++++++++++++++++++++ \:7535\:78c1\:5b88\:6052\:6d41 BB\[Phi]\[Phi]A +++++++++++++++++++++*)
@@ -485,6 +477,37 @@ vtxtp=vtxType["F1","oct"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 vtx[unq["type"->vtxtp]]={
 (*+++ proton +++*)
 unq[oct["pb"],oct["p"],coeIn[vtxtp,2ch["u"]+ch["d"]]],
+(*+++ neurton +++*)
+unq[oct["nb"],oct["n"],coeIn[vtxtp,ch["u"]+2ch["d"]]],
+(*+++ \[CapitalSigma]+ +++*)
+unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],coeIn[vtxtp,2ch["u"]+ch["s"]]],
+(*+++ \[CapitalSigma]0 +++*)
+unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],coeIn[vtxtp,ch["u"]+ch["d"]+ch["s"]]],
+unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[vtxtp,0]],(*\:6dfb\:52a0\:7684\:989d\:5916\:9879,\:5bf9\:5e94\:53cd\:5e38\:78c1\:77e9*)
+(*+++ \[CapitalSigma]- +++*)
+unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],coeIn[vtxtp,2ch["d"]+ch["s"]]],
+(*+++ \[CapitalXi]0 +++*)
+unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],coeIn[vtxtp,2ch["d"]+ch["s"]]],
+(*+++ \[CapitalXi]- +++*)
+unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],coeIn[vtxtp,ch["d"]+2ch["s"]]],
+(*+++ \[CapitalLambda] +++*)
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],coeIn[vtxtp,ch["u"]+ch["d"]+ch["s"]]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],coeIn[vtxtp,0]](*\:6dfb\:52a0\:7684\:989d\:5916\:9879,\:5bf9\:5e94\:53cd\:5e38\:78c1\:77e9*)
+};
+
+
+(* ::Section:: *)
+(*\:7535\:78c1\:6d41,  BB\[Phi]\[Phi]A*)
+
+
+(* ::DisplayFormula:: *)
+(*\!\(\*OverscriptBox[\(p\), \(_\)]\) . \[Gamma]^\[Mu] . p . SuperPlus[\[Pi]] . SuperMinus[\[Pi]] . Subscript[\[ScriptCapitalA], \[Mu]]->1/(2\!\(\*SubsuperscriptBox[\(f\), \(\[Phi]\), \(2\)]\)) Subscript[Q, d]*)
+
+
+(*++++++++++++++++++++++++++ \:7535\:78c1\:5b88\:6052\:6d41 BB\[Phi]\[Phi]A +++++++++++++++++++++*)
+vtxtp=vtxType["F1","oct","o2"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtx[unq["type"->vtxtp]]={
+(*+++ proton +++*)
 unq[oct["pb"],oct["p"],mes["\[Pi]0"],mes["\[Pi]0"],coeIn[vtxtp,ch["u"]/4]],
 unq[oct["pb"],oct["p"],mes["\[Eta]8"],mes["\[Eta]8"],coeIn[vtxtp,(ch["u"]-4ch["s"])/12]],
 unq[oct["pb"],oct["p"],mes["\[Pi]0"],mes["\[Eta]8"],coeIn[vtxtp,ch["u"]/(2Sqrt[3])]],
@@ -492,7 +515,6 @@ unq[oct["pb"],oct["p"],mes["\[Pi]+"],mes["\[Pi]-"],coeIn[vtxtp,ch["d"]/2]],
 unq[oct["pb"],oct["p"],mes["K0"],mes["K0b"],coeIn[vtxtp,-(ch["d"]/2)]],
 unq[oct["pb"],oct["p"],mes["K+"],mes["K-"],coeIn[vtxtp,(-ch["u"]+ch["s"])/2]],
 (*+++ neurton +++*)
-unq[oct["nb"],oct["n"],coeIn[vtxtp,ch["u"]+2ch["d"]]],
 unq[oct["nb"],oct["n"],mes["\[Pi]0"],mes["\[Pi]0"],coeIn[vtxtp,ch["d"]/4]],
 unq[oct["nb"],oct["n"],mes["\[Eta]8"],mes["\[Eta]8"],coeIn[vtxtp,(ch["d"]-4ch["s"])/12]],
 unq[oct["nb"],oct["n"],mes["\[Pi]0"],mes["\[Eta]8"],coeIn[vtxtp,-ch["d"]/(2Sqrt[3])]],
@@ -500,7 +522,6 @@ unq[oct["nb"],oct["n"],mes["\[Pi]+"],mes["\[Pi]-"],coeIn[vtxtp,ch["u"]/2]],
 unq[oct["nb"],oct["n"],mes["K0"],mes["K0b"],coeIn[vtxtp,(-ch["d"]+ch["s"])/2]],
 unq[oct["nb"],oct["n"],mes["K+"],mes["K-"],coeIn[vtxtp,-ch["u"]/2]],
 (*+++ \[CapitalSigma]+ +++*)
-unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],coeIn[vtxtp,2ch["u"]+ch["s"]]],
 unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],mes["\[Pi]0"],mes["\[Pi]0"],coeIn[vtxtp,(ch["u"]-ch["d"])/4]],
 unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],mes["\[Eta]8"],mes["\[Eta]8"],coeIn[vtxtp,(ch["u"]-ch["d"])/12]],
 unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],mes["\[Pi]0"],mes["\[Eta]8"],coeIn[vtxtp,(ch["u"]+ch["d"])/(2Sqrt[3])]],
@@ -508,10 +529,8 @@ unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],mes["\[Pi]+"],mes["\[Pi]-"]
 unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],mes["K0"],mes["K0b"],coeIn[vtxtp,-ch["s"]/2]],
 unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],mes["K+"],mes["K-"],coeIn[vtxtp,ch["s"]/2]],
 (*+++ \[CapitalSigma]0 +++*)
-unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],coeIn[vtxtp,ch["u"]+ch["d"]+ch["s"]]],
-unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[vtxtp,0]],(*\:6dfb\:52a0\:7684\:989d\:5916\:9879,\:5bf9\:5e94\:53cd\:5e38\:78c1\:77e9*)
+
 (*+++ \[CapitalSigma]- +++*)
-unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],coeIn[vtxtp,2ch["d"]+ch["s"]]],
 unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],mes["\[Pi]0"],mes["\[Pi]0"],coeIn[vtxtp,(-ch["u"]+ch["d"])/4]],
 unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],mes["\[Eta]8"],mes["\[Eta]8"],coeIn[vtxtp,(-ch["u"]+ch["d"])/12]],
 unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],mes["\[Pi]0"],mes["\[Eta]8"],coeIn[vtxtp,(-ch["u"]-ch["d"])/(2Sqrt[3])]],
@@ -519,7 +538,6 @@ unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],mes["\[Pi]+"],mes["\[Pi]-"]
 unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],mes["K0"],mes["K0b"],coeIn[vtxtp,ch["s"]/2]],
 unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],mes["K+"],mes["K-"],coeIn[vtxtp,-ch["s"]/2]],
 (*+++ \[CapitalXi]0 +++*)
-unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],coeIn[vtxtp,2ch["d"]+ch["s"]]],
 unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],mes["\[Pi]0"],mes["\[Pi]0"],coeIn[vtxtp,(-ch["u"]+ch["d"])/4]],
 unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],mes["\[Eta]8"],mes["\[Eta]8"],coeIn[vtxtp,(-ch["u"]+ch["d"])/12]],
 unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],mes["\[Pi]0"],mes["\[Eta]8"],coeIn[vtxtp,(-ch["u"]-ch["d"])/(2Sqrt[3])]],
@@ -527,16 +545,14 @@ unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],mes["\[Pi]+"],mes["\[Pi]-"],coeIn
 unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],mes["K0"],mes["K0b"],coeIn[vtxtp,ch["s"]/2]],
 unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],mes["K+"],mes["K-"],coeIn[vtxtp,-ch["s"]/2]],
 (*+++ \[CapitalXi]- +++*)
-unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],coeIn[vtxtp,ch["d"]+2ch["s"]]],
 unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["\[Pi]0"],mes["\[Pi]0"],coeIn[vtxtp,-ch["u"]/4]],
 unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["\[Eta]8"],mes["\[Eta]8"],coeIn[vtxtp,-(ch["u"]-4ch["s"])/12]],
 unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["\[Pi]0"],mes["\[Eta]8"],coeIn[vtxtp,-ch["u"]/(2Sqrt[3])]],
 unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["\[Pi]+"],mes["\[Pi]-"],coeIn[vtxtp,-ch["d"]/2]],
 unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["K0"],mes["K0b"],coeIn[vtxtp,ch["d"]/2]],
-unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["K+"],mes["K-"],coeIn[vtxtp,(ch["u"]-ch["s"])/2]],
+unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["K+"],mes["K-"],coeIn[vtxtp,(ch["u"]-ch["s"])/2]]
 (*+++ \[CapitalLambda] +++*)
-unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],coeIn[vtxtp,ch["u"]+ch["d"]+ch["s"]]],
-unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],coeIn[vtxtp,0]](*\:6dfb\:52a0\:7684\:989d\:5916\:9879,\:5bf9\:5e94\:53cd\:5e38\:78c1\:77e9*)
+
 };
 
 
@@ -793,6 +809,83 @@ unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],coeIn[vtxtp,-cc["c1"]*ch["d"]+cc[
 unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],coeIn[vtxtp,(cc["c1"](-2ch["u"]-2ch["d"]+ch["s"])+3cc["c2"](ch["u"]+ch["d"]+ch["s"]))/3]],
 unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],coeIn[vtxtp,(cc["c1"](ch["u"]-ch["d"]))/Sqrt[3]]],
 unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[vtxtp,(cc["c1"](ch["u"]-ch["d"]))/Sqrt[3]]]
+};
+
+
+(* ::Section:: *)
+(*octet order 2*)
+
+
+(* ::DisplayFormula:: *)
+(*e/(8Subscript[M, N] \!\(\*SubsuperscriptBox[\(f\), \(\[Phi]\), \(2\)]\)) \[ScriptCapitalF]^\[Mu]\[Nu] . \!\(\*OverscriptBox[\(p\), \(_\)]\) . Subscript[\[Sigma], \[Mu]\[Nu]] . p . SuperPlus[\[Pi]] . SuperMinus[\[Pi]]->-Subscript[c, 1] Subscript[Q, u]+Subscript[c, 2](Subscript[Q, u]+2Subscript[Q, d])*)
+
+
+(*++++++++++++++++++++++++++ \:53cd\:5e38\:78c1\:77e9\:4e8c\:9636\:ff0c\:516b\:91cd\:6001\:91cd\:5b50 +++++++++++++++++++++*)
+vtxtp=vtxType["F2","oct","o2"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtx[unq["type"->vtxtp]]={
+(*+++ proton +++*)
+unq[oct["pb"],oct["p"],oct["\[Pi]0"],oct["\[Pi]0"],coeIn[vtxtp,(ch["d"](cc["c2"]-cc["c1"])+2cc["c2"]*ch["u"])/2]],
+unq[oct["pb"],oct["p"],oct["\[Eta]8"],oct["\[Eta]8"],coeIn[vtxtp,(ch["d"](cc["c2"]-cc["c1"])+2cc["c2"]*ch["u"])/6]],
+unq[oct["pb"],oct["p"],oct["\[Pi]0"],oct["\[Eta]8"],coeIn[vtxtp,(-ch["d"](cc["c2"]-cc["c1"])+2cc["c2"]*ch["u"])/Sqrt[3]]],
+unq[oct["pb"],oct["p"],oct["K0"],oct["K0b"],coeIn[vtxtp,ch["s"](cc["c2"]-cc["c1"])]],
+unq[oct["pb"],oct["p"],oct["\[Pi]+"],oct["\[Pi]-"],coeIn[vtxtp,ch["u"](cc["c2"]-cc["c1"])+2ch["d"]*cc["c2"]]],
+unq[oct["pb"],oct["p"],oct["K+"],oct["K-"],coeIn[vtxtp,2cc["c2"]*ch["s"]]],
+(*+++ neutron +++*)
+unq[oct["nb"],oct["n"],oct["\[Pi]0"],oct["\[Pi]0"],coeIn[vtxtp,(ch["u"](cc["c2"]-cc["c1"])+2cc["c2"]*ch["d"])/2]],
+unq[oct["nb"],oct["n"],oct["\[Eta]8"],oct["\[Eta]8"],coeIn[vtxtp,(ch["u"](cc["c2"]-cc["c1"])+2cc["c2"]*ch["d"])/6]],
+unq[oct["nb"],oct["n"],oct["\[Pi]0"],oct["\[Eta]8"],coeIn[vtxtp,(ch["u"](cc["c2"]-cc["c1"])-2cc["c2"]*ch["d"])/Sqrt[3]]],
+unq[oct["nb"],oct["n"],oct["K0"],oct["K0b"],coeIn[vtxtp,2cc["c2"]*ch["s"]]],
+unq[oct["nb"],oct["n"],oct["\[Pi]+"],oct["\[Pi]-"],coeIn[vtxtp,ch["d"](cc["c2"]-cc["c1"])+2cc["c2"]*ch["u"]]],
+unq[oct["nb"],oct["n"],oct["K+"],oct["K-"],coeIn[vtxtp,ch["s"](cc["c2"]-cc["c1"])]],
+(*+++ \[CapitalSigma]+ +++*)
+unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],oct["\[Pi]0"],oct["\[Pi]0"],coeIn[vtxtp,cc["c2"]*ch["u"]]],
+unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],oct["\[Eta]8"],oct["\[Eta]8"],coeIn[vtxtp,(cc["c2"]*ch["u"]+2ch["s"](cc["c2"]-cc["c1"]))/3]],
+unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],oct["\[Pi]0"],oct["\[Eta]8"],coeIn[vtxtp,(2cc["c2"]*ch["u"])/Sqrt[3]]],
+unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],oct["K0"],oct["K0b"],coeIn[vtxtp,ch["d"](cc["c2"]-cc["c1"])]],
+unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],oct["\[Pi]+"],oct["\[Pi]-"],coeIn[vtxtp,2cc["c2"]*ch["d"]]],
+unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],oct["K+"],oct["K-"],coeIn[vtxtp,ch["u"](cc["c2"]-cc["c1"])+2cc["c2"]*ch["s"]]],
+(*+++ \[CapitalSigma]0 +++*)
+unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],oct["\[Pi]0"],oct["\[Pi]0"],coeIn[vtxtp,(cc["c2"](ch["u"]+ch["d"]))/2]],
+unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],oct["\[Eta]8"],oct["\[Eta]8"],coeIn[vtxtp,(cc["c2"](ch["u"]+ch["d"])+4ch["s"](cc["c2"]-cc["c1"]))/6]],
+unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],oct["\[Pi]0"],oct["\[Eta]8"],coeIn[vtxtp,(cc["c2"](ch["u"]-ch["d"]))/Sqrt[3]]],
+unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],oct["K0"],oct["K0b"],coeIn[vtxtp,ch["d"](cc["c2"]-cc["c1"])+cc["c2"]*ch["s"]]],
+unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],oct["\[Pi]+"],oct["\[Pi]-"],coeIn[vtxtp,cc["c2"](ch["u"]+ch["d"])]],
+unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],oct["K+"],oct["K-"],coeIn[vtxtp,ch["u"](cc["c2"]-cc["c1"])+cc["c2"]*ch["s"]]],
+(*+++ \[CapitalSigma]- +++*)
+unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],oct["\[Pi]0"],oct["\[Pi]0"],coeIn[vtxtp,cc["c2"]*ch["d"]]],
+unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],oct["\[Eta]8"],oct["\[Eta]8"],coeIn[vtxtp,(cc["c2"]*ch["d"]+2ch["s"](cc["c2"]-cc["c1"]))/3]],
+unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],oct["\[Pi]0"],oct["\[Eta]8"],coeIn[vtxtp,(-2cc["c2"]*ch["d"])/Sqrt[3]]],
+unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],oct["K0"],oct["K0b"],coeIn[vtxtp,ch["d"](cc["c2"]-cc["c1"])+2cc["c2"]*ch["s"]]],
+unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],oct["\[Pi]+"],oct["\[Pi]-"],coeIn[vtxtp,2cc["c2"]*ch["u"]]],
+unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],oct["K+"],oct["K-"],coeIn[vtxtp,ch["u"](cc["c2"]-cc["c1"])]],
+(*+++ \[CapitalXi]0 +++*)
+unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],oct["\[Pi]0"],oct["\[Pi]0"],coeIn[vtxtp,(ch["u"](cc["c2"]-cc["c1"]))/2]],
+unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],oct["\[Eta]8"],oct["\[Eta]8"],coeIn[vtxtp,(ch["u"](cc["c2"]-cc["c1"])+8cc["c2"]*ch["s"])/6]],
+unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],oct["\[Pi]0"],oct["\[Eta]8"],coeIn[vtxtp,(ch["u"](cc["c2"]-cc["c1"]))/Sqrt[3]]],
+unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],oct["K0"],oct["K0b"],coeIn[vtxtp,2cc["c2"]*ch["d"]]],
+unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],oct["\[Pi]+"],oct["\[Pi]-"],coeIn[vtxtp,ch["d"](cc["c2"]-cc["c1"])]],
+unq[oct["\[CapitalXi]0b"],oct["\[CapitalXi]0"],oct["K+"],oct["K-"],coeIn[vtxtp,ch["s"](cc["c2"]-cc["c1"])+2cc["c2"]*ch["u"]]],
+(*+++ \[CapitalXi]- +++*)
+unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],oct["\[Pi]0"],oct["\[Pi]0"],coeIn[vtxtp,(ch["d"](cc["c2"]-cc["c1"]))/2]],
+unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],oct["\[Eta]8"],oct["\[Eta]8"],coeIn[vtxtp,(ch["d"](cc["c2"]-cc["c1"])+8cc["c2"]*ch["s"])/6]],
+unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],oct["\[Pi]0"],oct["\[Eta]8"],coeIn[vtxtp,(-ch["d"](cc["c2"]-cc["c1"]))/Sqrt[3]]],
+unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],oct["K0"],oct["K0b"],coeIn[vtxtp,ch["s"](cc["c2"]-cc["c1"])+2cc["c2"]*ch["d"]]],
+unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],oct["\[Pi]+"],oct["\[Pi]-"],coeIn[vtxtp,ch["u"](cc["c2"]-cc["c1"])]],
+unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],oct["K+"],oct["K-"],coeIn[vtxtp,2cc["c2"]*ch["u"]]],
+(*+++ \[CapitalLambda] +++*)
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],oct["\[Pi]0"],oct["\[Pi]0"],coeIn[vtxtp,(-(2cc["c1"]-3cc["c2"])(ch["u"]+ch["d"]))/6]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],oct["\[Eta]8"],oct["\[Eta]8"],coeIn[vtxtp,(ch["d"](3cc["c2"]-2cc["c1"])+4ch["s"](cc["c1"]+3cc["c2"])+ch["u"](3cc["c2"]-2cc["c1"]))/18]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],oct["\[Pi]0"],oct["\[Eta]8"],coeIn[vtxtp,((2cc["c1"]-3cc["c2"])(ch["d"]-ch["u"]))/(3Sqrt[3])]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],oct["K0"],oct["K0b"],coeIn[vtxtp,(ch["d"](cc["c1"]+3cc["c2"])+ch["s"](3cc["c2"]-2cc["c1"]))/3]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],oct["\[Pi]+"],oct["\[Pi]-"],coeIn[vtxtp,(-(2cc["c1"]-3cc["c2"])(ch["u"]+ch["d"]))/3]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],oct["K+"],oct["K-"],coeIn[vtxtp,(ch["s"](3cc["c2"]-2cc["c1"])+ch["u"](cc["c1"]+3cc["c2"]))/3]],
+(*+++ Overscript[\[CapitalLambda], _]-\[CapitalSigma]0 +++*)
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],oct["\[Pi]0"],oct["\[Pi]0"],coeIn[vtxtp,(cc["c1"](ch["u"]-ch["d"]))/(2Sqrt[3])]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],oct["\[Eta]8"],oct["\[Eta]8"],coeIn[vtxtp,(cc["c1"](ch["u"]-ch["d"]))/(6Sqrt[3])]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],oct["\[Pi]0"],oct["\[Eta]8"],coeIn[vtxtp,(cc["c1"](ch["u"]+ch["d"]))/3]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],oct["K0"],oct["K0b"],coeIn[vtxtp,(-cc["c1"]*ch["s"])/Sqrt[3]]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],oct["\[Pi]+"],oct["\[Pi]-"],coeIn[vtxtp,(cc["c1"](ch["d"]-ch["u"]))/Sqrt[3]]],
+unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],oct["K+"],oct["K-"],coeIn[vtxtp,(cc["c1"]*ch["s"])/Sqrt[3]]]
 };
 
 

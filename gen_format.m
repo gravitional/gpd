@@ -66,6 +66,8 @@ fyDiag::usage="\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:5934\:90e8";
 fyMassKey::usage="\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:7684\:8d28\:91cf\:7684\:5934\:90e8";
 fyCoeKey::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:952e";
 fyCoe::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8";
+inCh::usage="\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:5165\:5c04\:7c92\:5b50";
+medCh::usage="\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:4e2d\:95f4\:7c92\:5b50";
 
 
 (*+++++++++++++++++++++++++++++++++++++++++++++++++++++*)
@@ -86,7 +88,7 @@ mes["\[Eta]0"],
 mes["\[Pi]+"],mes["\[Pi]0"],mes["\[Pi]-"],
 mes["K+"],mes["K-"],mes["K0"],mes["K0b"],
 mes["\[Eta]8"]
-}=fdType["mes",0]->#&/@{
+}=fdType["mes"]->#&/@{
 fd[1,0,0],
 fd[1,1,0],fd[1,2,0],fd[1,3,0],
 fd[1,4,0],fd[1,5,0],fd[1,6,0],fd[1,7,0],
@@ -97,7 +99,7 @@ fd[1,8,0]
 oct["p"],oct["n"],
 oct["\[CapitalSigma]+"],oct["\[CapitalSigma]0"],oct["\[CapitalSigma]-"],
 oct["\[CapitalXi]0"],oct["\[CapitalXi]-"],oct["\[CapitalLambda]"]
-}=fdType["oct",0]->#&/@{
+}=fdType["oct"]->#&/@{
 fd[2,1,0],fd[2,2,0],
 fd[2,3,0],fd[2,4,0],fd[2,5,0],
 fd[2,6,0],fd[2,7,0],fd[2,8,0]
@@ -107,7 +109,7 @@ fd[2,6,0],fd[2,7,0],fd[2,8,0]
 oct["pb"],oct["nb"],
 oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]-b"],
 oct["\[CapitalXi]0b"],oct["\[CapitalXi]-b"],oct["\[CapitalLambda]b"]
-}=fdType["oct",1]->#&/@{
+}=fdType["octb"]->#&/@{
 fd[2,1,1],fd[2,2,1],
 fd[2,3,1],fd[2,4,1],fd[2,5,1],
 fd[2,6,1],fd[2,7,1],
@@ -118,7 +120,7 @@ fd[2,8,1]
 dec["\[CapitalDelta]++"],dec["\[CapitalDelta]+"],dec["\[CapitalDelta]0"],dec["\[CapitalDelta]-"],
 dec["\[CapitalSigma]*+"],dec["\[CapitalSigma]*0"],dec["\[CapitalSigma]*-"],
 dec["\[CapitalXi]*0"],dec["\[CapitalXi]*-"],dec["\[CapitalOmega]-"]
-}=fdType["dec",0]->#&/@{
+}=fdType["dec"]->#&/@{
 fd[3,1,0],fd[3,2,0],fd[3,3,0],fd[3,4,0],
 fd[3,5,0],fd[3,6,0],fd[3,7,0],
 fd[3,8,0],fd[3,9,0],fd[3,10,0]
@@ -128,7 +130,7 @@ fd[3,8,0],fd[3,9,0],fd[3,10,0]
 dec["\[CapitalDelta]++b"],dec["\[CapitalDelta]+b"],dec["\[CapitalDelta]0b"],dec["\[CapitalDelta]-b"],
 dec["\[CapitalSigma]*+b"],dec["\[CapitalSigma]*0b"],dec["\[CapitalSigma]*-b"],
 dec["\[CapitalXi]*0b"],dec["\[CapitalXi]*-b"],dec["\[CapitalOmega]-b"]
-}=fdType["dec",1]->#&/@{
+}=fdType["decb"]->#&/@{
 fd[3,1,1],fd[3,2,1],fd[3,3,1],fd[3,4,1],
 fd[3,5,1],fd[3,6,1],fd[3,7,1],
 fd[3,8,1],fd[3,9,1],fd[3,10,1]
@@ -239,9 +241,9 @@ Frame->All,FrameStyle->Directive[Lighter[Black,.7]],ItemStyle->{"InlineFormula"}
 lagcoeFmt[x:__]:=Style[x,"InlineFormula"]
 
 
-fdTypeFmt[mes_,anti_]:=Subscript[mes,anti](*\:8868\:793a\:573a\:7684\:79cd\:7c7b,fieldKind, i.e. fdkd["mes"]*)
-vtxCoeFmt[x:__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
-vtxTypeFmt[x:__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
+fdTypeFmt[x__]:={x}(*\:8868\:793a\:573a\:7684\:79cd\:7c7b,fieldKind, i.e. fdkd["mes"]*)
+vtxCoeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
+vtxTypeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
 
 
 fyDiagKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:952e\:7684\:663e\:793a*)
@@ -249,6 +251,8 @@ fyDiagFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:503c\:7684\:663e\:793
 fyCoeKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:952e*)
 fyCoeFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
 fyMassKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
+inChFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:5165\:5c04\:7c92\:5b50*)
+medChFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:4e2d\:95f4\:7c92\:5b50*)
 
 
 (* ::Section:: *)
@@ -279,7 +283,8 @@ pde->pdeFmt,ltzScript->Subscript,gma->gmaFmt,(*ldx\[Rule]ldxFmt,*)
 lagint->lagintFmt,lagcoe->lagcoeFmt,
 fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt,
 fyMassKey->fyMassKeyFmt,fyCoe->fyCoeFmt,fyCoeKey->fyCoeKeyFmt,
-fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt
+fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt,
+inCh->inChFmt,medCh->medChFmt
 |>;
 
 
