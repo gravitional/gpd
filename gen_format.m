@@ -67,6 +67,7 @@ fyMassKey::usage="\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:7684\:8d28\:91cf\:
 fyCoeKey::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:952e";
 fyCoe::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8";
 inCh::usage="\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:5165\:5c04\:7c92\:5b50";
+outCh::usage="\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:51fa\:5c04\:7c92\:5b50";
 medCh::usage="\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:4e2d\:95f4\:7c92\:5b50";
 
 
@@ -252,6 +253,7 @@ fyCoeKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7
 fyCoeFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
 fyMassKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
 inChFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:5165\:5c04\:7c92\:5b50*)
+outChFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:51fa\:5c04\:7c92\:5b50*)
 medChFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:4e2d\:95f4\:7c92\:5b50*)
 
 
@@ -284,7 +286,7 @@ lagint->lagintFmt,lagcoe->lagcoeFmt,
 fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt,
 fyMassKey->fyMassKeyFmt,fyCoe->fyCoeFmt,fyCoeKey->fyCoeKeyFmt,
 fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt,
-inCh->inChFmt,medCh->medChFmt
+medCh->medChFmt,inCh->inChFmt,outCh->outChFmt
 |>;
 
 
