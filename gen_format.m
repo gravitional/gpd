@@ -66,20 +66,32 @@ fyDiag::usage="\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:5934\:90e8";
 fyMassKey::usage="\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:7684\:8d28\:91cf\:7684\:5934\:90e8";
 fyCoeKey::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:952e";
 fyCoe::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8";
-inCh::usage="\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:5165\:5c04\:7c92\:5b50";
-outCh::usage="\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:51fa\:5c04\:7c92\:5b50";
-medCh::usage="\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:4e2d\:95f4\:7c92\:5b50";
+fyVtx::usage="\:8d39\:66fc\:56fe\:67d0\:4e2a\:9876\:70b9\:7684\:5934\:90e8\:ff0c\:4f8b\:5982fyVtx[...,v1]";
 
 
 (*+++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 Begin["`Private`"]
 (*+++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 enList[x__]:=Replace[{x},{{y__}}:>{y},{0}](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5217\:8868\:7684\:51fd\:6570*)
-enString[x__]:=StringJoin[ToString[#1]&/@enList[x]](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570*)
+enString[x__]:=StringJoin[ToString/@enList[x]](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570*)
 
 
 (* ::Section:: *)
 (*Fields*)
+
+
+(*\:4ecb\:5b50\:573a\:7684\:7ea6\:675f\:ff0c\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:4e4b\:95f4\:7684\:5173\:7cfb*)
+{
+fd[1,0,1],(*\[Eta]0b*)
+fd[1,1,1],fd[1,2,1],fd[1,3,1],(*\[Pi]+b,\[Pi]0b,\[Pi]-b*)
+fd[1,4,1],fd[1,5,1],fd[1,6,1],fd[1,7,1],(*K+b,K-b,\[Pi]+b,K0b,K0bb*)
+fd[1,8,1](*\[Eta]8b*)
+}={
+fd[1,0,0],(*\[Eta]0*)
+fd[1,3,0],fd[1,2,0],fd[1,1,0],(*\[Pi]-,\[Pi]0,\[Pi]+*)
+fd[1,5,0],fd[1,4,0],fd[1,7,0],fd[1,6,0],(*K-,K+,K0b,K0*)
+fd[1,8,0](*\[Eta]8*)
+}
 
 
 (*\:5404\:79cd\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f *)
@@ -94,6 +106,18 @@ fd[1,0,0],
 fd[1,1,0],fd[1,2,0],fd[1,3,0],
 fd[1,4,0],fd[1,5,0],fd[1,6,0],fd[1,7,0],
 fd[1,8,0]
+};
+(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:53cd\:7c92\:5b50\:573a*)
+{
+mes["\[Eta]0b"],
+mes["\[Pi]+b"],mes["\[Pi]0b"],mes["\[Pi]-b"],
+mes["K+b"],mes["K-b"],mes["K0,b"],mes["K0b,b"],
+mes["\[Eta]8b"]
+}=fdType["mesb"]->#&/@{
+fd[1,0,1],
+fd[1,1,1],fd[1,2,1],fd[1,3,1],
+fd[1,4,1],fd[1,5,1],fd[1,6,1],fd[1,7,1],
+fd[1,8,1]
 };
 (*\:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
 {
@@ -138,8 +162,8 @@ fd[3,8,1],fd[3,9,1],fd[3,10,1]
 };
 
 
-(*\:7ed9\:51fa\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7,fieldScript,\:573a\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0*)
-(*\:5728\:8fd9\:91cc\:5b9a\:4e49\:597d\:663e\:793a\:683c\:5f0f\:4e4b\:540e\:ff0c\:4e4b\:540e\:66ff\:6362\:6389\:5185\:90e8\:51fd\:6570\:7684\:5934\:90e8*)
+(*\:8fd9\:91cc\:7ed9\:51fa\:7684\:51fd\:6570\:53ea\:6709\:6392\:7248\:4f5c\:7528\:ff0c\:4e0d\:53c2\:52a0\:8fd0\:7b97, \:7ed9\:51fa\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:7684\:5934\:90e8,fieldScript,\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0*)
+(*\:5728\:8fd9\:91cc\:5b9a\:4e49\:597d\:663e\:793a\:683c\:5f0f\:4e4b\:540e\:ff0c\:4e4b\:540e\:5b9a\:4e49\:663e\:793a\:7684\:66ff\:6362\:89c4\:5219*)
 fdptc[0]=AssociationThread[(*\:7c92\:5b50\:7684\:8bb0\:53f7*)
 Range[1,3,1],(*\:7c92\:5b50\:ff0c\:53cd\:7c92\:5b50\:ff0c\:8d28\:91cf*)
 {
@@ -252,9 +276,7 @@ fyDiagFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:503c\:7684\:663e\:793
 fyCoeKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:952e*)
 fyCoeFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
 fyMassKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
-inChFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:5165\:5c04\:7c92\:5b50*)
-outChFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:51fa\:5c04\:7c92\:5b50*)
-medChFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:53cd\:5e94\:9053\:7684\:4e2d\:95f4\:7c92\:5b50*)
+fyVtxFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:9876\:70b9\:4f4d\:7f6e\:7684\:6807\:8bb0*)
 
 
 (* ::Section:: *)
@@ -285,8 +307,7 @@ pde->pdeFmt,ltzScript->Subscript,gma->gmaFmt,(*ldx\[Rule]ldxFmt,*)
 lagint->lagintFmt,lagcoe->lagcoeFmt,
 fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt,
 fyMassKey->fyMassKeyFmt,fyCoe->fyCoeFmt,fyCoeKey->fyCoeKeyFmt,
-fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt,
-medCh->medChFmt,inCh->inChFmt,outCh->outChFmt
+fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt,fyVtx->fyVtxFmt
 |>;
 
 
