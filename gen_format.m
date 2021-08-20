@@ -202,23 +202,20 @@ fieldScript["\[CapitalOmega]","-"]
 fdptc[1]=AssociationThread[(*\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
 Range[1,3,1],
 {
-OverBar/@fdptc[0][1],(*\:516b\:91cd\:6001\:4ecb\:5b50\:4e5f\:6dfb\:52a0\:9876\:6760*)
-OverBar/@fdptc[0][2],(*\:516b\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
-OverBar/@fdptc[0][3](*\:5341\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
-}
-];
-(*
-\:5982\:679c\:60f3\:76f4\:63a5\:663e\:793a\:4ecb\:5b50\:7684\:53cd\:7c92\:5b50\:5bf9\:5e94\:7684\:7c92\:5b50
 AssociationThread[
-Range[0,8,1],(*\:516b\:4e2a\:4ecb\:5b50\:7684\:53cd\:7c92\:5b50*)
+Range[0,8,1],
 {
 fieldScript["\[Eta]","0"],
 fieldScript["\[Pi]","-"],fieldScript["\[Pi]","0"],fieldScript["\[Pi]","+"],
 fieldScript["K","-"],fieldScript["K","+"],
 OverBar[fieldScript["K","0"]],fieldScript["K","0"],
 fieldScript["\[Eta]","8"]
-}]
-*)
+}],(*\:516b\:91cd\:6001\:4ecb\:5b50\:53cd\:7c92\:5b50\:7684\:8868\:793a*)
+OverBar/@fdptc[0][2],(*\:516b\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
+OverBar/@fdptc[0][3](*\:5341\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
+}
+];
+(*OverBar/@fdptc[0][1],(*\:516b\:91cd\:6001\:4ecb\:5b50\:4e5f\:6dfb\:52a0\:9876\:6760*)*)
 
 
 (*\:5404\:79cd\:7c92\:5b50\:7684\:8d28\:91cf*)
