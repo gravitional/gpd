@@ -63,10 +63,13 @@ vtxCoe::usage="\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:5934\:90e8";
 vtxType::usage="\:8d39\:66fc\:9876\:70b9\:79cd\:7c7b\:7684\:5934\:90e8";
 fyDiagKey::usage="\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:952e";
 fyDiag::usage="\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:5934\:90e8";
-fyMassKey::usage="\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:7684\:8d28\:91cf\:7684\:5934\:90e8";
+MassKey::usage="\:9876\:70b9,\:8d39\:66fc\:56fe\:7b49\:7b49\:7c92\:5b50\:8d28\:91cf\:7684key";
 fyCoeKey::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:952e";
 fyCoe::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8";
 fyVtx::usage="\:8d39\:66fc\:56fe\:67d0\:4e2a\:9876\:70b9\:7684\:5934\:90e8\:ff0c\:4f8b\:5982fyVtx[...,v1]";
+
+
+kin::usage="\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:5934\:90e8\:ff0c\:4f8b\:5982 kin[q]";
 
 
 (*+++++++++++++++++++++++++++++++++++++++++++++++++++++*)
@@ -80,7 +83,7 @@ enString[x__]:=StringJoin[ToString/@enList[x]](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:
 (*Fields*)
 
 
-(*\:4ecb\:5b50\:573a\:7684\:7ea6\:675f\:ff0c\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:4e4b\:95f4\:7684\:5173\:7cfb*)
+(*\:4ecb\:5b50\:573a\:7684\:7ea6\:675f\:ff0c\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:4e4b\:95f4\:7684\:5173\:7cfb
 {
 fd[1,0,1],(*\[Eta]0b*)
 fd[1,1,1],fd[1,2,1],fd[1,3,1],(*\[Pi]+b,\[Pi]0b,\[Pi]-b*)
@@ -92,11 +95,12 @@ fd[1,3,0],fd[1,2,0],fd[1,1,0],(*\[Pi]-,\[Pi]0,\[Pi]+*)
 fd[1,5,0],fd[1,4,0],fd[1,7,0],fd[1,6,0],(*K-,K+,K0b,K0*)
 fd[1,8,0](*\[Eta]8*)
 }
+*)
 
 
 (*\:5404\:79cd\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f *)
 (*\:516b\:91cd\:6001\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
-{
+{(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:7c92\:5b50\:573a,\:5165\:5c04\:7c92\:5b50\:ff0c\:4e0d\:52a0\:540e\:7f00*)
 mes["\[Eta]0"],
 mes["\[Pi]+"],mes["\[Pi]0"],mes["\[Pi]-"],
 mes["K+"],mes["K-"],mes["K0"],mes["K0b"],
@@ -107,12 +111,12 @@ fd[1,1,0],fd[1,2,0],fd[1,3,0],
 fd[1,4,0],fd[1,5,0],fd[1,6,0],fd[1,7,0],
 fd[1,8,0]
 };
-(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:53cd\:7c92\:5b50\:573a*)
+(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:51fa\:5c04\:7c92\:5b50, o\:8868\:793a\:51fa\:5c04 *)
 {
-mes["\[Eta]0b"],
-mes["\[Pi]+b"],mes["\[Pi]0b"],mes["\[Pi]-b"],
-mes["K+b"],mes["K-b"],mes["K0,b"],mes["K0b,b"],
-mes["\[Eta]8b"]
+mes["\[Eta]0","b"],
+mes["\[Pi]+","b"],mes["\[Pi]0","b"],mes["\[Pi]-","b"],
+mes["K+","b"],mes["K-","b"],mes["K0","b"],mes["K0b","b"],
+mes["\[Eta]8","b"]
 }=fdType["mesb"]->#&/@{
 fd[1,0,1],
 fd[1,1,1],fd[1,2,1],fd[1,3,1],
@@ -199,6 +203,13 @@ fieldScript["\[CapitalOmega]","-"]
 fdptc[1]=AssociationThread[(*\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
 Range[1,3,1],
 {
+OverBar/@fdptc[0][1],(*\:516b\:91cd\:6001\:4ecb\:5b50\:4e5f\:6dfb\:52a0\:9876\:6760*)
+OverBar/@fdptc[0][2],(*\:516b\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
+OverBar/@fdptc[0][3](*\:5341\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
+}
+];
+(*
+\:5982\:679c\:60f3\:76f4\:63a5\:663e\:793a\:4ecb\:5b50\:7684\:53cd\:7c92\:5b50\:5bf9\:5e94\:7684\:7c92\:5b50
 AssociationThread[
 Range[0,8,1],(*\:516b\:4e2a\:4ecb\:5b50\:7684\:53cd\:7c92\:5b50*)
 {
@@ -207,11 +218,8 @@ fieldScript["\[Pi]","-"],fieldScript["\[Pi]","0"],fieldScript["\[Pi]","+"],
 fieldScript["K","-"],fieldScript["K","+"],
 OverBar[fieldScript["K","0"]],fieldScript["K","0"],
 fieldScript["\[Eta]","8"]
-}],
-OverBar/@fdptc[0][2],(*\:516b\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
-OverBar/@fdptc[0][3](*\:5341\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
-}
-];
+}]
+*)
 
 
 (*\:5404\:79cd\:7c92\:5b50\:7684\:8d28\:91cf*)
@@ -275,8 +283,11 @@ fyDiagKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:952e\:7684\:663e\:
 fyDiagFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:503c\:7684\:663e\:793a*)
 fyCoeKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:952e*)
 fyCoeFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
-fyMassKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
+MassKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
 fyVtxFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:9876\:70b9\:4f4d\:7f6e\:7684\:6807\:8bb0*)
+
+
+kinFmt[x__]:={x}(*\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:663e\:793a*)
 
 
 (* ::Section:: *)
@@ -306,8 +317,9 @@ massScript->Subscript,fieldScript->enString,
 pde->pdeFmt,ltzScript->Subscript,gma->gmaFmt,(*ldx\[Rule]ldxFmt,*)
 lagint->lagintFmt,lagcoe->lagcoeFmt,
 fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt,
-fyMassKey->fyMassKeyFmt,fyCoe->fyCoeFmt,fyCoeKey->fyCoeKeyFmt,
-fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt,fyVtx->fyVtxFmt
+MassKey->MassKeyFmt,fyCoeKey->fyCoeKeyFmt,fyCoe->fyCoeFmt,
+fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt,fyVtx->fyVtxFmt,
+kin->kinFmt
 |>;
 
 

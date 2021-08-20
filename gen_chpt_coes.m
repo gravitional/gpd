@@ -19,7 +19,7 @@ cmdQ=Not[$Notebooks];(*\:811a\:672c\:7684\:8fd0\:884c\:6a21\:5f0f\:5224\:65ad\:f
 fileName=If[Not[cmdQ],NotebookFileName[],$InputFileName](*\:7ed9\:51fa\:7b14\:8bb0\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
 (*\:5b9a\:4e49\:4e00\:4e9b\:5e38\:7528\:7684\:51fd\:6570*)
 enList[x__]:=Replace[{x},{{y__}}:>{y},{0}](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5217\:8868\:7684\:51fd\:6570*)
-enString[x__]:=StringRiffle[ToString/@enList[x],","](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570*)
+enString[x__]:=StringJoin[ToString/@enList[x]](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570*)
 If[cmdQ,
 echo[x__]:=Print["----------------------------","\n\033[1;44m\033[1;37m",enString[x],"\033[0;0m\n","----------------------------"],(*\:5b9a\:4e49\:7ec8\:7aef\:7684\:6253\:5370\:51fd\:6570*)
 echo[x__]:=Print[x](*\:5b9a\:4e49\:7b14\:8bb0\:672c\:7684\:6253\:5370\:51fd\:6570*)
@@ -69,7 +69,7 @@ echo["the input parameter is:"];echo[inputCml]
 Get[FileNameJoin[{gitLocalName,"gen_format.m"}]];(*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*\:5f3a\:76f8\:4e92\:4f5c\:7528*)
 
 
@@ -79,7 +79,7 @@ coeIn::usage="\:8f93\:5165\:9876\:70b9\:7cfb\:6570\:7684\:63a5\:53e3";
 coeIn[type_,x_]:=type->vtxCoe[x]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong,BB\[Phi]\[Phi]*)
 
 
@@ -153,7 +153,7 @@ unq[oct["\[CapitalLambda]"],mes["K0"],mes["K0b"],coeIn[vtxtp,0]]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong,BB\[Phi],DF*)
 
 
@@ -232,7 +232,7 @@ unq[oct["\[CapitalLambda]b"],oct["n"],mes["K0b"],coeIn[vtxtp,-((cc["D"]+3cc["F"]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong, BMT, C*)
 
 
@@ -305,7 +305,7 @@ unq[oct["\[CapitalLambda]b"],mes["K0"],dec["\[CapitalXi]*0"],coeIn[vtxtp,-(1/2)]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong, T-M, H*)
 
 
@@ -386,7 +386,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalXi]*-"],mes["K0b"],coeIn[vtxtp,-1/Sqr
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong,BBMM,\:5f20\:91cf\:8026\:5408\:9879*)
 
 
@@ -464,7 +464,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mes["K0b"],coeIn[
 (*\:7269\:8d28\:573a\:7535\:78c1\:6d41*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*\:7535\:78c1\:6d41, BBA,*)
 
 
@@ -496,7 +496,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],coeIn[vtxtp,0]](*\:6dfb\:52
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*\:7535\:78c1\:6d41,  BB\[Phi]\[Phi]A*)
 
 
@@ -556,7 +556,7 @@ unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["K+"],mes["K-"],coeIn[vtxtp,(
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*\:7535\:78c1\:6d41, BB\[Phi]A, DF*)
 
 
@@ -614,7 +614,7 @@ unq[oct["\[CapitalLambda]"],oct["\[CapitalXi]0b"],mes["K0b"],coeIn[vtxtp,(-I(cc[
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*\:7535\:78c1\:6d41, TTA, TT\[Phi]\[Phi]A*)
 
 
@@ -704,7 +704,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],mes["K0"],mes["K0b"],coeIn[
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*\:7535\:78c1\:6d41, BT\[Phi]A, C*)
 
 
@@ -776,11 +776,17 @@ unq[oct["\[CapitalLambda]b"],mes["K0"],dec["\[CapitalXi]*0"],coeIn[vtxtp,(I(ch["
 (*++++++++++++++++++++++++++ \:7535\:78c1\:5b88\:6052\:6d41\:ff0c\:4ecb\:5b50 +++++++++++++++++++++*)
 vtxtp=vtxType["F1","\[Phi]\[Phi]A"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 vtx[unq["type"->vtxtp]]={
-unq[mes["\[Pi]-"],mes["\[Pi]+"],coeIn[vtxtp,I(ch["u"]-ch["d"])]],
-unq[mes["K-"],mes["K+"],coeIn[vtxtp,I(ch["u"]-ch["s"])]],
-unq[mes["K0b"],mes["K0"],coeIn[vtxtp,I(ch["d"]-ch["s"])]],
-unq[mes["\[Pi]0"],mes["\[Pi]0"],coeIn[vtxtp,0]],
-unq[mes["\[Eta]8"],mes["\[Eta]8"],coeIn[vtxtp,0]]
+unq[mes["\[Pi]+"],mes["\[Pi]+","b"],coeIn[vtxtp,I(ch["u"]-ch["d"])]],
+unq[mes["K+"],mes["K+","b"],coeIn[vtxtp,I(ch["u"]-ch["s"])]],
+unq[mes["K0"],mes["K0","b"],coeIn[vtxtp,I(ch["d"]-ch["s"])]],
+unq[mes["\[Pi]0"],mes["\[Pi]0","b"],coeIn[vtxtp,0]],
+unq[mes["\[Eta]8"],mes["\[Eta]8","b"],coeIn[vtxtp,0]],
+(*\:4ea4\:6362\:5165\:5c04\:548c\:51fa\:5c04\:7c92\:5b50*)
+unq[mes["\[Pi]-"],mes["\[Pi]-","b"],coeIn[vtxtp,-I(ch["u"]-ch["d"])]],
+unq[mes["K-"],mes["K-","b"],coeIn[vtxtp,-I(ch["u"]-ch["s"])]],
+unq[mes["K0b"],mes["K0b","b"],coeIn[vtxtp,-I(ch["d"]-ch["s"])]],
+unq[mes["\[Pi]0","b"],mes["\[Pi]0","b"],coeIn[vtxtp,0]],
+unq[mes["\[Eta]8","b"],mes["\[Eta]8","b"],coeIn[vtxtp,0]]
 };
 
 
@@ -788,7 +794,7 @@ unq[mes["\[Eta]8"],mes["\[Eta]8"],coeIn[vtxtp,0]]
 (*\:53cd\:5e38\:78c1\:77e9*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*octet*)
 
 
@@ -812,7 +818,7 @@ unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[vtxtp,(cc["c1"](ch["u
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*octet order 2*)
 
 
@@ -889,7 +895,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],oct["K+"],oct["K-"],coeIn[v
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*decuplet*)
 
 
@@ -914,7 +920,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*trans magnetic*)
 
 
@@ -935,3 +941,24 @@ unq[oct["\[CapitalXi]0b"],dec["\[CapitalXi]*0"],coeIn[vtxtp,-cc["c4"](ch["u"]-ch
 unq[oct["\[CapitalXi]-b"],dec["\[CapitalXi]*-"],coeIn[vtxtp,cc["c4"](ch["d"]-ch["s"])]],
 unq[oct["\[CapitalLambda]b"],dec["\[CapitalSigma]*0"],coeIn[vtxtp,(-Sqrt[3]cc["c4"](ch["u"]-ch["d"]))/2]]
 };
+
+
+(* ::Chapter:: *)
+(*\:53cd\:5e38\:78c1\:77e9\:975e\:5b9a\:57df*)
+
+
+(*++++++++++++++++++++++++++ \:53cd\:5e38\:78c1\:77e9\:ff0c\:975e\:5b9a\:57df\:5316 +++++++++++++++++++++*)
+vtxtp=vtxType["F1F2","nloc"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtx[unq["type"->vtxtp]]=Query[All,
+KeyDrop[{vtxType["F1","oct"],vtxType["F2","oct"]}]
+]@Query[All,(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f\:ff0c\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
+Append[#,First@Solve[{vtxType["F1","oct","nloc"]-kin["Q"]^2/(4#[MassKey["vtx","oct"]]^2) vtxType["F2","oct","nloc"]==#[vtxType["F1","oct"]]*kin["\[CapitalLambda]0"]^4/(kin["Q"]^2+kin["\[CapitalLambda]0"]^2)^2,
+vtxType["F1","oct","nloc"]+vtxType["F2","oct","nloc"]==kin["\[CapitalLambda]0"]^4/(kin["Q"]^2+kin["\[CapitalLambda]0"]^2)^2 (#[vtxType["F1","oct"]]+ #[vtxType["F2","oct"]])}
+,{vtxType["F1","oct","nloc"],vtxType["F2","oct","nloc"]}]]&
+]@Query[All,(*\:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag*)
+Append[#,MassKey["vtx","oct"]->(#[fdType["oct"]]/.fd[a_,b_,0]:>fd[a,b,2])]&
+]@JoinAcross[(*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
+vtx[unq["type"->vtxType["F1","oct"]]],
+vtx[unq["type"->vtxType["F2","oct"]]],
+{Key[fdType["octb"]],Key[fdType["oct"]]}
+];
