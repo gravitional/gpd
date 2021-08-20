@@ -776,17 +776,15 @@ unq[oct["\[CapitalLambda]b"],mes["K0"],dec["\[CapitalXi]*0"],coeIn[vtxtp,(I(ch["
 (*++++++++++++++++++++++++++ \:7535\:78c1\:5b88\:6052\:6d41\:ff0c\:4ecb\:5b50 +++++++++++++++++++++*)
 vtxtp=vtxType["F1","\[Phi]\[Phi]A"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 vtx[unq["type"->vtxtp]]={
-unq[mes["\[Pi]+"],mes["\[Pi]+","b"],coeIn[vtxtp,I(ch["u"]-ch["d"])]],
-unq[mes["K+"],mes["K+","b"],coeIn[vtxtp,I(ch["u"]-ch["s"])]],
-unq[mes["K0"],mes["K0","b"],coeIn[vtxtp,I(ch["d"]-ch["s"])]],
-unq[mes["\[Pi]0"],mes["\[Pi]0","b"],coeIn[vtxtp,0]],
-unq[mes["\[Eta]8"],mes["\[Eta]8","b"],coeIn[vtxtp,0]],
+unq[mes["\[Pi]+"],mes["\[Pi]-","out"],coeIn[vtxtp,I(ch["u"]-ch["d"])]],
+unq[mes["K+"],mes["K-","out"],coeIn[vtxtp,I(ch["u"]-ch["s"])]],
+unq[mes["K0"],mes["K0b","out"],coeIn[vtxtp,I(ch["d"]-ch["s"])]],
+unq[mes["\[Pi]0"],mes["\[Pi]0","out"],coeIn[vtxtp,0]],
+unq[mes["\[Eta]8"],mes["\[Eta]8","out"],coeIn[vtxtp,0]],
 (*\:4ea4\:6362\:5165\:5c04\:548c\:51fa\:5c04\:7c92\:5b50*)
-unq[mes["\[Pi]-"],mes["\[Pi]-","b"],coeIn[vtxtp,-I(ch["u"]-ch["d"])]],
-unq[mes["K-"],mes["K-","b"],coeIn[vtxtp,-I(ch["u"]-ch["s"])]],
-unq[mes["K0b"],mes["K0b","b"],coeIn[vtxtp,-I(ch["d"]-ch["s"])]],
-unq[mes["\[Pi]0","b"],mes["\[Pi]0","b"],coeIn[vtxtp,0]],
-unq[mes["\[Eta]8","b"],mes["\[Eta]8","b"],coeIn[vtxtp,0]]
+unq[mes["\[Pi]-"],mes["\[Pi]+","out"],coeIn[vtxtp,-I(ch["u"]-ch["d"])]],
+unq[mes["K-"],mes["K+","out"],coeIn[vtxtp,-I(ch["u"]-ch["s"])]],
+unq[mes["K0b"],mes["K0","out"],coeIn[vtxtp,-I(ch["d"]-ch["s"])]]
 };
 
 
