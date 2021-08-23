@@ -44,6 +44,7 @@ dec::usage="\:5341\:91cd\:6001\:91cd\:5b50\:7684 human-readable \:8f93\:5165\:5f
 fdptc::usage="\:8c03\:7528\:573a\:7684\:51fd\:6570\:63a5\:53e3";
 fieldScript::usage="\:573a\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0";
 massScript::usage="\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0";
+mesAntiRule::usage="\:663e\:5f0f\:66ff\:6362\:89c4\:5219, \:5c06\:4ecb\:5b50\:573a\:66ff\:6362\:6210\:5bf9\:5e94\:7684\:53cd\:7c92\:5b50";
 
 
 vfd::usage="\:77e2\:91cf\:573a";
@@ -95,29 +96,34 @@ fd[1,3,0],fd[1,2,0],fd[1,1,0],(*\[Pi]-,\[Pi]0,\[Pi]+*)
 fd[1,5,0],fd[1,4,0],fd[1,7,0],fd[1,6,0],(*K-,K+,K0b,K0*)
 fd[1,8,0](*\[Eta]8*)
 }
+(**)
+mesAntiRule={
+fd[1,3,0]->fd[1,1,0],fd[1,1,0]->fd[1,3,0],(*\[Pi]-,\[Pi]+*)
+fd[1,5,0]->fd[1,4,0],fd[1,4,0]->fd[1,5,0],(*K-,K+*)
+fd[1,7,0]->fd[1,6,0],fd[1,6,0]->fd[1,7,0](*K0b,K0*)
+};
 
 
 (*\:5404\:79cd\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f *)
 (*\:516b\:91cd\:6001\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
-(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:7c92\:5b50\:573a,\:5165\:5c04\:7c92\:5b50\:ff0c\:4e0d\:52a0\:540e\:7f00*)
 (*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:6307\:5b9a\:4efb\:610ftag*)
-mesRule=<|
+mes[meson_,tag_]:=fdType["mes",tag]->mesText[meson]
+(*\:516b\:91cd\:6001\:4ecb\:5b50\:9ed8\:8ba4\:5f62\:5f0f\:ff0c\:6b63\:7c92\:5b50\:5165\:5c04\:ff0c\:4e0d\:52a0\:540e\:7f00*)
+mesText=<|
 "\[Eta]0"->fd[1,0,0],
 "\[Pi]+"->fd[1,1,0],"\[Pi]0"->fd[1,2,0],"\[Pi]-"->fd[1,3,0],
 "K+"->fd[1,4,0],"K-"->fd[1,5,0],"K0"->fd[1,6,0],"K0b"->fd[1,7,0],
 "\[Eta]8"->fd[1,8,0]
 |>;
-mes[meson_]:=fdType["mes"]->mesRule[meson]
-(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:51fa\:5c04\:7c92\:5b50, out\:8868\:793a\:51fa\:5c04 *)
-mesRuleAnti=<|
+mes[meson_]:=fdType["mes"]->mesText[meson]
+(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:53cd\:7c92\:5b50\:51fa\:5c04, out\:8868\:793a\:51fa\:5c04 *)
+mesTextAnti=<|
 "\[Eta]0"->fd[1,0,1],
 "\[Pi]+"->fd[1,1,1],"\[Pi]0"->fd[1,2,1],"\[Pi]-"->fd[1,3,1],
 "K+"->fd[1,4,1],"K-"->fd[1,5,1],"K0"->fd[1,6,1],"K0b"->fd[1,7,1],
 "\[Eta]8"->fd[1,8,1]
 |>;
-mes[meson_,"out"]:=fdType["mes","out"]->mesRuleAnti[meson]
-(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:6307\:5b9a\:4efb\:610ftag*)
-mes[meson_,tag_]:=fdType["mes",tag]->mesRule[meson]
+mes[meson_,"out"]:=fdType["mes","out"]->mesTextAnti[meson]
 (*\:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
 {
 oct["p"],oct["n"],
