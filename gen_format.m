@@ -5,7 +5,8 @@ BeginPackage["gpd`"]
 (*+++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 
 
-fd::usage="fd[kind,num,anti],{kind::\:573a\:7684\:7c7b\:578b\:ff0c1:meson\:ff0c2:octet,3:decuplet},{num::\:573a\:7684\:7f16\:53f7},{anti,0:\:6b63\:573a,1:\:5e26bar\:573a,2:\:573a\:7684\:8d28\:91cf}\:ff0c
+fd::usage="fd[class,num,anti],{class::\:573a\:7684\:7c7b\:578b\:ff0c1:meson\:ff0c2:octet,3:decuplet,4:quark},
+{num::\:573a\:7684\:7f16\:53f7},{anti,0:\:6b63\:573a,1:\:5e26bar\:573a,2:\:573a\:7684\:8d28\:91cf}\:ff0c
 \:573a\:7684\:79cd\:7c7b1,2,3\:662f\:56e0\:4e3a\:4f7f\:7528\:4e86\:5217\:8868\:ff0c\:4ece1\:5f00\:59cb\:6bd4\:8f83\:65b9\:4fbf.
 \:5176\:4e2d\:5404\:79cd\:7c92\:5b50\:7684 num \:987a\:5e8f\:662f\:ff0c
 meson
@@ -25,7 +26,9 @@ decuplet
 \[CapitalDelta]pp,\[CapitalDelta]p,\[CapitalDelta]0,\[CapitalDelta]m::1,2,3,4
 \[CapitalSigma]sp,\[CapitalSigma]s0,\[CapitalSigma]sm::5,6,7
 \[CapitalXi]s0,\[CapitalXi]sm::8,9
-\[CapitalOmega]m::10";
+\[CapitalOmega]m::10
+quark
+u,d,s";
 
 
 lecs::usage="\:5404\:79cd\:8026\:5408\:5e38\:6570,
@@ -41,9 +44,7 @@ ch::usage="\:7535\:8377\:77e9\:9635\:7684\:5934\:90e8";
 mes::usage="\:4ecb\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
 oct::usage="\:516b\:91cd\:6001\:91cd\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
 dec::usage="\:5341\:91cd\:6001\:91cd\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
-fdptc::usage="\:8c03\:7528\:573a\:7684\:51fd\:6570\:63a5\:53e3";
-fieldScript::usage="\:573a\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0";
-massScript::usage="\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0";
+qua::usage="\:5938\:514b\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
 mesAntiRule::usage="\:663e\:5f0f\:66ff\:6362\:89c4\:5219, \:5c06\:4ecb\:5b50\:573a\:66ff\:6362\:6210\:5bf9\:5e94\:7684\:53cd\:7c92\:5b50";
 
 
@@ -82,6 +83,11 @@ enString[x__]:=StringJoin[ToString/@enList[x]](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:
 
 (* ::Section:: *)
 (*Fields*)
+
+
+fdProps::usage="\:5c06\:573a\:6309\:7167\:5c5e\:6027\:6536\:96c6\:5728\:4e00\:8d77\:ff0c\:4e3b\:8981\:7528\:4e8e\:6392\:7248\:663e\:793a";
+fieldScript::usage="\:573a\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0";
+massScript::usage="\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0";
 
 
 (*\:4ecb\:5b50\:573a\:7684\:7ea6\:675f\:ff0c\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:4e4b\:95f4\:7684\:5173\:7cfb*)
@@ -124,6 +130,8 @@ mesTextAnti=<|
 "\[Eta]8"->fd[1,8,1]
 |>;
 mes[meson_,"out"]:=fdType["mes","out"]->mesTextAnti[meson]
+
+
 (*\:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
 {
 oct["p"],oct["n"],
@@ -145,6 +153,8 @@ fd[2,3,1],fd[2,4,1],fd[2,5,1],
 fd[2,6,1],fd[2,7,1],
 fd[2,8,1]
 };
+
+
 (*\:5341\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
 {
 dec["\[CapitalDelta]++"],dec["\[CapitalDelta]+"],dec["\[CapitalDelta]0"],dec["\[CapitalDelta]-"],
@@ -155,7 +165,7 @@ fd[3,1,0],fd[3,2,0],fd[3,3,0],fd[3,4,0],
 fd[3,5,0],fd[3,6,0],fd[3,7,0],
 fd[3,8,0],fd[3,9,0],fd[3,10,0]
 };
-(*\:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
+(*\:5341\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
 {
 dec["\[CapitalDelta]++b"],dec["\[CapitalDelta]+b"],dec["\[CapitalDelta]0b"],dec["\[CapitalDelta]-b"],
 dec["\[CapitalSigma]*+b"],dec["\[CapitalSigma]*0b"],dec["\[CapitalSigma]*-b"],
@@ -167,10 +177,17 @@ fd[3,8,1],fd[3,9,1],fd[3,10,1]
 };
 
 
+(*\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3*)
+{qua["u"],qua["d"],qua["s"]}=fdType["qua"]->#&/@{fd[4,1,0],fd[4,2,0],fd[4,3,0]};
+(*\:53cd\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3*)
+{qua["ub"],qua["db"],qua["sb"]}=fdType["quab"]->#&/@{fd[4,1,1],fd[4,2,1],fd[4,3,1]};
+
+
 (*\:8fd9\:91cc\:7ed9\:51fa\:7684\:51fd\:6570\:53ea\:6709\:6392\:7248\:4f5c\:7528\:ff0c\:4e0d\:53c2\:52a0\:8fd0\:7b97, \:7ed9\:51fa\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:7684\:5934\:90e8,fieldScript,\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0*)
 (*\:5728\:8fd9\:91cc\:5b9a\:4e49\:597d\:663e\:793a\:683c\:5f0f\:4e4b\:540e\:ff0c\:4e4b\:540e\:5b9a\:4e49\:663e\:793a\:7684\:66ff\:6362\:89c4\:5219*)
-fdptc[0]=AssociationThread[(*\:7c92\:5b50\:7684\:8bb0\:53f7*)
-Range[1,3,1],(*\:7c92\:5b50\:ff0c\:53cd\:7c92\:5b50\:ff0c\:8d28\:91cf*)
+fdClassTotal=4;(*\:4ecb\:5b50\:ff0c\:516b\:91cd\:6001\:ff0c\:5341\:91cd\:6001\:ff0c\:5938\:514b\:573a\:ff0c\:4e00\:51714\:79cd*)
+fdProps[0]=AssociationThread[(*\:7c92\:5b50\:7684\:8bb0\:53f7*)
+Range[fdClassTotal],
 {
 AssociationThread[
 Range[0,8,1],(*\:516b\:79cd\:4ecb\:5b50*)
@@ -196,38 +213,40 @@ fieldScript["\[CapitalDelta]","++"],fieldScript["\[CapitalDelta]","+"],fieldScri
 fieldScript["\[CapitalSigma]","\[SixPointedStar]+"],fieldScript["\[CapitalSigma]","\[SixPointedStar]0"],fieldScript["\[CapitalSigma]","\[SixPointedStar]-"],
 fieldScript["\[CapitalXi]","\[SixPointedStar]0"],fieldScript["\[CapitalXi]","\[SixPointedStar]-"],
 fieldScript["\[CapitalOmega]","-"]
-}]
+}],
+<|(*\:5938\:514b\:573a*)
+1->fieldScript["u"],2->fieldScript["d"],3->fieldScript["s"]
+|>
 }
 ];
 
 
-fdptc[1]=AssociationThread[(*\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
-Range[1,3,1],
+fdProps[1]=AssociationThread[(*\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
+Range[fdClassTotal],
 {
-AssociationThread[
-Range[0,8,1],
-{
+AssociationThread[Range[0,8,1],{
 fieldScript["\[Eta]","0"],
 fieldScript["\[Pi]","-"],fieldScript["\[Pi]","0"],fieldScript["\[Pi]","+"],
 fieldScript["K","-"],fieldScript["K","+"],
 OverBar[fieldScript["K","0"]],fieldScript["K","0"],
 fieldScript["\[Eta]","8"]
 }],(*\:516b\:91cd\:6001\:4ecb\:5b50\:53cd\:7c92\:5b50\:7684\:8868\:793a*)
-OverBar/@fdptc[0][2],(*\:516b\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
-OverBar/@fdptc[0][3](*\:5341\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
+OverBar/@fdProps[0][2],(*\:516b\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
+OverBar/@fdProps[0][3],(*\:5341\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
+OverBar/@fdProps[0][4](*\:5341\:91cd\:6001\:91cd\:5b50\:6dfb\:52a0\:9876\:6760\:5373\:53ef*)
 }
 ];
-(*OverBar/@fdptc[0][1],(*\:516b\:91cd\:6001\:4ecb\:5b50\:4e5f\:6dfb\:52a0\:9876\:6760*)*)
+(*OverBar/@fdProps[0][1],(*\:516b\:91cd\:6001\:4ecb\:5b50\:4e5f\:6dfb\:52a0\:9876\:6760*)*)
 
 
 (*\:5404\:79cd\:7c92\:5b50\:7684\:8d28\:91cf*)
-fdptc[2]=Map[
-massScript["M",#1]&,fdptc[0],{2}(*"\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0"*)
+fdProps[2]=Map[
+massScript["M",#1]&,fdProps[0],{2}(*"\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8,\:628a\:53c2\:6570\:6392\:7248\:6210\:8d28\:91cf\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 Subscript \:5b9e\:73b0"*)
 ];
 
 
 (*\:5b9e\:73b0\:573a\:6392\:7248\:7684\:51fd\:6570*)
-fdFmt[kind_,num_,anti_]:=fdptc[anti][kind,num]
+fdFmt[class_,num_,props_]:=fdProps[props][class,num]
 fdFmt[1,{2,8},2]=massScript["M",fieldScript["\[Pi]","0"],fieldScript["\[Eta]","8"]];(*\:7279\:6b8a\:60c5\:51b5 \[Pi]0 \[Eta]8 \:6df7\:5408\:7684\:8d28\:91cf*)
 fdFmt[2,{4,8},2]=massScript["M",fieldScript["\[CapitalSigma]","0"],fieldScript["\[CapitalLambda]",""]];(*\:7279\:6b8a\:60c5\:51b5 \[CapitalSigma]0 \[CapitalLambda] \:6df7\:5408\:7684\:8d28\:91cf*)
 
@@ -272,7 +291,7 @@ Frame->All,FrameStyle->Directive[Lighter[Black,.7]],ItemStyle->{"InlineFormula"}
 lagcoeFmt[x:__]:=Style[x,"InlineFormula"]
 
 
-fdTypeFmt[x__]:={x}(*\:8868\:793a\:573a\:7684\:79cd\:7c7b,fieldKind, i.e. fdkd["mes"]*)
+fdTypeFmt[x__]:={x}(*\:8868\:793a\:573a\:7684\:79cd\:7c7b*)
 vtxCoeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
 vtxTypeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
 
