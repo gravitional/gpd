@@ -69,7 +69,7 @@ echo["the input parameter is:"];echo[inputCml]
 Get[FileNameJoin[{gitLocalName,"gen_format.m"}]];(*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*\:5f3a\:76f8\:4e92\:4f5c\:7528*)
 
 
@@ -79,7 +79,7 @@ coeIn::usage="\:8f93\:5165\:9876\:70b9\:7cfb\:6570\:7684\:63a5\:53e3";
 coeIn[type_,x_]:=type->vtxCoe[x]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong,BB\[Phi]\[Phi]*)
 
 
@@ -153,7 +153,7 @@ unq[oct["\[CapitalLambda]"],mes["K0"],mes["K0b"],coeIn[vtxtp,0]]
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong,BB\[Phi],DF*)
 
 
@@ -232,7 +232,7 @@ unq[oct["\[CapitalLambda]b"],oct["n"],mes["K0b"],coeIn[vtxtp,-((cc["D"]+3cc["F"]
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong, BMT, C*)
 
 
@@ -305,7 +305,7 @@ unq[oct["\[CapitalLambda]b"],mes["K0"],dec["\[CapitalXi]*0"],coeIn[vtxtp,-(1/2)]
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong, T-M, H*)
 
 
@@ -386,7 +386,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalXi]*-"],mes["K0b"],coeIn[vtxtp,-1/Sqr
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong,BBMM,\:5f20\:91cf\:8026\:5408\:9879*)
 
 
@@ -464,7 +464,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mes["K0b"],coeIn[
 (*\:7269\:8d28\:573a\:7535\:78c1\:6d41*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*\:7535\:78c1\:6d41,oder1,BBA,*)
 
 
@@ -556,7 +556,7 @@ unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["K+"],mes["K-","out"],coeIn[v
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*\:7535\:78c1\:6d41, BB\[Phi]A, DF*)
 
 
@@ -704,7 +704,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],mes["K0"],mes["K0b","l2"],c
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*\:7535\:78c1\:6d41, BT\[Phi]A, C*)
 
 
@@ -792,7 +792,7 @@ unq[mes["K0b"],mes["K0","out"],coeIn[vtxtp,-I(ch["d"]-ch["s"])]]
 (*\:53cd\:5e38\:78c1\:77e9*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*octet,order1,BBA*)
 
 
@@ -893,7 +893,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],mes["K+"],mes["K-","out"],c
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*decuplet*)
 
 
@@ -918,7 +918,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*trans magnetic*)
 
 
