@@ -102,7 +102,7 @@ fd[1,3,0],fd[1,2,0],fd[1,1,0],(*\[Pi]-,\[Pi]0,\[Pi]+*)
 fd[1,5,0],fd[1,4,0],fd[1,7,0],fd[1,6,0],(*K-,K+,K0b,K0*)
 fd[1,8,0](*\[Eta]8*)
 }
-(**)
+(*\:5c06\:4ecb\:5b50\:6620\:5c04\:5230\:53cd\:4ecb\:5b50\:7684\:66ff\:6362\:89c4\:5219*)
 mesAntiRule={
 fd[1,3,0]->fd[1,1,0],fd[1,1,0]->fd[1,3,0],(*\[Pi]-,\[Pi]+*)
 fd[1,5,0]->fd[1,4,0],fd[1,4,0]->fd[1,5,0],(*K-,K+*)
@@ -111,76 +111,74 @@ fd[1,7,0]->fd[1,6,0],fd[1,6,0]->fd[1,7,0](*K0b,K0*)
 
 
 (*\:5404\:79cd\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f *)
+
+
 (*\:516b\:91cd\:6001\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
-(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:6307\:5b9a\:4efb\:610ftag*)
-mes[meson_,tag_]:=fdType["mes",tag]->mesText[meson]
+mesStr={(*\:4ecb\:5b50\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a*)
+"\[Eta]0",
+"\[Pi]+","\[Pi]0","\[Pi]-",
+"K+","K-","K0","K0b",
+"\[Eta]8"
+};
+(*\:5c06\:5b57\:7b26\:4e32\:8868\:793a\:6620\:5c04\:5230raw\:8868\:793a*)
+mesAss=AssociationThread[
+mesStr,
+Array[fd[1,#,0]&,9,{0,8}](*\:4ecb\:5b50\:573a\:7684raw\:8868\:793a*)
+];
 (*\:516b\:91cd\:6001\:4ecb\:5b50\:9ed8\:8ba4\:5f62\:5f0f\:ff0c\:6b63\:7c92\:5b50\:5165\:5c04\:ff0c\:4e0d\:52a0\:540e\:7f00*)
-mesText=<|
-"\[Eta]0"->fd[1,0,0],
-"\[Pi]+"->fd[1,1,0],"\[Pi]0"->fd[1,2,0],"\[Pi]-"->fd[1,3,0],
-"K+"->fd[1,4,0],"K-"->fd[1,5,0],"K0"->fd[1,6,0],"K0b"->fd[1,7,0],
-"\[Eta]8"->fd[1,8,0]
-|>;
-mes[meson_]:=fdType["mes"]->mesText[meson]
+mes[meson_]:=fdType["mes"]->mesAss[meson]
+(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:6307\:5b9a\:4efb\:610ftag*)
+mes[meson_,tag_]:=fdType["mes",tag]->mesAss[meson]
 (*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:53cd\:7c92\:5b50\:51fa\:5c04, out\:8868\:793a\:51fa\:5c04 *)
-mesTextAnti=<|
-"\[Eta]0"->fd[1,0,1],
-"\[Pi]+"->fd[1,1,1],"\[Pi]0"->fd[1,2,1],"\[Pi]-"->fd[1,3,1],
-"K+"->fd[1,4,1],"K-"->fd[1,5,1],"K0"->fd[1,6,1],"K0b"->fd[1,7,1],
-"\[Eta]8"->fd[1,8,1]
-|>;
-mes[meson_,"out"]:=fdType["mes","out"]->mesTextAnti[meson]
+mesAssAnti=AssociationThread[
+mesStr,
+Array[fd[1,#,1]&,9,{0,8}](*\:4ecb\:5b50\:53cd\:573a\:7684raw\:8868\:793a*)
+];
+mes[meson_,"out"]:=fdType["mes","out"]->mesAssAnti[meson]
 
 
 (*\:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
-{
-oct["p"],oct["n"],
-oct["\[CapitalSigma]+"],oct["\[CapitalSigma]0"],oct["\[CapitalSigma]-"],
-oct["\[CapitalXi]0"],oct["\[CapitalXi]-"],oct["\[CapitalLambda]"]
-}=fdType["oct"]->#&/@{
-fd[2,1,0],fd[2,2,0],
-fd[2,3,0],fd[2,4,0],fd[2,5,0],
-fd[2,6,0],fd[2,7,0],fd[2,8,0]
-};
+octStr={
+"p","n",
+"\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-",
+"\[CapitalXi]0","\[CapitalXi]-",
+"\[CapitalLambda]"};
+(*\:5b9a\:4e49\:8f93\:5165\:63a5\:53e3*)
+MapThread[Set,{oct/@octStr,fdType["oct"]->#&/@Array[fd[2,#,0]&,8]}];
 (*\:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
-{
-oct["pb"],oct["nb"],
-oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]-b"],
-oct["\[CapitalXi]0b"],oct["\[CapitalXi]-b"],oct["\[CapitalLambda]b"]
-}=fdType["octb"]->#&/@{
-fd[2,1,1],fd[2,2,1],
-fd[2,3,1],fd[2,4,1],fd[2,5,1],
-fd[2,6,1],fd[2,7,1],
-fd[2,8,1]
-};
+octStrAnti={
+"pb","nb",
+"\[CapitalSigma]+b","\[CapitalSigma]0b","\[CapitalSigma]-b",
+"\[CapitalXi]0b","\[CapitalXi]-b",
+"\[CapitalLambda]b"};
+MapThread[Set,{oct/@octStrAnti,fdType["octb"]->#&/@Array[fd[2,#,1]&,8]}];
 
 
 (*\:5341\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
-{
-dec["\[CapitalDelta]++"],dec["\[CapitalDelta]+"],dec["\[CapitalDelta]0"],dec["\[CapitalDelta]-"],
-dec["\[CapitalSigma]*+"],dec["\[CapitalSigma]*0"],dec["\[CapitalSigma]*-"],
-dec["\[CapitalXi]*0"],dec["\[CapitalXi]*-"],dec["\[CapitalOmega]-"]
-}=fdType["dec"]->#&/@{
-fd[3,1,0],fd[3,2,0],fd[3,3,0],fd[3,4,0],
-fd[3,5,0],fd[3,6,0],fd[3,7,0],
-fd[3,8,0],fd[3,9,0],fd[3,10,0]
+decStr={
+"\[CapitalDelta]++","\[CapitalDelta]+","\[CapitalDelta]0","\[CapitalDelta]-",
+"\[CapitalSigma]*+","\[CapitalSigma]*0","\[CapitalSigma]*-",
+"\[CapitalXi]*0","\[CapitalXi]*-",
+"\[CapitalOmega]-"
 };
+(*\:5b9a\:4e49\:8f93\:5165\:63a5\:53e3*)
+MapThread[Set,{dec/@decStr,fdType["dec"]->#&/@Array[fd[3,#,0]&,10]}];
 (*\:5341\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
-{
-dec["\[CapitalDelta]++b"],dec["\[CapitalDelta]+b"],dec["\[CapitalDelta]0b"],dec["\[CapitalDelta]-b"],
-dec["\[CapitalSigma]*+b"],dec["\[CapitalSigma]*0b"],dec["\[CapitalSigma]*-b"],
-dec["\[CapitalXi]*0b"],dec["\[CapitalXi]*-b"],dec["\[CapitalOmega]-b"]
-}=fdType["decb"]->#&/@{
-fd[3,1,1],fd[3,2,1],fd[3,3,1],fd[3,4,1],
-fd[3,5,1],fd[3,6,1],fd[3,7,1],
-fd[3,8,1],fd[3,9,1],fd[3,10,1]
+decStrAnti={
+"\[CapitalDelta]++b","\[CapitalDelta]+b","\[CapitalDelta]0b","\[CapitalDelta]-b",
+"\[CapitalSigma]*+b","\[CapitalSigma]*0b","\[CapitalSigma]*-b",
+"\[CapitalXi]*0b","\[CapitalXi]*-b",
+"\[CapitalOmega]-b"
 };
+MapThread[Set,{dec/@decStrAnti,fdType["decb"]->#&/@Array[fd[3,#,1]&,10]}];
 
 
 (*\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3*)
-{qua["u"],qua["d"],qua["s"]}=fdType["qua"]->#&/@{fd[4,1,0],fd[4,2,0],fd[4,3,0]};
+quaStr={"u","d","s"};
+MapThread[Set,{qua/@quaStr,fdType["qua"]->#&/@Array[fd[4,#,0]&,3]}];
 (*\:53cd\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3*)
-{qua["ub"],qua["db"],qua["sb"]}=fdType["quab"]->#&/@{fd[4,1,1],fd[4,2,1],fd[4,3,1]};
+quaStrAnti={"ub","db","sb"};
+MapThread[Set,{qua/@quaStrAnti,fdType["quab"]->#&/@Array[fd[4,#,1]&,3]}];
 
 
 (*\:8fd9\:91cc\:7ed9\:51fa\:7684\:51fd\:6570\:53ea\:6709\:6392\:7248\:4f5c\:7528\:ff0c\:4e0d\:53c2\:52a0\:8fd0\:7b97, \:7ed9\:51fa\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:7684\:5934\:90e8,fieldScript,\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0*)
