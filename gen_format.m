@@ -49,7 +49,7 @@ mesAntiRule::usage="\:663e\:5f0f\:66ff\:6362\:89c4\:5219, \:5c06\:4ecb\:5b50\:57
 
 
 qua::usage="\:5938\:514b\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
-qwData::usage="\:5404\:79cd\:4f8b\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e";
+qwData::usage="\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e";
 qwKey::usage="\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8";
 qwave::usage="\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8";
 
@@ -336,6 +336,11 @@ Frame->All,FrameStyle->Directive[Lighter[Black,.7]],ItemStyle->{"InlineFormula"}
 lagcoeFmt[x:__]:=Style[x,"InlineFormula"]
 
 
+qwDataFmt[x__]:={x}(*\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e*)
+qwKeyFmt[x__]:={x}(*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8*)
+qwaveFmt[x__]:={x}(*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8*)
+
+
 fdTypeFmt[x__]:={x}(*\:8868\:793a\:573a\:7684\:79cd\:7c7b*)
 vtxCoeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
 vtxTypeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
@@ -375,6 +380,7 @@ assFmt=<|
 lecs->lecsFmt,cc->lecsFmt,ch->chFmt,
 fd->fdFmt,vfd->vfdFmt,fv->fvFmt,F\[Mu]\[Nu]->F\[Mu]\[Nu]Fmt,
 (*\:573a\:7684\:663e\:793a\:65b9\:5f0f\:ff0c\:4e4b\:524d\:662f fieldScript->Superscript,massScript->Subscript *)
+qwData->qwDataFmt,qwKey->qwKeyFmt,qwave->qwaveFmt,
 massScript->Subscript,fieldScript->enString,
 pde->pdeFmt,ltzScript->Subscript,gma->gmaFmt,(*ldx\[Rule]ldxFmt,*)
 lagint->lagintFmt,lagcoe->lagcoeFmt,
