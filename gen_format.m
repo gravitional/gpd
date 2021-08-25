@@ -43,15 +43,9 @@ ch::usage="\:7535\:8377\:77e9\:9635\:7684\:5934\:90e8";
 
 fdStr::usage="\:5404\:79cd\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a\:ff0chuman-readable";
 mes::usage="\:4ecb\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
+mesAntiRule::usage="\:663e\:5f0f\:66ff\:6362\:89c4\:5219, \:5c06\:4ecb\:5b50\:573a\:66ff\:6362\:6210\:5bf9\:5e94\:7684\:53cd\:7c92\:5b50";
 oct::usage="\:516b\:91cd\:6001\:91cd\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
 dec::usage="\:5341\:91cd\:6001\:91cd\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
-mesAntiRule::usage="\:663e\:5f0f\:66ff\:6362\:89c4\:5219, \:5c06\:4ecb\:5b50\:573a\:66ff\:6362\:6210\:5bf9\:5e94\:7684\:53cd\:7c92\:5b50";
-
-
-qua::usage="\:5938\:514b\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
-qwData::usage="\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e";
-qwKey::usage="\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8";
-qwave::usage="\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8";
 
 
 vfd::usage="\:77e2\:91cf\:573a";
@@ -75,6 +69,15 @@ MassKey::usage="\:9876\:70b9,\:8d39\:66fc\:56fe\:7b49\:7b49\:7c92\:5b50\:8d28\:9
 fyCoeKey::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:952e";
 fyCoe::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8";
 fyVtx::usage="\:8d39\:66fc\:56fe\:67d0\:4e2a\:9876\:70b9\:7684\:5934\:90e8\:ff0c\:4f8b\:5982fyVtx[...,v1]";
+
+
+qua::usage="\:5938\:514b\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
+qwData::usage="\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e";
+qwKey::usage="\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8";
+qwave::usage="\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8";
+qwList::usage="\:5217\:8868\:7684\:5934\:90e8\:ff0c\:5305\:542b\:5938\:514b\:7ec4\:5408\:7684\:7f6e\:6362";
+fqdKey::usage="\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210Key";
+fqd::usage="\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210\:7684value";
 
 
 kin::usage="\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:5934\:90e8\:ff0c\:4f8b\:5982 kin[q]";
@@ -209,7 +212,7 @@ qwaveIdx[type]=toqwave[type]/@{
 {1,3,3},{2,3,3},
 {1,2,3}
 };
-qwData[type]=AssociationThread[qwKey/@fdStr[type],Permutations/@qwaveIdx[type]];
+qwData[type]=AssociationThread[qwKey/@fdStr[type],qwList@@@Permutations/@qwaveIdx[type]];
 
 
 (*\:5341\:91cd\:6001\:91cd\:6001\:91cd\:5b50\:7684\:5938\:514b\:7ec4\:6210*)
@@ -336,11 +339,6 @@ Frame->All,FrameStyle->Directive[Lighter[Black,.7]],ItemStyle->{"InlineFormula"}
 lagcoeFmt[x:__]:=Style[x,"InlineFormula"]
 
 
-qwDataFmt[x__]:={x}(*\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e*)
-qwKeyFmt[x__]:={x}(*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8*)
-qwaveFmt[x__]:={x}(*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8*)
-
-
 fdTypeFmt[x__]:={x}(*\:8868\:793a\:573a\:7684\:79cd\:7c7b*)
 vtxCoeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
 vtxTypeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
@@ -352,6 +350,14 @@ fyCoeKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7
 fyCoeFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
 MassKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
 fyVtxFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:9876\:70b9\:4f4d\:7f6e\:7684\:6807\:8bb0*)
+
+
+qwDataFmt[x__]:={x}(*\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e*)
+qwKeyFmt[x__]:={x}(*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8*)
+qwaveFmt[x__]:={x}(*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8*)
+qwListFmt[x__]:={x}(*\:5938\:514b\:7ec4\:5408\:7684\:7f6e\:6362\:5f62\:6210\:7684\:5217\:8868\:5934\:90e8*)
+fqdKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210Key*)
+fqdFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210\:7684value*)
 
 
 kinFmt[x__]:={x}(*\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:663e\:793a*)
@@ -380,13 +386,14 @@ assFmt=<|
 lecs->lecsFmt,cc->lecsFmt,ch->chFmt,
 fd->fdFmt,vfd->vfdFmt,fv->fvFmt,F\[Mu]\[Nu]->F\[Mu]\[Nu]Fmt,
 (*\:573a\:7684\:663e\:793a\:65b9\:5f0f\:ff0c\:4e4b\:524d\:662f fieldScript->Superscript,massScript->Subscript *)
-qwData->qwDataFmt,qwKey->qwKeyFmt,qwave->qwaveFmt,
 massScript->Subscript,fieldScript->enString,
 pde->pdeFmt,ltzScript->Subscript,gma->gmaFmt,(*ldx\[Rule]ldxFmt,*)
 lagint->lagintFmt,lagcoe->lagcoeFmt,
 fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt,
 MassKey->MassKeyFmt,fyCoeKey->fyCoeKeyFmt,fyCoe->fyCoeFmt,
 fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt,fyVtx->fyVtxFmt,
+qwData->qwDataFmt,qwKey->qwKeyFmt,qwave->qwaveFmt,qwList->qwListFmt,
+fqdKey->fqdKeyFmt,fqd->fqdFmt,
 kin->kinFmt
 |>;
 
