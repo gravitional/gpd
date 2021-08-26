@@ -75,9 +75,11 @@ qua::usage="\:5938\:514b\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
 qwData::usage="\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e";
 qwKey::usage="\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8";
 qwave::usage="\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8";
-qwList::usage="\:5217\:8868\:7684\:5934\:90e8\:ff0c\:5305\:542b\:5938\:514b\:7ec4\:5408\:7684\:7f6e\:6362";
 fqdKey::usage="\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210Key";
-fqd::usage="\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210\:7684value";
+fqd::usage="\:5f3a\:5b50\:5938\:514b\:7ec4\:6210\:7684\:5934\:90e8";
+fqdList::usage="\:5217\:8868\:7684\:5934\:90e8\:ff0c\:5938\:514b\:7ec4\:5408\:7684\:5217\:8868";
+fqdList2::usage="2\:7ea7\:5217\:8868\:7684\:5934\:90e8\:ff0c\:5938\:514b\:7ec4\:5408\:7684\:5217\:8868";
+fqdpos::usage="\:8d39\:66fc\:56fe\:5938\:514b\:4f4d\:7f6e\:7684\:5934\:90e8";
 
 
 kin::usage="\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:5934\:90e8\:ff0c\:4f8b\:5982 kin[q]";
@@ -202,12 +204,12 @@ qwaveIdx["mes"]=Map[toqwave["mes"],
 ,{2}];
 qwData["mes"]=AssociationThread[
 qwKey/@Values[mes/@fdStr["mes"]],
-qwList@@@qwaveIdx["mes"]
+fqdList@@@qwaveIdx["mes"]
 ];
 
 
 (*\:516b\:91cd\:6001\:91cd\:5b50\:7684\:5938\:514b\:7ec4\:6210*)
-toqwave["oct"][{x_,y_,z_}]:=qwList@@Permutations[qwave[fd[4,x,0],fd[4,y,0],fd[4,z,0]]]
+toqwave["oct"][{x_,y_,z_}]:=fqdList@@Permutations[qwave[fd[4,x,0],fd[4,y,0],fd[4,z,0]]]
 qwaveIdx["oct"]=toqwave["oct"]/@{
 {1,1,2},{1,2,2},
 {1,1,3},{1,2,3},{2,2,3},
@@ -360,7 +362,9 @@ fyVtxFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:9876\:70b9\:4f4d\:7f6e\:7684\:6807\:8bb0
 qwDataFmt[x__]:={x}(*\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e*)
 qwKeyFmt[x__]:={x}(*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8*)
 qwaveFmt[x__]:={x}(*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8*)
-qwListFmt[x__]:={x}(*\:5938\:514b\:7ec4\:5408\:7684\:7f6e\:6362\:5f62\:6210\:7684\:5217\:8868\:5934\:90e8*)
+fqdListFmt[x__]:={x}(*\:5938\:514b\:7ec4\:5408\:7684\:7f6e\:6362\:5f62\:6210\:7684\:5217\:8868\:5934\:90e8*)
+fqdList2Fmt[x__]:={x}(*\:4e8c\:7ea7\:5217\:8868\:7684\:5934\:90e8,\:5938\:514b\:7ec4\:5408\:7684\:5217\:8868*)
+fqdposFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:5938\:514b\:56fe,\:5938\:514b\:4f4d\:7f6e\:7684\:5934\:90e8*)
 fqdKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210Key*)
 fqdFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210\:7684value*)
 
@@ -397,8 +401,10 @@ lagint->lagintFmt,lagcoe->lagcoeFmt,
 fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt,
 MassKey->MassKeyFmt,fyCoeKey->fyCoeKeyFmt,fyCoe->fyCoeFmt,
 fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt,fyVtx->fyVtxFmt,
-qwData->qwDataFmt,qwKey->qwKeyFmt,qwave->qwaveFmt,qwList->qwListFmt,
+qwData->qwDataFmt,qwKey->qwKeyFmt,qwave->qwaveFmt,
 fqdKey->fqdKeyFmt,fqd->fqdFmt,
+fqdList->fqdListFmt,fqdList2->fqdList2Fmt,
+fqdpos->fqdposFmt,
 kin->kinFmt
 |>;
 
