@@ -190,29 +190,34 @@ fdStr[type]={"ub","db","sb"};
 Once@MapThread[Set,{qua/@fdStr[type],fdType[type]->#&/@Array[fd[4,#,1]&,3]}];
 
 
-(*oct \:7684\:5938\:514b\:7ec4\:6210\:ff0c\:5938\:514b\:662f\:7528\:7f16\:53f7\:8868\:793a\:7684, toqwave \:5c06\:7f16\:53f7\:8f6c\:6362\:6210\:5938\:514b\:573a*)
-(*\:4ecb\:5b50\:7684\:5938\:514b\:7ec4\:6210*)
-type="mes";
-toqwave[type][{x_,y_}]:=qwave[fd[4,x,0],fd[4,y,1]]
-qwaveIdx[type]=toqwave[type]/@{
-{1,1},
-{1,2},{1,1},{2,1},
-{1,3},{3,1},{2,3},{3,2},
-{1,1}
-};
-qwData[type]=AssociationThread[qwKey/@fdStr[type],qwaveIdx[type]];
+(*\:4ecb\:5b50\:7684\:5938\:514b\:7ec4\:6210\:ff0c\:5938\:514b\:662f\:7528\:7f16\:53f7\:8868\:793a\:7684, toqwave \:5c06\:7f16\:53f7\:8f6c\:6362\:6210\:5938\:514b\:573a*)
+toqwave["mes"][{x_,y_}]:=qwave[fd[4,x,0],fd[4,y,1]]
+qwaveIdx["mes"]=Map[toqwave["mes"],
+{
+{{1,1},{2,2},{3,3}},
+{{1,2}},{{1,1},{2,2}},{{2,1}},
+{{1,3}},{{3,1}},{{2,3}},{{3,2}},
+{{1,1},{2,2},{3,3}}
+}
+,{2}];
+qwData["mes"]=AssociationThread[
+qwKey/@Values[mes/@fdStr["mes"]],
+qwList@@@qwaveIdx["mes"]
+];
 
 
 (*\:516b\:91cd\:6001\:91cd\:5b50\:7684\:5938\:514b\:7ec4\:6210*)
-type="octb";
-toqwave[type][{x_,y_,z_}]:=qwave[fd[4,x,1],fd[4,y,1],fd[4,z,1]]
-qwaveIdx[type]=toqwave[type]/@{
+toqwave["oct"][{x_,y_,z_}]:=qwList@@Permutations[qwave[fd[4,x,0],fd[4,y,0],fd[4,z,0]]]
+qwaveIdx["oct"]=toqwave["oct"]/@{
 {1,1,2},{1,2,2},
 {1,1,3},{1,2,3},{2,2,3},
 {1,3,3},{2,3,3},
 {1,2,3}
 };
-qwData[type]=AssociationThread[qwKey/@fdStr[type],qwList@@@Permutations/@qwaveIdx[type]];
+qwData["oct"]=AssociationThread[
+qwKey/@Values[oct/@fdStr["oct"]],
+qwaveIdx["oct"]
+];
 
 
 (*\:5341\:91cd\:6001\:91cd\:6001\:91cd\:5b50\:7684\:5938\:514b\:7ec4\:6210*)
