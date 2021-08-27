@@ -372,11 +372,15 @@ fyCoeKey["cc*"]->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*
 (*quarkflow*)
 
 
-(*\:8d39\:66fc\:56fe\:4e2d\:5165\:5c04\:7684\:5938\:514b\:7ec4\:6210,mes*)
+(* ::Section:: *)
+(*quark components*)
+
+
+(*\:8d39\:66fc\:56fe\:4e2d\:5165\:5c04\:7684\:5938\:514b\:7ec4\:6210,mes,quench*)
 tofqdKey["qch"][x_]:=fqdKey["qch",x]
 tofqd["qch"][x__]:=fqd[x]
 fqdData["qch","mes"]=Association@KeyValueMap[(#1/.qwKey->tofqdKey["qch"])->(#2/.qwave->tofqd["qch"])&]@qwData["mes"];
-(*\:8d39\:66fc\:56fe\:4e2d\:5165\:5c04oct\:7684\:5938\:514b\:7ec4\:6210,sea*)
+(*\:8d39\:66fc\:56fe\:4e2d\:5165\:5c04\:7684\:5938\:514b\:7ec4\:6210,mes,sea*)
 tofqdKey["sea"][x_]:=fqdKey["sea",x]
 tofqd["sea"][x__]:=fqd[x]
 fqdData["sea","mes"]=Association@KeyValueMap[(#1/.qwKey->tofqdKey["sea"])->(#2/.qwave->tofqd["sea"])&]@qwData["mes"];
@@ -386,7 +390,7 @@ fqdData["sea","mes"]=Association@KeyValueMap[(#1/.qwKey->tofqdKey["sea"])->(#2/.
 tofqdKey["qch"][x_]:=fqdKey["qch",x]
 tofqd["qch"][x__]:=fqd[x]
 fqdData["qch","oct"]=Association@KeyValueMap[(#1/.qwKey->tofqdKey["qch"])->(#2/.qwave->tofqd["qch"])&]@qwData["oct"];
-(*\:8d39\:66fc\:56fe\:4e2d\:5165\:5c04oct\:7684\:5938\:514b\:7ec4\:6210,sea*)
+(*\:8d39\:66fc\:56fe\:4e2d\:5165\:5c04\:7684\:5938\:514b\:7ec4\:6210,oct,sea*)
 tofqdKey["sea"][x_]:=fqdKey["sea",x]
 tofqd["sea"][x_,y_,z_]:=fqd[x,Sequence@@Sort[{y,z}]]
 fqdData["sea","oct"]=Association@KeyValueMap[(#1/.qwKey->tofqdKey["sea"])->DeleteDuplicates[#2/.qwave->tofqd["sea"]]&]@qwData["oct"];
@@ -396,35 +400,69 @@ fqdData["sea","oct"]=Association@KeyValueMap[(#1/.qwKey->tofqdKey["sea"])->Delet
 (*RB,mes,sea*)
 
 
-(*\:751f\:6210\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e*)
-fyTag={"RB","mes"};
-qchTp="sea";(*\:6d77\:5938\:514b\:56fe*)
+(*\:751f\:6210\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, sea*)
+fyTag={"RB","mes"};qchTp="sea";
 tmpoct=fdType["oct"];(*\:5165\:5c04oct\:7684Key*)
 tmpmes=fyVtx[fdType["mes"],"v2"];(*\:4e2d\:95f4\:4ecb\:5b50\:7684Key*)
 (*+++++++++++++++++++++++++++*)
 coeJoin[fyTag,qchTp,"all"]=Query[All,Append[#,
 fqdKey["qfl"]-><|
-fqdpos[1,2,3]->fqdData[qchTp,"oct"][fqdKey[qchTp,#[tmpoct]]],
-fqdpos[4,5]->fqdData[qchTp,"mes"][fqdKey[qchTp,#[tmpmes]]]
+fqdpos[1,2,3]->fqdData[qchTp,"oct"][fqdKey[qchTp,#[tmpoct]]](*oct\:6240\:6709\:7684\:5938\:514b\:7ec4\:5408*),
+fqdpos[4,5]->fqdData[qchTp,"mes"][fqdKey[qchTp,#[tmpmes]]](*mes\:6240\:6709\:7684\:5938\:514b\:7ec4\:5408*)
 |>
 ]&
 ]@coeJoin[fyTag];
-(*\:7b5b\:9009\:51fa\:6240\:6709\:53ef\:80fd\:7684\:914d\:7f6e\:7684\:51fd\:6570*)
-connect[qchTp][x_]:=Module[{qua123List,qua4List},
-qua123List=x[fqdKey["qfl"]][fqdpos[1,2,3]];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684fqdList*)
-qua4List=x[fqdKey["qfl"]][fqdpos[4,5]]/.{fqdList->List};(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684fqdList\:ff0c\:5e76\:5c06\:5934\:90e8\:66ff\:6362\:6210\:5217\:8868*)
+(*++++++++++++++++++++++++++++++++++++++++++++*)
+(*\:7b5b\:9009\:51fa\:6240\:6709\:53ef\:80fd\:7684\:914d\:7f6e\:7684\:51fd\:6570, sea*)
+connect[qchTp][x_]:=Module[{qua123,qua45,sel123},
+qua123=x[fqdKey["qfl"]][fqdpos[1,2,3]]/.{fqdList->fqdList2};(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
+qua45=x[fqdKey["qfl"]][fqdpos[4,5]]/.{fqdList->fqdList2};(*\:63d0\:53d6\:51fa456\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 fqdList2@@DeleteCases[
 <|
 "tp"->{fyTag,qchTp},
-fqdpos[1,2,3]->fqdList@@Cases[qua123List,fqd[First[#],fd__]],
-fqdpos[4,5]->#
-|>&/@qua4List,
-<|fqdpos[1,2,3]->fqdList[],fqdpos[4,5]->_|>
+(*\:8fd9\:91cc\:4e00\:79cd\:4ecb\:5b50\:5bf9\:5e94\:7684\:4f4d\:7f6e4\:7684\:5938\:514b\:662f\:786e\:5b9a\:7684\:ff0c\:5bf9\:5e94\:7684123\:4f4d\:7f6e\:53ea\:6709\:4e00\:79cd\:72ec\:7acb\:7684\:5938\:514b\:914d\:7f6e\:ff0c\:4fdd\:8bc1\:4e86\:7a0b\:5e8f\:4e0d\:51fa\:9519*)
+sel123=First[Cases[qua123,fqd[First[#],fd__]],fqd[Missing[],Missing[],Missing[]]];(*\:7528\:4f4d\:7f6e1\:4e0a\:7684\:5938\:514b\:5339\:914d\:4f4d\:7f6e4\:4e0a\:7684\:5938\:514b*)
+fqdpos[1,2,3]->sel123,
+fqdpos[4,5]->#, (*\:4f4d\:7f6e45\:7684\:5938\:514b*)
+fqdpos[6,7,8]->fqd@@Flatten[{#[[2]]/.ToQuark(*\:5938\:514bbar\[Rule]\:5938\:514b*),sel123[[2;;3]]},Infinity,fqd](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
+|>&/@qua45,(*Map \:4ecb\:5b50\:53ef\:80fd\:7684\:5938\:514b\:7ec4\:5408 *)
+(*\:5220\:9664 Miss[] \:7c7b\:578b\:ff0c\:4e5f\:5c31\:662f123\:548c45\:4e0d\:5339\:914d\:7684\:60c5\:51b5*)
+<|__,fqdpos[1,2,3]->fqd[Missing[],Missing[],Missing[]],__|>
 ]
 ]
 (*+\:7b5b\:9009\:51fa\:53ef\:80fd\:7684\:5938\:514b\:6d41\:914d\:7f6e++++++++++++++++++*)
-coeJoin[fyTag,qchTp,"poss"]=Query[All,
-Append[#,fqdKey["qfl"]->connect[qchTp][#]]&
+coeJoin[fyTag,qchTp,"poss"]=Query[All,Append[#,fqdKey["qfl"]->connect[qchTp][#]]&
+]@coeJoin[fyTag,qchTp,"all"];
+
+
+(*\:751f\:6210\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, quench*)
+fyTag={"RB","mes"};qchTp="qch";
+tmpoct=fdType["oct"];(*\:5165\:5c04oct\:7684Key*)
+tmpmes=fyVtx[fdType["mes"],"v2"];(*\:4e2d\:95f4\:4ecb\:5b50\:7684Key*)
+(*+++++++++++++++++++++++++++*)
+coeJoin[fyTag,qchTp,"all"]=Query[All,Append[#,
+fqdKey["qfl"]-><|
+fqdpos[1,2,3]->fqdData[qchTp,"oct"][fqdKey[qchTp,#[tmpoct]]](*oct\:6240\:6709\:7684\:5938\:514b\:7ec4\:5408*),
+fqdpos[4,5]->fqdData[qchTp,"mes"][fqdKey[qchTp,#[tmpmes]]](*mes\:6240\:6709\:7684\:5938\:514b\:7ec4\:5408*)
+|>
+]&
+]@coeJoin[fyTag];
+(*++++++++++++++++++++++++++++++++++++++++++++*)
+(*\:7b5b\:9009\:51fa\:6240\:6709\:53ef\:80fd\:7684\:914d\:7f6e\:7684\:51fd\:6570, qch*)
+qchTp="qch";
+quaAnti2[fd[x__,0],fd[y__,0]]:=fqd[fd[x,0],fd[y,1]](*\:5c06\:4f4d\:7f6e2\:4e0a\:7684\:5938\:514b\:53d8\:6210\:53cd\:5938\:514b*)
+connect[qchTp][x_]:=Module[{qua123,sel123},
+qua123=x[fqdKey["qfl"]][fqdpos[1,2,3]]/.{fqdList->fqdList2};(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b,fqdList*)
+(*qench \:60c5\:5f62\:5938\:514b\:56fe\:7531123\:4f4d\:7f6e\:7684\:5938\:514b\:5b8c\:5168\:51b3\:5b9a*)
+<|
+"tp"->{fyTag,qchTp},
+fqdpos[1,2,3]->qua123,
+fqdpos[4,5]->qua123[[All,1;;2]]/.fqd->quaAnti2,(*quench \:56fe\:4e2d, 45 \:548c1,2\:76f8\:5173*)
+fqdpos[6,7,8]->qua123[[All,{2,2,3}]]
+|>
+]
+(*+\:7b5b\:9009\:51fa\:53ef\:80fd\:7684\:5938\:514b\:6d41\:914d\:7f6e++++++++++++++++++*)
+coeJoin[fyTag,qchTp,"poss"]=Query[All,Append[#,fqdKey["qfl"]->connect[qchTp][#]]&
 ]@coeJoin[fyTag,qchTp,"all"];
 
 

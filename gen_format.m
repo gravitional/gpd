@@ -46,6 +46,9 @@ mes::usage="\:4ecb\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
 mesAntiRule::usage="\:663e\:5f0f\:66ff\:6362\:89c4\:5219, \:5c06\:4ecb\:5b50\:573a\:66ff\:6362\:6210\:5bf9\:5e94\:7684\:53cd\:7c92\:5b50";
 oct::usage="\:516b\:91cd\:6001\:91cd\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
 dec::usage="\:5341\:91cd\:6001\:91cd\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
+ToQuarkBar::usage="\:5938\:514b\:53d8\:6210\:5938\:514bbar";
+ToQuark::usage="\:5938\:514bbar\:53d8\:6210\:5938\:514b";
+ToQuarkAnti::usage="\:4ea4\:6362\:6b63\:53cd\:5938\:514b";
 
 
 vfd::usage="\:77e2\:91cf\:573a";
@@ -182,6 +185,14 @@ Once@MapThread[Set,{dec/@fdStr[type],fdType[type]->#&/@Array[fd[3,#,1]&,10]}];
 (*quark*)
 
 
+(*\:66ff\:6362\:89c4\:5219:\:5938\:514b\[Rule]\:53cd\:5938\:514b*)
+ToQuarkBar={fd[4,1,0]->fd[4,1,1],fd[4,2,0]->fd[4,2,1],fd[4,3,0]->fd[4,3,1]};
+(*\:66ff\:6362\:89c4\:5219:\:53cd\:5938\:514b\[Rule]\:5938\:514b*)
+ToQuark={fd[4,1,1]->fd[4,1,0],fd[4,2,1]->fd[4,2,0],fd[4,3,1]->fd[4,3,0]};
+(*\:66ff\:6362\:89c4\:5219:\:6b63\:53cd\:5938\:514b\:4e92\:6362*)
+ToQuarkAnti=ToQuarkBar~Join~ToQuark;
+
+
 (*\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3*)
 type="qua";
 fdStr[type]={"u","d","s"};
@@ -208,7 +219,7 @@ fqdList@@@qwaveIdx["mes"]
 ];
 
 
-(*\:516b\:91cd\:6001\:91cd\:5b50\:7684\:5938\:514b\:7ec4\:6210*)
+(*oct\:7684\:5938\:514b\:7ec4\:6210*)
 toqwave["oct"][{x_,y_,z_}]:=fqdList@@Permutations[qwave[fd[4,x,0],fd[4,y,0],fd[4,z,0]]]
 qwaveIdx["oct"]=toqwave["oct"]/@{
 {1,1,2},{1,2,2},
