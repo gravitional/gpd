@@ -66,7 +66,7 @@ echo["the input parameter is:"];echo[inputCml]
 (*Formatting*)
 
 
-Get[FileNameJoin[{gitLocalName,"gen_format.m"}]];(*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
+Get[FileNameJoin[{gitLocalName,"gen_format.wl"}]];(*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
 
 
 (* ::Chapter:: *)
@@ -898,8 +898,8 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],mes["K+"],mes["K-","out"],c
 
 
 (* ::DisplayFormula::Initialization:: *)
-(*e/(4Subscript[M, T]) \[ScriptCapitalF]^\[Mu]\[Nu] . \!\(\*OverscriptBox[*)
-(*SubsuperscriptBox[\(\[CapitalDelta]\), \(\[Alpha]\), \(++\)], \(_\)]\) . Subscript[\[Sigma], \[Mu]\[Nu]] . \!\(\*SuperscriptBox[\(\[CapitalDelta]\), \(++\[Alpha]\)]\)->Subscript[Q, u]3Subscript[c, T],Subscript[c, T]=1/2 (3Subscript[c, 2]+1)*)
+(*(*e/(4Subscript[M, T]) \[ScriptCapitalF]^\[Mu]\[Nu] . \!\(\*OverscriptBox[*)*)
+(*(*SubsuperscriptBox[\(\[CapitalDelta]\), \(\[Alpha]\), \(++\)], \(_\)]\) . Subscript[\[Sigma], \[Mu]\[Nu]] . \!\(\*SuperscriptBox[\(\[CapitalDelta]\), \(++\[Alpha]\)]\)->Subscript[Q, u]3Subscript[c, T],Subscript[c, T]=1/2 (3Subscript[c, 2]+1)*)*)
 
 
 (*++++++++++++++++++++++++++ \:53cd\:5e38\:78c1\:77e9\:ff0c\:5341\:91cd\:6001\:91cd\:5b50 +++++++++++++++++++++*)
@@ -923,8 +923,8 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 
 
 (* ::DisplayFormula::Initialization:: *)
-(*(i e)/Subscript[M, N] \[ScriptCapitalF]^\[Mu]\[Nu] . (\!\(\*OverscriptBox[\(p\), \(_\)]\) . \[Gamma]^\[Mu] . \[Gamma]^5 . \[CapitalDelta]^+\[Nu]-\!\(\*OverscriptBox[*)
-(*SuperscriptBox[\(\[CapitalDelta]\), \(+\[Nu]\)], \(_\)]\) . \[Gamma]^\[Mu] . \[Gamma]^5 . p)->Subscript[c, 4] . (Subscript[Q, u]-Subscript[Q, d]),Subscript[c, 4]=Subscript[c, 1]/Sqrt[3]*)
+(*(*(i e)/Subscript[M, N] \[ScriptCapitalF]^\[Mu]\[Nu] . (\!\(\*OverscriptBox[\(p\), \(_\)]\) . \[Gamma]^\[Mu] . \[Gamma]^5 . \[CapitalDelta]^+\[Nu]-\!\(\*OverscriptBox[*)*)
+(*(*SuperscriptBox[\(\[CapitalDelta]\), \(+\[Nu]\)], \(_\)]\) . \[Gamma]^\[Mu] . \[Gamma]^5 . p)->Subscript[c, 4] . (Subscript[Q, u]-Subscript[Q, d]),Subscript[c, 4]=Subscript[c, 1]/Sqrt[3]*)*)
 
 
 (*++++++++++++++++++++++++++ \:53cd\:5e38\:78c1\:77e9\:ff0c\:8f6c\:79fb\:78c1\:77e9 +++++++++++++++++++++*)
