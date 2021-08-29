@@ -454,25 +454,15 @@ fqdKey[fyTag,qchTp1]\[Rule]connect[qchTp1]|>
 
 
 (* ::Input:: *)
-(**)
-
-
-(* ::Input:: *)
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
-(*fyTag={"RB","mes"};qchTp1="sea";*)
+(*fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";*)
 (*Query[Cases[KeyValuePattern[*)
 (*chTagKey[fyTag,qchTp1]->chTag[fd[2,1,0],fd__]*)
 (*]]]@coeJoin[fyTag,{qchTp1,"poss"}]//dsetFmt*)
 
 
-(* ::Input:: *)
-(*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
-(*fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";*)
-(*Query[Cases[KeyValuePattern[fdType["oct"]->fd[2,1,0]]]]@coeJoin[fyTag,{qchTp1,qchTp2,"poss"}]//dsetFmt*)
-
-
 (*\:7ee7\:7eed\:6dfb\:52a0\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, quench\:56fe*)
-fyTag={"RB","mes"};qchTp2="qch";
+fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";
 tmpoct=fdType["oct"];(*\:5165\:5c04oct\:7684Key*)
 tmpmes=fyVtx[fdType["mes"],"v2"];(*\:4e2d\:95f4\:4ecb\:5b50\:7684Key*)
 (*+++++++++++++++++++++++++++*)
@@ -495,7 +485,7 @@ x[fqdKey[fyTag,qchTp2]][fqdpos[1,2,3]],fqd[a_fd,b_fd,b_fd]
 fdType["oct"]->x@fdType["oct"],
 fdType["octb"]->x@fdType["octb"],
 fdType["mes"]->x@fyVtx[fdType["mes"],"v2"],
-chTagKey[fyTag,qchTp1]->chTag[x@fdType["oct"],x@fdType["octb"],x@fyVtx[fdType["mes"],"v2"]],
+chTagKey[fyTag,qchTp2]->chTag[x@fdType["oct"],x@fdType["octb"],x@fyVtx[fdType["mes"],"v2"]],
 fyCoeKey["cStr"]->x@fyCoeKey["cStr"],
 fqdpos[1,2,3]->#,
 fqdpos[4,5]->#[[1;;2]]/.fqd->quaAnti2,(*quench \:56fe\:4e2d, 45 \:548c1,2\:76f8\:5173*)
@@ -504,6 +494,21 @@ fqdpos[6,7,8]->#[[{2,2,3}]]
 ]
 (*+\:7b5b\:9009\:51fa\:53ef\:80fd\:7684\:5938\:514b\:6d41\:914d\:7f6e++++++++++++++++++*)
 coeJoin[fyTag,{qchTp2,"poss"}]=Query[All,connect[qchTp2]]@coeJoin[fyTag,{qchTp2,"all"}];
+
+
+(* ::Input:: *)
+(*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
+(*fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";*)
+(*Query[Cases[KeyValuePattern[*)
+(*chTagKey[fyTag,qchTp2]->chTag[fd[2,1,0],fd__]*)
+(*]]]@coeJoin[fyTag,{qchTp2,"poss"}]//dsetFmt*)
+
+
+fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";
+coeJoin[fyTag,{qchTp1,qchTp2,"poss"}]=Query[All,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:5197\:4f59\:7684678\:5938\:514b*)
+]@Join[(*\:6c47\:603b seq quench \:4e24\:8005\:60c5\:51b5\:7684\:5938\:514b\:56fe*)
+coeJoin[fyTag,{qchTp1,"poss"}],coeJoin[fyTag,{qchTp2,"poss"}]
+];
 
 
 (* ::Chapter:: *)
