@@ -66,8 +66,8 @@ lagcoe::usage="\:62c9\:683c\:6717\:65e5\:91cf\:7cfb\:6570\:7684\:5934\:90e8";
 fdType::usage="\:573a\:7684\:79cd\:7c7b";
 vtxCoe::usage="\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:5934\:90e8";
 vtxType::usage="\:8d39\:66fc\:9876\:70b9\:79cd\:7c7b\:7684\:5934\:90e8";
-fyDiagKey::usage="\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:952e";
-fyDiag::usage="\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:5934\:90e8";
+chTagKey::usage="\:8d39\:66fc\:56fechpt \:6807\:8bb0\:7684key";
+chTag::usage="\:8d39\:66fc\:56fe chpt \:6807\:8bb0\:7684value";
 MassKey::usage="\:9876\:70b9,\:8d39\:66fc\:56fe\:7b49\:7b49\:7c92\:5b50\:8d28\:91cf\:7684key";
 fyCoeKey::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:952e";
 fyCoe::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8";
@@ -362,8 +362,8 @@ vtxCoeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683
 vtxTypeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
 
 
-fyDiagKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:952e\:7684\:663e\:793a*)
-fyDiagFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:7f16\:53f7\:7684\:503c\:7684\:663e\:793a*)
+chTagKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe chpt \:6807\:8bb0\:7684key*)
+chTagFmt[x__]:={x}(*\:8d39\:66fc\:56fe chpt tag \:7684\:503c*)
 fyCoeKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:952e*)
 fyCoeFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
 MassKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
@@ -411,7 +411,7 @@ pde->pdeFmt,ltzScript->Subscript,gma->gmaFmt,(*ldx\[Rule]ldxFmt,*)
 lagint->lagintFmt,lagcoe->lagcoeFmt,
 fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt,
 MassKey->MassKeyFmt,fyCoeKey->fyCoeKeyFmt,fyCoe->fyCoeFmt,
-fyDiagKey->fyDiagKeyFmt,fyDiag->fyDiagFmt,fyVtx->fyVtxFmt,
+chTagKey->chTagKeyFmt,chTag->chTagFmt,fyVtx->fyVtxFmt,
 qwData->qwDataFmt,qwKey->qwKeyFmt,qwave->qwaveFmt,
 fqdKey->fqdKeyFmt,fqd->fqdFmt,
 fqdList->fqdListFmt,fqdList2->fqdList2Fmt,
