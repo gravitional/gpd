@@ -404,7 +404,7 @@ fqdData["sea","oct"]=Association@KeyValueMap[(#1/.qwKey->tofqdKey["sea"])->Delet
 
 
 (* ::Section:: *)
-(*RB,mes,sea,quench*)
+(*RB mes,sea,quench*)
 
 
 (*\:751f\:6210\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, sea*)
@@ -421,28 +421,28 @@ fqdpos[4,5]->fqdData[qchTp1,"mes"][fqdKey[qchTp1,#[tmpmes]]](*mes\:6240\:6709\:7
 ]@coeJoin[fyTag];
 (*++++++++++++++++++++++++++++++++++++++++++++*)
 (*\:7b5b\:9009\:51fa\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e\:7684\:51fd\:6570,sea*)
-connect[qchTp1][x_]:=Module[{qua123,qua45,sel123},
+connect[qchTp1][x_]:=Module[{qua123,qua45,sel123,chOct},
 qua123=x[fqdKey[fyTag,qchTp1]][fqdpos[1,2,3]];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
 qua45=x[fqdKey[fyTag,qchTp1]][fqdpos[4,5]];(*\:63d0\:53d6\:51fa456\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (*Sequence@@*)DeleteCases[
 <|
 (*\:8fd9\:91cc\:4e00\:79cd\:4ecb\:5b50\:5bf9\:5e94\:7684\:4f4d\:7f6e4\:7684\:5938\:514b\:662f\:786e\:5b9a\:7684\:ff0c\:5bf9\:5e94\:7684123\:4f4d\:7f6e\:53ea\:6709\:4e00\:79cd\:72ec\:7acb\:7684\:5938\:514b\:914d\:7f6e\:ff0c\:4fdd\:8bc1\:4e86\:7a0b\:5e8f\:4e0d\:51fa\:9519*)
-sel123=First[Cases[qua123,fqd[First[#],fd__]],fqd[Missing[],Missing[],Missing[]]];(*\:7528\:4f4d\:7f6e1\:4e0a\:7684\:5938\:514b\:5339\:914d\:4f4d\:7f6e4\:4e0a\:7684\:5938\:514b*)
-fdType["oct"]->x@fdType["oct"],
-fdType["octb"]->x@fdType["octb"],
-fdType["mes"]->x@fyVtx[fdType["mes"],"v2"],
-chTagKey[fyTag,qchTp1]->chTag[x@fdType["oct"],x@fdType["octb"],x@fyVtx[fdType["mes"],"v2"]],
+chOct=x@fdType["oct"];
+sel123=First[Cases[qua123,fqd[First[#],fd__]],fqd["mis","mis","mis"]];(*\:7528\:4f4d\:7f6e1\:4e0a\:7684\:5938\:514b\:5339\:914d\:4f4d\:7f6e4\:4e0a\:7684\:5938\:514b*)
+chTagKey["in"]->chTag[chOct],
+chTagKey[fyTag]->chTag[chOct,x@fdType["octb"],x@fyVtx[fdType["mes"],"v2"]],
 fyCoeKey["cStr"]->x@fyCoeKey["cStr"],
-fqdpos[1,2,3]->sel123,
-fqdpos[4,5]->#, (*\:4f4d\:7f6e45\:7684\:5938\:514b*)
-fqdpos[6,7,8]->fqd@@Flatten[{#[[2]]/.ToQuark(*\:5938\:514bbar\[Rule]\:5938\:514b*),sel123[[2;;3]]},Infinity,fqd](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
+fqdpos[1,2,3]->fqdTag[sel123,qchTp1,chOct],
+fqdpos[1,5]->fqdTag[sel123,#(*\:5938\:514b4,5*),qchTp1,chOct],
+fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.ToQuark(*\:5938\:514bbar\[Rule]\:5938\:514b*),sel123[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
 |>&/@qua45,(*Map \:4ecb\:5b50\:53ef\:80fd\:7684\:5938\:514b\:7ec4\:5408 *)
 (*\:5220\:9664 Miss[] \:7c7b\:578b\:ff0c\:4e5f\:5c31\:662f123\:548c45\:4e0d\:5339\:914d\:7684\:60c5\:51b5*)
-<|__,fqdpos[1,2,3]->fqd[Missing[],Missing[],Missing[]],__|>
+<|__,fqdpos[1,5]->fqdTag[fqd["mis","mis","mis"],__],__|>
 ]/.fqdList->Sequence
 ]
 (*+\:7b5b\:9009\:51fa\:53ef\:80fd\:7684\:5938\:514b\:6d41\:914d\:7f6e++++++++++++++++++*)
-coeJoin[fyTag,{qchTp1,"poss"}]=Query[All,connect[qchTp1]]@coeJoin[fyTag,{qchTp1,"all"}];
+coeJoin[fyTag,{qchTp1,"poss"}]=Query[All,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:5197\:4f59\:7684678\:5938\:514b*)
+]@Query[All,connect[qchTp1]]@coeJoin[fyTag,{qchTp1,"all"}];
 (*\:6784\:9020\:7684\:5176\:4ed6\:7ed3\:6784
 coeJoin[fyTag,{qchTp1,"poss"}]=Query[All,<|
 fdType["oct"]\[Rule]Key@fdType["oct"],fdType["octb"]\[Rule]Key@fdType["octb"],
@@ -476,24 +476,23 @@ fqdpos[4,5]->fqdData[qchTp2,"mes"][fqdKey[qchTp2,#[tmpmes]]](*mes\:6240\:6709\:7
 (*++++++++++++++++++++++++++++++++++++++++++++*)
 (*\:7b5b\:9009\:51fa\:6240\:6709\:53ef\:80fd\:7684\:914d\:7f6e\:7684\:51fd\:6570, qch*)
 quaAnti2[fd[x__,0],fd[y__,0]]:=fqd[fd[x,0],fd[y,1]](*\:5c06\:4f4d\:7f6e2\:4e0a\:7684\:5938\:514b\:53d8\:6210\:53cd\:5938\:514b*)
-connect[qchTp2][x_]:=Module[{qua123,sel123},
+connect[qchTp2][x_]:=Module[{qua123,sel123,chOct},
 qua123=DeleteCases[(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, \:5220\:9664\:516b\:91cd\:6001\:4e2d\:4e0d\:53ef\:80fd\:5b58\:5728\:7684 bbb \:4e2d\:95f4\:6001,\:8fd9\:91cc\:5e94\:8be5\:4e0d\:4f1a\:5269\:4e0b\:7a7a\:96c6*)
 x[fqdKey[fyTag,qchTp2]][fqdpos[1,2,3]],fqd[a_fd,b_fd,b_fd]
 ];
 (*qench \:60c5\:5f62\:5938\:514b\:56fe\:7531123\:4f4d\:7f6e\:7684\:5938\:514b\:5b8c\:5168\:51b3\:5b9a*)
 (<|
-fdType["oct"]->x@fdType["oct"],
-fdType["octb"]->x@fdType["octb"],
-fdType["mes"]->x@fyVtx[fdType["mes"],"v2"],
-chTagKey[fyTag,qchTp2]->chTag[x@fdType["oct"],x@fdType["octb"],x@fyVtx[fdType["mes"],"v2"]],
+chOct=x@fdType["oct"];
+chTagKey["in"]->chTag[chOct],
+chTagKey[fyTag]->chTag[x@fdType["oct"],x@fdType["octb"],x@fyVtx[fdType["mes"],"v2"]],
 fyCoeKey["cStr"]->x@fyCoeKey["cStr"],
-fqdpos[1,2,3]->#,
-fqdpos[4,5]->#[[1;;2]]/.fqd->quaAnti2,(*quench \:56fe\:4e2d, 45 \:548c1,2\:76f8\:5173*)
-fqdpos[6,7,8]->#[[{2,2,3}]]
+fqdpos[1,5]->fqdTag[#,#[[1;;2]]/.fqd->quaAnti2,(*4,5\:4f4d\:7f6e\:7684\:5938\:514b*)qchTp2,chOct],
+fqdpos[6,7,8]->fqdTag[#[[{2,2,3}]],qchTp2,chOct]
 |>&/@qua123)/.fqdList->Sequence
 ]
 (*+\:7b5b\:9009\:51fa\:53ef\:80fd\:7684\:5938\:514b\:6d41\:914d\:7f6e++++++++++++++++++*)
-coeJoin[fyTag,{qchTp2,"poss"}]=Query[All,connect[qchTp2]]@coeJoin[fyTag,{qchTp2,"all"}];
+coeJoin[fyTag,{qchTp2,"poss"}]=Query[All,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:5197\:4f59\:7684678\:5938\:514b*)
+]@Query[All,connect[qchTp2]]@coeJoin[fyTag,{qchTp2,"all"}];
 
 
 (* ::Input:: *)
@@ -505,10 +504,37 @@ coeJoin[fyTag,{qchTp2,"poss"}]=Query[All,connect[qchTp2]]@coeJoin[fyTag,{qchTp2,
 
 
 fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";
-coeJoin[fyTag,{qchTp1,qchTp2,"poss"}]=Query[All,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:5197\:4f59\:7684678\:5938\:514b*)
-]@Join[(*\:6c47\:603b seq quench \:4e24\:8005\:60c5\:51b5\:7684\:5938\:514b\:56fe*)
+coeJoin[fyTag,{qchTp1,qchTp2,"poss"}]=Join[(*\:6c47\:603b seq quench \:4e24\:8005\:60c5\:51b5\:7684\:5938\:514b\:56fe*)
 coeJoin[fyTag,{qchTp1,"poss"}],coeJoin[fyTag,{qchTp2,"poss"}]
 ];
+
+
+(* ::Section:: *)
+(*GroupBy*)
+
+
+(* ::Input:: *)
+(*fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";*)
+(*(* sea+quench \[Equal] total *)*)
+(*tea=Query[Values,Values,All,Key@fqdpos[1,5]*)
+(*]@Query[*)
+(*GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)*)
+(*GroupBy[#@chTagKey[fyTag]&]*)
+(*]@coeJoin[fyTag,{qchTp1,qchTp2,"poss"}];*)
+(*Apply[Plus,tea,{depth-1}]*)
+
+
+(* ::Input:: *)
+(*(*sea \:7684\:76f8\:7b49\:65b9\:7a0b*)*)
+(*Query[All,All,eqAll,Key@fqdpos[1,5]*)
+(*]@Query[*)
+(*GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)*)
+(*GroupBy[#@fqdpos[1, 2, 3]&]*)
+(*]@coeJoin[fyTag,{qchTp1,"poss"}]*)
+
+
+(* ::Input:: *)
+(**)
 
 
 (* ::Chapter:: *)
