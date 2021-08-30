@@ -153,7 +153,7 @@ unq[oct["\[CapitalLambda]"],mes["K0"],mes["K0b"],coeIn[vtxtp,0]]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong,BB\[Phi],DF*)
 
 
@@ -232,7 +232,7 @@ unq[oct["\[CapitalLambda]b"],oct["n"],mes["K0b"],coeIn[vtxtp,-((cc["D"]+3cc["F"]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong, BMT, C*)
 
 
@@ -305,7 +305,7 @@ unq[oct["\[CapitalLambda]b"],mes["K0"],dec["\[CapitalXi]*0"],coeIn[vtxtp,-(1/2)]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong, T-M, H*)
 
 
@@ -386,7 +386,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalXi]*-"],mes["K0b"],coeIn[vtxtp,-1/Sqr
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong,BBMM,\:5f20\:91cf\:8026\:5408\:9879*)
 
 
@@ -464,7 +464,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mes["K0b"],coeIn[
 (*\:7269\:8d28\:573a\:7535\:78c1\:6d41*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*\:7535\:78c1\:6d41,oder1,BBA,*)
 
 
@@ -496,7 +496,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],coeIn[vtxtp,0]](*\:6dfb\:52
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*\:7535\:78c1\:6d41,oder2,BB\[Phi]\[Phi]A*)
 
 
@@ -556,7 +556,7 @@ unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["K+"],mes["K-","out"],coeIn[v
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*\:7535\:78c1\:6d41, BB\[Phi]A, DF*)
 
 
@@ -614,7 +614,7 @@ unq[oct["\[CapitalLambda]"],oct["\[CapitalXi]0b"],mes["K0b"],coeIn[vtxtp,(-I(cc[
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*\:7535\:78c1\:6d41, TTA, TT\[Phi]\[Phi]A*)
 
 
@@ -704,7 +704,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],mes["K0"],mes["K0b","l2"],c
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*\:7535\:78c1\:6d41, BT\[Phi]A, C*)
 
 
@@ -761,7 +761,7 @@ unq[oct["\[CapitalLambda]b"],mes["K0"],dec["\[CapitalXi]*0"],coeIn[vtxtp,(I(ch["
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*meson, \[Phi]\[Phi]A*)
 
 
@@ -792,7 +792,7 @@ unq[mes["K0b"],mes["K0","out"],coeIn[vtxtp,-I(ch["d"]-ch["s"])]]
 (*\:53cd\:5e38\:78c1\:77e9*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*octet,order1,BBA*)
 
 
@@ -816,7 +816,7 @@ unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[vtxtp,(cc["c1"](ch["u
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*octet,order2,BB\[Phi]\[Phi]A*)
 
 
@@ -893,13 +893,13 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],mes["K+"],mes["K-","out"],c
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*decuplet*)
 
 
 (* ::DisplayFormula::Initialization:: *)
-(*(*e/(4Subscript[M, T]) \[ScriptCapitalF]^\[Mu]\[Nu] . \!\(\*OverscriptBox[*)*)
-(*(*SubsuperscriptBox[\(\[CapitalDelta]\), \(\[Alpha]\), \(++\)], \(_\)]\) . Subscript[\[Sigma], \[Mu]\[Nu]] . \!\(\*SuperscriptBox[\(\[CapitalDelta]\), \(++\[Alpha]\)]\)->Subscript[Q, u]3Subscript[c, T],Subscript[c, T]=1/2 (3Subscript[c, 2]+1)*)*)
+(*e/(4Subscript[M, T]) \[ScriptCapitalF]^\[Mu]\[Nu] . \!\(\*OverscriptBox[*)
+(*SubsuperscriptBox[\(\[CapitalDelta]\), \(\[Alpha]\), \(++\)], \(_\)]\) . Subscript[\[Sigma], \[Mu]\[Nu]] . \!\(\*SuperscriptBox[\(\[CapitalDelta]\), \(++\[Alpha]\)]\)->Subscript[Q, u]3Subscript[c, T],Subscript[c, T]=1/2 (3Subscript[c, 2]+1)*)
 
 
 (*++++++++++++++++++++++++++ \:53cd\:5e38\:78c1\:77e9\:ff0c\:5341\:91cd\:6001\:91cd\:5b50 +++++++++++++++++++++*)
@@ -918,13 +918,13 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*trans magnetic*)
 
 
 (* ::DisplayFormula::Initialization:: *)
-(*(*(i e)/Subscript[M, N] \[ScriptCapitalF]^\[Mu]\[Nu] . (\!\(\*OverscriptBox[\(p\), \(_\)]\) . \[Gamma]^\[Mu] . \[Gamma]^5 . \[CapitalDelta]^+\[Nu]-\!\(\*OverscriptBox[*)*)
-(*(*SuperscriptBox[\(\[CapitalDelta]\), \(+\[Nu]\)], \(_\)]\) . \[Gamma]^\[Mu] . \[Gamma]^5 . p)->Subscript[c, 4] . (Subscript[Q, u]-Subscript[Q, d]),Subscript[c, 4]=Subscript[c, 1]/Sqrt[3]*)*)
+(*(i e)/Subscript[M, N] \[ScriptCapitalF]^\[Mu]\[Nu] . (\!\(\*OverscriptBox[\(p\), \(_\)]\) . \[Gamma]^\[Mu] . \[Gamma]^5 . \[CapitalDelta]^+\[Nu]-\!\(\*OverscriptBox[*)
+(*SuperscriptBox[\(\[CapitalDelta]\), \(+\[Nu]\)], \(_\)]\) . \[Gamma]^\[Mu] . \[Gamma]^5 . p)->Subscript[c, 4] . (Subscript[Q, u]-Subscript[Q, d]),Subscript[c, 4]=Subscript[c, 1]/Sqrt[3]*)
 
 
 (*++++++++++++++++++++++++++ \:53cd\:5e38\:78c1\:77e9\:ff0c\:8f6c\:79fb\:78c1\:77e9 +++++++++++++++++++++*)
@@ -979,7 +979,7 @@ mesSym[vtx_]:=Union[vtx,vtx/.mesAntiRule];
 
 
 (*++++++++++++++++++++++++++ \:53cd\:5e38\:78c1\:77e9\:ff0c\:975e\:5b9a\:57df\:5316 +++++++++++++++++++++*)
-vtxtp=vtxType["F1F2","nloc","o2"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtxtp=vtxType["F1F2","o2","nloc"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 (*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtx[unq["type"->vtxtp]]=Query[All,
 KeyDrop[{vtxType["F1","oct","o2"],vtxType["F2","oct","o2"]}]
