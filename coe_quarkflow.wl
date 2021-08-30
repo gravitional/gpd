@@ -155,9 +155,11 @@ fqdpos[1,5]->fqdTag[#,#[[1;;2]]/.fqd->quaAnti2,(*4,5\:4f4d\:7f6e\:7684\:5938\:51
 fqdpos[6,7,8]->fqdTag[#[[{2,2,3}]],qchTp2,chOct]
 |>&/@qua123)/.fqdList->Sequence
 ]
-(*+\:7b5b\:9009\:51fa\:53ef\:80fd\:7684\:5938\:514b\:6d41\:914d\:7f6e++++++++++++++++++*)
+(*++++++++++++++++++\:7b5b\:9009\:51fa\:53ef\:80fd\:7684\:5938\:514b\:6d41\:914d\:7f6e++++++++++++++++++*)
 coeJoin[fyTag,{qchTp2,"poss"}]=Query[All,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:5197\:4f59\:7684678\:5938\:514b*)
 ]@Query[All,connect[qchTp2]]@coeJoin[fyTag,{qchTp2,"all"}];
+(*++++++++++++++++++\:6c47\:603b seq quench \:4e24\:8005\:60c5\:51b5\:7684\:5938\:514b\:56fe++++++++++++++++++*)
+coeJoin[fyTag,{qchTp1,qchTp2,"poss"}]=Join[coeJoin[fyTag,{qchTp1,"poss"}],coeJoin[fyTag,{qchTp2,"poss"}]];
 
 
 (* ::Input:: *)
@@ -169,34 +171,22 @@ coeJoin[fyTag,{qchTp2,"poss"}]=Query[All,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:5
 
 
 fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";
-coeJoin[fyTag,{qchTp1,qchTp2,"poss"}]=Join[(*\:6c47\:603b seq quench \:4e24\:8005\:60c5\:51b5\:7684\:5938\:514b\:56fe*)
-coeJoin[fyTag,{qchTp1,"poss"}],coeJoin[fyTag,{qchTp2,"poss"}]
-];
+(* sea+quench \[Equal] total *)
+tea=Query[Values,Values,All,Key@fqdpos[1,5]
+]@Query[
+GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)
+GroupBy[#@chTagKey[fyTag]&]
+]@coeJoin[fyTag,{qchTp1,qchTp2,"poss"}];
+fqdDepth=FirstPosition[tea,_fqd]//Length;
+teb=Apply[Plus,tea,{fqdDepth-2}];
 
 
-(* ::Section:: *)
-(*GroupBy*)
-
-
-(* ::Input:: *)
-(*fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";*)
-(*(* sea+quench \[Equal] total *)*)
-(*tea=Query[Values,Values,All,Key@fqdpos[1,5]*)
-(*]@Query[*)
-(*GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)*)
-(*GroupBy[#@chTagKey[fyTag]&]*)
-(*]@coeJoin[fyTag,{qchTp1,qchTp2,"poss"}];*)
-(*fqdDepth=FirstPosition[tea,_fqd]//Length;*)
-(*teb=Apply[Plus,tea,{fqdDepth-2}];*)
-
-
-(* ::Input:: *)
-(*(*sea \:7684\:76f8\:7b49\:65b9\:7a0b*)*)
-(*Query[All,All,eqAll,Key@fqdpos[1,5]*)
-(*]@Query[*)
-(*GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)*)
-(*GroupBy[#@fqdpos[1, 2, 3]&]*)
-(*]@coeJoin[fyTag,{qchTp1,"poss"}]*)
+(*sea \:7684\:76f8\:7b49\:65b9\:7a0b*)
+tec=Query[Values,Values,eqAll,Key@fqdpos[1,5]
+]@Query[
+GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)
+GroupBy[#@fqdpos[1, 2, 3]&]
+]@coeJoin[fyTag,{qchTp1,"poss"}]
 
 
 (* ::Chapter:: *)

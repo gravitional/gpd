@@ -115,7 +115,9 @@ Append[#,{
 (*\:9876\:70b91\:7684\:5165\:5c04mes--\:6b63\:573a\:ff0c\:5b83\:7684\:53cd\:573a==\:9876\:70b92\:7684\:51fa\:5c04mesb--\:53cd\:573a*)
 fyVtx2@fdTypeMesOut->(#[fdTypeMes]/.fd[a_,b_,0]:>fd[a,b,1]),
 (*\:9876\:70b91\:7684\:51fa\:5c04oct--\:53cd\:573a\:ff0c\:7b49\:4e8e\:9876\:70b93\:7684\:5165\:5c04oct--\:6b63\:573a*)
-fyVtx3@fdTypeOct->(#[fdTypeOctb]/.fd[a_,b_,1]:>fd[a,b,0])
+fyVtx3@fdTypeOct->(#[fdTypeOctb]/.fd[a_,b_,1]:>fd[a,b,0]),
+(*\:5bf9\:4e8e\[CapitalLambda]-\[CapitalSigma]0\:7c92\:5b50\:ff0c\:8fd8\:9700\:8981\:9650\:5b9a\:51fa\:5c04\:6001\:548c\:5165\:5c04\:6001\:76f8\:540c*)
+fyVtx3@fdTypeOctb->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,1])
 }
 ]&
 ]@vtx1;
@@ -139,7 +141,8 @@ vtxJoinTmp1[fyTag], (*\:4fee\:9970\:597d\:7684\:9876\:70b91,2*)
 vtx3,(*\:9876\:70b93\:ff0c\:5f3a\:76f8\:4e92\:4f5c\:7528*)
 {
 Key@fyVtx3@fdTypeOct->Key@fdTypeOct,(*\:9876\:70b91\:7684oct\:6b63\:573a==\:9876\:70b93\:7684oct\:573a*)
-Key@fyVtx3@fdTypeMes->Key[fdTypeMes](*\:7531\:9876\:70b92\:63a8\:5bfc\:7684mes\:6b63\:573a==\:9876\:70b93\:7684mes\:6b63\:573a*)
+Key@fyVtx3@fdTypeMes->Key[fdTypeMes],(*\:7531\:9876\:70b92\:63a8\:5bfc\:7684mes\:6b63\:573a==\:9876\:70b93\:7684mes\:6b63\:573a*)
+Key@fyVtx3@fdTypeOctb->Key@fdTypeOctb(*\:9876\:70b93\:7684\:51fa\:5c04\:573a\:ff0c\:8981\:6c42\:548c\:5165\:5c04\:573a\:4e00\:81f4*)
 }
 ,"Inner"
 ,KeyCollisionFunction->Function[x,{x,fyVtx3@x}](* \:5c06\:9876\:70b93\:91cd\:590d\:51fa\:73b0\:7684\:952e\:6253\:4e0atag*)
@@ -193,7 +196,7 @@ fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:76
 (* ::Input:: *)
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
 (*fyTag={"RB","mes"};*)
-(*Query[Cases[KeyValuePattern[fdTypeOct->fd[2,8,0]]]]@coeJoin[fyTag]//dsetFmt*)
+(*Query[Cases[KeyValuePattern[fdTypeOct->fd[2,7,0]]]]@coeJoin[fyTag]//dsetFmt*)
 
 
 (* ::Section:: *)
@@ -210,9 +213,11 @@ vtxType3=vtxType["stro","DF"];vtx3=vtx[unq["type"->vtxType3]];
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
 (*\:9876\:70b91\:7684\:51fa\:5c04oct--\:53cd\:7c92\:5b50\:ff0c\:7b49\:4e8e\:9876\:70b92\:7684\:5165\:5c04oct--\:6b63\:7c92\:5b50\:3002\:8fd9\:91cc\:6839\:636e\:9876\:70b91\:7684\:53cd\:7c92\:5b50\:751f\:6210\:9876\:70b92\:7684\:6b63\:7c92\:5b50*)
-fyVtx2@fdTypeOct->(#[fdTypeOctb]/.fd[a_,b_,1]:>fd[a,b,0]),
+fyVtx2@fdTypeOct->(#@fdTypeOctb/.fd[a_,b_,1]:>fd[a,b,0]),
 (*\:9876\:70b91\:7684\:5165\:5c04mes--\:6b63\:7c92\:5b50\:ff0c\:7b49\:4e8e\:9876\:70b93\:7684\:51fa\:5c04mes--\:53cd\:7c92\:5b50*)
-fyVtx3@fdTypeMesOut->(#[fdTypeMes]/.fd[a_,b_,0]:>fd[a,b,1])
+fyVtx3@fdTypeMesOut->(#@fdTypeMes/.fd[a_,b_,0]:>fd[a,b,1]),
+(*\:5bf9\:4e8e\[CapitalLambda]-\[CapitalSigma]0\:7c92\:5b50\:ff0c\:8fd8\:9700\:8981\:9650\:5b9a\:51fa\:5c04\:6001\:548c\:5165\:5c04\:6001\:76f8\:540c*)
+fyVtx3@fdTypeOctb->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,1])
 }
 ]&
 ]@vtx1;
@@ -236,7 +241,8 @@ vtxJoinTmp1[fyTag], (*\:4fee\:9970\:597d\:7684\:9876\:70b91,2*)
 vtx3,(*\:9876\:70b93\:ff0c\:5f3a\:76f8\:4e92\:4f5c\:7528*)
 {
 Key@fyVtx3@fdTypeMesOut->Key@fdTypeMes,(*\:9876\:70b91\:7684\:4ecb\:5b50\:53cd\:573a\:ff0c\:5339\:914d\:9876\:70b93\:7684\:4ecb\:5b50\:6b63\:573a*)
-Key@fyVtx3@fdTypeOct->Key@fdTypeOct(*\:7531\:9876\:70b92\:63a8\:5bfc\:7684oct\:6b63\:573a\:ff0c\:5339\:914d\:9876\:70b93\:7684oct \:6b63\:573a*)
+Key@fyVtx3@fdTypeOct->Key@fdTypeOct,(*\:7531\:9876\:70b92\:63a8\:5bfc\:7684oct\:6b63\:573a\:ff0c\:5339\:914d\:9876\:70b93\:7684oct \:6b63\:573a*)
+Key@fyVtx3@fdTypeOctb->Key@fdTypeOctb(*\:9876\:70b93\:7684\:51fa\:5c04\:573a\:ff0c\:8981\:6c42\:548c\:5165\:5c04\:573a\:4e00\:81f4*)
 }
 ,"Inner"
 ,KeyCollisionFunction->Function[x,{x,fyVtx3@x}](* \:5c06\:9876\:70b93\:91cd\:590d\:51fa\:73b0\:7684\:952e\:6253\:4e0atag*)
