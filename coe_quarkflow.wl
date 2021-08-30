@@ -189,6 +189,17 @@ GroupBy[#@fqdpos[1, 2, 3]&]
 ]@coeJoin[fyTag,{qchTp1,"poss"}]
 
 
+(* ::Input:: *)
+(*(*employ the new particle \[Eta]0*)*)
+(*proportion`factor`inverse=<|*)
+(*"uubar"->{2,6,3},(*u,\[Pi]i0,\[Eta]8,\[Eta]0*)*)
+(*"ddbar"->{2,6,3},(*d,\[Pi]i0,\[Eta]8,\[Eta]0*)*)
+(*"ssbar"->{0,3/2,3}(*s,\[Pi]i0,\[Eta]8,\[Eta]0*)|>;*)
+(*u ub->(1/3 \[Eta]0+1/6 \[Eta]8+1/2 \[Pi]0)*)
+(*d db->(1/3 \[Eta]0+1/6 \[Eta]8+1/2 \[Pi]0)*)
+(*s sb->(1/3 \[Eta]0+2/3 \[Eta]8)*)
+
+
 (* ::Chapter:: *)
 (*Saveas*)
 
