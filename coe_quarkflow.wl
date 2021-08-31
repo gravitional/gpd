@@ -188,6 +188,20 @@ GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)
 GroupBy[#@chTagKey[fyTag]&],
 {Key@fyCoeKey["cStr"],Key@fqdpos[1, 5]}@*Merge[Union](*\:5408\:5e76\:76f8\:540c\:7684\:952e\:ff0c\:628a\:540c\:7c7b\:7684\:5938\:514b\:56fe\:805a\:96c6\:5728\:4e00\:8d77*)
 ]@coeJoin[fyTag,{qchTp1,qchTp2,"poss"}];
+(*+++++++++++++++++++++++++++++++++++++++++\:4e3a\:7b80\:5e76\:7684\:5938\:514b\:56fe\:51c6\:5907\:7684\:7cfb\:6570,\:53bb\:7b80\:5e76+++++++++++++++++++++++++++++++++++++++++*)
+(*---------------\[Pi]0---------------*)
+fqdTagDD[x_fqd,y_fqd,z_,{fd[1,2,0],fqd[fd[4,1,0],fd[4,1,1]]}]:=1/2 fqdTagSum[x,y,z]
+fqdTagDD[x_fqd,y_fqd,z_,{fd[1,2,0],fqd[fd[4,2,0],fd[4,2,1]]}]:=1/2 fqdTagSum[x,y,z]
+(*---------------\[Eta]8---------------*)
+fqdTagDD[x_fqd,y_fqd,z_,{fd[1,8,0],fqd[fd[4,1,0],fd[4,1,1]]}]:=1/6 fqdTagSum[x,y,z]
+fqdTagDD[x_fqd,y_fqd,z_,{fd[1,8,0],fqd[fd[4,2,0],fd[4,2,1]]}]:=1/6 fqdTagSum[x,y,z]
+fqdTagDD[x_fqd,y_fqd,z_,{fd[1,8,0],fqd[fd[4,3,0],fd[4,3,1]]}]:=2/3 fqdTagSum[x,y,z]
+(*---------------\[Eta]0---------------*)
+fqdTagDD[x_fqd,y_fqd,z_,{fd[1,0,0],fqd[fd[4,1,0],fd[4,1,1]]}]:=1/3 fqdTagSum[x,y,z]
+fqdTagDD[x_fqd,y_fqd,z_,{fd[1,0,0],fqd[fd[4,2,0],fd[4,2,1]]}]:=1/3 fqdTagSum[x,y,z]
+fqdTagDD[x_fqd,y_fqd,z_,{fd[1,0,0],fqd[fd[4,3,0],fd[4,3,1]]}]:=2/3 fqdTagSum[x,y,z]
+(*--------------\:4e00\:822c\:7684\:60c5\:51b5\:ff0c\:4e00\:822c\:89c4\:5219\:5728\:7279\:6b8a\:89c4\:5219\:4e4b\:540e\:4f7f\:7528------------*)
+fqdTagDD[x_fqd,y_fqd,z_,w_]:=fqdTagSum[x,y,z]
 
 
 (*quarkflow sea \:56fe\:7684\:76f8\:7b49\:65b9\:7a0b*)
@@ -196,17 +210,6 @@ GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)
 GroupBy[#@fqdpos[1,2,3]&],
 Merge[Union]
 ]@coeJoin[fyTag,{qchTp1,"poss"}];
-
-
-(* ::Input:: *)
-(*(*employ the new particle \[Eta]0*)*)
-(*proportion`factor`inverse=<|*)
-(*"uubar"->{2,6,3},(*u,\[Pi]i0,\[Eta]8,\[Eta]0*)*)
-(*"ddbar"->{2,6,3},(*d,\[Pi]i0,\[Eta]8,\[Eta]0*)*)
-(*"ssbar"->{0,3/2,3}(*s,\[Pi]i0,\[Eta]8,\[Eta]0*)|>;*)
-(*u ub->(1/3 \[Eta]0+1/6 \[Eta]8+1/2 \[Pi]0)*)
-(*d db->(1/3 \[Eta]0+1/6 \[Eta]8+1/2 \[Pi]0)*)
-(*s sb->(1/3 \[Eta]0+2/3 \[Eta]8)*)
 
 
 (* ::Chapter:: *)
