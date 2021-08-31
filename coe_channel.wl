@@ -61,7 +61,8 @@ MassKey->enStrRiff,fyCoeKey->enStrRiff,
 fyVtx->enStrRiff,vtxCoe->Identity,fyCoe->Times,
 fqdKey->enStrRiff,fqdpos->enStrRiff
 }/.assocTemp->Association]
-testFmt[x_]:=x[[{1}]]//EchoFunction[InputForm]
+testFmt:=EchoFunction[InputForm]
+testFmt1[x_]:=x[[{1}]]//EchoFunction[InputForm]
 
 
 (* ::Chapter:: *)
@@ -421,4 +422,4 @@ fyCoeKey["cc*"]->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*
 
 
 (* ::Input:: *)
-(*FrontEndExecute[{FrontEndToken[FrontEnd`EvaluationNotebook[],"SaveRename"]}];*)
+(*FrontEndExecute[FrontEndToken[FrontEnd`EvaluationNotebook[], "Save", {StringTrim[NotebookFileName[],".nb"~~EndOfString]<>".wl", "Package"}]]*)
