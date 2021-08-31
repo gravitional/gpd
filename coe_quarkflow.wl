@@ -201,8 +201,8 @@ GroupBy[#@fqdpos[1, 2, 3]&]
 
 
 (* ::Chapter:: *)
-(*Saveas*)
+(*saveas*)
 
 
 (* ::Input:: *)
-(*FrontEndExecute[{FrontEndToken[FrontEnd`EvaluationNotebook[],"SaveRename"]}];*)
+(*FrontEndExecute[FrontEndToken[FrontEnd`EvaluationNotebook[], "Save", {StringTrim[NotebookFileName[],".nb"~~EndOfString]<>".wl", "Package"}]]*)
