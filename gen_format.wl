@@ -208,10 +208,10 @@ Once@MapThread[Set,{qua/@fdStr[type],fdType[type]->#&/@Array[fd[4,#,1]&,3]}];
 toqwave["mes"][{x_,y_}]:=qwave[fd[4,x,0],fd[4,y,1]]
 qwaveIdx["mes"]=Map[toqwave["mes"],
 {
-{{1,1},{2,2},{3,3}},
-{{1,2}},{{1,1},{2,2}},{{2,1}},
-{{1,3}},{{3,1}},{{2,3}},{{3,2}},
-{{1,1},{2,2},{3,3}}
+{{1,1},{2,2},{3,3}},(*\[Eta]0*)
+{{1,2}},(*\[Pi]+*){{1,1},{2,2}},(*\[Pi]0*){{2,1}},(*\[Pi]-*)
+{{1,3}},(*K+*){{3,1}},(*K-*){{2,3}},(*K0*){{3,2}},(*K0b*)
+{{1,1},{2,2},{3,3}}(*\[Eta]8*)
 }
 ,{2}];
 qwData["mes"]=AssociationThread[
@@ -291,7 +291,7 @@ fieldScript["\[CapitalOmega]","-"]
 fdProps[1]=AssociationThread[(*\:53cd\:7c92\:5b50\:7684\:8bb0\:53f7*)
 Range[fdClassTotal],
 {
-AssociationThread[Range[0,8,1],{
+AssociationThread[Range[0,8,1],{(*\:5982\:679c\:65bd\:52a0\:4ecb\:5b50\:53cd\:7c92\:5b50\:5173\:7cfb\:ff0c\:8fd9\:91cc\:5176\:5b9e\:7528\:4e0d\:5230*)
 fieldScript["\[Eta]","0"],
 fieldScript["\[Pi]","-"],fieldScript["\[Pi]","0"],fieldScript["\[Pi]","+"],
 fieldScript["K","-"],fieldScript["K","+"],
@@ -314,7 +314,14 @@ massScript["M",#1]&,fdProps[0],{2}(*"\:573a\:7684\:8d28\:91cf\:7684\:5934\:90e8,
 
 (*\:5b9e\:73b0\:573a\:6392\:7248\:7684\:51fd\:6570*)
 fdFmt[class_,num_,props_]:=fdProps[props][class,num]
-fdFmt[1,{2,8},2]=massScript["M",fieldScript["\[Pi]","0"],fieldScript["\[Eta]","8"]];(*\:7279\:6b8a\:60c5\:51b5 \[Pi]0 \[Eta]8 \:6df7\:5408\:7684\:8d28\:91cf*)
+(*------------\:7279\:6b8a\:573a\:9879 \[Pi]0,\[Eta]8 ------------*)
+fdFmt[1,{0,2,8},0]=fieldScript["\[Pi]0","\[Eta]"];
+fdFmt[1,{0,2,8},1]=fieldScript["\[Pi]0","\[Eta]"];
+(*------------\:7279\:6b8a\:573a\:9879 \[CapitalSigma]0,\[CapitalLambda] ------------*)
+fdFmt[2,{4,8},0]=fieldScript["\[CapitalSigma]0","\[CapitalLambda]"];
+fdFmt[2,{4,8},1]=OverBar@fieldScript["\[CapitalSigma]0","\[CapitalLambda]"];
+(*------------\:7279\:6b8a\:8d28\:91cf\:9879------------*)
+fdFmt[1,{0,2,8},2]=massScript["M",fieldScript["\[Pi]","0"],fieldScript["\[Eta]","08"]];(*\:7279\:6b8a\:60c5\:51b5 \[Pi]0 \[Eta]8 \:6df7\:5408\:7684\:8d28\:91cf*)
 fdFmt[2,{4,8},2]=massScript["M",fieldScript["\[CapitalSigma]","0"],fieldScript["\[CapitalLambda]",""]];(*\:7279\:6b8a\:60c5\:51b5 \[CapitalSigma]0 \[CapitalLambda] \:6df7\:5408\:7684\:8d28\:91cf*)
 
 
