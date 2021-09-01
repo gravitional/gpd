@@ -19,17 +19,22 @@ gitLocalName=AbsoluteFileName[DirectoryName[fileName,1]]
 
 (* ::Input:: *)
 (*(*\:5c06 WL \:6587\:4ef6\:8f6c\:6362\:6210 nb \:6587\:4ef6*)*)
-(*wlToNB[wl_]:=Module[{wlObj=NotebookOpen[wl]},*)
+(*wlToNB[wl_]:=Module[{wlObj=NotebookOpen[wl,Visible->False]},*)
 (*FrontEndExecute[FrontEndToken[wlObj,"Save",{StringTrim[wl,".wl"~~EndOfString]<>".nb","Notebook"}]];*)
 (*NotebookClose[wlObj]*)
 (*]*)
 (*(*\:5c06 notebook \:8f6c\:6362\:6210 WL \:6587\:4ef6*)*)
-(*nbToWL[nb_]:=Module[{nbObj=NotebookOpen[nb]},*)
+(*nbToWL[nb_]:=Module[{nbObj=NotebookOpen[nb,Visible->False]},*)
 (*FrontEndExecute[FrontEndToken[nbObj,"Save",{StringTrim[nb,".nb"~~EndOfString]<>".wl","Package"}]];*)
 (*NotebookClose[nbObj]*)
 (*]*)
 
 
 (* ::Input:: *)
-(*(*\:5c06\:6839\:76ee\:5f55\:4e0b\:7684\:6240\:6709wl\:8f6c\:6362\:6210nb*)*)
-(*wlToNB/@FileNames["*.wl",gitLocalName]*)
+(*(*\:5c06\:6839\:76ee\:5f55\:4e0b\:7684\:6240\:6709wl\:8f6c\:6362\:6210nb, \:4f46\:4e0d\:5305\:62ec\:6b64\:6587\:4ef6, \:5728\:6bcf\:6b21 git pull \:4e4b\:540e\:8fd0\:884c*)*)
+(*wlToNB/@DeleteCases[FileNames["*.wl",gitLocalName],NotebookFileName[]];*)
+
+
+(* ::Input:: *)
+(*(*\:5c06\:6839\:76ee\:5f55\:4e0b\:7684\:6240\:6709 nb \:8f6c\:6362\:6210 Wl, \:4f46\:4e0d\:5305\:62ec\:6b64\:6587\:4ef6, \:5728\:6bcf\:6b21 git commit \:4e4b\:524d\:8fd0\:884c*)*)
+(*nbToWL/@DeleteCases[FileNames["*.nb",gitLocalName],NotebookFileName[]];*)
