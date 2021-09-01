@@ -188,6 +188,12 @@ fqdTagDD[x_fqd,y_fqd,z_,{fd[1,0,0],fqd[fd[4,3,0],fd[4,3,1]]}]:=2/3 fqdTagSum[x,y
 fqdTagDD[x_fqd,y_fqd,z_,w_]:=fqdTagSum[x,y,z]
 
 
+(* ::Input:: *)
+(*Query[All,All,ff[#@fqdpos[1,5],#@fyCoeKey["cStr"]]&*)
+(*]@Query[All,All,All,ReplaceAll[fqdTag->fqdTagDD]*)
+(*]@coeJoin[fyTag,sumeq]*)
+
+
 (*quarkflow sea \:56fe\:7684\:76f8\:7b49\:65b9\:7a0b*)
 Query[
 GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)
