@@ -209,9 +209,10 @@ fqdTot[{x__},{y__}]:=Equal[x-Plus[y],0]
 coeJoin[fyTag,totEq]=Query[
 GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)
 GroupBy[#@chTagKey[fyTag]&],
-fqdTot[#@fqdpos[1,5],#@fyCoeKeycStr]&@*Merge[Union],(*\:5408\:5e76\:76f8\:540c\:7684\:952e\:ff0c\:628a\:540c\:7c7b\:7684\:5938\:514b\:56fe\:805a\:96c6\:5728\:4e00\:8d77*)
+fqdTot[#@fqdpos[1,5],#@fyCoeKeycStr]&@*Merge[Join],(*\:5408\:5e76\:76f8\:540c\:7684\:952e\:ff0c\:628a\:540c\:7c7b\:7684\:5938\:514b\:56fe\:805a\:96c6\:5728\:4e00\:8d77*)
 ReplaceAll[fqdTag->fqdTagDD]
 ]@coeJoin[fyTag,qchPoss];
+(*\:9700\:8981\:91cd\:65b0\:8bbe\:8ba1\:8fd9\:91cc\:7684\:65b9\:7a0b\:7ec4\:ff0c\:5bf9\:4e8e \[CapitalSigma]0-\[CapitalLambda] \:4f7f\:7528\:9000\:7b80\:5e76\:6761\:4ef6\:ff0c*)
 
 
 (*quarkflow \:5bf9\:79f0\:6027\:5173\:7cfb\:ff0c\:76f8\:540c\:4ef7\:5938\:514b\:914d\:7f6e\:7684\:6d77\:5938\:514b\:56fe\:76f8\:7b49*)
@@ -226,7 +227,7 @@ fqdSym[{x__}]:=Equal[x]
 coeJoin[fyTag,symEq]=Query[
 GroupBy[#@chTagKey["in"]&],
 GroupBy[#@fqdpos[1,2,3]&],
-fqdSym@*DeleteDuplicates@*ReplaceAll[fqdTag->fqdTagDD2]@*(Key@fqdpos[1, 5])@*Merge[Union]
+fqdSym@*DeleteDuplicates@*ReplaceAll[fqdTag->fqdTagDD2]@*(Key@fqdpos[1, 5])@*Merge[Join]
 ]@coeJoin[fyTag,{qchTp1,"poss"}];
 
 
