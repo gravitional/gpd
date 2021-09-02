@@ -5,6 +5,7 @@ BeginPackage["gpd`"]
 (*+++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 
 
+(* raw \:7f16\:7801\:7684\:573a\:ff0c\:4f7f\:7528\:6570\:5b57\:6307\:5b9a\:573a\:7684\:5177\:4f53\:7c7b\:578b\:ff0c\:5177\:4f53\:4f8b\:5b50\:ff0c\:6b63\:53cd\:573a\:ff0c\:4ee5\:53ca\:8d28\:91cf\:7b49\:6027\:8d28.*)
 fd::usage="fd[class,num,anti],{class::\:573a\:7684\:7c7b\:578b\:ff0c1:meson\:ff0c2:octet,3:decuplet,4:quark},
 {num::\:573a\:7684\:7f16\:53f7},{anti,0:\:6b63\:573a,1:\:5e26bar\:573a,2:\:573a\:7684\:8d28\:91cf}\:ff0c
 \:573a\:7684\:79cd\:7c7b1,2,3\:662f\:56e0\:4e3a\:4f7f\:7528\:4e86\:5217\:8868\:ff0c\:4ece1\:5f00\:59cb\:6bd4\:8f83\:65b9\:4fbf.
@@ -29,6 +30,7 @@ decuplet
 \[CapitalOmega]m::10
 quark
 u,d,s";
+ff::usage="human-readable \:5f62\:5f0f\:7684\:8f93\:5165\:63a5\:53e3\:ff0c\:589e\:52a0\:7a0b\:5e8f\:53ef\:8bfb\:6027";
 
 
 lecs::usage="\:5404\:79cd\:8026\:5408\:5e38\:6570,
@@ -136,10 +138,12 @@ fdStr[type]={(*\:4ecb\:5b50\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a*)
 "K+","K-","K0","K0b",
 "\[Eta]8"
 };
-(*\:5b9a\:4e49\:8f93\:5165\:63a5\:53e3*)
-Once@MapThread[Set,{mes/@fdStr[type],fdType[type]->#&/@Array[fd[1,#,0]&,9,{0,8}]}];(*\:4ecb\:5b50\:573a\:7684raw\:8868\:793a*)
+(* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, \:4ecb\:5b50 human-readable, ff["\[Pi]+"]=fd[1,1,0] ++++++++ *)
+Once@MapThread[Set,{ff/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]}]
+(* ----------- \:4ecb\:5b50Key-Value, \:4f8b\:5982 mes["\[Pi]+"]={"mes"}\[Rule]fd[1,1,0] ----------- *)
+Once@MapThread[Set,{mes/@fdStr[type],fdType[type]->#& /@ Array[fd[1,#,0]&,9,{0,8}] }];(*Array \:751f\:6210 \:4ecb\:5b50\:7684raw\:8868\:793a*)
 (*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:53cd\:7c92\:5b50\:51fa\:5c04, out\:8868\:793a\:51fa\:5c04 *)
-Once@MapThread[Set,{mes[#,"out"]&/@fdStr[type],fdType[type,"out"]->#&/@Array[fd[1,#,1]&,9,{0,8}]}];(*\:4ecb\:5b50\:53cd\:573a\:7684raw\:8868\:793a*)
+Once@MapThread[Set,{mes[#,"out"]&/@fdStr[type],fdType[type,"out"]->#& /@Array[fd[1,#,1]&,9,{0,8}]}];(*\:4ecb\:5b50\:53cd\:573a\:7684raw\:8868\:793a*)
 
 
 (*\:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
@@ -149,8 +153,10 @@ fdStr[type]={
 "\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-",
 "\[CapitalXi]0","\[CapitalXi]-",
 "\[CapitalLambda]"};
-(*\:5b9a\:4e49\:8f93\:5165\:63a5\:53e3*)
-Once@MapThread[Set,{oct/@fdStr[type],fdType[type]->#&/@Array[fd[2,#,0]&,8]}];
+(* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, oct human-readable, ff["p"]=fd[2,1,0] ++++++++ *)
+Once@MapThread[Set,{ff/@fdStr[type],Array[fd[2,#,0]&,8]}];
+(* ----------- oct Key-Value, \:4f8b\:5982 oct["p"]={"oct"}\[Rule]fd[2,1,0] ----------- *)
+Once@MapThread[Set,{oct/@fdStr[type],fdType[type]->#& /@ Array[fd[2,#,0]&,8]}];
 (*\:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
 type="octb";
 fdStr[type]={
@@ -158,7 +164,8 @@ fdStr[type]={
 "\[CapitalSigma]+b","\[CapitalSigma]0b","\[CapitalSigma]-b",
 "\[CapitalXi]0b","\[CapitalXi]-b",
 "\[CapitalLambda]b"};
-Once@MapThread[Set,{oct/@fdStr[type],fdType[type]->#&/@Array[fd[2,#,1]&,8]}];
+Once@MapThread[Set,{ff/@fdStr[type], Array[fd[2,#,1]&,8]}];
+Once@MapThread[Set,{oct/@fdStr[type], fdType[type]->#& /@ Array[fd[2,#,1]&,8]}];
 
 
 (*\:5341\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
@@ -169,8 +176,10 @@ fdStr[type]={
 "\[CapitalXi]*0","\[CapitalXi]*-",
 "\[CapitalOmega]-"
 };
-(*\:5b9a\:4e49\:8f93\:5165\:63a5\:53e3*)
-Once@MapThread[Set,{dec/@fdStr[type],fdType[type]->#&/@Array[fd[3,#,0]&,10]}];
+(* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, dec human-readable, ff["\[CapitalDelta]++"]=fd[3,1,0] ++++++++ *)
+Once@MapThread[Set,{ff/@fdStr[type], Array[fd[3,#,0]&,10]}];
+(* ----------- dec Key-Value, \:4f8b\:5982 dec["\[CapitalDelta]++"]={"dec"}\[Rule]fd[4,1,0] ----------- *)
+Once@MapThread[Set,{dec/@fdStr[type], fdType[type]->#& /@ Array[fd[3,#,0]&,10]}];
 (*\:5341\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
 type="decb";
 fdStr[type]={
@@ -179,7 +188,8 @@ fdStr[type]={
 "\[CapitalXi]*0b","\[CapitalXi]*-b",
 "\[CapitalOmega]-b"
 };
-Once@MapThread[Set,{dec/@fdStr[type],fdType[type]->#&/@Array[fd[3,#,1]&,10]}];
+Once@MapThread[Set,{ff/@fdStr[type], Array[fd[3,#,1]&,10]}];
+Once@MapThread[Set,{dec/@fdStr[type], fdType[type]->#& /@ Array[fd[3,#,1]&,10]}];
 
 
 (* ::Section:: *)
@@ -194,17 +204,20 @@ ToQuark={fd[4,1,1]->fd[4,1,0],fd[4,2,1]->fd[4,2,0],fd[4,3,1]->fd[4,3,0]};
 ToQuarkAnti=ToQuarkBar~Join~ToQuark;
 
 
-(*\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3*)
 type="qua";
 fdStr[type]={"u","d","s"};
-Once@MapThread[Set,{qua/@fdStr[type],fdType[type]->#&/@Array[fd[4,#,0]&,3]}];
-(*\:53cd\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3*)
+(* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, quark human-readable, ff["u"]=fd[4,1,0] ++++++++ *)
+Once@MapThread[Set,{ff/@fdStr[type], Array[fd[4,#,0]&,3]}];
+(* ----------- quark Key-Value, \:4f8b\:5982 qua["u"]={"qua"}\[Rule]fd[4,1,0] ----------- *)
+Once@MapThread[Set,{qua/@fdStr[type], fdType[type]->#& /@ Array[fd[4,#,0]&,3]}];
+(* -----------\:53cd\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3 ----------- *)
 type="quab";
 fdStr[type]={"ub","db","sb"};
-Once@MapThread[Set,{qua/@fdStr[type],fdType[type]->#&/@Array[fd[4,#,1]&,3]}];
+Once@MapThread[Set,{ff/@fdStr[type], Array[fd[4,#,1]&,3]}];
+Once@MapThread[Set,{qua/@fdStr[type], fdType[type]->#& /@ Array[fd[4,#,1]&,3]}];
 
 
-(*\:4ecb\:5b50\:7684\:5938\:514b\:7ec4\:6210\:ff0c\:5938\:514b\:662f\:7528\:7f16\:53f7\:8868\:793a\:7684, toqwave \:5c06\:7f16\:53f7\:8f6c\:6362\:6210\:5938\:514b\:573a*)
+(* \:4ecb\:5b50\:7684\:5938\:514b\:7ec4\:6210\:ff0c\:5938\:514b\:662f\:7528\:7f16\:53f7\:8868\:793a\:7684, toqwave \:5c06\:7f16\:53f7\:8f6c\:6362\:6210\:5938\:514b\:573a *)
 toqwave["mes"][{x_,y_}]:=qwave[fd[4,x,0],fd[4,y,1]]
 qwaveIdx["mes"]=Map[toqwave["mes"],
 {
@@ -220,7 +233,7 @@ fqdList@@@qwaveIdx["mes"]
 ];
 
 
-(*oct\:7684\:5938\:514b\:7ec4\:6210*)
+(* oct\:7684\:5938\:514b\:7ec4\:6210 *)
 toqwave["oct"][{x_,y_,z_}]:=fqdList@@Permutations[qwave[fd[4,x,0],fd[4,y,0],fd[4,z,0]]]
 qwaveIdx["oct"]=toqwave["oct"]/@{
 {1,1,2},{1,2,2},
@@ -365,31 +378,33 @@ Frame->All,FrameStyle->Directive[Lighter[Black,.7]],ItemStyle->{"InlineFormula"}
 lagcoeFmt[x:__]:=Style[x,"InlineFormula"]
 
 
-fdTypeFmt[x__]:={x}(*\:8868\:793a\:573a\:7684\:79cd\:7c7b*)
-vtxCoeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
-vtxTypeFmt[x__]:={x}(*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
+pL[x__]:=pL[x]=Subscript["f",x](*\:533a\:5206\:4e0d\:540c\:51fd\:6570\:7684\:663e\:793a*)
+(* ++++++++++++++++++++++++++++++++++++ *)
+fdTypeFmt[x__]:=pL[1][x](*\:8868\:793a\:573a\:7684\:79cd\:7c7b*)
+vtxCoeFmt[x__]:=pL[2][x](*\:8d39\:66fc\:9876\:70b9\:7cfb\:6570\:7684\:663e\:793a\:683c\:5f0f*)
+vtxTypeFmt[x__]:=pL[3][x](*\:8d39\:66fc\:9876\:70b9\:7c7b\:578b\:7684\:663e\:793a\:683c\:5f0f*)
 
 
-chTagKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe chpt \:6807\:8bb0\:7684key*)
-chTagFmt[x__]:={x}(*\:8d39\:66fc\:56fe chpt tag \:7684\:503c*)
-fyCoeKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:952e*)
-fyCoeFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
-MassKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
-fyVtxFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:9876\:70b9\:4f4d\:7f6e\:7684\:6807\:8bb0*)
+chTagKeyFmt[x__]:=pL[4][x](*\:8d39\:66fc\:56fe chpt \:6807\:8bb0\:7684key*)
+chTagFmt[x__]:=pL[5][x](*\:8d39\:66fc\:56fe chpt tag \:7684\:503c*)
+fyCoeKeyFmt[x__]:=pL[6][x](*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:952e*)
+fyCoeFmt[x__]:=pL[7][x](*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
+MassKeyFmt[x__]:=pL[8][x](*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
+fyVtxFmt[x__]:=pL[9][x](*\:8d39\:66fc\:56fe\:9876\:70b9\:4f4d\:7f6e\:7684\:6807\:8bb0*)
 
 
-qwDataFmt[x__]:={x}(*\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e*)
-qwKeyFmt[x__]:={x}(*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8*)
-qwaveFmt[x__]:={x}(*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8*)
-fqdListFmt[x__]:={x}(*\:5938\:514b\:7ec4\:5408\:7684\:7f6e\:6362\:5f62\:6210\:7684\:5217\:8868\:5934\:90e8*)
-fqdList2Fmt[x__]:={x}(*\:4e8c\:7ea7\:5217\:8868\:7684\:5934\:90e8,\:5938\:514b\:7ec4\:5408\:7684\:5217\:8868*)
-fqdposFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:5938\:514b\:56fe,\:5938\:514b\:4f4d\:7f6e\:7684\:5934\:90e8*)
-fqdKeyFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210Key*)
-fqdFmt[x__]:={x}(*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210\:7684value*)
-fqdTagFmt[x__]:={x}(* quarkflow \:56fe\:7684Tag *)
+qwDataFmt[x__]:=pL[10][x](*\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e*)
+qwKeyFmt[x__]:=pL[11][x](*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8*)
+qwaveFmt[x__]:=pL[12][x](*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8*)
+fqdListFmt[x__]:=pL[13][x](*\:5938\:514b\:7ec4\:5408\:7684\:7f6e\:6362\:5f62\:6210\:7684\:5217\:8868\:5934\:90e8*)
+fqdList2Fmt[x__]:=pL[14][x](*\:4e8c\:7ea7\:5217\:8868\:7684\:5934\:90e8,\:5938\:514b\:7ec4\:5408\:7684\:5217\:8868*)
+fqdposFmt[x__]:=pL[15][x](*\:8d39\:66fc\:56fe\:5938\:514b\:56fe,\:5938\:514b\:4f4d\:7f6e\:7684\:5934\:90e8*)
+fqdKeyFmt[x__]:=pL[16][x](*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210Key*)
+fqdFmt[x__]:=pL[17][x](*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210\:7684value*)
+fqdTagFmt[x__]:=pL[18][x](* quarkflow \:56fe\:7684Tag *)
 
 
-kinFmt[x__]:={x}(*\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:663e\:793a*)
+kinFmt[x__]:=pL[19][x](*\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:663e\:793a*)
 
 
 (* ::Section:: *)
