@@ -241,4 +241,5 @@ First@Solve[#/.eqList["qf"]->Sequence,DeleteDuplicates@Cases[#,Blank[fqdTag["sea
 
 
 (* ::Input:: *)
-(*FrontEndExecute[FrontEndToken[FrontEnd`EvaluationNotebook[], "Save", {StringTrim[NotebookFileName[],".nb"~~EndOfString]<>".wl", "Package"}]]*)
+(*If[FileExtension@NotebookFileName[]==="nb",*)
+(*FrontEndExecute[FrontEndToken[FrontEnd`EvaluationNotebook[], "Save", {StringTrim[NotebookFileName[],".nb"~~EndOfString]<>".wl", "Package"}]]]*)
