@@ -86,6 +86,7 @@ fqdList::usage="\:5217\:8868\:7684\:5934\:90e8\:ff0c\:5938\:514b\:7ec4\:5408\:76
 fqdList2::usage="2\:7ea7\:5217\:8868\:7684\:5934\:90e8\:ff0c\:5938\:514b\:7ec4\:5408\:7684\:5217\:8868";
 fqdpos::usage="\:8d39\:66fc\:56fe\:5938\:514b\:4f4d\:7f6e\:7684\:5934\:90e8";
 fqdTag::usage="quarkflow \:56fe\:7684tag";
+eqList::usage="quarkflow \:65b9\:7a0b\:7ec4\:6210\:7684\:5217\:8868\:7684\:5934\:90e8";
 
 
 kin::usage="\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:5934\:90e8\:ff0c\:4f8b\:5982 kin[q]";
@@ -402,9 +403,10 @@ fqdposFmt[x__]:=pL[15][x](*\:8d39\:66fc\:56fe\:5938\:514b\:56fe,\:5938\:514b\:4f
 fqdKeyFmt[x__]:=pL[16][x](*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210Key*)
 fqdFmt[x__]:=pL[17][x](*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210\:7684value*)
 fqdTagFmt[x__]:=pL[18][x](* quarkflow \:56fe\:7684Tag *)
+eqListFmt[x__]:=pL[19][x](* quarkflow \:65b9\:7a0b\:7ec4\:7684\:5934\:90e8 *)
 
 
-kinFmt[x__]:=pL[19][x](*\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:663e\:793a*)
+kinFmt[x__]:=pL[20][x](*\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:663e\:793a*)
 
 
 (* ::Section:: *)
@@ -439,7 +441,7 @@ chTagKey->chTagKeyFmt,chTag->chTagFmt,fyVtx->fyVtxFmt,
 qwData->qwDataFmt,qwKey->qwKeyFmt,qwave->qwaveFmt,
 fqdKey->fqdKeyFmt,fqd->fqdFmt,
 fqdList->fqdListFmt,fqdList2->fqdList2Fmt,
-fqdpos->fqdposFmt,fqdTag->fqdTagFmt,
+fqdpos->fqdposFmt,fqdTag->fqdTagFmt,eqList->eqListFmt,
 kin->kinFmt
 |>;
 

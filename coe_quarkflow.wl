@@ -176,7 +176,8 @@ coeJoin[fyTag,qchPoss]=Query[Sort]@Join[coeJoin[fyTag,{qchTp1,"poss"}],coeJoin[f
 
 
 (*quarkflow \:6c42\:548c\:5173\:7cfb, sea+quench \[Equal] chpt *)
-fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";qchPoss={qchTp1,qchTp2,"poss"};
+fyTag={"RB","mes"};
+qchTp1="sea";qchTp2="qch";qchPoss={qchTp1,qchTp2,"poss"};
 totEq={qchTp1,qchTp2,"totEq"};
 (*++++ \:5904\:7406\:6536\:96c6\:8d77\:6765\:7684 quarkflow channel \:548c\:7cfb\:6570, \:5938\:514b\:9053\:53d6unique, \:7cfb\:6570\:5220\:9664\:91cd\:590d\:7684\:5e76\:6392\:5e8f, \:6ce8\:610funio \:53ea\:4f5c\:7528\:4e8e\:5173\:8054\:7684 Value, \:6240\:4ee5\:8fd9\:91cc\:4e0d\:7528 Union +++*)
 fqdTot2[qua_List,chpt_List]:=fqdTot3[Union[qua],Values@KeySort(*\:6309\:4ecb\:5b50\:51fa\:73b0\:987a\:5e8f\:6392\:5e8f*)@Merge[DeleteDuplicates@chpt,Total]]
@@ -193,14 +194,12 @@ fqdTag["sea"][fqd[ff["d"],ff["db"]],fqd[ff["d"],ff["u"],ff["s"]]],
 fqdTag["sea"][fqd[ff["s"],ff["sb"]],fqd[ff["s"],ff["u"],ff["d"]]]
 };
 (* --------- \:5148\:4f7f\:7528\:7279\:6b8a\:89c4\:5219,\:518d\:4f7f\:7528\:4e00\:822c\:89c4\:5219 ----------------- *)
-fqdTot3[fqdDegeList,chpt_List]:=eqList@@MapThread[fqdTot,{fqdDegeList,matChToQua . chpt}]
+fqdTot3[fqdDegeList,chpt_List]:=eqList["qf"]@@MapThread[fqdTot,{fqdDegeList,matChToQua . chpt}]
 (* --------------------------- *)
-fqdTot3[qua_List,chpt_List]:=eqList[fqdTot[Total@qua,Total@chpt]]
+fqdTot3[qua_List,chpt_List]:=eqList["qf"][fqdTot[Total@qua,Total@chpt]]
 (*------------quarkflow \:53cd\:5e94\:9053\:4e0e chpt \:7cfb\:6570\:7684\:6c42\:548c\:65b9\:5f0f------------*)
 fqdTot[qua_,chpt_]:=qua-chpt==0
-
-
-(*-------\:5efa\:7acb\:65b9\:7a0b\:7ec4-------*)
+(* ++++++++++++++++++++++++++++++++++++ \:5efa\:7acb\:65b9\:7a0b\:7ec4,sea+quench \[Equal] chpt ++++++++++++++++++++++++++++++++++++ *)
 coeJoin[fyTag,totEq]=Query[
 GroupBy[#@chTagKey["in"]&],(*GroupBy\:662f\:4e0b\:964d\:7b97\:7b26*)
 GroupBy[#@chTagKey[fyTag]&],
@@ -210,12 +209,12 @@ fqdTot2[#@fqdpos[1,5],#@fyCoeKeycStr]&@*Merge[Join]
 
 
 (*quarkflow \:5bf9\:79f0\:6027\:5173\:7cfb\:ff0c\:76f8\:540c\:4ef7\:5938\:514b\:914d\:7f6e\:7684\:6d77\:5938\:514b\:56fe\:76f8\:7b49*)
-(*quarkflow \:6c42\:548c\:5173\:7cfb,sea+quench \[Equal] chpt *)
-fyTag={"RB","mes"};qchTp1="sea";qchTp2="qch";qchPoss={qchTp1,qchTp2,"poss"};
+fyTag={"RB","mes"};
+qchTp1="sea";qchTp2="qch";qchPoss={qchTp1,qchTp2,"poss"};
 symEq={qchTp1,qchTp2,"symEq"};
 (*------------quarkflow \:53cd\:5e94\:9053 \:7684\:5bf9\:79f0\:6027\:5173\:7cfb ------------*)
-fqdSym[{x__}]:=eqList[Equal[x]]
-(*-------\:5efa\:7acb\:65b9\:7a0b\:7ec4-------*)
+fqdSym[{x__}]:=eqList["qf"][Equal[x]]
+(* --------------------- \:5efa\:7acb symmetry \:65b9\:7a0b\:7ec4 --------------------- *)
 coeJoin[fyTag,symEq]=Query[
 GroupBy[#@chTagKey["in"]&],
 GroupBy[#@fqdpos[1,2,3]&],
@@ -223,15 +222,18 @@ fqdSym@*(Key@fqdpos[1,5])@*Merge[Union]
 ]@coeJoin[fyTag,{qchTp1,"poss"}];
 
 
-(* ::Input:: *)
-(*Query[All,*)
-(*Solve[#/.eqList->Sequence,DeleteDuplicates@Cases[#,Blank[fqdTag["sea"]]|Blank[fqdTag["qch"]],Infinity]]&*)
-(*]@Merge[{*)
-(*Query[All,Values]@coeJoin[fyTag,symEq],*)
-(*Query[All,Values]@coeJoin[fyTag,totEq]*)
-(*},*)
-(*Catenate*)
-(*]*)
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";
+(* ++++++++++++++++++++++++++++++++++++ \:5408\:5e76\:4e24\:79cd\:65b9\:7a0b\:7ec4 ++++++++++++++++++++++++++++++++++++ *)
+coeJoin[fyTag,qfEqs]=Merge[{
+Query[All,Values]@coeJoin[fyTag,symEq],
+Query[All,Values]@coeJoin[fyTag,totEq]
+},
+Catenate
+];
+(* --------------------- \:6c42\:89e3\:8054\:7acb\:7684\:65b9\:7a0b\:7ec4 --------------------- *)
+coeJoin[fyTag,quaFlow]=Query[All,
+First@Solve[#/.eqList["qf"]->Sequence,DeleteDuplicates@Cases[#,Blank[fqdTag["sea"]]|Blank[fqdTag["qch"]],Infinity ]]&
+]@coeJoin[fyTag,qfEqs];
 
 
 (* ::Chapter:: *)
