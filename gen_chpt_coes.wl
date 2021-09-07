@@ -46,6 +46,11 @@ coeIn::usage="coeIn[type,coes],\:7528\:4e8e\:8f93\:5165\:9876\:70b9\:7cfb\:6570"
 coeIn[type_,x_]:=type->vtxCoe[x]
 mesout::usage="\:533a\:522b\:4ecb\:5b50\:ff0cout\:8868\:793a\:51fa\:5c04";
 mesout[x_]:=mes[x,"out"]
+(* -------------------------- \:7c92\:5b50\:7c7b\:578b --------------------------*)
+fdTypeOct=fdType["oct"];fdTypeOctb=fdType["octb"];
+fdTypeDec=fdType["dec"];fdTypeDecb=fdType["decb"];
+fdTypeMes=fdType["mes"];fdTypeMesOut=fdType["mes","out"];
+vtxCoeAnti[x_]:=vtxCoe[-x](*\:5e26\:8d1f\:53f7\:7684\:7cfb\:6570*)
 
 
 (* ::Section::Closed:: *)
@@ -202,8 +207,8 @@ unq[oct["\[CapitalLambda]b"],oct["n"],mes["K0b"],coeIn[vtxtp,-((cc["D"]+3cc["F"]
 };
 
 
-(* ::Section::Closed:: *)
-(*Strong, BMT, C*)
+(* ::Section:: *)
+(*Strong, BT\[Phi], C*)
 
 
 (*Overscript[p, _].\[CapitalTheta]^\[Mu]\[Nu].Subsuperscript[\[CapitalDelta], \[Nu], ++].\!\(
@@ -212,7 +217,7 @@ unq[oct["\[CapitalLambda]b"],oct["n"],mes["K0b"],coeIn[vtxtp,-((cc["D"]+3cc["F"]
 \*SubscriptBox[\(\[PartialD]\), \(\[Mu]\)]
 \*SuperscriptBox[\(\[Pi]\), \(-\)]\)\[Rule]\[ScriptCapitalC]/(Sqrt[2] Subscript[f, \[Phi]])*)
 (*++++++++++++++++++++++++++\:5f3a\:76f8\:4e92\:4f5c\:7528\:7684 BMT \:8f74\:77e2\:9879 C+++++++++++++++++++++*)
-vtxtp=vtxType["stro","C"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtxtp=vtxType["stro","C","decIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b,oct bar\:7c7b\:578b\:7684\:ff0cdecuplet bar \:7c7b\:578b\:7684\:8026\:5408\:5e38\:6570\:5dee\:8d1f\:53f7*)
 vtx[unq["type"->vtxtp]]={
 (*+++ proton +++*)
 unq[oct["pb"],mes["\[Pi]0"],dec["\[CapitalDelta]+"],coeIn[vtxtp,-1/Sqrt[3]]],
@@ -274,6 +279,17 @@ unq[oct["\[CapitalLambda]b"],mes["\[Pi]-"],dec["\[CapitalSigma]*+"],coeIn[vtxtp,
 unq[oct["\[CapitalLambda]b"],mes["K+"],dec["\[CapitalXi]*-"],coeIn[vtxtp,1/2]],
 unq[oct["\[CapitalLambda]b"],mes["K0"],dec["\[CapitalXi]*0"],coeIn[vtxtp,-(1/2)]]
 };
+
+
+vtxtp=vtxType["stro","C","decIn"];
+vtxtp2=vtxType["stro","C","octIn"];
+(* ------------- \:6dfb\:52a0\:53e6\:5916\:534a\:90e8\:5206\:9876\:70b9 -------------*)
+vtx[unq["type"->vtxtp2]]=Query[All,<|
+fdTypeOct ->(#@fdTypeOctb/.fd[a_,b_,1]:>fd[a,b,0]&),
+fdTypeMesOut ->(#@fdTypeMes/.fd[a_,b_,0]:>fd[a,b,1]&),
+fdTypeDecb ->(#@fdTypeDec/.fd[a_,b_,0]:>fd[a,b,1]&),
+vtxtp2->(#@vtxtp/.vtxCoe->vtxCoeAnti &)
+|>]@vtx[unq["type"->vtxtp]];
 
 
 (* ::Section::Closed:: *)
@@ -440,7 +456,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mesout["K0b"],coe
 };
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Mass filed, electric magnetic current*)
 
 
@@ -765,7 +781,7 @@ unq[mes["K0b"],mesout["K0"],coeIn[vtxtp,-I(ch["d"]-ch["s"])]]
 };
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*anomalous magnetic moment*)
 
 
@@ -874,7 +890,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],mes["K+"],mesout["K-"],coeI
 
 
 (* ::Section::Closed:: *)
-(*decuplet*)
+(*decuplet,order1,TTA*)
 
 
 (*e/(4Subscript[M, T]) \[ScriptCapitalF]^\[Mu]\[Nu] . OverscriptBox[SubsuperscriptBox[\[CapitalDelta],\[Alpha],++],_] . Subscript[\[Sigma], \[Mu]\[Nu]] . \[CapitalDelta]^++\[Alpha]->Subscript[Q, u]3Subscript[c, T],Subscript[c, T]=1/2 (3Subscript[c, 2]+1)*)
@@ -894,8 +910,8 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 };
 
 
-(* ::Section::Closed:: *)
-(*trans magnetic*)
+(* ::Section:: *)
+(*trans magnetic,order1,BTA*)
 
 
 (*(i e)/Subscript[M, N].\[ScriptCapitalF]^\[Mu]\[Nu].(Overscript[p, _].\[Gamma]^\[Mu].\[Gamma]^5.\[CapitalDelta]^+\[Nu]-Overscript[\[CapitalDelta]^+\[Nu], _].\[Gamma]^\[Mu].\[Gamma]^5.p)\[Rule]Subscript[c, 4].(Subscript[Q, u]-Subscript[Q, d]),Subscript[c, 4]=Subscript[c, 1]/Sqrt[3]*)
