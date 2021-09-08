@@ -624,10 +624,10 @@ fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:76
 
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag\:ff0c\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2,v3*)
 fyTag={"RB","dec","F1F2"};
-vtxType1=vtxType["stro","DF"];vtx1=vtx[unq["type"->vtxType1]];
-vtxType2=vtxType["F1F2","nloc"];vtx2=vtx[unq["type"->vtxType2]];
-vtxF1=vtxType["F1","oct","nloc"];vtxF2=vtxType["F2","oct","nloc"];
-vtxType3=vtxType["stro","DF"];vtx3=vtx[unq["type"->vtxType3]];
+vtxType1=vtxType["stro","C","octIn"];vtx1=vtx[unq["type"->vtxType1]];
+vtxType2=vtxType["F1F2","dec","nloc"];vtx2=vtx[unq["type"->vtxType2]];
+vtxF1=vtxType["F1","dec","nloc"];vtxF2=vtxType["F2","dec","nloc"];
+vtxType3=vtxType["stro","C","decIn"];vtx3=vtx[unq["type"->vtxType3]];
 (*++++++++++++++++++++++\:8fde\:63a5\:5404\:4e2a\:9876\:70b9++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
