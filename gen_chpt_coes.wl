@@ -377,7 +377,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalXi]*-"],mes["K0b"],coeIn[vtxtp,-1/Sqr
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong,BBMM,tensor coupling*)
 
 
@@ -391,7 +391,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalXi]*-"],mes["K0b"],coeIn[vtxtp,-1/Sqr
 \*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]
 \*SuperscriptBox[\(\[Pi]\), \(+\)]\))\[Rule]I/Subsuperscript[f, \[Phi], 2](Subscript[b, 10]+Subscript[b, 11]*)
 (*++++++++++++++++++++++++++\:5f3a\:76f8\:4e92\:4f5c\:7528\:7684BBMM,\:5f20\:91cf\:8026\:5408\:9879 +++++++++++++++++++++*)
-vtxtp=vtxType["stro","bbb"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtxtp=vtxType["stro","ten"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 vtx[unq["type"->vtxtp]]={
 (*+++ proton +++*)
 unq[oct["pb"],oct["p"],mes["\[Eta]8"],mesout["\[Eta]8"],coeIn[vtxtp,-I(5cc["b10"]-3cc["b11"])]],
