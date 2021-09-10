@@ -9,14 +9,14 @@
 (*K0b\:8868\:793a K0 bar, pb \:8868\:793a p bar, \:8d28\:5b50\:7684\:53cd\:7c92\:5b50\:573a\:3002*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*initial*)
 
 
 (*\:672c\:6587\:4ef6\:7684\:540d\:79f0*)
 fileName=If[$Notebooks,NotebookFileName[],$InputFileName];
 (*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c\:ff0c\:5c31\:5237\:65b0\:7b14\:8bb0\:672c\:7684\:6807\:9898*)
-Once@If[!$Notebooks,NotebookWrite[Cells[][[1]],Cell[Last@FileNameSplit[fileName],"Title"]]];
+Once@If[!Notebooks,NotebookWrite[Cells[][[1]],Cell[Last@FileNameSplit[fileName],"Title"]]];
 (*\:67e5\:627e init.wl, \:5bfc\:5165\:6839\:76ee\:5f55\:548c\:51fd\:6570\:5b9a\:4e49.*)
 Catch@Module[{recurFind,start=1,depMax},
 depMax=FileNameDepth[fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
@@ -143,7 +143,7 @@ vtxtpFlip->(#@vtxtp &)
 |>]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong, BT\[Phi], C*)
 
 
@@ -388,7 +388,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mesout["K0b"],coe
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong,BB\[Phi]\[Phi],tensor coupling*)
 
 
@@ -964,7 +964,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*trans magnetic,order1,BTA*)
 
 
@@ -993,7 +993,7 @@ vtxtpFlip->(#@vtxtp/.vtxCoe->vtxCoeAnti &)
 |>]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*anomalous magnetic, to nonlocal*)
 
 
@@ -1054,7 +1054,7 @@ vtxF1+vtxF2==k\[CapitalLambda]0^4/(kQ^2+k\[CapitalLambda]0^2)^2 (#@vtxType1+ #@v
 ]]&
 ]@Query[All,(*\:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag*)
 Append[#,massKeyOct->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,2])]&
-]@JoinAcross[vtx1//mesSym,vtx2//mesSym,(*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
+]@JoinAcross[vtx1,vtx2,(*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
 {Key@fdTypeOctb,Key@fdTypeOct,Key@fdTypeMes,Key@fdTypeMesOut}
 ];
 

@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*coe_channel.nb*)
+(*coe_chpt.wl*)
 
 
 (* ::Text:: *)
@@ -13,14 +13,14 @@
 (*v1,v2,v3 \:8868\:793a\:7279\:5b9a\:4f4d\:7f6e\:7684\:9876\:70b9,\:9876\:70b9\:4ece\:5de6\:5230\:53f3\:6392\:5e8f.  p1,p2 \:8868\:793a\:7279\:5b9a\:4f4d\:7f6e\:7684\:4e2d\:95f4\:6001\:7c92\:5b50, \:4ece\:5de6\:5230\:53f3.*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*initial*)
 
 
 (*\:672c\:6587\:4ef6\:7684\:540d\:79f0*)
 fileName=If[$Notebooks,NotebookFileName[],$InputFileName];
 (*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c\:ff0c\:5c31\:5237\:65b0\:7b14\:8bb0\:672c\:7684\:6807\:9898*)
-Once@If[!$Notebooks,NotebookWrite[Cells[][[1]],Cell[Last@FileNameSplit[fileName],"Title"]]];
+Once@If[$Notebooks,NotebookWrite[Cells[][[1]],Cell[Last@FileNameSplit[fileName],"Title"]]];
 (*\:67e5\:627e init.wl, \:5bfc\:5165\:6839\:76ee\:5f55\:548c\:51fd\:6570\:5b9a\:4e49.*)
 Catch@Module[{recurFind,start=1,depMax},
 depMax=FileNameDepth[fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
@@ -431,8 +431,8 @@ fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 
 (*\:8d39\:66fc\:56fe\:7684chpt tag\:ff0c\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9*)
 fyTag={"tad","oct","o2"};
-vtxType1=vtxType["F1F2","oct","o2","nloc"];vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
-vtxF1=vtxType["F1","oct","o2","nloc"];vtxF2=vtxType["F2","oct","o2","nloc"];
+vtxType1=vtxType["F1F2","oct","o2","nloc"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxF1=vtxType["F1","oct","o2","nloc"];       vtxF2=vtxType["F2","oct","o2","nloc"];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 (*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5\:ff0c\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
 vtxJoin[fyTag]=Query[All,
@@ -482,7 +482,9 @@ fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 (* ::Input:: *)
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
 (*fyTag={"tad","oct","o2"};*)
-(*Query[Cases[KeyValuePattern[fyVtx1@fdTypeOct->fd[2,1,0]]]]@coeJoin[fyTag]//dsetFmt*)
+(*Query[Cases@KeyValuePattern[*)
+(*fyVtx1@fdTypeOct->fd[2,1,0]*)
+(*]]@coeJoin[fyTag]//dsetFmt*)
 
 
 (* ::Section:: *)
@@ -505,9 +507,9 @@ fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag\:ff0c\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2*)
 fyTag={"bub","mes","o2"};
-vtxType1=vtxType["stro","BB\[Phi]\[Phi]"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["stro","BB\[Phi]\[Phi]"];   vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 (*BB\[Phi]\[Phi]\:9876\:70b9\:4e2d\:6ca1\:6709\:4e0d\:540c\:7684\:4e24\:4e2a\:91cd\:5b50\:8026\:5408\:7684*)
-vtxType2=vtxType["F1","\[Phi]\[Phi]A"];    vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
+vtxType2=vtxType["F1","\[Phi]\[Phi]A"];      vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
 (*++++++++++++++++++++++\:8fde\:63a5\:5404\:4e2a\:9876\:70b9++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -566,13 +568,13 @@ fyCoeKeycStr->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 (* ::Input:: *)
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
 (*fyTag={"bub","mes","o2"};*)
-(*Query[Cases[KeyValuePattern[*)
+(*Query[Cases@KeyValuePattern[*)
 (*fyVtx1@fdTypeOct->fd[2,1,0]]*)
-(*]]@coeJoin[fyTag]//dsetFmt*)
+(*]@coeJoin[fyTag]//dsetFmt*)
 
 
 (* ::Section:: *)
-(*bubble,A-meson,tensor-order2*)
+(*bubble,A-meson,tensor-order 2*)
 
 
 (* ::Input:: *)
@@ -597,8 +599,10 @@ vtxType2=vtxType["F1","\[Phi]\[Phi]A"];    vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq
 (*++++++++++++++++++++++\:8fde\:63a5\:5404\:4e2a\:9876\:70b9++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
-(*\:9876\:70b91\:7684\:51fa\:5c04\:7c92\:5b50 -- mesOut\:ff0c\:7b49\:4e8e\:9876\:70b92\:7684\:5165\:5c04\:7c92\:5b50 -- mes. *)
-fyVtx2@fdTypeMes->(#@fyVtx1@fdTypeMesOut/.mesAntiRule)
+(* \:9876\:70b91\:7684\:51fa\:5c04\:7c92\:5b50 -- mesOut\:ff0c\:7b49\:4e8e\:9876\:70b92\:7684\:5165\:5c04\:7c92\:5b50 -- mes. *)
+fyVtx2@fdTypeMes->(#@fyVtx1@fdTypeMesOut/.mesAntiRule),
+(* \:7c7b\:4f3c\:5730\:ff0c\:9650\:5236\:53e6\:4e00\:4e2a\:9876\:70b9. *)
+fyVtx2@fdTypeMesOut->(#@fyVtx1@fdTypeMes/.mesAntiRule)
 }
 ]&
 ]@vtx1;
@@ -607,14 +611,14 @@ fyVtx2@fdTypeMes->(#@fyVtx1@fdTypeMesOut/.mesAntiRule)
 vtxJoinTmp1[fyTag]=JoinAcross[
 vtxJoin1[fyTag],(*\:9876\:70b91,\:4fee\:9970\:8fc7\:7684\:5f3a\:76f8\:4e92\:4f5c\:7528\:9876\:70b9\:ff0c\:52a0\:5165\:4e86\:9876\:70b92\:5165\:5c04\:7c92\:5b50\:7684\:5b57\:6bb5*)
 vtx2,(*\:9876\:70b92\:ff0c\:4ecb\:5b50\:7535\:78c1\:6d41\:76f8\:4e92\:4f5c\:7528*)
-{Key@fyVtx2@fdTypeMes}(*\:7c98\:8fde\:9876\:70b91\:ff0c2\:3002\:7c98\:8fde\:6761\:4ef6\:662f\:ff1a\:4ece\:9876\:70b91\:63a8\:5bfc\:7684\:5165\:5c04\:573a\[Equal]\:53cd\:5e38\:78c1\:77e9\:5b57\:6bb5\:4e2d\:7684\:5165\:5c04\:573a*)
+{Key@fyVtx2@fdTypeMes,Key@fyVtx2@fdTypeMesOut}(*\:7c98\:8fde\:9876\:70b91\:ff0c2\:3002\:7c98\:8fde\:6761\:4ef6\:662f\:ff1a\:4ece\:9876\:70b91\:63a8\:5bfc\:7684\:5165\:5c04\:573a\[Equal]\:53cd\:5e38\:78c1\:77e9\:5b57\:6bb5\:4e2d\:7684\:5165\:5c04\:573a*)
 ,"Inner"];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 (*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5\:ff0c\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
 vtxJoin[fyTag]=Query[All,{
 Key@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
 Key@fyVtx1@fdTypeOctb,(*\:9876\:70b91,oct,\:51fa\:5c04\:573a*)
-Key@fyVtx1@fdTypeMes,(*\:9876\:70b91,mes,\:5165\:5c04\:573a*)
+Key@fyVtx1@fdTypeMesOut,(*\:9876\:70b91,mes,\:5165\:5c04\:573a*)
 Key@fyVtx1@vtxType1,(*\:9876\:70b91\:8026\:5408\:7cfb\:6570*)
 Key@fyVtx2@vtxType2(*\:9876\:70b92\:8026\:5408\:7cfb\:6570*)
 }]@vtxJoinTmp1[fyTag];
@@ -630,7 +634,7 @@ Query[All,Prepend[chTagKey["Diag"]->chTag[fyTag]]]@vtxJoin[fyTag],
 (*\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:5b57\:6bb5*)
 Query[All,
 <|
-MassMes1->(#@fyVtx1@fdTypeMes/.fd[a_,b_,0]:>fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4ecb\:5b50\:8d28\:91cf\:9879*)
+MassMes1->(#@fyVtx1@fdTypeMesOut/.fd[a_,b_,0]:>fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4ecb\:5b50\:8d28\:91cf\:9879*)
 |>&
 ]@vtxJoin[fyTag],
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
@@ -891,7 +895,7 @@ fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Saveas*)
 
 
