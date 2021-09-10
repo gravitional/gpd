@@ -53,7 +53,7 @@ fdTypeMes=fdType["mes"];fdTypeMesOut=fdType["mes","out"];
 vtxCoeAnti[x_]:=vtxCoe[-x](*\:751f\:6210\:8026\:5408\:7cfb\:6570\:7684\:8d1f\:503c*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong,BB\[Phi],DF*)
 
 
@@ -143,7 +143,7 @@ vtxtpFlip->(#@vtxtp &)
 |>]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong, BT\[Phi], C*)
 
 
@@ -472,7 +472,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mesout["K0b"],coe
 
 
 (* ::Section::Closed:: *)
-(*meson, \[Phi]\[Phi]A*)
+(*F1,meson,\[Phi]\[Phi]A*)
 
 
 (*Subscript[e\[ScriptCapitalA], \[Mu]](SuperMinus[\[Pi]] . \!\(
@@ -497,7 +497,7 @@ unq[mes["K0b"],mesout["K0"],coeIn[vtxtp,-I(ch["d"]-ch["s"])]]
 
 
 (* ::Section::Closed:: *)
-(*electric magnetic current,oder1,BBA,*)
+(*F1,oder1,BBA,*)
 
 
 (*Overscript[p, _].\[Gamma]^\[Mu].p.Subscript[\[ScriptCapitalA], \[Mu]]->2u+d*)
@@ -526,7 +526,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],coeIn[vtxtp,0]](*\:6dfb\:52
 
 
 (* ::Section::Closed:: *)
-(*ElectricMagnetic current,oder2,BB\[Phi]\[Phi]A*)
+(*F1,oder2,BB\[Phi]\[Phi]A*)
 
 
 (*Overscript[p, _].\[Gamma]^\[Mu].p.\[Pi]^+.\[Pi]^-.Subscript[\[ScriptCapitalA], \[Mu]]\[Rule]1/(2Subsuperscript[f, \[Phi], 2])Subscript[Q, d]*)
@@ -589,7 +589,7 @@ unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["K+"],mesout["K-"],coeIn[vtxt
 
 
 (* ::Section::Closed:: *)
-(*electric magnetic current, BB\[Phi]A, DF*)
+(*F1,BB\[Phi]A, DF*)
 
 
 (* e.Subscript[\[ScriptCapitalA], \[Mu]].(Overscript[n, _].\[Gamma]^\[Mu].\[Gamma]^5.p.\[Pi]^--Overscript[p, _].\[Gamma]^\[Mu].\[Gamma]^5.n.\[Pi]^+)\[Rule](i(D+F)(Subscript[Q, u]-Subscript[Q, d]))/(Sqrt[2] Subscript[f, \[Phi]]) *)
@@ -626,7 +626,7 @@ unq[oct["\[CapitalSigma]-"],oct["nb"],mes["K+"],coeIn[vtxtp,(-I(cc["D"]-cc["F"])
 (*+++ \[CapitalXi]0 +++*)
 unq[oct["\[CapitalXi]0"],oct["\[CapitalXi]-b"],mes["\[Pi]-"],coeIn[vtxtp,(I(cc["D"]-cc["F"])(ch["u"]-ch["d"]))/Sqrt[2]]],
 unq[oct["\[CapitalXi]0"],oct["\[CapitalSigma]0b"],mes["K0"],coeIn[vtxtp,(I(cc["D"]+cc["F"])(ch["d"]-ch["s"]))/2]],
-unq[oct["\[CapitalXi]0"],oct["\[CapitalXi]+b"],mes["K+"],coeIn[vtxtp,(-I(cc["D"]+cc["F"])(ch["u"]-ch["s"]))/Sqrt[2]]],
+unq[oct["\[CapitalXi]0"],oct["\[CapitalSigma]+b"],mes["K+"],coeIn[vtxtp,(-I(cc["D"]+cc["F"])(ch["u"]-ch["s"]))/Sqrt[2]]],
 unq[oct["\[CapitalXi]0"],oct["\[CapitalLambda]b"],mes["K0"],coeIn[vtxtp,(I(cc["D"]-3cc["F"])(ch["d"]-ch["s"]))/(2Sqrt[3])]],
 (*+++ \[CapitalXi]- +++*)
 unq[oct["\[CapitalXi]-"],oct["\[CapitalXi]0b"],mes["\[Pi]+"],coeIn[vtxtp,(-I(cc["D"]-cc["F"])(ch["u"]-ch["d"]))/Sqrt[2]]],
@@ -655,7 +655,7 @@ vtxtpFlip->(#@vtxtp/.vtxCoe->vtxCoeAnti &)
 
 
 (* ::Section::Closed:: *)
-(*electric magnetic current, TTA,*)
+(*F1,TTA,*)
 
 
 (*e . Subscript[\[ScriptCapitalA], \[Mu]] . Overscript[Subsuperscript[\[CapitalDelta], \[Nu], ++], _] . \[Gamma]^\[Nu]\[Alpha]\[Mu] . Subsuperscript[\[CapitalDelta], \[Alpha], ++] . SuperPlus[\[Pi]] . SuperMinus[\[Pi]]->(3Subscript[Q, d])/(2Subsuperscript[f, \[Phi], 2])*)
@@ -686,7 +686,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 
 
 (* ::Section::Closed:: *)
-(*electric magnetic current, TT\[Phi]\[Phi]A, order 2*)
+(*F1,TT\[Phi]\[Phi]A, order 2*)
 
 
 (*e . Subscript[\[ScriptCapitalA], \[Mu]] . Overscript[Subsuperscript[\[CapitalDelta], \[Nu], ++], _] . \[Gamma]^\[Nu]\[Alpha]\[Mu] . Subsuperscript[\[CapitalDelta], \[Alpha], ++] . SuperPlus[\[Pi]] . SuperMinus[\[Pi]]->(3Subscript[Q, d])/(2Subsuperscript[f, \[Phi], 2])*)
@@ -772,7 +772,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],mes["K0"],mesout["K0b"],coe
 
 
 (* ::Section::Closed:: *)
-(*electric magnetic current, BT\[Phi]A, C*)
+(*F1,BT\[Phi]A, C*)
 
 
 (*e.Subscript[\[ScriptCapitalA], \[Mu]] . (Overscript[p, _] . \[CapitalTheta]^\[Mu]\[Nu] . Subsuperscript[\[CapitalDelta], \[Nu], ++] . SuperMinus[\[Pi]]+Overscript[Subsuperscript[\[CapitalDelta], \[Nu], ++], _] . \[CapitalTheta]^\[Mu]\[Nu] . p . SuperPlus[\[Pi]])->(i(Subscript[Q, u]-Subscript[Q, d]))/Sqrt[2] \[ScriptCapitalC]/Subscript[f, \[Phi]]*)
