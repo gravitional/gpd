@@ -392,7 +392,7 @@ fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:76
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RainBow,A-octet,F1F2,nonlocal*)
 
 
