@@ -73,6 +73,7 @@ chTag::usage="\:8d39\:66fc\:56fe chpt \:6807\:8bb0\:7684value";
 MassKey::usage="\:9876\:70b9,\:8d39\:66fc\:56fe\:7b49\:7b49\:7c92\:5b50\:8d28\:91cf\:7684key";
 fyCoeKey::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:952e";
 fyCoe::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8";
+fyCoeTag::usage="\:8d39\:66fc\:56fe\:7cfb\:6570\:4e58\:79ef, \:4ecb\:5b50\:7684\:5934\:90e8";
 fyVtx::usage="\:8d39\:66fc\:56fe\:67d0\:4e2a\:9876\:70b9\:7684\:5934\:90e8\:ff0c\:4f8b\:5982fyVtx[...,v1]";
 
 
@@ -139,33 +140,38 @@ fdStr[type]={(*\:4ecb\:5b50\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a*)
 "K+","K-","K0","K0b",
 "\[Eta]8"
 };
-(* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, \:4ecb\:5b50 human-readable, ff["\[Pi]+"]=fd[1,1,0] ++++++++ *)
+(* ++++++++ \:5b9a\:4e49\:4ecb\:5b50\:8f93\:5165\:63a5\:53e3, ff["\[Pi]+"]=fd[1,1,0] ++++++++ *)
 Once@MapThread[Set,{ff/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]}]
+ff["\[Pi]\[Eta]"]=fd[1,{0,2,8},0];(*\[Eta]0,\[Pi]0,\[Eta]8,\:7684\:7b80\:5e76\:8868\:793a*)
 (* ----------- \:4ecb\:5b50Key-Value, \:4f8b\:5982 mes["\[Pi]+"]={"mes"}\[Rule]fd[1,1,0] ----------- *)
 Once@MapThread[Set,{mes/@fdStr[type],fdType[type]->#& /@ Array[fd[1,#,0]&,9,{0,8}] }];(*Array \:751f\:6210 \:4ecb\:5b50\:7684raw\:8868\:793a*)
 (*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:53cd\:7c92\:5b50\:51fa\:5c04, out\:8868\:793a\:51fa\:5c04 *)
 Once@MapThread[Set,{mes[#,"out"]&/@fdStr[type],fdType[type,"out"]->#& /@Array[fd[1,#,0]&,9,{0,8}]}];(*\:4ecb\:5b50\:53cd\:573a\:7684raw\:8868\:793a*)
 
 
-(*\:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
+(* ++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++ *)
 type="oct";
 fdStr[type]={
 "p","n",
 "\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-",
 "\[CapitalXi]0","\[CapitalXi]-",
 "\[CapitalLambda]"};
-(* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, oct human-readable, ff["p"]=fd[2,1,0] ++++++++ *)
+(* ----- \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3,  ff["p"]=fd[2,1,0] ----- *)
 Once@MapThread[Set,{ff/@fdStr[type],Array[fd[2,#,0]&,8]}];
-(* ----------- oct Key-Value, \:4f8b\:5982 oct["p"]={"oct"}\[Rule]fd[2,1,0] ----------- *)
+ff["\[CapitalSigma]0\[CapitalLambda]"]=fd[2,{4,8},0];(*\[CapitalSigma]0,\[CapitalLambda],\:7684\:7b80\:5e76\:8868\:793a*)
+(* ----- oct Key-Value, \:4f8b\:5982 oct["p"]={"oct"}\[Rule]fd[2,1,0] ----- *)
 Once@MapThread[Set,{oct/@fdStr[type],fdType[type]->#& /@ Array[fd[2,#,0]&,8]}];
-(*\:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
+(* ++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a ++++++++++++++++++++++++ *)
 type="octb";
 fdStr[type]={
 "pb","nb",
 "\[CapitalSigma]+b","\[CapitalSigma]0b","\[CapitalSigma]-b",
 "\[CapitalXi]0b","\[CapitalXi]-b",
 "\[CapitalLambda]b"};
+(* ------ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3,  ff["p"]=fd[2,1,0] ------ *)
 Once@MapThread[Set,{ff/@fdStr[type], Array[fd[2,#,1]&,8]}];
+ff["\[CapitalSigma]0b\[CapitalLambda]b"]=fd[2,{4,8},1];(*\[CapitalSigma]0b,\[CapitalLambda]b \:7684\:7b80\:5e76\:8868\:793a*)
+(* ------ oct Key-Value, \:4f8b\:5982 oct["p"]={"oct"}\[Rule]fd[2,1,0] ------ *)
 Once@MapThread[Set,{oct/@fdStr[type], fdType[type]->#& /@ Array[fd[2,#,1]&,8]}];
 
 
@@ -177,7 +183,7 @@ fdStr[type]={
 "\[CapitalXi]*0","\[CapitalXi]*-",
 "\[CapitalOmega]-"
 };
-(* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, dec human-readable, ff["\[CapitalDelta]++"]=fd[3,1,0] ++++++++ *)
+(* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, ff["\[CapitalDelta]++"]=fd[3,1,0] ++++++++ *)
 Once@MapThread[Set,{ff/@fdStr[type], Array[fd[3,#,0]&,10]}];
 (* ----------- dec Key-Value, \:4f8b\:5982 dec["\[CapitalDelta]++"]={"dec"}\[Rule]fd[4,1,0] ----------- *)
 Once@MapThread[Set,{dec/@fdStr[type], fdType[type]->#& /@ Array[fd[3,#,0]&,10]}];
@@ -341,7 +347,9 @@ fdFmt[2,{4,8},2]=massScript["M",fieldScript["\[CapitalSigma]","0"],fieldScript["
 
 lecsScript=enString;(*\:4e4b\:524d\:662f\:4e0b\:89d2\:6807\:683c\:5f0f: lecsScript=Subscript*)
 lecsFmt[x:_]:=<|(*\:8026\:5408\:5e38\:6570\:7684\:5177\:4f53\:5b9e\:73b0*)
-"1"->1,"1/f"->1/lecsScript["f","\[Phi]"],"f"->lecsScript["f","\[Phi]"],
+"1"->1,
+"e"->lecsScript["e",""],(*\:7535\:5b50\:7535\:8377,e>0*)
+"1/f"->1/lecsScript["f","\[Phi]"],"f"->lecsScript["f","\[Phi]"],"f\[Phi]"->lecsScript["f","\[Phi]"],
 "D"->lecsScript["D",""],"F"->lecsScript["F",""],
 "C"->lecsScript["\[ScriptCapitalC]",""],"H"->lecsScript["\[ScriptCapitalH]",""],
 "c1"->lecsScript["c","1"],"c2"->lecsScript["c","2"],"c3"->lecsScript["c","3"],
@@ -390,23 +398,24 @@ chTagKeyFmt[x__]:=pL[4][x](*\:8d39\:66fc\:56fe chpt \:6807\:8bb0\:7684key*)
 chTagFmt[x__]:=pL[5][x](*\:8d39\:66fc\:56fe chpt tag \:7684\:503c*)
 fyCoeKeyFmt[x__]:=pL[6][x](*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:952e*)
 fyCoeFmt[x__]:=pL[7][x](*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
-MassKeyFmt[x__]:=pL[8][x](*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
-fyVtxFmt[x__]:=pL[9][x](*\:8d39\:66fc\:56fe\:9876\:70b9\:4f4d\:7f6e\:7684\:6807\:8bb0*)
+fyCoeTagFmt[x__]:=pL[8][x](*\:8d39\:66fc\:56fe\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef\:7684\:663e\:793a*)
+MassKeyFmt[x__]:=pL[9][x](*\:8d39\:66fc\:56fe\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:663e\:793a\:683c\:5f0f*)
+fyVtxFmt[x__]:=pL[10][x](*\:8d39\:66fc\:56fe\:9876\:70b9\:4f4d\:7f6e\:7684\:6807\:8bb0*)
 
 
-qwDataFmt[x__]:=pL[10][x](*\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e*)
-qwKeyFmt[x__]:=pL[11][x](*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8*)
-qwaveFmt[x__]:=pL[12][x](*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8*)
-fqdListFmt[x__]:=pL[13][x](*\:5938\:514b\:7ec4\:5408\:7684\:7f6e\:6362\:5f62\:6210\:7684\:5217\:8868\:5934\:90e8*)
-fqdList2Fmt[x__]:=pL[14][x](*\:4e8c\:7ea7\:5217\:8868\:7684\:5934\:90e8,\:5938\:514b\:7ec4\:5408\:7684\:5217\:8868*)
-fqdposFmt[x__]:=pL[15][x](*\:8d39\:66fc\:56fe\:5938\:514b\:56fe,\:5938\:514b\:4f4d\:7f6e\:7684\:5934\:90e8*)
-fqdKeyFmt[x__]:=pL[16][x](*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210Key*)
-fqdFmt[x__]:=pL[17][x](*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210\:7684value*)
-fqdTagFmt[x__]:=pL[18][x](* quarkflow \:56fe\:7684Tag *)
-eqListFmt[x__]:=pL[19][x](* quarkflow \:65b9\:7a0b\:7ec4\:7684\:5934\:90e8 *)
+qwDataFmt[x__]:=pL[11][x](*\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e*)
+qwKeyFmt[x__]:=pL[12][x](*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8*)
+qwaveFmt[x__]:=pL[13][x](*\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8*)
+fqdListFmt[x__]:=pL[14][x](*\:5938\:514b\:7ec4\:5408\:7684\:7f6e\:6362\:5f62\:6210\:7684\:5217\:8868\:5934\:90e8*)
+fqdList2Fmt[x__]:=pL[15][x](*\:4e8c\:7ea7\:5217\:8868\:7684\:5934\:90e8,\:5938\:514b\:7ec4\:5408\:7684\:5217\:8868*)
+fqdposFmt[x__]:=pL[16][x](*\:8d39\:66fc\:56fe\:5938\:514b\:56fe,\:5938\:514b\:4f4d\:7f6e\:7684\:5934\:90e8*)
+fqdKeyFmt[x__]:=pL[17][x](*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210Key*)
+fqdFmt[x__]:=pL[18][x](*\:8d39\:66fc\:56fe\:5938\:514b\:7ec4\:6210\:7684value*)
+fqdTagFmt[x__]:=pL[19][x](* quarkflow \:56fe\:7684Tag *)
+eqListFmt[x__]:=pL[20][x](* quarkflow \:65b9\:7a0b\:7ec4\:7684\:5934\:90e8 *)
 
 
-kinFmt[x__]:=pL[20][x](*\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:663e\:793a*)
+kinFmt[x__]:=pL[21][x](*\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:663e\:793a*)
 
 
 (* ::Section:: *)
@@ -436,7 +445,7 @@ massScript->Subscript,fieldScript->enString,
 pde->pdeFmt,ltzScript->Subscript,gma->gmaFmt,(*ldx\[Rule]ldxFmt,*)
 lagint->lagintFmt,lagcoe->lagcoeFmt,
 fdType->fdTypeFmt,vtxType->vtxTypeFmt,vtxCoe->vtxCoeFmt,
-MassKey->MassKeyFmt,fyCoeKey->fyCoeKeyFmt,fyCoe->fyCoeFmt,
+MassKey->MassKeyFmt,fyCoeKey->fyCoeKeyFmt,fyCoe->fyCoeFmt,fyCoeTag->fyCoeTagFmt,
 chTagKey->chTagKeyFmt,chTag->chTagFmt,fyVtx->fyVtxFmt,
 qwData->qwDataFmt,qwKey->qwKeyFmt,qwave->qwaveFmt,
 fqdKey->fqdKeyFmt,fqd->fqdFmt,
