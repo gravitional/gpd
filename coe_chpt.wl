@@ -17,7 +17,7 @@
 (*\:4f7f\:7528\:7535\:5b50\:7535\:8377e\:4f5c\:4e3a\:5355\:4f4d\:ff0c\:8fd9\:6837e\:4e0d\:663e\:5f0f\:51fa\:73b0\:5728\:9876\:70b9\:4e2d. e>0*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*initial*)
 
 
@@ -90,7 +90,7 @@ MassMes1=MassKey["mes","p1"];
 MassDec1=MassKey["dec","p1"];MassDec2=MassKey["dec","p2"];(*\:4e2d\:95f4 dec \:91cd\:5b501,2*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-meson,octet,*)
 
 

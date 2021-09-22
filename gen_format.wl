@@ -90,7 +90,7 @@ fqdTag::usage="quarkflow \:56fe\:7684tag";
 eqList::usage="quarkflow \:65b9\:7a0b\:7ec4\:6210\:7684\:5217\:8868\:7684\:5934\:90e8";
 
 
-kin::usage="\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:5934\:90e8\:ff0c\:4f8b\:5982 kin[q]";
+kn::usage="kinematics,\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:5934\:90e8\:ff0c\:4f8b\:5982 kn[q]";
 
 
 (*+++++++++++++++++++++++++++++++++++++++++++++++++++++*)
@@ -415,7 +415,7 @@ fqdTagFmt[x__]:=pL[19][x](* quarkflow \:56fe\:7684Tag *)
 eqListFmt[x__]:=pL[20][x](* quarkflow \:65b9\:7a0b\:7ec4\:7684\:5934\:90e8 *)
 
 
-kinFmt[x__]:=pL[21][x](*\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:663e\:793a*)
+knFmt[x__]:=pL[21][x](*\:8fd0\:52a8\:5b66\:53d8\:91cf\:7684\:663e\:793a*)
 
 
 (* ::Section:: *)
@@ -451,7 +451,7 @@ qwData->qwDataFmt,qwKey->qwKeyFmt,qwave->qwaveFmt,
 fqdKey->fqdKeyFmt,fqd->fqdFmt,
 fqdList->fqdListFmt,fqdList2->fqdList2Fmt,
 fqdpos->fqdposFmt,fqdTag->fqdTagFmt,eqList->eqListFmt,
-kin->kinFmt
+kn->knFmt
 |>;
 
 

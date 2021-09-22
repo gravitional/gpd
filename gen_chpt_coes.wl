@@ -13,7 +13,7 @@
 (*\:4f7f\:7528\:7535\:5b50\:7535\:8377e\:4f5c\:4e3a\:5355\:4f4d\:ff0c\:8fd9\:6837e\:4e0d\:663e\:5f0f\:51fa\:73b0\:5728\:9876\:70b9\:4e2d. e>0*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*initial*)
 
 
@@ -38,7 +38,7 @@ recurFind[start];
 Get[FileNameJoin[{gitLocalName,"gen_format.wl"}]];(*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*strong interaction*)
 
 
@@ -486,7 +486,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mesout["K0b"],coe
 };
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Mass filed, electric magnetic current*)
 
 
@@ -906,7 +906,7 @@ vtxtpFlip->(#@vtxtp &)
 |>]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*anomalous magnetic moment*)
 
 
@@ -1018,7 +1018,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],mes["K+"],mesout["K-"],coeI
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*decuplet,order1,TTA*)
 
 
@@ -1041,7 +1041,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*trans magnetic,order1,BTA*)
 
 
@@ -1073,11 +1073,11 @@ vtxtpFlip->(#@vtxtp/.vtxCoe->vtxCoeAnti &)
 |>]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*anomalous magnetic, to nonlocal*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*octet,order 1*)
 
 
@@ -1088,8 +1088,8 @@ vtxType2=vtxType["F2","oct"];vtx2=vtx[unq["type"->vtxType2]];
 vtxF1=vtxType["F1","oct","nloc"];
 vtxF2=vtxType["F2","oct","nloc"];
 massKeyOct=MassKey["vtx","oct"];
-k\[CapitalLambda]0=kin["\[CapitalLambda]0"];
-kQ=kin["Q"];
+k\[CapitalLambda]0=kn["\[CapitalLambda]0"];
+kQ=kn["Q"];
 (* --------------------------------- \:6c42\:89e3\:65b9\:7a0b --------------------------------- *)
 vtx[unq["type"->vtxtp]]=Query[All,KeyDrop[{vtxType1,vtxType2}](*\:53bb\:9664\:5197\:4f59\:7684\:8bb0\:5f55*)
 ]@Query[All,(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f\:ff0c\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
@@ -1103,7 +1103,7 @@ Append[#,massKeyOct->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,2])]&
 {Key@fdTypeOctb,Key@fdTypeOct}];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*octet,order 2*)
 
 
@@ -1121,8 +1121,8 @@ vtxType2=vtxType["F2","oct","o2"];vtx2=vtx[unq["type"->vtxType2]];
 vtxF1=vtxType["F1","oct","o2","nloc"];
 vtxF2=vtxType["F2","oct","o2","nloc"];
 massKeyOct=MassKey["vtx","oct"];
-k\[CapitalLambda]0=kin["\[CapitalLambda]0"];
-kQ=kin["Q"];
+k\[CapitalLambda]0=kn["\[CapitalLambda]0"];
+kQ=kn["Q"];
 (* --------------------------------- \:6c42\:89e3\:65b9\:7a0b --------------------------------- *)
 vtx[unq["type"->vtxtp]]=Query[All,KeyDrop[{vtxType1,vtxType2}]
 ]@Query[All,(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f\:ff0c\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
@@ -1139,7 +1139,7 @@ Append[#,massKeyOct->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,2])]&
 ];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*decuplet, order 1*)
 
 
@@ -1149,8 +1149,8 @@ vtxType1=vtxType["F1","dec"];vtx1=vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F2","dec"];vtx2=vtx[unq["type"->vtxType2]];
 vtxF1=vtxType["F1","dec","nloc"];vtxF2=vtxType["F2","dec","nloc"];
 massKeyDec=MassKey["vtx","dec"];
-k\[CapitalLambda]0=kin["\[CapitalLambda]0"];
-kQ=kin["Q"];
+k\[CapitalLambda]0=kn["\[CapitalLambda]0"];
+kQ=kn["Q"];
 (* --------------------------------- \:6c42\:89e3\:65b9\:7a0b --------------------------------- *)
 vtx[unq["type"->vtxtp]]=Query[All,KeyDrop[{vtxType1,vtxType2}](*\:53bb\:9664\:5197\:4f59\:7684\:8bb0\:5f55*)
 ]@Query[All,(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f\:ff0c\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
@@ -1164,7 +1164,7 @@ Append[#,massKeyDec->(#@fdTypeDec/.fd[a_,b_,0]:>fd[a,b,2])]&
 {Key@fdTypeDecb,Key@fdTypeDec}];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*saveas*)
 
 
