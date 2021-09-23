@@ -118,7 +118,7 @@ fuff2nm[[diord]]=FileNameJoin[{Directory[],"f2."<>"analytic."<>ToString[diord]<>
 
 
 (* ::Section:: *)
-(*fua matrix element*)
+(*LoopRefineSeries*)
 
 
 (* ::Input:: *)
