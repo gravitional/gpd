@@ -207,9 +207,9 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 fyTag={"KR","mes","oct","left"};
 fyAmp[fyTag,"spin"]=Contract[
 Spur[
-LTensor[\[Gamma],\[Mu]],\[Gamma]5,
-\[Gamma] . (p1-k)+mo1 \[DoubleStruckOne],(* \[DoubleStruckOne] \:662f\:5355\:4f4d\:77e9\:9635*)
 \[Gamma] . k,\[Gamma]5,
+\[Gamma] . (p2-k)+mo1 \[DoubleStruckOne],(* \[DoubleStruckOne] \:662f\:5355\:4f4d\:77e9\:9635*)
+LTensor[\[Gamma],\[Mu]],\[Gamma]5,
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
 Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
@@ -224,7 +224,7 @@ reg[k-(p2-p1),mm1,\[CapitalLambda]],
 reg[k,mm1,\[CapitalLambda]],
 (* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
 prp1[k,mm1],
-prp1[p1-k,mo1]
+prp1[p2-k,mo1]
 }/.intgd->Sequence;(*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:6807\:91cf\:90e8\:5206*)
 (* ---------------------------------------------------------------------------- *)
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
