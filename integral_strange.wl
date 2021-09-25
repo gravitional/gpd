@@ -242,10 +242,57 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
 (* ::Section:: *)
-(*a*)
+(*KR,mes,oct,right*)
+
+
+(* ::Input:: *)
+(*(* \:56fe\:5f62\:8868\:793a *)*)
+(*end=4;delta=0.05;*)
+(*Graphics[{*)
+(*Black,Line[{{0,0},{end,0}}],*)
+(*Arrowheads[{{Automatic,.53}}],*)
+(*Circle[{end/2,0},end/4,{0,\[Pi]}],*)
+(*Line[{{3/4end,0},{3/4end,-end/5}}],*)
+(*Text["v1",{end/4-4delta,+4delta}],Text["v2",{3/4end+4delta,+4delta}]*)
+(*},ImageSize->Small]*)
+
+
+(* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
+fyTag={"KR","mes","oct","right"};
+fyAmp[fyTag,"spin"]=Contract[
+Spur[
+LTensor[\[Gamma],\[Mu]],\[Gamma]5,
+\[Gamma] . (p1-k)+mo1 \[DoubleStruckOne],(* \[DoubleStruckOne] \:662f\:5355\:4f4d\:77e9\:9635*)
+\[Gamma] . k,\[Gamma]5,
+#]]&/@{
+Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
+Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
+}/.onShell;
 
 
 fyTag={"KR","mes","oct","right"};
+fyAmp[fyTag,"scal"]={
+(* --------- \:6b63\:89c4\:5b50 --------- *)
+reg[p2-p1,\[CapitalLambda]],
+reg[k+(p2-p1),mm1,\[CapitalLambda]],
+reg[k,mm1,\[CapitalLambda]],
+(* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
+prp1[k,mm1],
+prp1[p1-k,mo1]
+}/.intgd->Sequence;(*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:6807\:91cf\:90e8\:5206*)
+(* ---------------------------------------------------------------------------- *)
+fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
+fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
+(* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
+fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
+Cancel->Automatic,Apart->True
+]/.onShell;//AbsoluteTiming
+(* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
+intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
+
+
+Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
 (* ::Section:: *)
