@@ -4,27 +4,6 @@
 (*integral_strange.wl*)
 
 
-pos[expr_,form_,i_]:=If[i>1,
-(*\:5982\:679c\:8fd8\:6ca1\:6709\:5faa\:73af\:5230 first \:5143\:7d20*)
-If[!AtomQ@expr[[i]],
-(*\:5982\:679c\:4e0d\:662f\:57fa\:5143, \:4f7f\:7528\:5d4c\:5957*)
-Append[pos[expr,form,i-1],(*\:8fd8\:672a\:5904\:7406\:7684\:90e8\:5206*)
-Prepend[#,i]&/@pos[expr[[i]],form,Length@expr[[i]]](*\:5c42\:6570*)
-],
-(* \:5982\:679c\:662f\:57fa\:5143, \:8fed\:4ee3\:ff0c*)
-If[MatchQ[expr[[i]],form],
-Append[pos[expr,form,i-1],i],
-pos[expr,form,i-1]
-]
-],
-(*\:5982\:679c\:5faa\:73af\:5230\:4e86 first \:5143\:7d20*)
-If[!AtomQ@First@expr,
-Prepend[#,1]&/@pos[First@expr,form,Length@First@expr],(*\:5c42\:6570*)
-If[MatchQ[First@expr,form],{1},{}]
-]
-]
-
-
 (* ::Chapter:: *)
 (*initial*)
 
