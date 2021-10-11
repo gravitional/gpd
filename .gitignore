@@ -11,6 +11,8 @@ mfiles/*
 *.ax1
 *.ax2
 
+# mac
+.DS_Store
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
