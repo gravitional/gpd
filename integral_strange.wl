@@ -4,7 +4,7 @@
 (*integral_strange.wl*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*initial*)
 
 
@@ -54,7 +54,7 @@ LoopIntegrate[delayedNumerator, k, {k - p2, m}, {k - p1, m}, {k, 0}] /. {p1.p1 -
 *)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Package-X*)
 
 
@@ -63,7 +63,7 @@ LoopIntegrate[delayedNumerator, k, {k - p2, m}, {k - p1, m}, {k, 0}] /. {p1.p1 -
 
 
 If[NameQ["\[Sigma]"],echo["please remove the definitions of \[Sigma], \[Sigma] will be used in package-X"];Remove["Global`\[Sigma]"]];(* \[Sigma] \:662f package-X \:7684\:4fdd\:7559\:6807\:8bc6\:7b26,\:9700\:8981\:6e05\:9664*)
-<<X`;(*\:5bfc\:5165 Package-X *) 
+Needs["X`"];(*\:5bfc\:5165 Package-X *) 
 SetOptions[Simplify,TimeConstraint->1];(*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236*)
 SetOptions[Refine,TimeConstraint->1];
 (*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
@@ -412,7 +412,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,oct,F1,*)
 
 
@@ -466,7 +466,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m"
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,oct,F2,*)
 
 
