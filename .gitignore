@@ -5,7 +5,10 @@
 
 ## mathematica,默认忽略所有.nb，使用!a.nb 不忽略
 *.nb
-mfiles/*
+*.m
+*.mx 
+*.wdx
+*.wxf
 
 ## axodraw2
 *.ax1
