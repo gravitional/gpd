@@ -4,7 +4,7 @@
 (*integral_strange.wl*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*initial*)
 
 
@@ -54,7 +54,7 @@ LoopIntegrate[delayedNumerator, k, {k - p2, m}, {k - p1, m}, {k, 0}] /. {p1.p1 -
 *)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Package-X*)
 
 
@@ -119,7 +119,7 @@ LTensor[MetricG,\[Alpha],\[Beta]] \[DoubleStruckOne] -1/3 DiracMatrix[LTensor[\[
 mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*kinematic quantities*)
 
 
@@ -161,8 +161,8 @@ end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
 fyTag={"RB","mes","oct"};
 fyAmp[fyTag,"spin"]=Contract[
 LTensor[2k+p2-p1,\[Mu]]*Spur[
-\[Gamma] . (k+p2-p1),
-\[Gamma]5,\[Gamma] . (p1-k)+mo1*\[DoubleStruckOne],(* \[DoubleStruckOne] \:662f\:5355\:4f4d\:77e9\:9635*)
+\[Gamma] . (k+p2-p1),\[Gamma]5,
+\[Gamma] . (p1-k)+mo1*\[DoubleStruckOne],(* \[DoubleStruckOne] \:662f\:5355\:4f4d\:77e9\:9635*)
 \[Gamma] . k,\[Gamma]5,
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
@@ -196,7 +196,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,left*)
 
 
@@ -228,7 +228,7 @@ fyTag={"KR","mes","oct","left"};
 fyAmp[fyTag,"scal"]={
 (* --------- \:6b63\:89c4\:5b50 --------- *)
 reg[p2-p1,\[CapitalLambda]],
-reg[k-(p2-p1),mm1,\[CapitalLambda]],
+reg[k,mm1,\[CapitalLambda]],
 reg[k,mm1,\[CapitalLambda]],
 (* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
 prp1[k,mm1],
@@ -249,7 +249,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,right*)
 
 
@@ -281,7 +281,7 @@ fyTag={"KR","mes","oct","right"};
 fyAmp[fyTag,"scal"]={
 (* --------- \:6b63\:89c4\:5b50 --------- *)
 reg[p2-p1,\[CapitalLambda]],
-reg[k+(p2-p1),mm1,\[CapitalLambda]],
+reg[k,mm1,\[CapitalLambda]],
 reg[k,mm1,\[CapitalLambda]],
 (* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
 prp1[k,mm1],
@@ -322,7 +322,7 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 fyTag={"KR","mes","oct","add","left"};
 fyAmp[fyTag,"spin"]=Contract[
 (* -R^\[Mu](-k,q) \:7684 -(-2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
--LTensor[-2k+(p2-p1),\[Mu]] *Spur[
+(-1)LTensor[-2k+(p2-p1),\[Mu]]*Spur[
 \[Gamma] . k,\[Gamma]5,
 \[Gamma] . (p2-k)+mo1 \[DoubleStruckOne],(* \[DoubleStruckOne] \:662f\:5355\:4f4d\:77e9\:9635*)
 \[Gamma] . (k-(p2-p1)),\[Gamma]5,
@@ -378,7 +378,7 @@ fyTag={"KR","mes","oct","add","right"};
 fyAmp[fyTag,"spin"]=Contract[
 (* R^\[Mu](k,q)\:4e2d\:7684 (2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
 LTensor[2k+(p2-p1),\[Mu]]*Spur[
-\[Gamma] . (k+q),\[Gamma]5,
+\[Gamma] . (k+p2-p1),\[Gamma]5,
 \[Gamma] . (p1-k)+mo1 \[DoubleStruckOne],(* \[DoubleStruckOne] \:662f\:5355\:4f4d\:77e9\:9635*)
 \[Gamma] . k,\[Gamma]5,
 #]]&/@{
@@ -432,7 +432,7 @@ fyTag={"RB","oct","F1"};
 fyAmp[fyTag,"spin"]=Contract[
 Spur[
 \[Gamma] . k,\[Gamma]5,
-\[Gamma] . (p2-k)+mo2*\[DoubleStruckOne], LTensor[\[Gamma],\[Mu]], \[Gamma] . (p1-k)+mo1*\[DoubleStruckOne],(*Dirac1 \:662f\:5355\:4f4d\:77e9\:9635*)
+\[Gamma] . (p2-k)+mo2*\[DoubleStruckOne],LTensor[\[Gamma],\[Mu]],\[Gamma] . (p1-k)+mo1*\[DoubleStruckOne],(*Dirac1 \:662f\:5355\:4f4d\:77e9\:9635*)
 \[Gamma] . k,\[Gamma]5,
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
@@ -484,7 +484,7 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","oct","F2"};
 fyAmp[fyTag,"spin"]=Contract[
-LTensor[p2-p1,\[Nu]]*Spur[
+(I LTensor[p2-p1,\[Nu]])/(2mE)*Spur[
 \[Gamma] . k,\[Gamma]5,
 \[Gamma] . (p2-k)+mo2*\[DoubleStruckOne], LTensor[DiracS,\[Mu],\[Nu]], \[Gamma] . (p1-k)+mo1*\[DoubleStruckOne],(*\[DoubleStruckOne] \:662f\:5355\:4f4d\:77e9\:9635*)
 \[Gamma] . k,\[Gamma]5,
@@ -520,7 +520,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m"
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,oct,o2*)
 
 
@@ -572,7 +572,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m"
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,oct,add,o2*)
 
 
@@ -637,6 +637,7 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 (*{end/2,0},{0,end/2},{end,end/2},{end/2,0}*)
 (*}],*)
 (*Line[{{end/2,-end/6},{end/2,0}}],*)
+(*Rectangle[{1/2end-3/2delta,-3/2delta},{1/2end+3/2delta,+3/2delta}],*)
 (*Text["v1",{end/2,+5delta}]*)
 (*},ImageSize->Small]*)
 
@@ -676,7 +677,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m"
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble,mes,o2*)
 
 
@@ -729,7 +730,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m"
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble,mes,ten,o2*)
 
 
@@ -786,7 +787,7 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 (*loop Integral: decuplet*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,mes,dec*)
 
 
@@ -839,7 +840,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,dec,F1*)
 
 
@@ -859,7 +860,8 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 fyTag={"RB","dec","F1"};
 fyAmp[fyTag,"spin"]=Contract[
 LTensor[k,\[Alpha]]*LTensor[k,\[Eta]]*Spur[
-\[CapitalTheta][\[Alpha],\[Beta]],spDec[{\[Beta],\[Theta]},{p2-k,md2}],\[Gamma]3[\[Theta],\[Nu],\[Mu]],
+\[CapitalTheta][\[Alpha],\[Beta]],spDec[{\[Beta],\[Theta]},{p2-k,md1}],
+\[Gamma]3[\[Theta],\[Nu],\[Mu]],
 spDec[{\[Nu],\[Rho]},{p1-k,md1}],\[CapitalTheta][\[Rho],\[Eta]],
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
@@ -875,7 +877,7 @@ reg[k,mm1,\[CapitalLambda]],
 reg[k,mm1,\[CapitalLambda]],
 (* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
 prp1[k,mm1],
-prp1[p2-k,md2],
+prp1[p2-k,md1],
 prp1[p1-k,md1]
 }/.intgd->Sequence;(*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:6807\:91cf\:90e8\:5206*)
 (* ---------------------------------------------------------------------------- *)
@@ -893,7 +895,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,dec,F2*)
 
 
@@ -913,8 +915,8 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","dec","F2"};
 fyAmp[fyTag,"spin"]=Contract[
-LTensor[k,\[Alpha]]*LTensor[k,\[Eta]]*LTensor[q,\[Nu]]*Spur[
-\[CapitalTheta][\[Alpha],\[Beta]],spDec[{\[Beta],\[Theta]},{p2-k,md2}],
+LTensor[k,\[Alpha]]*LTensor[k,\[Eta]]*(I LTensor[q,\[Nu]])/(2md1)*Spur[
+\[CapitalTheta][\[Alpha],\[Beta]],spDec[{\[Beta],\[Theta]},{p2-k,md1}],
 LTensor[DiracS,\[Mu],\[Nu]],
 spDec[{\[Theta],\[Rho]},{p1-k,md1}],\[CapitalTheta][\[Rho],\[Eta]],
 #]]&/@{
@@ -931,7 +933,7 @@ reg[k,mm1,\[CapitalLambda]],
 reg[k,mm1,\[CapitalLambda]],
 (* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
 prp1[k,mm1],
-prp1[p2-k,md2],
+prp1[p2-k,md1],
 prp1[p1-k,md1]
 }/.intgd->Sequence;(*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:6807\:91cf\:90e8\:5206*)
 (* ---------------------------------------------------------------------------- *)
@@ -949,7 +951,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,trans,left*)
 
 
@@ -988,8 +990,8 @@ reg[k,mm1,\[CapitalLambda]],
 reg[k,mm1,\[CapitalLambda]],
 (* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
 prp1[k,mm1],
-prp1[p1-k,md1],
-prp1[p2-k,mo1]
+prp1[p2-k,mo1],
+prp1[p1-k,md1]
 }/.intgd->Sequence;(*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:6807\:91cf\:90e8\:5206*)
 (* ---------------------------------------------------------------------------- *)
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
@@ -1030,7 +1032,8 @@ LTensor[k,\[Alpha]]*LTensor[q,\[Nu]]*Spur[
 \[CapitalTheta][\[Alpha],\[Beta]],
 DiracMatrix[spDec[{\[Beta],\[Nu]},{p2-k,md1}],LTensor[\[Gamma],\[Mu]],\[Gamma]5]-
 DiracMatrix[spDec[{\[Beta],\[Mu]},{p2-k,md1}],LTensor[\[Gamma],\[Nu]],\[Gamma]5],
-\[Gamma] . (p1-k)+mo1*\[DoubleStruckOne],\[Gamma] . k,\[Gamma]5,
+\[Gamma] . (p1-k)+mo1*\[DoubleStruckOne],
+\[Gamma] . k,\[Gamma]5,
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
 Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
@@ -1154,7 +1157,7 @@ reg[k,mm1,\[CapitalLambda]],
 reg[k,mm1,\[CapitalLambda]],
 (* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
 prp1[k,mm1],
-prp1[p1-k,mo1]
+prp1[p1-k,md1]
 }/.intgd->Sequence;(*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:6807\:91cf\:90e8\:5206*)
 (* ---------------------------------------------------------------------------- *)
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
@@ -1192,7 +1195,7 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 fyTag={"KR","mes","dec","add","left"};
 fyAmp[fyTag,"spin"]=Contract[
 (* -R^\[Mu](-k,q) \:7684 -(-2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
-LTensor[k,\[Alpha]]*LTensor[k-q,\[Rho]]*(-1)LTensor[-2k+(p2-p1),\[Mu]]*Spur[
+LTensor[k,\[Alpha]]*LTensor[k-(p2-p1),\[Rho]]*(-1)LTensor[-2k+(p2-p1),\[Mu]]*Spur[
 \[CapitalTheta][\[Alpha],\[Beta]],
 spDec[{\[Beta],\[Nu]},{p2-k,md1}],
 \[CapitalTheta][\[Nu],\[Rho]],
@@ -1248,7 +1251,7 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 fyTag={"KR","mes","dec","add","right"};
 fyAmp[fyTag,"spin"]=Contract[
 (* R^\[Mu](k,q) \:7684 (2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
-LTensor[k+q,\[Rho]]*LTensor[k,\[Beta]]*LTensor[2k+(p2-p1),\[Mu]]*Spur[
+LTensor[k+(p2-p1),\[Rho]]*LTensor[k,\[Beta]]*LTensor[2k+(p2-p1),\[Mu]]*Spur[
 \[CapitalTheta][\[Rho],\[Nu]],
 spDec[{\[Nu],\[Alpha]},{p1-k,md1}],
 \[CapitalTheta][\[Alpha],\[Beta]],
