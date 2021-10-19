@@ -4,7 +4,7 @@
 (*integral_strange.wl*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*initial*)
 
 
@@ -146,11 +146,11 @@ LScalarQ[Q2]=True;
 onShell={p1 . p1->mE^2,p2 . p2->mE^2,p1 . p2->Q2/2+mE^2};
 
 
+end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
+
+
 (* ::Chapter:: *)
 (*loop Integral: octet*)
-
-
-end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
 
 
 (* ::Section::Closed:: *)
@@ -302,7 +302,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,add,left*)
 
 
@@ -321,11 +321,11 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","oct","add","left"};
 fyAmp[fyTag,"spin"]=Contract[
-Spur[
+(* -R^\[Mu](-k,q) \:7684 -(-2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
+-LTensor[-2k+(p2-p1),\[Mu]] *Spur[
 \[Gamma] . k,\[Gamma]5,
 \[Gamma] . (p2-k)+mo1 \[DoubleStruckOne],(* \[DoubleStruckOne] \:662f\:5355\:4f4d\:77e9\:9635*)
 \[Gamma] . (k-(p2-p1)),\[Gamma]5,
--LTensor[-2k+(p2-p1),\[Mu]] \[DoubleStruckOne], (* -R^\[Mu](-k,q) \:7684 -(-2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
 Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
@@ -357,7 +357,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,add,right*)
 
 
@@ -376,11 +376,11 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","oct","add","right"};
 fyAmp[fyTag,"spin"]=Contract[
-Spur[
+(* R^\[Mu](k,q)\:4e2d\:7684 (2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
+LTensor[2k+(p2-p1),\[Mu]]*Spur[
 \[Gamma] . (k+q),\[Gamma]5,
 \[Gamma] . (p1-k)+mo1 \[DoubleStruckOne],(* \[DoubleStruckOne] \:662f\:5355\:4f4d\:77e9\:9635*)
 \[Gamma] . k,\[Gamma]5,
-LTensor[2k+(p2-p1),\[Mu]] \[DoubleStruckOne],(* R^\[Mu](k,q)\:4e2d\:7684 (2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
 Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
@@ -1006,7 +1006,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,trans,right*)
 
 
@@ -1063,7 +1063,7 @@ intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
 Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,dec,left*)
 
 
@@ -1079,10 +1079,45 @@ Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
 (*},ImageSize->Small]*)
 
 
+(* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","dec","left"};
+fyAmp[fyTag,"spin"]=Contract[
+LTensor[k,\[Rho]]*Spur[
+\[CapitalTheta][\[Rho],\[Beta]],
+spDec[{\[Beta],\[Nu]},{p2-k,md1}],
+\[CapitalTheta][\[Nu],\[Mu]],
+#]]&/@{
+Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
+Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
+}/.onShell;
 
 
-(* ::Section::Closed:: *)
+fyTag={"KR","mes","dec","left"};
+fyAmp[fyTag,"scal"]={
+(* --------- \:6b63\:89c4\:5b50 --------- *)
+reg[p2-p1,\[CapitalLambda]],
+reg[k,mm1,\[CapitalLambda]],
+reg[k,mm1,\[CapitalLambda]],
+(* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
+prp1[k,mm1],
+prp1[p2-k,md1]
+}/.intgd->Sequence;(*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:6807\:91cf\:90e8\:5206*)
+(* ---------------------------------------------------------------------------- *)
+fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
+fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
+(* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
+fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
+Cancel->Automatic,Apart->True
+]/.onShell;//AbsoluteTiming
+(* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
+intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
+
+
+Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
+
+
+(* ::Section:: *)
 (*KR,mes,dec,right*)
 
 
@@ -1098,10 +1133,45 @@ fyTag={"KR","mes","dec","left"};
 (*},ImageSize->Small]*)
 
 
+(* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","dec","right"};
+fyAmp[fyTag,"spin"]=Contract[
+LTensor[k,\[Beta]]*Spur[
+\[CapitalTheta][\[Mu],\[Nu]],
+spDec[{\[Nu],\[Rho]},{p1-k,md1}],
+\[CapitalTheta][\[Rho],\[Beta]],
+#]]&/@{
+Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
+Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
+}/.onShell;
 
 
-(* ::Section::Closed:: *)
+fyTag={"KR","mes","dec","right"};
+fyAmp[fyTag,"scal"]={
+(* --------- \:6b63\:89c4\:5b50 --------- *)
+reg[p2-p1,\[CapitalLambda]],
+reg[k,mm1,\[CapitalLambda]],
+reg[k,mm1,\[CapitalLambda]],
+(* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
+prp1[k,mm1],
+prp1[p1-k,mo1]
+}/.intgd->Sequence;(*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:6807\:91cf\:90e8\:5206*)
+(* ---------------------------------------------------------------------------- *)
+fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
+fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
+(* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
+fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
+Cancel->Automatic,Apart->True
+]/.onShell;//AbsoluteTiming
+(* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
+intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
+
+
+Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
+
+
+(* ::Section:: *)
 (*KR,mes,dec,add,left*)
 
 
@@ -1118,10 +1188,46 @@ fyTag={"KR","mes","dec","right"};
 (*},ImageSize->Small]*)
 
 
-fyTag={"KR","mes","dec","left"};
+(* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
+fyTag={"KR","mes","dec","add","left"};
+fyAmp[fyTag,"spin"]=Contract[
+(* -R^\[Mu](-k,q) \:7684 -(-2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
+LTensor[k,\[Alpha]]*LTensor[k-q,\[Rho]]*(-1)LTensor[-2k+(p2-p1),\[Mu]]*Spur[
+\[CapitalTheta][\[Alpha],\[Beta]],
+spDec[{\[Beta],\[Nu]},{p2-k,md1}],
+\[CapitalTheta][\[Nu],\[Rho]],
+#]]&/@{
+Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
+Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
+}/.onShell;
 
 
-(* ::Section::Closed:: *)
+fyTag={"KR","mes","dec","add","left"};
+fyAmp[fyTag,"scal"]={
+(* --------- \:6b63\:89c4\:5b50 --------- *)
+reg[p2-p1,\[CapitalLambda]],
+reg[k,mm1,\[CapitalLambda]],
+cltcom[{-k,p2-p1},{mm1,\[CapitalLambda]}],
+(* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
+prp1[k,mm1],
+prp1[p2-k,md1]
+}/.intgd->Sequence;(*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:6807\:91cf\:90e8\:5206*)
+(* ---------------------------------------------------------------------------- *)
+fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
+fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
+(* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
+fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
+Cancel->Automatic,Apart->True
+]/.onShell;//AbsoluteTiming
+(* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
+intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
+
+
+Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
+
+
+(* ::Section:: *)
 (*KR,mes,dec,add,right*)
 
 
@@ -1138,4 +1244,40 @@ fyTag={"KR","mes","dec","left"};
 (*},ImageSize->Small]*)
 
 
-fyTag={"KR","mes","dec","right"};
+(* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
+fyTag={"KR","mes","dec","add","right"};
+fyAmp[fyTag,"spin"]=Contract[
+(* R^\[Mu](k,q) \:7684 (2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
+LTensor[k+q,\[Rho]]*LTensor[k,\[Beta]]*LTensor[2k+(p2-p1),\[Mu]]*Spur[
+\[CapitalTheta][\[Rho],\[Nu]],
+spDec[{\[Nu],\[Alpha]},{p1-k,md1}],
+\[CapitalTheta][\[Alpha],\[Beta]],
+#]]&/@{
+Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
+Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
+}/.onShell;
+
+
+fyTag={"KR","mes","dec","add","right"};
+fyAmp[fyTag,"scal"]={
+(* --------- \:6b63\:89c4\:5b50 --------- *)
+reg[p2-p1,\[CapitalLambda]],
+reg[k,mm1,\[CapitalLambda]],
+cltcom[{k,p2-p1},{mm1,\[CapitalLambda]}],
+(* --------- \:666e\:901a\:4f20\:64ad\:5b50 --------- *)
+prp1[k,mm1],
+prp1[p1-k,md1]
+}/.intgd->Sequence;(*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:6807\:91cf\:90e8\:5206*)
+(* ---------------------------------------------------------------------------- *)
+fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
+fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
+(* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
+fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
+Cancel->Automatic,Apart->True
+]/.onShell;//AbsoluteTiming
+(* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
+intgName="integral.strange."<>StringRiffle[fyTag,"."]<>".m";
+
+
+Put[fyAmp[fyTag,"intg"],FileNameJoin[{mfilesDir,intgName}]]
