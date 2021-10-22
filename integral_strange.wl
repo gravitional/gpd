@@ -64,6 +64,7 @@ LoopIntegrate[delayedNumerator, k, {k - p2, m}, {k - p1, m}, {k, 0}] /. {p1.p1 -
 
 
 If[NameQ["\[Sigma]"],echo["please remove the definitions of \[Sigma], \[Sigma] will be used in package-X"];Remove["Global`\[Sigma]"]];(* \[Sigma] \:662f package-X \:7684\:4fdd\:7559\:6807\:8bc6\:7b26,\:9700\:8981\:6e05\:9664*)
+echo["launch parallel kernels"];
 Needs["X`"];ParallelNeeds["X`"];CloseKernels[];LaunchKernels[];(* \:5e76\:884c\:8fd0\:7b97\:51c6\:5907*)
 SetOptions[Simplify,TimeConstraint->1];(*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236*)
 SetOptions[Refine,TimeConstraint->1];
@@ -155,6 +156,11 @@ onShell={p1 . p1->mE^2,p2 . p2->mE^2,p1 . p2->Q2/2+mE^2};
 end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
 
 
+SetSharedFunction[fyAmp](*\:8bbe\:7f6e\:5171\:4eab\:51fd\:6570\:4e0b\:503c*)
+(*\:5e76\:884c\:8ba1\:7b97\:79ef\:5206*)
+paraEva[x_]:=WaitAll@ParallelSubmit[{onShell},x]
+
+
 (* ::Chapter:: *)
 (*loop Integral: octet*)
 
@@ -191,10 +197,11 @@ prp1[p1-k,mo1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -245,10 +252,11 @@ prp1[p2-k,mo1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -299,10 +307,11 @@ prp1[p1-k,mo1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -355,10 +364,11 @@ prp1[p2-k,mo1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -411,10 +421,11 @@ prp1[p1-k,mo1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -467,10 +478,11 @@ prp1[p1-k,mo1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -523,10 +535,11 @@ prp1[p1-k,mo1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -576,10 +589,11 @@ prp1[k,mm1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -629,10 +643,11 @@ prp1[k,mm1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -683,10 +698,11 @@ prp1[k,mm1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -737,10 +753,11 @@ prp1[k+p2-p1,mm1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -791,10 +808,11 @@ prp1[k+p2-p1,mm1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -849,10 +867,11 @@ prp1[p1-k,md1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -905,10 +924,11 @@ prp1[p1-k,md1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -962,10 +982,11 @@ prp1[p1-k,md1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -1021,10 +1042,11 @@ prp1[p1-k,md1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -1080,10 +1102,11 @@ prp1[p1-k,mo1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -1135,10 +1158,11 @@ prp1[p2-k,md1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -1190,10 +1214,11 @@ prp1[p1-k,md1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -1247,10 +1272,11 @@ prp1[p2-k,md1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
@@ -1304,10 +1330,11 @@ prp1[p1-k,md1]
 fyAmp[fyTag,"num"]=Times@@Cases[fyAmp[fyTag,"scal"],num[x_]:>x]*fyAmp[fyTag,"spin"];(*\:751f\:6210\:5206\:5b50,F1F2*)
 fyAmp[fyTag,"prp"]=Cases[fyAmp[fyTag,"scal"],prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* ----------------- \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-fyAmp[fyTag,"intg"]=LoopIntegrate[
+fyAmp[fyTag,"intg"]=WaitAll@ParallelSubmit[{onShell},
+LoopIntegrate[
 fyAmp[fyTag,"num"],k,Sequence@@fyAmp[fyTag,"prp"],
 Cancel->Automatic,Apart->True
-]/.onShell;//AbsoluteTiming
+]/.onShell];
 
 
 (* -------------------------------- \:5b58\:50a8\:79ef\:5206\:7684\:540d\:79f0 -------------------------------- *)
