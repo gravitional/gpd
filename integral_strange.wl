@@ -65,7 +65,13 @@ LoopIntegrate[delayedNumerator, k, {k - p2, m}, {k - p1, m}, {k, 0}] /. {p1.p1 -
 
 If[NameQ["\[Sigma]"],echo["please remove the definitions of \[Sigma], \[Sigma] will be used in package-X"];Remove["Global`\[Sigma]"]];(* \[Sigma] \:662f package-X \:7684\:4fdd\:7559\:6807\:8bc6\:7b26,\:9700\:8981\:6e05\:9664*)
 echo["launch parallel kernels"];
-Needs["X`"];ParallelNeeds["X`"];LaunchKernels[];(* \:5e76\:884c\:8fd0\:7b97\:51c6\:5907*)
+(* \:5e76\:884c\:8fd0\:7b97\:51c6\:5907*)
+Needs["X`"];ParallelNeeds["X`"];
+(*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
+Switch[{$MachineName,$System},
+{"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
+_,LaunchKernels[]
+];
 SetOptions[Simplify,TimeConstraint->1];(*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236*)
 SetOptions[Refine,TimeConstraint->1];
 
