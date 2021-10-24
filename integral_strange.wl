@@ -24,6 +24,8 @@ Throw["I cann't find any init.wl in this project"]
 ];
 recurFind[start];
 ]
+(* \:8bb0\:5f55 master Kernel \:7684\:8fd0\:884c\:6a21\:5f0f*)
+$inNBook=$Notebooks;
 
 
 (*
@@ -118,12 +120,14 @@ LTensor[MetricG,\[Alpha],\[Beta]] Dirac1 -1/3 DiracMatrix[LTensor[DiracG,\[Alpha
 
 
 (* ::Section:: *)
-(*storage directory*)
+(*Integrals IO*)
 
 
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
 If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory ./mfiles/"]] ;
+(* \:6240\:6709\:8d39\:66fc\:56fe\:7684 tag \:5217\:8868 *)
+fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"integral_TagList.wl"}];
 
 
 (* ::Section:: *)
@@ -149,7 +153,7 @@ LScalarQ[mo1]=True;LScalarQ[mo2]=True;
 LScalarQ[md1]=True;LScalarQ[md2]=True;
 LScalarQ[Q2]=True;
 (* \:521d\:672b\:6001,\:8fd0\:52a8\:5b66\:5173\:7cfb*)
-onShell={p1 . p1->mE^2,p2 . p2->mE^2,p1 . p2->Q2/2+mE^2};
+onShell={LDot[p1,p1]->mE^2,LDot[p2,p2]->mE^2,LDot[p1,p2]->Q2/2+mE^2};
 (*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236*)
 SetOptions[Simplify,TimeConstraint->1];
 SetOptions[Refine,TimeConstraint->1];
@@ -158,7 +162,7 @@ Off[Simplify::time];Off[Refine::time];
 
 
 (*\:5e76\:884c\:521d\:59cb\:5316*)
-DistributeDefinitions[gitLocalName,fileName,echo,enList,enString,
+DistributeDefinitions[$inNBook,gitLocalName,fileName,echo,enList,enString,
 mfilesDir,
 reg,prp,intgd,num,prp1,dprop,cltcom,dgam3,\[CapitalTheta],spDec
 ];
@@ -189,7 +193,8 @@ fyAmp=<|
 path=FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[fyTag,"."]<>".wdx"}];
 Export[path,fyAmp];echo["Exporting finished: ",path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:4e2d\:ff0c\:8fd4\:56de\:8ba1\:7b97\:7684\:7ed3\:679c*)
-If[$Notebooks,fyAmp]]]
+If[$inNBook,fyAmp]]
+]
 
 
 end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
@@ -1143,11 +1148,7 @@ tag
 
 
 (* ::Chapter:: *)
-(*save*)
-
-
-(* \:6240\:6709\:8d39\:66fc\:56fe\:7684 tag \:5217\:8868 *)
-fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"integral_TagList.wl"}];
+(*LoopIntegrate parallel*)
 
 
 (* Set \:5177\:6709 HoldFirst \:5c5e\:6027*)

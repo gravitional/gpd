@@ -24,6 +24,8 @@ Throw["I cann't find any init.wl in this project"]
 ];
 recurFind[start];
 ]
+(* \:8bb0\:5f55 master Kernel \:7684\:8fd0\:884c\:6a21\:5f0f*)
+$inNBook=$Notebooks;
 
 
 (* ::Section:: *)
@@ -39,7 +41,7 @@ inputCml={fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:5
 inSimul=enString[
 (* \:5728\:8fd9\:91cc\:63d0\:4f9b\:5176\:4ed6\:53c2\:6570, \:4f7f\:7528 mathematica \:8bed\:6cd5\:4e0b\:7684\:5f62\:5f0f\:ff0c
 \:5916\:9762\:7684 enString \:4f1a\:81ea\:52a8\:8f6c\:6362\:6210\:5b57\:7b26\:4e32, \:5c3d\:91cf\:591a\:4f7f\:7528Association\:7ed3\:6784*)
-"ord_0"
+"ord0"
 ]
 }
 ];
@@ -112,8 +114,6 @@ LScalarQ[mm1]=True;LScalarQ[mm2]=True;
 LScalarQ[mo1]=True;LScalarQ[mo2]=True;
 LScalarQ[md1]=True;LScalarQ[md2]=True;
 LScalarQ[Q2]=True;
-(* \:521d\:672b\:6001,\:8fd0\:52a8\:5b66\:5173\:7cfb*)
-onShell={p1 . p1->mE^2,p2 . p2->mE^2,p1 . p2->Q2/2+mE^2};
 (*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236*)
 SetOptions[Simplify,TimeConstraint->1];
 SetOptions[Refine,TimeConstraint->1];
@@ -134,32 +134,70 @@ ParallelEvaluate[ReleaseHold@paraInitial];
 (*parallel LoopRefine*)
 
 
+(* ::Input:: *)
+(*(* \:5bf9\:5708\:79ef\:5206\:7684\:5b50\:9879\:8fdb\:884c\:5e76\:884c\:7684\:7248\:672c *)*)
+(*(*\:8bbe\:7f6e\:73af\:5883:\:8bfb\:53d6\:79ef\:5206\:8868\:8fbe\:5f0f\:ff0c\:4ee5\:53ca\:5c06\:8ba1\:7b97\:7684\:7ed3\:679c\:5199\:5165\:78c1\:76d8, \:53c2\:6570: \:5708\:79ef\:5206tag, \:5177\:4f53\:5904\:7406\:79ef\:5206\:7684\:51fd\:6570*)*)
+(*paraEnvIO[tag_,loopRefine_]:=Block[{int,intTag,intExpr,time0Result,anaExpr,path},*)
+(*(*\:8bfb\:53d6\:79ef\:5206\:7684 wdx \:6587\:4ef6 *)*)
+(*echo["Refine loop integral of: ",tag];*)
+(*int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>".wdx"}]];*)
+(*(* \:4ece\:5173\:8054\:4e2d\:63d0\:53d6\:8868\:8fbe\:5f0f\:ff0c\:4f7f\:7528 Part \:8bed\:6cd5\:66f4\:5feb, \:76f8\:6bd4\:4e8e\:51fd\:6570\:8bed\:6cd5 *)*)
+(*intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)*)
+(*intExpr=int[["expr"]];(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)*)
+(*(* \:5982\:679c\:5708\:79ef\:5206\:7684\:5934\:90e8\:662f Plus\:ff0c\:624d\:80fd\:4f7f\:7528 ParallelMap *)*)
+(*If[AllTrue[MatchQ[Head[#],Plus]&/@intExpr,Identity],*)
+(*time0Result=ParallelMap[*)
+(*loopRefine,#,(* \:8ba1\:7b97\:89e3\:6790\:8868\:8fbe\:5f0f, Mapping loopRefine \:5230 \:5708\:79ef\:5206\:8868\:8fbe\:5f0f\:7684\:6bcf\:4e00\:9879\:4e0a*)*)
+(*Method->"FinestGrained"(*Method->Automatic*)*)
+(*]&/@intExpr//AbsoluteTiming; (* \:8fd9\:91cc Mapping \:5230 F1,F2 \:4e24\:4e2a \:5708\:79ef\:5206\:4e0a*)*)
+(*anaExpr=<|*)
+(*"tag"->intTag,*)
+(*"time"->First@time0Result,*)
+(*"expr"->Last@time0Result*)
+(*|>;*)
+(*(*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:4fdd\:5b58\:8ba1\:7b97\:51fa\:7684\:7ed3\:679c*)*)
+(*path=FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];*)
+(*Export[path,anaExpr];echo["Exporting finished: ", path];*)
+(*(*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:754c\:9762,\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*)*)
+(*If[$inNBook,anaExpr],*)
+(*(* +++++++++++++++++ \:5982\:679c\:5708\:79ef\:5206\:4e0d\:662f Plus[...] \:7684\:5f62\:5f0f +++++++++++++++++++ *)*)
+(*echo["Check the loop integral, it is not the form of plus[...]"];*)
+(*Abort[];*)
+(*]*)
+(*]*)
+
+
+(* \:5bf9\:6574\:4e2a\:5708\:79ef\:5206\:8868\:8fbe\:5f0f\:8fdb\:884c\:5e76\:884c\:7684\:7248\:672c *)
 (*\:8bbe\:7f6e\:73af\:5883:\:8bfb\:53d6\:79ef\:5206\:8868\:8fbe\:5f0f\:ff0c\:4ee5\:53ca\:5c06\:8ba1\:7b97\:7684\:7ed3\:679c\:5199\:5165\:78c1\:76d8, \:53c2\:6570: \:5708\:79ef\:5206tag, \:5177\:4f53\:5904\:7406\:79ef\:5206\:7684\:51fd\:6570*)
-paraEnvIO[tag_,loopRefine_]:=Block[{int,intTag,intExpr,time0Result,analyticExpr,path},
+SetAttributes[paraEnvIO,HoldAll];
+paraEnvIO[tag_,loopRefine_]:=ParallelSubmit[
+Block[{int,intTag,intExpr,time0Result,anaExpr,path},
 (*\:8bfb\:53d6\:79ef\:5206\:7684 wdx \:6587\:4ef6 *)
 echo["Refine loop integral of: ",tag];
 int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>".wdx"}]];
-intTag=int["tag"];(*\:63d0\:53d6 Loop Integral Tag*)
-intExpr=int["expr"];(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
+(* \:4ece\:5173\:8054\:4e2d\:63d0\:53d6\:8868\:8fbe\:5f0f\:ff0c\:4f7f\:7528 Part \:8bed\:6cd5\:66f4\:5feb,\:76f8\:6bd4\:4e8e\:51fd\:6570\:8bed\:6cd5 *)
+intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)
+intExpr=int[["expr"]];(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
 (* \:5982\:679c\:5708\:79ef\:5206\:7684\:5934\:90e8\:662f Plus\:ff0c\:624d\:80fd\:4f7f\:7528 ParallelMap *)
 If[AllTrue[MatchQ[Head[#],Plus]&/@intExpr,Identity],
-time0Result=ParallelMap[
-loopRefine,#,(* \:8ba1\:7b97\:89e3\:6790\:8868\:8fbe\:5f0f, Mapping loopRefine \:5230 \:5708\:79ef\:5206\:8868\:8fbe\:5f0f\:7684\:6bcf\:4e00\:9879\:4e0a*)
-Method->"FinestGrained"(*Method->Automatic*)
-]&/@intExpr//AbsoluteTiming; (* \:8fd9\:91cc Mapping \:5230 F1,F2 \:4e24\:4e2a \:5708\:79ef\:5206\:4e0a*)
-analyticExpr=<|
+(* \:8ba1\:7b97\:89e3\:6790\:8868\:8fbe\:5f0f, loopRefine \:5c06\:5708\:79ef\:5206\:8f6c\:6362\:6210 \:89e3\:6790\:8868\:8fbe\:5f0f*)
+(* loopRefine or LoopRefineSeries \:81ea\:52a8 Mapping \:5230 F1,F2 \:4e24\:4e2a \:5708\:79ef\:5206\:4e0a*)
+time0Result=loopRefine[intExpr]//AbsoluteTiming;
+(* \:5c06\:7ed3\:679c\:8868\:793a\:6210 Association *)
+anaExpr=<|
 "tag"->intTag,
 "time"->First@time0Result,
 "expr"->Last@time0Result
 |>;
 (*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:4fdd\:5b58\:8ba1\:7b97\:51fa\:7684\:7ed3\:679c*)
 path=FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
-Export[path,analyticExpr];echo["Exporting finished: ", path];
+Export[path,anaExpr];echo["Exporting finished: ", path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:754c\:9762,\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*)
-If[$Notebooks,analyticExpr],
+If[$inNBook,anaExpr],
 (* +++++++++++++++++ \:5982\:679c\:5708\:79ef\:5206\:4e0d\:662f Plus[...] \:7684\:5f62\:5f0f +++++++++++++++++++ *)
 echo["Check the loop integral, it is not the form of plus[...]"];
 Abort[];
+]
 ]
 ]
 
@@ -181,7 +219,7 @@ LoopRefineSeries[#,{Q2,0,1},Organization->Function]&
 paraLRefine[tag_]:=paraEnvIO[tag,
 LoopRefine[#,Organization->Function]&
 ]
-]
+];
 
 
 (* ::Section:: *)
@@ -191,4 +229,4 @@ LoopRefine[#,Organization->Function]&
 ParallelEvaluate[Off[Simplify::time]];(*\:5173\:95ed Simplify \:5316\:7b80\:65f6\:95f4\:8d85\:51fa \:4fe1\:606f*)
 
 
-analyLst=paraLRefine/@fyAmpTagLst;
+analyLst=WaitAll[paraLRefine/@fyAmpTagLst];
