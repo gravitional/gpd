@@ -26,7 +26,7 @@ recurFind[start];
 ]
 
 
-(* ::Chapter:: *)
+(* ::Section:: *)
 (*Package-X*)
 
 
@@ -39,20 +39,19 @@ echo["launch parallel kernels"];
 (* \:5e76\:884c\:8fd0\:7b97\:51c6\:5907*)
 Needs["X`"];ParallelNeeds["X`"];
 (*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
+CloseKernels[];
 Switch[{$MachineName,$System},
 {"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
 _,LaunchKernels[]
 ];
-SetOptions[Simplify,TimeConstraint->1];(*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236*)
-SetOptions[Refine,TimeConstraint->1];
 
 
 (* ::Section:: *)
-(*Import Integrals*)
+(*Integrals IO*)
 
 
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
-(* \:6240\:6709\:8d39\:66fc\:56fe\:7684 tag \:5217\:8868 *)
+(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868*)
 fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"integral_TagList.wl"}];
 
 
@@ -75,8 +74,8 @@ p1;p2;(*\:521d\:6001\:52a8\:91cf\:ff0c\:672b\:6001\:52a8\:91cf*)
 k;(*\:5355\:5708\:56fe\:7684\:5708\:52a8\:91cf, \:79ef\:5206\:53d8\:91cf\:9700\:8981\:662f atomatic \:8868\:8fbe\:5f0f*)
 
 
+paraInitial=Hold[
 (* \:58f0\:660e\:8fd9\:4e9b\:5e38\:91cf\:662f\:6d1b\:4f26\:5179\:6807\:91cf lorentz scalars *)
-kinematics=HoldComplete[
 LScalarQ[\[CapitalLambda]]=True;LScalarQ[mE]=True;
 LScalarQ[mm1]=True;LScalarQ[mm2]=True;
 LScalarQ[mo1]=True;LScalarQ[mo2]=True;
@@ -84,28 +83,32 @@ LScalarQ[md1]=True;LScalarQ[md2]=True;
 LScalarQ[Q2]=True;
 (* \:521d\:672b\:6001,\:8fd0\:52a8\:5b66\:5173\:7cfb*)
 onShell={p1 . p1->mE^2,p2 . p2->mE^2,p1 . p2->Q2/2+mE^2};
+(*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236*)
+SetOptions[Simplify,TimeConstraint->1];
+SetOptions[Refine,TimeConstraint->1];
+Off[Simplify::time];Off[Refine::time];
 ];
 
 
-DistributeDefinitions["Global`"];
 (*\:5e76\:884c\:521d\:59cb\:5316*)
-ReleaseHold@kinematics
-ParallelEvaluate[ReleaseHold@kinematics];
+DistributeDefinitions[gitLocalName,mfilesDir,fyAmpTagLst,echoSave];
+ReleaseHold@paraInitial
+ParallelEvaluate[ReleaseHold@paraInitial];
 
 
-(* ::Section:: *)
+(* ::Chapter:: *)
 (*parallel LoopRefine*)
 
 
-paraLRefine[tag_]:=Module[{int,intTag,analytic},
+paraLRefine[tag_]:=Block[{int,intTag,analytic},
 (*\:8bfb\:53d6\:79ef\:5206\:7684 wdx \:6587\:4ef6 *)
 int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>".wdx"}]];
 (*\:63d0\:53d6 integral Tag, \:8ba1\:7b97\:89e3\:6790\:8868\:8fbe\:5f0f*)
 intTag=int//First;
 analytic={intTag,
-ParallelMap[
-LoopRefineSeries[#,{Q2,0,0},Organization->Function]&,#]&/@Rest[int],
-Method->"FinestGrained"
+ParallelMap[LoopRefineSeries[#,{Q2,0,0},Organization->Function]&,#,
+(*Method->Automatic*)Method->"FinestGrained"
+]&/@Rest[int]
 };
 (*\:4fdd\:5b58\:8ba1\:7b97\:51fa\:7684\:7ed3\:679c*)
 echoSave[FileNameJoin[{mfilesDir,"analytic.strange."<>StringRiffle[intTag,"."]<>".wdx"}],
@@ -115,6 +118,9 @@ analytic]
 
 (* ::Section:: *)
 (*LoopRefineSeries*)
+
+
+ParallelEvaluate[Off[Simplify::time]];(*\:5173\:95ed Simplify \:5316\:7b80\:65f6\:95f4\:8d85\:51fa \:4fe1\:606f*)
 
 
 {echo["LoopRefineSeries on: ",#],paraLRefine[#]}&/@fyAmpTagLst

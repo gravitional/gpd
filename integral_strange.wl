@@ -68,16 +68,11 @@ echo["launch parallel kernels"];
 (* \:5e76\:884c\:8fd0\:7b97\:51c6\:5907*)
 Needs["X`"];ParallelNeeds["X`"];
 (*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
+CloseKernels[];
 Switch[{$MachineName,$System},
 {"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
 _,LaunchKernels[]
 ];
-SetOptions[Simplify,TimeConstraint->1];(*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236*)
-SetOptions[Refine,TimeConstraint->1];
-
-
-(* \:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:5e76\:6253\:5370\:4fdd\:5b58\:4fe1\:606f *)
-echoSave[path_,expr_]:=(Export[path,expr];echo["Exporting finished: ",path])
 
 
 reg::usage="\:6b63\:89c4\:5b50 F[k]=(\[CapitalLambda]^2-m\[Phi]^2)^2/(k^2-\[CapitalLambda]^2+I*\[CurlyEpsilon])^2, \:5176\:4e2d m\[Phi] \:662f\:4ecb\:5b50\:8d28\:91cf\:ff0c\:5bf9\:4e8e\:5149\:5b50,\:6b64\:8d28\:91cf\:4e3a\:96f6\:3002\:6b63\:89c4\:5b50\:5f52\:4e00\:5316\:5230 F[m\[Phi]]=1. \:751f\:6210\:5217\:8868\:ff0c\:7b2c\:4e00\:9879\:662f\:5206\:5b50\:ff0c\:7b2c\:4e8c\:9879\:662f\:5206\:6bcd";
@@ -127,7 +122,10 @@ LTensor[MetricG,\[Alpha],\[Beta]] Dirac1 -1/3 DiracMatrix[LTensor[DiracG,\[Alpha
 
 
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
-If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory ./mfiles/"]] ;(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
+(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
+If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory ./mfiles/"]] ;
+(* \:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:5e76\:6253\:5370\:4fdd\:5b58\:4fe1\:606f *)
+echoSave[path_,expr_]:=(Export[path,expr];echo["Exporting finished: ",path])
 
 
 (* ::Section:: *)
@@ -145,8 +143,8 @@ p1;p2;(*\:521d\:6001\:52a8\:91cf\:ff0c\:672b\:6001\:52a8\:91cf*)
 k;(*\:5355\:5708\:56fe\:7684\:5708\:52a8\:91cf, \:79ef\:5206\:53d8\:91cf\:9700\:8981\:662f atomatic \:8868\:8fbe\:5f0f*)
 
 
+paraInitial=Hold[
 (* \:58f0\:660e\:8fd9\:4e9b\:5e38\:91cf\:662f\:6d1b\:4f26\:5179\:6807\:91cf lorentz scalars *)
-kinematics=HoldComplete[
 LScalarQ[\[CapitalLambda]]=True;LScalarQ[mE]=True;
 LScalarQ[mm1]=True;LScalarQ[mm2]=True;
 LScalarQ[mo1]=True;LScalarQ[mo2]=True;
@@ -154,13 +152,19 @@ LScalarQ[md1]=True;LScalarQ[md2]=True;
 LScalarQ[Q2]=True;
 (* \:521d\:672b\:6001,\:8fd0\:52a8\:5b66\:5173\:7cfb*)
 onShell={p1 . p1->mE^2,p2 . p2->mE^2,p1 . p2->Q2/2+mE^2};
+(*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236*)
+SetOptions[Simplify,TimeConstraint->1];
+SetOptions[Refine,TimeConstraint->1];
+Off[Simplify::time];Off[Refine::time];
 ];
 
 
-DistributeDefinitions["Global`"];
 (*\:5e76\:884c\:521d\:59cb\:5316*)
-ReleaseHold@kinematics
-ParallelEvaluate[ReleaseHold@kinematics];
+DistributeDefinitions[gitLocalName,mfilesDir,echoSave,
+reg,prp,intgd,num,prp1,dprop,cltcom,dgam3,\[CapitalTheta],spDec
+];
+ReleaseHold@paraInitial
+ParallelEvaluate[ReleaseHold@paraInitial];
 
 
 (* ::Chapter:: *)
@@ -175,6 +179,7 @@ Block[{numer,denom,fyAmp},
 numer=Times@@Cases[scalar,num[x_]:>x]*spin;(*\:751f\:6210\:5206\:5b50,*)
 denom=Cases[scalar,prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* -----------------\:8fd4\:56de\:503c: \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
+echo["loopIntegrate on: ",fyTag];
 fyAmp={fyTag,LoopIntegrate[numer,k,Sequence@@denom,Cancel->Automatic,Apart->True]/.onShell};
 echoSave[
 FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[fyTag,"."]<>".wdx"}],
