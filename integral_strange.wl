@@ -841,7 +841,7 @@ fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
 paraLintSubmit[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
-LTensor[k,\[Alpha]]*LTensor[k,\[Eta]]*(I LTensor[q,\[Nu]])/(2md1)*Spur[
+LTensor[k,\[Alpha]]*LTensor[k,\[Eta]]*(I LTensor[p2-p1,\[Nu]])/(2md1)*Spur[
 \[CapitalTheta][\[Alpha],\[Beta]],spDec[{\[Beta],\[Theta]},{p2-k,md1}],
 LTensor[DiracS,\[Mu],\[Nu]],
 spDec[{\[Theta],\[Rho]},{p1-k,md1}],\[CapitalTheta][\[Rho],\[Eta]],
@@ -888,7 +888,7 @@ fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
 paraLintSubmit[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
-LTensor[k,\[Alpha]]*LTensor[q,\[Nu]]*Spur[
+LTensor[k,\[Alpha]]*LTensor[p2-p1,\[Nu]]*Spur[
 LDot[DiracG,k],DiracG5,
 LDot[DiracG,(p2-k)]+mo1*Dirac1,
 DiracMatrix[LTensor[DiracG,\[Nu]],DiracG5,spDec[{\[Mu],\[Beta]},{p1-k,md1}]]-
@@ -937,7 +937,7 @@ fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
 paraLintSubmit[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
-LTensor[k,\[Alpha]]*LTensor[q,\[Nu]]*Spur[
+LTensor[k,\[Alpha]]*LTensor[p2-p1,\[Nu]]*Spur[
 \[CapitalTheta][\[Alpha],\[Beta]],
 DiracMatrix[spDec[{\[Beta],\[Nu]},{p2-k,md1}],LTensor[DiracG,\[Mu]],DiracG5]-
 DiracMatrix[spDec[{\[Beta],\[Mu]},{p2-k,md1}],LTensor[DiracG,\[Nu]],DiracG5],
