@@ -43,7 +43,7 @@ inSimul=enString[
 ]
 }
 ];
-echo["the input parameter is:\n",inSimul];
+echo["the input parameter is:\n",inputCml];
 
 
 (*\:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406*)
@@ -122,9 +122,9 @@ Off[Simplify::time];Off[Refine::time];
 
 
 (*\:5e76\:884c\:8ba1\:7b97\:521d\:59cb\:5316*)
-DistributeDefinitions[
-gitLocalName,mfilesDir,fileName,parOrder,
-fyAmpTagLst,echoSave
+DistributeDefinitions[gitLocalName,fileName,echo,enList,enString,
+mfilesDir,
+parOrder
 ];
 ReleaseHold@paraInitial
 ParallelEvaluate[ReleaseHold@paraInitial];
@@ -135,25 +135,31 @@ ParallelEvaluate[ReleaseHold@paraInitial];
 
 
 (*\:8bbe\:7f6e\:73af\:5883:\:8bfb\:53d6\:79ef\:5206\:8868\:8fbe\:5f0f\:ff0c\:4ee5\:53ca\:5c06\:8ba1\:7b97\:7684\:7ed3\:679c\:5199\:5165\:78c1\:76d8, \:53c2\:6570: \:5708\:79ef\:5206tag, \:5177\:4f53\:5904\:7406\:79ef\:5206\:7684\:51fd\:6570*)
-paraEnvIO[tag_,loopRefine_]:=Block[{int,intTag,intExpr,analytic,path},
+paraEnvIO[tag_,loopRefine_]:=Block[{int,intTag,intExpr,time0Result,analyticExpr,path},
 (*\:8bfb\:53d6\:79ef\:5206\:7684 wdx \:6587\:4ef6 *)
 echo["Refine loop integral of: ",tag];
 int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>".wdx"}]];
-intTag=int//First;(*\:63d0\:53d6 Loop Integral Tag*)
-intExpr=int//Last;(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
+intTag=int["tag"];(*\:63d0\:53d6 Loop Integral Tag*)
+intExpr=int["expr"];(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
 (* \:5982\:679c\:5708\:79ef\:5206\:7684\:5934\:90e8\:662f Plus\:ff0c\:624d\:80fd\:4f7f\:7528 ParallelMap *)
 If[AllTrue[MatchQ[Head[#],Plus]&/@intExpr,Identity],
-analytic={intTag,
-ParallelMap[
+time0Result=ParallelMap[
 loopRefine,#,(* \:8ba1\:7b97\:89e3\:6790\:8868\:8fbe\:5f0f, Mapping loopRefine \:5230 \:5708\:79ef\:5206\:8868\:8fbe\:5f0f\:7684\:6bcf\:4e00\:9879\:4e0a*)
 Method->"FinestGrained"(*Method->Automatic*)
-]&/@intExpr (* \:8fd9\:91cc Mapping \:5230 F1,F2 \:4e24\:4e2a \:5708\:79ef\:5206\:4e0a*)
-};
+]&/@intExpr//AbsoluteTiming; (* \:8fd9\:91cc Mapping \:5230 F1,F2 \:4e24\:4e2a \:5708\:79ef\:5206\:4e0a*)
+analyticExpr=<|
+"tag"->intTag,
+"time"->First@time0Result,
+"expr"->Last@time0Result
+|>;
 (*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:4fdd\:5b58\:8ba1\:7b97\:51fa\:7684\:7ed3\:679c*)
 path=FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
-Export[path,analytic];echo["Exporting finished: ", path];
-analytic(*\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*),
-echo["Check the loop integral, it is not the form of plus[...]"]
+Export[path,analyticExpr];echo["Exporting finished: ", path];
+(*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:754c\:9762,\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*)
+If[$Notebooks,analyticExpr],
+(* +++++++++++++++++ \:5982\:679c\:5708\:79ef\:5206\:4e0d\:662f Plus[...] \:7684\:5f62\:5f0f +++++++++++++++++++ *)
+echo["Check the loop integral, it is not the form of plus[...]"];
+Abort[];
 ]
 ]
 

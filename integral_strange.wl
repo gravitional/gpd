@@ -124,8 +124,6 @@ LTensor[MetricG,\[Alpha],\[Beta]] Dirac1 -1/3 DiracMatrix[LTensor[DiracG,\[Alpha
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
 If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory ./mfiles/"]] ;
-(* \:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:5e76\:6253\:5370\:4fdd\:5b58\:4fe1\:606f *)
-echoSave[path_,expr_]:=(Export[path,expr];echo["Exporting finished: ",path])
 
 
 (* ::Section:: *)
@@ -160,7 +158,8 @@ Off[Simplify::time];Off[Refine::time];
 
 
 (*\:5e76\:884c\:521d\:59cb\:5316*)
-DistributeDefinitions[gitLocalName,mfilesDir,echoSave,
+DistributeDefinitions[gitLocalName,fileName,echo,enList,enString,
+mfilesDir,
 reg,prp,intgd,num,prp1,dprop,cltcom,dgam3,\[CapitalTheta],spDec
 ];
 ReleaseHold@paraInitial
@@ -174,17 +173,23 @@ ParallelEvaluate[ReleaseHold@paraInitial];
 SetAttributes[paraLintSubmit,HoldAll];
 paraLintSubmit[spin_,scalar_,fyTag_]:=ParallelSubmit[
 (* ParallelSubmit \:5177\:6709 HoldAllComplete \:5c5e\:6027, \:4e0b\:9762\:7684 Block \:5757\:4e0d\:4f1a\:88ab\:8ba1\:7b97 *)
-Block[{numer,denom,fyAmp},
+Block[{numer,denom,fyAmp,time0Result,path},
 (* \:5408\:6210\:5708\:79ef\:5206\:7684\:5206\:5b50\:548c\:5206\:6bcd *)
 numer=Times@@Cases[scalar,num[x_]:>x]*spin;(*\:751f\:6210\:5206\:5b50,*)
 denom=Cases[scalar,prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* -----------------\:8fd4\:56de\:503c: \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
 echo["loopIntegrate on: ",fyTag];
-fyAmp={fyTag,LoopIntegrate[numer,k,Sequence@@denom,Cancel->Automatic,Apart->True]/.onShell};
-echoSave[
-FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[fyTag,"."]<>".wdx"}],
-fyAmp];
-fyAmp]]
+time0Result=LoopIntegrate[numer,k,Sequence@@denom,Cancel->Automatic,Apart->True]/.onShell//AbsoluteTiming;
+fyAmp=<|
+"tag"->fyTag,
+"time"->First@time0Result,
+"expr"->Last@time0Result
+|>;
+(*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:5e76\:6253\:5370\:4fdd\:5b58\:6210\:529f*)
+path=FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[fyTag,"."]<>".wdx"}];
+Export[path,fyAmp];echo["Exporting finished: ",path];
+(*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:4e2d\:ff0c\:8fd4\:56de\:8ba1\:7b97\:7684\:7ed3\:679c*)
+If[$Notebooks,fyAmp]]]
 
 
 end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
