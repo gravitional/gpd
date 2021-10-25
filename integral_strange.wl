@@ -52,19 +52,14 @@ echo["the input parameter is:\n",inputCml];
 
 
 (*\:5982\:679c\:547d\:4ee4\:884c\:6307\:5b9a\:4e86 part\:ff0c\:5316\:7b80\:5708\:79ef\:5206\:5217\:8868\:6307\:5b9a\:7684part\:ff0c\:5426\:5219\:ff0c\:9ed8\:8ba4\:5316\:7b80\:6240\:6709\:5708\:79ef\:5206*)
+Block[{pSpec},
 If[Length@inputCml>1,
-fyAmpTagPart=fyAmpTagLst[[inputCml[[2]]]],
-fyAmpTagPart=fyAmpTagLst;
-echo["Default: decompose all loop integrals into PaVe basis."]
-]
-
-
-(*\:68c0\:67e5\:8f93\:5165\:7684\:53c2\:6570\:662f\:5426\:5408\:6cd5*)
-If[Nand[(*\:903b\:8f91\:4e0e\:975e,\:6b63\:5e38\:60c5\:51b5\:8fd4\:56de False*)
-Length@fyAmpTagPart>0
+fyAmpTagPart=Check[
+pSpec=ToExpression@inputCml[[2]];fyAmpTagLst[[pSpec]],
+Abort[]
 ],
-echo["Please check the input parameters"];Abort[];
-]
+fyAmpTagPart=fyAmpTagLst;
+]]
 
 
 (*
