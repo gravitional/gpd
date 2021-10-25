@@ -28,6 +28,45 @@ recurFind[start];
 $inNBook=$Notebooks;
 
 
+(* ::Section:: *)
+(*cmd argumnets*)
+
+
+echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
+(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
+If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory ./mfiles/"]] ;
+(* \:6240\:6709\:8d39\:66fc\:56fe\:7684 tag \:5217\:8868 *)
+fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"integral_TagList.wl"}];
+
+
+(* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
+If[!$Notebooks,
+inputCml=$ScriptCommandLine,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
+(*++++++++++++++++++++++++++++++++++++++++*)
+inputCml={fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:4ee4\:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:6b64\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
+(*\:5176\:4ed6\:53c2\:6570*)
+inSimul=Nothing
+}
+];
+echo["the input parameter is:\n",inputCml];
+
+
+(*\:5982\:679c\:547d\:4ee4\:884c\:6307\:5b9a\:4e86 part\:ff0c\:5316\:7b80\:5708\:79ef\:5206\:5217\:8868\:6307\:5b9a\:7684part\:ff0c\:5426\:5219\:ff0c\:9ed8\:8ba4\:5316\:7b80\:6240\:6709\:5708\:79ef\:5206*)
+If[Length@inputCml>1,
+fyAmpTagPart=fyAmpTagLst[[inputCml[[2]]]],
+fyAmpTagPart=fyAmpTagLst;
+echo["Default: decompose all loop integrals into PaVe basis."]
+]
+
+
+(*\:68c0\:67e5\:8f93\:5165\:7684\:53c2\:6570\:662f\:5426\:5408\:6cd5*)
+If[Nand[(*\:903b\:8f91\:4e0e\:975e,\:6b63\:5e38\:60c5\:51b5\:8fd4\:56de False*)
+Length@fyAmpTagPart>0
+],
+echo["Please check the input parameters"];Abort[];
+]
+
+
 (*
 \:53ef\:4ee5\:4f7f\:7528 LooprefineSeries \:5c55\:5f00\:5230 order 2, \:4e5f\:5c31\:662f Q2^2, Q2= - q^2.
 \:4f7f\:7528 strange \:62c9\:5f00\:65b9\:5f0f.
@@ -117,17 +156,6 @@ LTensor[MetricG,\[Alpha],\[Beta]] Dirac1 -1/3 DiracMatrix[LTensor[DiracG,\[Alpha
 -(LTensor[DiracG,\[Alpha]] LTensor[p,\[Beta]]-LTensor[DiracG,\[Beta]] LTensor[p,\[Alpha]])/(3md)
 -(2LTensor[p,\[Alpha]] LTensor[p,\[Beta]] Dirac1)/(3md^2) 
  ]
-
-
-(* ::Section:: *)
-(*Integrals IO*)
-
-
-echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
-(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
-If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory ./mfiles/"]] ;
-(* \:6240\:6709\:8d39\:66fc\:56fe\:7684 tag \:5217\:8868 *)
-fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"integral_TagList.wl"}];
 
 
 (* ::Section:: *)

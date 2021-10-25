@@ -32,6 +32,11 @@ $inNBook=$Notebooks;
 (*cmd argumnets*)
 
 
+echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
+(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868*)
+fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"integral_TagList.wl"}];
+
+
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
 If[!$Notebooks,
 inputCml=$ScriptCommandLine,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
@@ -54,6 +59,13 @@ echo["the input parameter is:\n",inputCml];
 }={
 inputCml[[1]],inputCml[[2]]
 };
+(*\:5982\:679c\:547d\:4ee4\:884c\:6307\:5b9a\:4e86 part\:ff0c\:5316\:7b80\:5708\:79ef\:5206\:5217\:8868\:6307\:5b9a\:7684part\:ff0c\:5426\:5219\:ff0c\:9ed8\:8ba4\:5316\:7b80\:6240\:6709\:5708\:79ef\:5206*)
+If[Length@inputCml>2,
+fyAmpTagPart=fyAmpTagLst[[inputCml[[3]]]];,
+fyAmpTagPart=fyAmpTagLst;
+]
+
+
 (*\:68c0\:67e5\:8f93\:5165\:7684\:53c2\:6570\:662f\:5426\:5408\:6cd5*)
 If[Nand[(*\:903b\:8f91\:4e0e\:975e,\:6b63\:5e38\:60c5\:51b5\:8fd4\:56de False*)
 StringMatchQ[parOrder,{"ord0","ord1","full"}]
@@ -81,15 +93,6 @@ Switch[{$MachineName,$System},
 {"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
 _,LaunchKernels[]
 ];
-
-
-(* ::Section:: *)
-(*Integrals IO*)
-
-
-echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
-(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868*)
-fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"integral_TagList.wl"}];
 
 
 (* ::Section:: *)
@@ -178,6 +181,7 @@ int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>"
 (* \:4ece\:5173\:8054\:4e2d\:63d0\:53d6\:8868\:8fbe\:5f0f\:ff0c\:4f7f\:7528 Part \:8bed\:6cd5\:66f4\:5feb,\:76f8\:6bd4\:4e8e\:51fd\:6570\:8bed\:6cd5 *)
 intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)
 intExpr=int[["expr"]];(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
+intExpr=Map[Cancel,intExpr,{2}];(* \:5bf9\:5708\:79ef\:5206\:7684\:8868\:8fbe\:5f0f\:8fdb\:884c\:9884\:5316\:7b80*)
 (* \:5982\:679c\:5708\:79ef\:5206\:7684\:5934\:90e8\:662f Plus\:ff0c\:624d\:80fd\:4f7f\:7528 ParallelMap *)
 If[AllTrue[MatchQ[Head[#],Plus]&/@intExpr,Identity],
 (* \:8ba1\:7b97\:89e3\:6790\:8868\:8fbe\:5f0f, loopRefine \:5c06\:5708\:79ef\:5206\:8f6c\:6362\:6210 \:89e3\:6790\:8868\:8fbe\:5f0f*)
@@ -229,4 +233,4 @@ LoopRefine[#,Organization->Function]&
 ParallelEvaluate[Off[Simplify::time]];(*\:5173\:95ed Simplify \:5316\:7b80\:65f6\:95f4\:8d85\:51fa \:4fe1\:606f*)
 
 
-analyLst=WaitAll[paraLRefine/@fyAmpTagLst];
+analyLst=WaitAll[paraLRefine/@fyAmpTagPart];
