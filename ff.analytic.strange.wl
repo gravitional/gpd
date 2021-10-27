@@ -33,8 +33,10 @@ $inNBook=$Notebooks;
 
 
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
+(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
+If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory: ./mfiles/"]] ;
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868*)
-fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"integral_TagList.wl"}];
+fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)

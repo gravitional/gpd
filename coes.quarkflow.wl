@@ -4,7 +4,7 @@
 (*coe_quarkflow.wl*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*initial*)
 
 
@@ -27,7 +27,7 @@ recurFind[start];
 
 
 (*\:8bfb\:5165\:50a8\:5b58\:9876\:70b9\:7cfb\:6570\:7684\:6587\:4ef6*)
-Get[FileNameJoin[{gitLocalName,"coe_chpt.wl"}]];
+Get[FileNameJoin[{gitLocalName,"coes.chpt.wl"}]];
 
 
 (* ::Chapter:: *)

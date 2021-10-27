@@ -34,7 +34,7 @@ $inNBook=$Notebooks;
 
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868*)
-fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"integral_TagList.wl"}];
+fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)

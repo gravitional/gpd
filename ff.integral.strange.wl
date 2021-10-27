@@ -4,7 +4,7 @@
 (*integral_strange.wl*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*initial*)
 
 
@@ -28,15 +28,15 @@ recurFind[start];
 $inNBook=$Notebooks;
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*cmd argumnets*)
 
 
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
-If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory ./mfiles/"]] ;
+If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory: ./mfiles/"]] ;
 (* \:6240\:6709\:8d39\:66fc\:56fe\:7684 tag \:5217\:8868 *)
-fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"integral_TagList.wl"}];
+fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
@@ -91,7 +91,7 @@ LoopIntegrate[delayedNumerator, k, {k - p2, m}, {k - p1, m}, {k, 0}] /. {p1.p1 -
 *)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Package-X*)
 
 
@@ -153,7 +153,7 @@ LTensor[MetricG,\[Alpha],\[Beta]] Dirac1 -1/3 DiracMatrix[LTensor[DiracG,\[Alpha
  ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*kinematic quantities*)
 
 
@@ -223,7 +223,7 @@ If[$inNBook,fyAmp]]
 end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,mes,oct*)
 
 
@@ -257,7 +257,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,left*)
 
 
@@ -301,7 +301,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,right*)
 
 
@@ -345,7 +345,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,add,left*)
 
 
@@ -391,7 +391,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,add,right*)
 
 
@@ -483,7 +483,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,oct,F2,*)
 
 
@@ -529,7 +529,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tadpole,oct,o2*)
 
 
@@ -572,7 +572,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tadpole,oct,add,o2*)
 
 
@@ -615,7 +615,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tadpole,oct,mag,o2*)
 
 
@@ -659,7 +659,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*bubble,mes,o2*)
 
 
@@ -703,7 +703,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*bubble,mes,ten,o2*)
 
 
@@ -751,7 +751,7 @@ tag
 (*loop Integral: decuplet*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,mes,dec*)
 
 
@@ -795,7 +795,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,dec,F1*)
 
 
@@ -841,7 +841,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,dec,F2*)
 
 
@@ -888,7 +888,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,trans,left*)
 
 
@@ -937,7 +937,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,trans,right*)
 
 
@@ -986,7 +986,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,dec,left*)
 
 
@@ -1031,7 +1031,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,dec,right*)
 
 
@@ -1076,7 +1076,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,dec,add,left*)
 
 
