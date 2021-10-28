@@ -26,6 +26,8 @@ fyCoeKeycAllF1=fyCoeKey["cAll","F1"];(*\:8ddf\:53cd\:573a\:78c1\:77e9\:6709\:517
 fyCoeKeycAllF2=fyCoeKey["cAll","F2"];
 fyCoeKeycStrF1=fyCoeKey["cStr","F1"];(*\:8ddf\:53cd\:573a\:78c1\:77e9\:6709\:5173\:7684\:7c7b\:578b F1 *)
 fyCoeKeycStrF2=fyCoeKey["cStr","F2"];
+fyCoeKeycEMF1=fyCoeKey["cEM","F1"];(* EM \:7cfb\:6570*)
+fyCoeKeycEMF2=fyCoeKey["cEM","F2"];
 (* --------- \:6807\:8bb0\:5165\:5c04\:ff0c\:4e2d\:95f4\:6001\:4fe1\:606f --------- *)
 inOct;outOct;
 medOct1;medOct2;

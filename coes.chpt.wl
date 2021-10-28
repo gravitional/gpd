@@ -207,7 +207,7 @@ serialize[fyTag,coeJoin]
 fyTag={"KR","mes","oct","left"};
 (*\:7ed9\:9876\:70b9\:6253\:4e0atag,\:9632\:6b62 JoinAcross \:64cd\:4f5c\:65f6 Key \:51b2\:7a81*)
 vtxType1=vtxType["F1","DF","mesOut"];   vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
-vtxType1Str=vtxType["F1","DF","mesOut","stro"];
+vtxType1Str=vtxType["F1","DF","mesOut","stro"]; vtxType1EM=vtxType["F1","DF","mesOut","EM"];
 vtxType2=vtxType["stro","DF","mesIn"];  vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
@@ -247,7 +247,7 @@ fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:76
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
-(#@fyVtx1@vtxType1/#@fyVtx1@vtxType1Str)
+#@fyVtx1@vtxType1EM
 ]
 |>&
 ]@vtxJoinTmp1[fyTag];
@@ -298,7 +298,7 @@ fyTag={"KR","mes","oct","right"};
 (*\:7ed9\:9876\:70b9\:6253\:4e0atag,\:9632\:6b62 JoinAcross \:64cd\:4f5c\:65f6 Key \:51b2\:7a81*)
 vtxType1=vtxType["stro","DF","mesOut"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F1","DF","mesIn"];     vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
-vtxType2Str=vtxType["F1","DF","mesIn","stro"];
+vtxType2Str=vtxType["F1","DF","mesIn","stro"]; vtxType2EM=vtxType["F1","DF","mesIn","EM"];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -335,6 +335,9 @@ fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
 fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef*)
 #@fyVtx1@vtxType1,(*\:9876\:70b91,\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2Str(*\:9876\:70b92,\:8026\:5408\:7cfb\:6570,\:5f3a\:4f5c\:7528\:90e8\:5206*)
+],
+fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxType2EM
 ]
 |>&
 ]@vtxJoinTmp1[fyTag];
@@ -493,6 +496,12 @@ fyCoeKeycStrF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEMF1->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
+],
+fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
 ]
 |>&
 ]@vtxJoinTmp2[fyTag];
@@ -575,6 +584,12 @@ fyCoeKeycAllF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
 ],
 fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+#@fyVtx1@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
+],
+fyCoeKeycEMF1->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx1@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
+],
+fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx1@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
 ]
 |>&
@@ -748,6 +763,9 @@ fyCoeKeycAll->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 ],
 fyCoeKeycStr->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxType1(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
 ]@vtxJoinTmp1[fyTag];
@@ -850,6 +868,9 @@ fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
 fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef*)
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
 ]@vtxJoinTmp2[fyTag];
@@ -965,6 +986,12 @@ fyCoeKeycStrF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEMF1->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
+],
+fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
 ]
 |>&
 ]@vtxJoinTmp2[fyTag];
@@ -1071,6 +1098,9 @@ fyCoeKeycAll->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 fyCoeKeycStr->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxType2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570, \:53cd\:5e38\:78c1\:77e9 *)
 ]
 |>&
 ]@vtxJoinTmp2[fyTag];
@@ -1181,6 +1211,9 @@ fyCoeKeycAll->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 fyCoeKeycStr->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxType2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570, \:53cd\:5e38\:78c1\:77e9 *)
 ]
 |>&
 ]@vtxJoinTmp2[fyTag];
@@ -1236,6 +1269,7 @@ serialize[fyTag,coeJoin]
 fyTag={"KR","mes","dec","left"};
 (*\:7ed9\:9876\:70b9\:6253\:4e0atag,\:9632\:6b62 JoinAcross \:64cd\:4f5c\:65f6 Key \:51b2\:7a81*)
 vtxType1=vtxType["F1","C","mesOut"];    vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1Str=vtxType["F1","C","mesOut","stro"]; vtxType1EM=vtxType["F1","C","mesOut","EM"];
 vtxType2=vtxType["stro","C","mesIn"];   vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
@@ -1271,7 +1305,11 @@ fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef*)
+#@fyVtx1@vtxType1Str, (*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx1@vtxType1EM(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
 ]@vtxJoinTmp1[fyTag];
@@ -1326,6 +1364,7 @@ fyTag={"KR","mes","dec","right"};
 (*\:7ed9\:9876\:70b9\:6253\:4e0atag,\:9632\:6b62 JoinAcross \:64cd\:4f5c\:65f6 Key \:51b2\:7a81*)
 vtxType1=vtxType["stro","C","mesOut"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F1","C","mesIn"];     vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
+vtxType2Str=vtxType["F1","C","mesIn","stro"]; vtxType2EM=vtxType["F1","C","mesIn","EM"];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -1360,7 +1399,11 @@ fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef*)
-#@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx1@vtxType1,(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxType2Str(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxType2EM(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
 ]@vtxJoinTmp1[fyTag];
