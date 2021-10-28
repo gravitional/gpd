@@ -91,7 +91,7 @@ echo["start import analytic and coes "];
 analytic=Import[FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[#,"."]<>".wdx"}]]&/@fyAmpTagLst;
 
 
-(*\:8bfb\:5165\:50a8\:5b58\:9876\:70b9\:7cfb\:6570\:7684\:6587\:4ef6*)
+(*\:8bfb\:5165\:7cfb\:6570\:63a5\:53e3*)
 Get[FileNameJoin[{gitLocalName,"coes.interface.wl"}]];
 
 

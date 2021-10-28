@@ -19,6 +19,7 @@ vtxJointTmp1[x_]:=fyVtx[x,"tmp1"]
 vtxJointTmp2[x_]:=fyVtx[x,"tmp2"]
 (* --------- \:8026\:5408\:5e38\:6570\:4e58\:79ef\:7684\:63a5\:53e3 --------- *)
 fyCoeKeycAll=fyCoeKey["cAll"];
+fyCoeKeycEM=fyCoeKey["cEM"];
 fyCoeKeycStr=fyCoeKey["cStr"];
 (* --------- \:53cd\:5e38\:78c1\:77e9 --------- *)
 fyCoeKeycAllF1=fyCoeKey["cAll","F1"];(*\:8ddf\:53cd\:573a\:78c1\:77e9\:6709\:5173\:7684\:7c7b\:578b F1 *)

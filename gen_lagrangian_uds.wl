@@ -33,7 +33,7 @@ recurFind[start];
 ]
 
 
-Get[FileNameJoin[{gitLocalName,"gen_format.m"}]](*\:8bfb\:5165\:5b9a\:4e49\:4ee5\:53ca\:6392\:7248\:76f8\:5173\:7684\:6587\:4ef6*)
+Get[FileNameJoin[{gitLocalName,"gen_format.wl"}]](*\:8bfb\:5165\:5b9a\:4e49\:4ee5\:53ca\:6392\:7248\:76f8\:5173\:7684\:6587\:4ef6*)
 
 
 (* ::Chapter:: *)
@@ -96,9 +96,9 @@ mat::usage="mat[\[Phi]],\:5176\:4e2d\:5404\:7c92\:5b50\:6536\:96c6\:5230\:7684\:
 meson::
 \[Phi],u,U,\[Phi]\[ConjugateTranspose],u\[ConjugateTranspose],U\[ConjugateTranspose],M\[Phi]
 octet::
-B,\!\(\*OverscriptBox[\(B\), \(_\)]\),MB
+B,Bbar,MB
 decuplet::
-T,\!\(\*OverscriptBox[\(T\), \(_\)]\),MT";
+T,Tbar,MT";
 
 
 (* ::Text:: *)
@@ -145,7 +145,7 @@ mat["B"]={
 {fd[2,5,0],-1/Sqrt[2] fd[2,4,0]+1/Sqrt[6] fd[2,8,0],fd[2,2,0]},
 {fd[2,7,0],fd[2,6,0],-2/Sqrt[6] fd[2,8,0]}
 };
-mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"]={
+mat["Bbar"]={
 {1/Sqrt[2] fd[2,4,1]+1/Sqrt[6] fd[2,8,1],fd[2,5,1],fd[2,7,1]},
 {fd[2,3,1],-1/Sqrt[2] fd[2,4,1]+1/Sqrt[6] fd[2,8,1],fd[2,6,1]},
 {fd[2,1,1],fd[2,2,1],-2/Sqrt[6] fd[2,8,1]}
@@ -176,7 +176,7 @@ mat["T"]=SymmetrizedArray[
 }, {3,3,3}, 
 Symmetric[All]
 ];
-mat["\!\(\*OverscriptBox[\(T\), \(_\)]\)"]=SymmetrizedArray[
+mat["Tbar"]=SymmetrizedArray[
 {
 {1,1,1}->fd[3,1,1],{1,1,2}->1/Sqrt[3]*fd[3,2,1],{1,2,2}->1/Sqrt[3]*fd[3,3,1],{2,2,2}->fd[3,4,1],
 {1,1,3}->1/Sqrt[3] fd[3,5,1],{1,2,3}->1/Sqrt[6] fd[3,6,1],{2,2,3}->1/Sqrt[3]*fd[3,7,1],
@@ -372,7 +372,7 @@ crt["u",\[Mu]_,"hd"]:=(I/2) (mat["u"] . ltz[mat["u\[Dagger]"],"tp"->"\[PartialD]
 
 (*\:516b\:91cd\:6001\:ff1aTr[Overscript[B, _](I*\[Gamma].\[PartialD]-MB)B]*)
 lag["oct"]=Expand[Tr[
-mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . (I*ltz3[{mat["B"],"\[Mu]"},{"\[PartialD]","\[Mu]"},{"\[Gamma]","\[Mu]"}]-mat["MB"]*mat["B"])
+mat["Bbar"] . (I*ltz3[{mat["B"],"\[Mu]"},{"\[PartialD]","\[Mu]"},{"\[Gamma]","\[Mu]"}]-mat["MB"]*mat["B"])
 ]
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
@@ -384,13 +384,13 @@ ContainsAny,Flatten[Array[fd,{1,8,1},{{2,2},{1,8},{0,0}}]](*\:516b\:91cd\:6001\:
 
 (*\:516b\:91cd\:6001\:ff1aTr[Overscript[B, _].(I*\[Gamma].[\[CapitalGamma]\[Mu],B])],\:534f\:53d8\:5bfc\:6570\:9879\:ff0c\:4ecb\:5b50\:8026\:5408*)
 lag["oct,\[CapitalGamma]\[Mu]"]=Expand[Tr[
-mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . (I*cmt[Dot,crt["\[CapitalGamma]","\[Mu]","hd"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]])
+mat["Bbar"] . (I*cmt[Dot,crt["\[CapitalGamma]","\[Mu]","hd"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]])
 ]
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["oct,\[CapitalGamma]\[Mu]"],
-ContainsAll,{fd[2,1,0],fd[2,1,1]}
+ContainsAll,{fd[2,3,0],fd[2,3,1]}
 ]
 
 
@@ -401,7 +401,7 @@ ContainsAll,{fd[2,1,0],fd[2,1,1]}
 \*SuperscriptBox[\(\[Gamma]\), \(\[Mu]\[Nu]\)])\)
 \*SubsuperscriptBox[\(T\), \(\[Nu]\), \(ijk\)]\),\:8fd9\:91cc\:662f\:52a8\:80fd\:9879*)
 lag["dec"]=Expand[(
-Flatten[ltz[mat["\!\(\*OverscriptBox[\(T\), \(_\)]\)"],"tp"->"ltz","idx"->"\[Mu]"]] .
+Flatten[ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Mu]"]] .
 Flatten[I*ltz3[{mat["T"],"\[Nu]"},{"\[PartialD]","\[Alpha]"},{"\[Gamma]","\[Mu]\[Nu]\[Alpha]"}]-mat["MT"]*ltz2[{mat["T"],"\[Nu]"},{"\[Gamma]","\[Mu]\[Nu]"}]]
 )];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
@@ -435,13 +435,13 @@ ContainsAny,Flatten[Array[fd,{1,8,1},{{1,1},{1,8},{0,0}}]](*\:4ecb\:5b50\:573a\:
 
 (*D*Tr[Overscript[B, _]\[Gamma]\[Mu]\[Gamma]5{u\[Mu],B}]+F*Tr[Overscript[B, _]\[Gamma]\[Mu]\[Gamma]5[u\[Mu],B]]*)
 lag["DF"]=Expand[
-(lecs["D"])*Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . acmt[Dot,crt["u","\[Mu]","hd"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]+
-(lecs["F"])*Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . cmt[Dot,crt["u","\[Mu]","hd"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]
+(lecs["D"])*Tr[mat["Bbar"] . acmt[Dot,crt["u","\[Mu]","hd"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]+
+(lecs["F"])*Tr[mat["Bbar"] . cmt[Dot,crt["u","\[Mu]","hd"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["DF"]/.{lecs["1/f"]->1/lecs["f"]},
-ContainsAny,{fd[2,1,0],fd[2,1,1]}(*\:53ea\:67e5\:770b\:6838\:5b50*)
+ContainsAny,{fd[2,3,0],fd[2,3,1]}(*\:53ea\:67e5\:770b\:6838\:5b50*)
 ]
 
 
@@ -466,18 +466,18 @@ ContainsAny,{fd[2,1,0],fd[2,1,1]}(*\:53ea\:67e5\:770b\:6838\:5b50*)
 
 
 (* ::DisplayFormula:: *)
-(*\[ScriptCapitalC]Tr[Contract[\[CurlyEpsilon] . Subscript[\!\(\*OverscriptBox[\(T\), \(_\)]\), \[Mu]] . Subscript[u, \[Nu]],{{1,4}}] . (\[CapitalTheta]^\[Mu]\[Nu] . B)]+\[ScriptCapitalC]Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\) . Contract[Subscript[u, \[Mu]] . \[CapitalTheta]^\[Mu]\[Nu] . Subscript[T, \[Nu]] . (-\[CurlyEpsilon]),{{1,4}}]]*)
+(*\[ScriptCapitalC]Tr[Contract[\[CurlyEpsilon] . Subscript[Tbar, \[Mu]] . Subscript[u, \[Nu]],{{1,4}}] . (\[CapitalTheta]^\[Mu]\[Nu] . B)]+\[ScriptCapitalC]Tr[Bbar . Contract[Subscript[u, \[Mu]] . \[CapitalTheta]^\[Mu]\[Nu] . Subscript[T, \[Nu]] . (-\[CurlyEpsilon]),{{1,4}}]]*)
 
 
 lag["C"]=Expand[(lecs["C"])*(
 Tr[
-mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] .
+mat["Bbar"] .
 TensorContract[crt["u","\[Mu]","hd"] . ltz2[{mat["T"],"\[Nu]"},{"\[CapitalTheta]","\[Mu]\[Nu]"}] . (-levi)(*\:8fd9\:91cc\:4f1a\:6709\:4e00\:4e2a\:8d1f\:53f7*),{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)]
 ]+
 Tr[
 TensorContract[
 levi .
-ltz[mat["\!\(\*OverscriptBox[\(T\), \(_\)]\)"],"tp"->"ltz","idx"->"\[Mu]"] . crt["u","\[Nu]","hd"],{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)] .
+ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Mu]"] . crt["u","\[Nu]","hd"],{{1,4}}(*1,4\:6307\:6807\:7f29\:5e76*)] .
 ltz[mat["B"],"tp"->"\[CapitalTheta]","idx"->"\[Mu]\[Nu]"]
 (*\:6700\:540e\:6c42 Trace*)]
 )];
@@ -497,7 +497,7 @@ ContainsAny,{fd[2,1,0],fd[2,1,1]}
 
 
 lag["H"]=Expand[(-lecs["H"])*(
-Flatten[ltz[mat["\!\(\*OverscriptBox[\(T\), \(_\)]\)"],"tp"->"ltz","idx"->"\[Mu]"]] .
+Flatten[ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Mu]"]] .
 Flatten[crt["u","\[Alpha]","hd"] . ltz2[{mat["T"],"\[Nu]"(*\:573a\:7684\:6307\:6807*)},{"\[Gamma]","\[Mu]\[Nu]\[Alpha]5"}]]
 )
 ];
@@ -509,7 +509,7 @@ ContainsAny,{fd[3,1,0],(*\:53ea\:67e5\:770b\[CapitalDelta]++*)fd[3,1,1]}
 
 
 (* ::DisplayFormula:: *)
-(*\:5f20\:91cf\:8026\:5408\:9879,\[ScriptCapitalL]=I/2 b9*Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\) Subscript[A, \[Mu]]] . \[Sigma]^\[Mu]\[Nu] . Tr[Subscript[A, \[Nu]] . B]+I/2 b10*Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\)[Subscript[A, \[Mu]],Subscript[A, \[Nu]]] . \[Sigma]^\[Mu]\[Nu] . B]+I/2 b11*Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\){Subscript[A, \[Mu]],Subscript[A, \[Nu]]} . \[Sigma]^\[Mu]\[Nu] . B]*)
+(*\:5f20\:91cf\:8026\:5408\:9879,\[ScriptCapitalL]=I/2 b9*Tr[Bbar Subscript[A, \[Mu]]] . \[Sigma]^\[Mu]\[Nu] . Tr[Subscript[A, \[Nu]] . B]+I/2 b10*Tr[Bbar[Subscript[A, \[Mu]],Subscript[A, \[Nu]]] . \[Sigma]^\[Mu]\[Nu] . B]+I/2 b11*Tr[Bbar{Subscript[A, \[Mu]],Subscript[A, \[Nu]]} . \[Sigma]^\[Mu]\[Nu] . B]*)
 
 
 SymIdx[A\[Mu]_,A\[Nu]_]:=Module[{U\[Mu],U\[Nu],L\[Mu],L\[Nu],D\[Mu],D\[Nu]},
@@ -521,15 +521,15 @@ D\[Mu] . D\[Nu]-D\[Mu] . L\[Nu]-D\[Mu] . U\[Nu]+L\[Mu] . L\[Nu]+U\[Mu] . U\[Nu]+
 
 
 lag["bbb"]=Expand[4*I/2 (
-lecs["b9"]*(Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . crt["u","\[Mu]","hd"]]*Tr[crt["u","\[Nu]","hd"] . ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]])
--lecs["b10"]*Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . acmt[Dot,2*SymIdx[crt["u","\[Nu]","hd"],crt["u","\[Mu]","hd"]],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]
--lecs["b11"]*Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . cmt[Dot,2*SymIdx[crt["u","\[Nu]","hd"],crt["u","\[Mu]","hd"]],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]
+lecs["b9"]*(Tr[mat["Bbar"] . crt["u","\[Mu]","hd"]]*Tr[crt["u","\[Nu]","hd"] . ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]])
+-lecs["b10"]*Tr[mat["Bbar"] . acmt[Dot,2*SymIdx[crt["u","\[Nu]","hd"],crt["u","\[Mu]","hd"]],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]
+-lecs["b11"]*Tr[mat["Bbar"] . cmt[Dot,2*SymIdx[crt["u","\[Nu]","hd"],crt["u","\[Mu]","hd"]],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]
 )
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["bbb"],
-ContainsAll,{fd[2,5,0],fd[2,5,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
+ContainsAll,{fd[2,3,0],fd[2,3,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
 ]
 
 
@@ -557,28 +557,28 @@ crt[{"F\[Mu]\[Nu]",2},\[Mu]_,\[Nu]_]:=vfd2["F\[Mu]\[Nu]",\[Mu],\[Nu]]*(1/2)*(mat
 
 
 (* ::DisplayFormula:: *)
-(*\:516b\:91cd\:6001:1/2 Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\)\[Gamma]^\[Mu] . [u . \[Lambda]^a . u\[ConjugateTranspose]+u\[ConjugateTranspose] . \[Lambda]^a . u,B]]*)
+(*\:516b\:91cd\:6001:1/2 Tr[Bbar\[Gamma]^\[Mu] . [u . \[Lambda]^a . u\[ConjugateTranspose]+u\[ConjugateTranspose] . \[Lambda]^a . u,B]]*)
 
 
 ntct["oct"]=Expand[lecs["1"]/2*Tr[(*lecs["1"]\:5c31\:662f1\:ff0c\:52a8\:80fd\:9879\:7684\:7279\:5f81*)
-mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . cmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]+mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]]
+mat["Bbar"] . cmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]+mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]]
 ]+
-lecs["1"]*Tr[Qqk]*Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]]
+lecs["1"]*Tr[Qqk]*Tr[mat["Bbar"] . ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]]
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 (ntct["oct"]/.lecs["1/f"]^2->0),
-ContainsAll,{fd[2,1,0],fd[2,1,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
+ContainsAll,{fd[2,3,0],fd[2,3,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
 ]
 
 
 (* ::DisplayFormula:: *)
-(*+(D/2)Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\)\[Gamma]^\[Mu] . Subscript[\[Gamma], 5] . {u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u,B}]+F/2 Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\)\[Gamma]^\[Mu] . Subscript[\[Gamma], 5] . [u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u,B]]+*)
+(*+(D/2)Tr[Bbar\[Gamma]^\[Mu] . Subscript[\[Gamma], 5] . {u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u,B}]+F/2 Tr[Bbar\[Gamma]^\[Mu] . Subscript[\[Gamma], 5] . [u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u,B]]+*)
 
 
 ntct["DF"]=Expand[
-lecs["D"]/2*Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . acmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]+
-lecs["F"]/2*Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . cmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]
+lecs["D"]/2*Tr[mat["Bbar"] . acmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]+
+lecs["F"]/2*Tr[mat["Bbar"] . cmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
@@ -588,14 +588,14 @@ ContainsAny,{fd[2,1,0],fd[2,1,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
 
 
 (* ::DisplayFormula:: *)
-(*+(1/2) Subscript[\!\(\*OverscriptBox[\(T\), \(_\)]\), \[Nu]] \[Gamma]^\[Nu]\[Alpha]\[Mu] (u . \[Lambda]^a . u\[ConjugateTranspose]+u\[ConjugateTranspose] . \[Lambda]^a . u,Subscript[T, \[Alpha]])*)
+(*+(1/2) Subscript[Tbar, \[Nu]] \[Gamma]^\[Nu]\[Alpha]\[Mu] (u . \[Lambda]^a . u\[ConjugateTranspose]+u\[ConjugateTranspose] . \[Lambda]^a . u,Subscript[T, \[Alpha]])*)
 
 
 ntct["dec"]=Module[{inner},
 inner=(mat["u"] . Qqk . mat["u\[Dagger]"]+mat["u\[Dagger]"] . Qqk . mat["u"]) . ltz2[{mat["T"],"\[Alpha]"},{"\[Gamma]","\[Nu]\[Alpha]\[Mu]"}];
 Expand[lecs["1"]/2 (
 Total[
-ltz[mat["\!\(\*OverscriptBox[\(T\), \(_\)]\)"],"tp"->"ltz","idx"->"\[Nu]"]*(inner+TensorTranspose[inner,{2,3,1}]+TensorTranspose[inner,{3,1,2}])
+ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Nu]"]*(inner+TensorTranspose[inner,{2,3,1}]+TensorTranspose[inner,{3,1,2}])
 ,3]
 )
 ]
@@ -613,19 +613,19 @@ ContainsAny,{fd[3,1,0],fd[3,1,1]}
 
 (* ::DisplayFormula:: *)
 (*\[ScriptCapitalC]\[CurlyEpsilon]^ijk \!\(\*SubsuperscriptBox[*)
-(*OverscriptBox[\(T\), \(_\)], \(\[Mu]\), \(ilm\)]\) \[CapitalTheta]^\[Mu]\[Nu] \!\(\*SubsuperscriptBox[\(u\), \(\[Nu]\), \(lj\)]\) B^mk+\[ScriptCapitalC]\[CurlyEpsilon]^ijk \!\(\*OverscriptBox[\(B\), \(_\)]\)^km \[CapitalTheta]^\[Mu]\[Nu] \!\(\*SubsuperscriptBox[\(T\), \(\[Mu]\), \(ilm\)]\) \!\(\*SubsuperscriptBox[\(u\), \(\[Nu]\), \(lj\)]\)*)
+(*OverscriptBox[\(T\), \(_\)], \(\[Mu]\), \(ilm\)]\) \[CapitalTheta]^\[Mu]\[Nu] \!\(\*SubsuperscriptBox[\(u\), \(\[Nu]\), \(lj\)]\) B^mk+\[ScriptCapitalC]\[CurlyEpsilon]^ijk Bbar^km \[CapitalTheta]^\[Mu]\[Nu] \!\(\*SubsuperscriptBox[\(T\), \(\[Mu]\), \(ilm\)]\) \!\(\*SubsuperscriptBox[\(u\), \(\[Nu]\), \(lj\)]\)*)
 
 
 (* ::DisplayFormula:: *)
 (*\[ScriptCapitalC]\[CurlyEpsilon]^jki \!\(\*SubsuperscriptBox[*)
-(*OverscriptBox[\(T\), \(_\)], \(\[Mu]\), \(iml\)]\) \!\(\*SubsuperscriptBox[\(u\), \(\[Nu]\), \(lj\)]\) \[CapitalTheta]^\[Mu]\[Nu] B^mk+\[ScriptCapitalC] \!\(\*OverscriptBox[\(B\), \(_\)]\)^km \!\( *)
+(*OverscriptBox[\(T\), \(_\)], \(\[Mu]\), \(iml\)]\) \!\(\*SubsuperscriptBox[\(u\), \(\[Nu]\), \(lj\)]\) \[CapitalTheta]^\[Mu]\[Nu] B^mk+\[ScriptCapitalC] Bbar^km \!\( *)
 (*\*SubsuperscriptBox[\(u\), \(\[Mu]\), \(jl\)] . *)
 (*\*SuperscriptBox[\(\[CapitalTheta]\), \(\[Mu]\[Nu]\)] . *)
 (*\*SubsuperscriptBox[\(T\), \(\[Nu]\), \(lmi\)]\)(-\[CurlyEpsilon]^ikj)*)
 
 
 (* ::DisplayFormula:: *)
-(*\[ScriptCapitalC]Tr[Contract[\[CurlyEpsilon] . Subscript[\!\(\*OverscriptBox[\(T\), \(_\)]\), \[Mu]] . Subscript[u, \[Nu]],{{1,4}}] . (\[CapitalTheta]^\[Mu]\[Nu] . B)]+\[ScriptCapitalC]Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\) . Contract[Subscript[u, \[Mu]] . \[CapitalTheta]^\[Mu]\[Nu] . Subscript[T, \[Nu]] . (-\[CurlyEpsilon]),{{1,4}}]]*)
+(*\[ScriptCapitalC]Tr[Contract[\[CurlyEpsilon] . Subscript[Tbar, \[Mu]] . Subscript[u, \[Nu]],{{1,4}}] . (\[CapitalTheta]^\[Mu]\[Nu] . B)]+\[ScriptCapitalC]Tr[Bbar . Contract[Subscript[u, \[Mu]] . \[CapitalTheta]^\[Mu]\[Nu] . Subscript[T, \[Nu]] . (-\[CurlyEpsilon]),{{1,4}}]]*)
 
 
 (* ::Text:: *)
@@ -633,14 +633,14 @@ ContainsAny,{fd[3,1,0],fd[3,1,1]}
 
 
 (* ::DisplayFormula:: *)
-(*+(\[ScriptCapitalC]/2)Tr[Contract[\[CurlyEpsilon] . Subscript[\!\(\*OverscriptBox[\(T\), \(_\)]\), \[Nu]] . (u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u),{{1,4}}] . (\[CapitalTheta]^\[Nu]\[Mu] . B)]+\[ScriptCapitalC]/2 Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\) . Contract[(u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u) . \[CapitalTheta]^\[Mu]\[Nu] . Subscript[T, \[Nu]] . (-\[CurlyEpsilon]),{{1,4}}]]*)
+(*+(\[ScriptCapitalC]/2)Tr[Contract[\[CurlyEpsilon] . Subscript[Tbar, \[Nu]] . (u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u),{{1,4}}] . (\[CapitalTheta]^\[Nu]\[Mu] . B)]+\[ScriptCapitalC]/2 Tr[Bbar . Contract[(u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u) . \[CapitalTheta]^\[Mu]\[Nu] . Subscript[T, \[Nu]] . (-\[CurlyEpsilon]),{{1,4}}]]*)
 
 
 ntct["C"]=Expand[lecs["C"]/2*(
 Tr[
-TensorContract[levi . ltz[mat["\!\(\*OverscriptBox[\(T\), \(_\)]\)"],"tp"->"ltz","idx"->"\[Nu]"] . (mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"]),{{1,4}}] . ltz[mat["B"],"tp"->"\[CapitalTheta]","idx"->"\[Nu]\[Mu]"]]+
+TensorContract[levi . ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Nu]"] . (mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"]),{{1,4}}] . ltz[mat["B"],"tp"->"\[CapitalTheta]","idx"->"\[Nu]\[Mu]"]]+
 Tr[
-mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . TensorContract[(mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"]) . ltz2[{mat["T"],"\[Nu]"},{"\[CapitalTheta]","\[Mu]\[Nu]"}] . (-levi),{{1,4}}]
+mat["Bbar"] . TensorContract[(mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"]) . ltz2[{mat["T"],"\[Nu]"},{"\[CapitalTheta]","\[Mu]\[Nu]"}] . (-levi),{{1,4}}]
 ]
 )
 ];
@@ -690,16 +690,16 @@ ContainsAny,Flatten[Array[fd,{1,8,1},{{1,1},{1,8},{0,0}}]](*\:516b\:91cd\:6001\:
 
 
 (* ::DisplayFormula:: *)
-(*e/(4mN) (c1*Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\) . \[Sigma]^\[Mu]\[Nu] . {\!\( *)
-(*\*SubsuperscriptBox[\(F\), \(\[Mu]\[Nu]\), \(+\)], B\)}]+c2*Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\) . \[Sigma]^\[Mu]\[Nu] . [\!\( *)
-(*\*SubsuperscriptBox[\(F\), \(\[Mu]\[Nu]\), \(+\)], B\)]]+c3*Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\) . \[Sigma]^\[Mu]\[Nu] . B]*Tr[Q])*)
+(*e/(4mN) (c1*Tr[Bbar . \[Sigma]^\[Mu]\[Nu] . {\!\( *)
+(*\*SubsuperscriptBox[\(F\), \(\[Mu]\[Nu]\), \(+\)], B\)}]+c2*Tr[Bbar . \[Sigma]^\[Mu]\[Nu] . [\!\( *)
+(*\*SubsuperscriptBox[\(F\), \(\[Mu]\[Nu]\), \(+\)], B\)]]+c3*Tr[Bbar . \[Sigma]^\[Mu]\[Nu] . B]*Tr[Q])*)
 
 
 lag["mag8"]=Expand[e/(4MN)*(*\:5f52\:4e00\:5316\:5230\:6838\:5b50\:8d28\:91cf*)
 (
-lecs["c1"]*Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . acmt[Dot,crt[{"F\[Mu]\[Nu]",2},"\[Mu]","\[Nu]"],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]+
-lecs["c2"]*Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . cmt[Dot,crt[{"F\[Mu]\[Nu]",2},"\[Mu]","\[Nu]"],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]+
-(lecs["c3"])*Tr[crt[{"F\[Mu]\[Nu]",2},"\[Mu]","\[Nu]"]]*Tr[mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]
+lecs["c1"]*Tr[mat["Bbar"] . acmt[Dot,crt[{"F\[Mu]\[Nu]",2},"\[Mu]","\[Nu]"],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]+
+lecs["c2"]*Tr[mat["Bbar"] . cmt[Dot,crt[{"F\[Mu]\[Nu]",2},"\[Mu]","\[Nu]"],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]+
+(lecs["c3"])*Tr[crt[{"F\[Mu]\[Nu]",2},"\[Mu]","\[Nu]"]]*Tr[mat["Bbar"] . ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]
 )
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
@@ -721,7 +721,7 @@ ContainsAll,{fd[2,4,1],fd[2,8,0]}
 
 lag["mag10"]=Expand[TensorContract[
 (3*e*lecs["cT"])/(4MT)*(
-vfd2["F\[Mu]\[Nu]","\[Mu]","\[Nu]"]*(ltz[mat["\!\(\*OverscriptBox[\(T\), \(_\)]\)"],"tp"->"ltz","idx"->"\[Alpha]"]) . Qqk . ltz2[{mat["T"],"\[Alpha]"},{"\[Sigma]","\[Mu]\[Nu]"}]
+vfd2["F\[Mu]\[Nu]","\[Mu]","\[Nu]"]*(ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Alpha]"]) . Qqk . ltz2[{mat["T"],"\[Alpha]"},{"\[Sigma]","\[Mu]\[Nu]"}]
 )
 ,{{1,3},{2,4}}]
 ];
@@ -737,7 +737,7 @@ ContainsAny,Flatten[Array[fd,{1,10,1},{{3,3},{1,10},{0,0}}]](*\:5341\:91cd\:6001
 
 
 (* ::DisplayFormula:: *)
-(*(-I*e*Sqrt[3]c4)/mN Subscript[F, \[Mu]\[Nu]]*(Subscript[\[Epsilon], ijk] Subscript[Q, il]Subscript[\!\(\*OverscriptBox[\(B\), \(_\)]\), jm] . \[Gamma]^\[Mu] . \[Gamma]^5 . \!\(\*SubsuperscriptBox[\(T\), \(klm\), \(\[Nu]\)]\)-Subscript[\[Epsilon], ijk] Subscript[Q, li]\!\( *)
+(*(-I*e*Sqrt[3]c4)/mN Subscript[F, \[Mu]\[Nu]]*(Subscript[\[Epsilon], ijk] Subscript[Q, il]Subscript[Bbar, jm] . \[Gamma]^\[Mu] . \[Gamma]^5 . \!\(\*SubsuperscriptBox[\(T\), \(klm\), \(\[Nu]\)]\)-Subscript[\[Epsilon], ijk] Subscript[Q, li]\!\( *)
 (*\*SubsuperscriptBox[*)
 (*OverscriptBox[\(T\), \(_\)], \(klm\), \(\[Nu]\)] . *)
 (*\*SuperscriptBox[\(\[Gamma]\), \(\[Mu]\)] . *)
@@ -746,15 +746,15 @@ ContainsAny,Flatten[Array[fd,{1,10,1},{{3,3},{1,10},{0,0}}]](*\:5341\:91cd\:6001
 
 
 (* ::DisplayFormula:: *)
-(*=(-I*e*Sqrt[3]c4)/mN*(\!\(\*OverscriptBox[\(B\), \(_\)]\)^jm (\!\( *)
+(*=(-I*e*Sqrt[3]c4)/mN*(Bbar^jm (\!\( *)
 (*\*SubsuperscriptBox[\(F\), \(\[Mu]\[Nu]\), \(a\)] *)
-(*\*SuperscriptBox[\(\[Lambda]\), \(a\)]\))^il . \[Gamma]^\[Mu] . \[Gamma]^5 . T^(\[Nu],lmk) . (-\[Epsilon]^kji)-\[Epsilon]^ijk \!\(\*OverscriptBox[\(T\), \(_\)]\)^(\[Nu],kml) (\!\( *)
+(*\*SuperscriptBox[\(\[Lambda]\), \(a\)]\))^il . \[Gamma]^\[Mu] . \[Gamma]^5 . T^(\[Nu],lmk) . (-\[Epsilon]^kji)-\[Epsilon]^ijk Tbar^(\[Nu],kml) (\!\( *)
 (*\*SubsuperscriptBox[\(F\), \(\[Mu]\[Nu]\), \(a\)] *)
 (*\*SuperscriptBox[\(\[Lambda]\), \(a\)]\))^li . \[Gamma]^\[Mu] . \[Gamma]^5 . B^mj)*)
 
 
 (* ::DisplayFormula:: *)
-(*=(I*e*Sqrt[3]c4)/mN (Tr[\!\(\*OverscriptBox[\(B\), \(_\)]\) . \[Gamma]^\[Mu] . \[Gamma]^5 . \!\(\*SuperscriptBox[\(( *)
+(*=(I*e*Sqrt[3]c4)/mN (Tr[Bbar . \[Gamma]^\[Mu] . \[Gamma]^5 . \!\(\*SuperscriptBox[\(( *)
 (*\*SubscriptBox[\(F\), \(\[Mu]\[Nu]\)] . *)
 (*\*SuperscriptBox[\(T\), \(\[Nu]\)] . \[CurlyEpsilon])\), \({1, 4}\)]\)]+Tr[\!\(\*SuperscriptBox[\((\[CurlyEpsilon] . *)
 (*\*SuperscriptBox[*)
@@ -766,10 +766,10 @@ lag["mag8,10"]=Expand[
 (I*e*Sqrt[3]*lecs["c4"])/MN*
 vfd2["F\[Mu]\[Nu]","\[Mu]","\[Nu]"]*(
 Tr[
-mat["\!\(\*OverscriptBox[\(B\), \(_\)]\)"] . TensorContract[Qqk . ltz2[{mat["T"],"\[Nu]"},{"\[Gamma]","\[Mu]5"}] . levi,{{1,4}}]
+mat["Bbar"] . TensorContract[Qqk . ltz2[{mat["T"],"\[Nu]"},{"\[Gamma]","\[Mu]5"}] . levi,{{1,4}}]
 ]+
 Tr[
-TensorContract[(levi) . ltz[mat["\!\(\*OverscriptBox[\(T\), \(_\)]\)"],"tp"->"ltz","idx"->"\[Nu]"] . Qqk,{{1,4}}] .
+TensorContract[(levi) . ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Nu]"] . Qqk,{{1,4}}] .
 ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]
 ]
 )

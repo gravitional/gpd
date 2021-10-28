@@ -17,7 +17,7 @@
 (*\:4f7f\:7528\:7535\:5b50\:7535\:8377e\:4f5c\:4e3a\:5355\:4f4d\:ff0c\:8fd9\:6837e\:4e0d\:663e\:5f0f\:51fa\:73b0\:5728\:9876\:70b9\:4e2d. e>0*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*initial*)
 
 
@@ -81,7 +81,7 @@ Get[FileNameJoin[{gitLocalName,"coes.interface.wl"}]];
 end=4;delta=0.05;
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-meson,octet,*)
 
 
@@ -155,6 +155,9 @@ fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
 fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef*)
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
 ]@vtxJoinTmp2[fyTag];
@@ -185,7 +188,7 @@ serialize[fyTag,coeJoin]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman,A-meson,octet,left*)
 
 
@@ -242,6 +245,9 @@ fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
 fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:7684\:4e58\:79ef*)
 #@fyVtx1@vtxType1Str,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+(#@fyVtx1@vtxType1/#@fyVtx1@vtxType1Str)
 ]
 |>&
 ]@vtxJoinTmp1[fyTag];
