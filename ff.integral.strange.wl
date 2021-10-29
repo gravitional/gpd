@@ -4,7 +4,7 @@
 (*integral_strange.wl*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*initial*)
 
 
@@ -28,7 +28,7 @@ recurFind[start];
 $inNBook=$Notebooks;
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*cmd argumnets*)
 
 
@@ -44,21 +44,21 @@ If[!$Notebooks,
 inputCml=$ScriptCommandLine,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
 (*++++++++++++++++++++++++++++++++++++++++*)
 inputCml={fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:4ee4\:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:6b64\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
-(*\:5176\:4ed6\:53c2\:6570*)
-inSimul=Nothing
+(* \:5728\:8fd9\:91cc\:63d0\:4f9b\:5176\:4ed6\:53c2\:6570, \:4f7f\:7528 mathematica \:8bed\:6cd5\:4e0b\:7684\:5f62\:5f0f\:ff0c\:5916\:9762\:7684 enString \:4f1a\:81ea\:52a8\:8f6c\:6362\:6210\:5b57\:7b26\:4e32, \:5c3d\:91cf\:591a\:4f7f\:7528Association\:7ed3\:6784*)
+"{16}"
 }
 ];
 echo["the input parameter is:\n",inputCml];
 
 
-(*\:5982\:679c\:547d\:4ee4\:884c\:6307\:5b9a\:4e86 part\:ff0c\:5316\:7b80\:5708\:79ef\:5206\:5217\:8868\:6307\:5b9a\:7684part\:ff0c\:5426\:5219\:ff0c\:9ed8\:8ba4\:5316\:7b80\:6240\:6709\:5708\:79ef\:5206*)
-Block[{pSpec},
-If[Length@inputCml>1,
-fyAmpTagPart=Check[
-pSpec=ToExpression@inputCml[[2]];fyAmpTagLst[[pSpec]],
-Abort[]
-],
-fyAmpTagPart=fyAmpTagLst;
+(*\:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406*)
+(*+++++++++++++++++++++++++++++++++++++ \:9ed8\:8ba4\:503c +++++++++++++++++++++++++++++++++++++*)
+fyAmpTagPart=fyAmpTagLst;(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
+(*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 2 +++++++++++++++++++++++++++++++++++++*)
+If[Length@inputCml>=2,
+Check[
+echo[fyAmpTagPart=fyAmpTagLst[[ToExpression@inputCml[[2]]]]],
+echo["para 2: Part speciation is not valid"];Abort[]
 ]]
 
 
@@ -153,7 +153,7 @@ LTensor[MetricG,\[Alpha],\[Beta]] Dirac1 -1/3 DiracMatrix[LTensor[DiracG,\[Alpha
  ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*kinematic quantities*)
 
 
@@ -223,7 +223,7 @@ If[$inNBook,fyAmp]]
 end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,mes,oct*)
 
 
@@ -257,7 +257,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,left*)
 
 
@@ -301,7 +301,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,right*)
 
 
@@ -437,7 +437,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,oct,F1,*)
 
 
@@ -529,8 +529,8 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
-(*tadpole,oct,o2*)
+(* ::Section:: *)
+(*tadpole,oct,F1*)
 
 
 (* ::Input:: *)
@@ -547,7 +547,7 @@ tag
 
 
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
-fyTag={"tad","oct","o2"};
+fyTag={"tad","oct","F1"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
 paraLintSubmit[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
@@ -572,8 +572,8 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
-(*tadpole,oct,add,o2*)
+(* ::Section:: *)
+(*tadpole,oct,F1,add*)
 
 
 (* ::Input:: *)
@@ -585,18 +585,19 @@ tag
 (*{end/2,0},{0,end/2},{end,end/2},{end/2,0}*)
 (*}],*)
 (*Line[{{end/2,-end/6},{end/2,0}}],*)
+(*Disk[{end/2,0},0.1],*)
 (*Text["v1",{end/2,+5delta}]*)
 (*},ImageSize->Small]*)
 
 
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
-fyTag={"tad","oct","add","o2"};
+fyTag={"tad","oct","F1","add"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
 paraLintSubmit[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
-LTensor[2k+(p2-p1),\[Mu]]*Spur[
-4 LDot[DiracG,k],(*\:79ef\:5206\:5728 k\[Rule]-k \:53d8\:6362\:4e0b\:ff0c\:6d88\:53bb\:5947\:51fd\:6570\:7684\:90e8\:5206,*)
+(-1)LTensor[2k+(p2-p1),\[Mu]]*Spur[
+4 LDot[DiracG,k],(*\:79ef\:5206\:5728 k\[Rule]-k \:53d8\:6362\:4e0b,\:6d88\:53bb\:5947\:51fd\:6570\:7684\:90e8\:5206,*)
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
 Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
@@ -615,8 +616,8 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
-(*tadpole,oct,mag,o2*)
+(* ::Section:: *)
+(*tadpole,oct,F2*)
 
 
 (* ::Input:: *)
@@ -634,7 +635,7 @@ tag
 
 
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
-fyTag={"tad","oct","mag","o2"};
+fyTag={"tad","oct","F2"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
 paraLintSubmit[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
@@ -659,7 +660,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble,mes,o2*)
 
 
@@ -703,7 +704,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble,mes,ten,o2*)
 
 
@@ -986,7 +987,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,dec,left*)
 
 
@@ -1175,4 +1176,4 @@ tag
 
 
 (* Set \:5177\:6709 HoldFirst \:5c5e\:6027*)
-fyAmpLst=WaitAll[fyAmp[#,{"intg","eid"}]&/@fyAmpTagLst];
+fyAmpLst=WaitAll[fyAmp[#,{"intg","eid"}]&/@fyAmpTagPart];

@@ -33,7 +33,7 @@ recurFind[start];
 ]
 
 
-Get[FileNameJoin[{gitLocalName,"gen_format.wl"}]](*\:8bfb\:5165\:5b9a\:4e49\:4ee5\:53ca\:6392\:7248\:76f8\:5173\:7684\:6587\:4ef6*)
+Get[FileNameJoin[{gitLocalName,"gen.format.wl"}]](*\:8bfb\:5165\:5b9a\:4e49\:4ee5\:53ca\:6392\:7248\:76f8\:5173\:7684\:6587\:4ef6*)
 
 
 (* ::Chapter:: *)

@@ -155,9 +155,9 @@ int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>"
 (* \:4ece\:5173\:8054\:4e2d\:63d0\:53d6\:8868\:8fbe\:5f0f\:ff0c\:4f7f\:7528 Part \:8bed\:6cd5\:66f4\:5feb, \:76f8\:6bd4\:4e8e\:51fd\:6570\:8bed\:6cd5 *)
 intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)
 intExpr=int[["expr"]];(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
-intExpr=Map[Cancel,intExpr,{2}];(* \:5bf9\:5708\:79ef\:5206\:7684\:8868\:8fbe\:5f0f\:8fdb\:884c\:9884\:5316\:7b80*)
 (* \:5982\:679c\:5708\:79ef\:5206\:7684\:5934\:90e8\:662f Plus\:ff0c\:624d\:80fd\:4f7f\:7528 ParallelMap *)
 If[AllTrue[MatchQ[Head[#],Plus]&/@intExpr,Identity],
+intExpr=Map[Cancel,intExpr,{2}];(* \:5bf9\:5708\:79ef\:5206\:7684\:8868\:8fbe\:5f0f\:8fdb\:884c\:9884\:5316\:7b80*)
 time0Result=ParallelMap[
 loopRefine,#,{2},(* \:8ba1\:7b97\:89e3\:6790\:8868\:8fbe\:5f0f, Mapping loopRefine \:5230 \:5708\:79ef\:5206\:8868\:8fbe\:5f0f\:7684\:6bcf\:4e00\:9879\:4e0a*)
 Method->"FinestGrained"(*Method->Automatic*)
@@ -173,11 +173,8 @@ Export[path,anaExpr];echo["Exporting finished: ", path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:754c\:9762,\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*)
 If[$inNBook,anaExpr],
 (* +++++++++++++++++ \:5982\:679c\:5708\:79ef\:5206\:4e0d\:662f Plus[...] \:7684\:5f62\:5f0f +++++++++++++++++++ *)
-echo["Check the loop integral, it is not the form of plus[...]"];
-Abort[];
-]
-]
-]
+echo["Check the loop integral, it is not the form of plus[...], Plese use coarse method"];
+Abort[];]]]
 
 
 (* \:5bf9\:6574\:4e2a\:5708\:79ef\:5206\:8868\:8fbe\:5f0f\:8fdb\:884c\:5e76\:884c\:7684\:7248\:672c *)
@@ -192,9 +189,9 @@ int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>"
 (* \:4ece\:5173\:8054\:4e2d\:63d0\:53d6\:8868\:8fbe\:5f0f\:ff0c\:4f7f\:7528 Part \:8bed\:6cd5\:66f4\:5feb,\:76f8\:6bd4\:4e8e\:51fd\:6570\:8bed\:6cd5 *)
 intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)
 intExpr=int[["expr"]];(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
-intExpr=Map[Cancel,intExpr,{2}];(* \:5bf9\:5708\:79ef\:5206\:7684\:8868\:8fbe\:5f0f\:8fdb\:884c\:9884\:5316\:7b80*)
-(* \:5982\:679c\:5708\:79ef\:5206\:7684\:5934\:90e8\:662f Plus\:ff0c\:624d\:80fd\:4f7f\:7528 ParallelMap *)
-If[AllTrue[MatchQ[Head[#],Plus]&/@intExpr,Identity],
+(* \:5bf9\:5708\:79ef\:5206\:7684\:8868\:8fbe\:5f0f\:8fdb\:884c\:9884\:5316\:7b80*)
+intExpr=If[MatchQ[Head[#],Plus],Cancel/@#,Cancel@#
+]&/@intExpr;
 (* \:8ba1\:7b97\:89e3\:6790\:8868\:8fbe\:5f0f, loopRefine \:5c06\:5708\:79ef\:5206\:8f6c\:6362\:6210 \:89e3\:6790\:8868\:8fbe\:5f0f*)
 (* loopRefine or LoopRefineSeries \:81ea\:52a8 Mapping \:5230 F1,F2 \:4e24\:4e2a \:5708\:79ef\:5206\:4e0a*)
 time0Result=loopRefine[intExpr]//AbsoluteTiming;
@@ -208,11 +205,8 @@ anaExpr=<|
 path=FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
 Export[path,anaExpr];echo["Exporting finished: ", path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:754c\:9762,\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*)
-If[$inNBook,anaExpr],
-(* +++++++++++++++++ \:5982\:679c\:5708\:79ef\:5206\:4e0d\:662f Plus[...] \:7684\:5f62\:5f0f +++++++++++++++++++ *)
-echo["Check the loop integral, it is not the form of plus[...]"];
-Abort[];]]]
-]
+If[$inNBook,anaExpr]
+]]]
 
 
 (*\:6839\:636e\:811a\:672c\:53c2\:6570\:ff0c\:7ed9\:51fa\:5e76\:884c\:8ba1\:7b97\:65f6 paraLRefine \:7684\:5177\:4f53\:5b9a\:4e49, \:8fdb\:884c\:7ea7\:6570\:5c55\:5f00\:ff0c\:6216\:8005\:8ba1\:7b97\:5b8c\:6574\:8868\:8fbe\:5f0f *)

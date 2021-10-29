@@ -278,7 +278,7 @@ serialize[fyTag,coeJoin]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman,A-meson,octet,right*)
 
 
@@ -368,7 +368,7 @@ serialize[fyTag,coeJoin]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman,A-meson,octet,addition,left*)
 
 
@@ -384,13 +384,15 @@ serialize[fyTag,coeJoin]
 (*},ImageSize->Small]*)
 
 
-fyTagTmp={"KR","mes","oct","left"};
-fyTag={"KR","mes","oct","add","left"};
-coeJoin[fyTag]=coeJoin[fyTagTmp];
-serialize[fyTag,coeJoin]
+(* \:989d\:5916 KR \:56fe\:7684\:7cfb\:6570\:548c \:666e\:901a KR \:56fe\:7684\:632f\:5e45\:662f\:76f8\:540c\:7684*)
+fyTag={"KR","mes","oct","left"};
+fyTagTmp={"KR","mes","oct","add","left"};
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
+]@coeJoin[fyTag];
+serialize[fyTagTmp,coeJoin]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman, A-mes, oct, add, right*)
 
 
@@ -406,10 +408,12 @@ serialize[fyTag,coeJoin]
 (*},ImageSize->Small]*)
 
 
-fyTagTmp={"KR","mes","oct","right"};
-fyTag={"KR","mes","oct","add","right"};
-coeJoin[fyTag]=coeJoin[fyTagTmp];
-serialize[fyTag,coeJoin]
+(* \:989d\:5916 KR \:56fe\:7684\:7cfb\:6570\:548c \:666e\:901a KR \:56fe\:7684\:7cfb\:6570\:76f8\:540c*)
+fyTag={"KR","mes","oct","right"};
+fyTagTmp={"KR","mes","oct","add","right"};
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
+]@coeJoin[fyTag];
+serialize[fyTagTmp,coeJoin]
 
 
 (* ::Section:: *)
@@ -510,7 +514,7 @@ fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
 fyTag={"RB","oct","F1F2"};
 coeJoin[fyTag]=Join[
 (*\:52a0\:4e0a\:8d39\:66fc\:56fe\:7684\:7f16\:53f7*)
-Query[All,Prepend[chTagKey["Diag"]->chTag[fyTag]]]@vtxJoin[fyTag],
+Query[All,Prepend[chTagKey["chTag"]->chTag[fyTag]]]@vtxJoin[fyTag],
 (*\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:5b57\:6bb5*)
 Query[All,
 <|
@@ -522,16 +526,16 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-(* \:5206\:522b \:751f\:6210 F1 F2 \:5404\:81ea\:7684\:7cfb\:6570*)
+(*---------------------------- \:751f\:6210 F1 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
 fyTagTmp={"RB","oct","F1"};
-coeJoin[fyTagTmp]=Query[All,Append[chTagKey["Diag"]->chTag[fyTagTmp]]]@Query[
-All,KeyDrop[{fyCoeKeycAllF2,fyCoeKeycStrF2}](*\:5220\:9664\:5197\:4f59\:7684\:8026\:5408\:7cfb\:6570\:4fe1\:606f*)
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]]@Query[
+All,KeyDrop[{fyCoeKeycAllF2,fyCoeKeycStrF2,fyCoeKeycEMF2}](*\:5220\:9664\:5197\:4f59\:7684\:8026\:5408\:7cfb\:6570\:4fe1\:606f*)
 ]@coeJoin[fyTag];
 serialize[fyTagTmp,coeJoin];
-(*----------------------------------------------------*)
+(*---------------------------- \:751f\:6210 F2 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
 fyTagTmp={"RB","oct","F2"};
-coeJoin[fyTagTmp]=Query[All,Append[chTagKey["Diag"]->chTag[fyTagTmp]]]@Query[
-All,KeyDrop[{fyCoeKeycAllF1,fyCoeKeycStrF1}]
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
+]@Query[All,KeyDrop[{fyCoeKeycAllF1,fyCoeKeycStrF1,fyCoeKeycEMF1}]
 ]@coeJoin[fyTag];
 serialize[fyTagTmp,coeJoin];
 
@@ -545,12 +549,11 @@ serialize[fyTagTmp,coeJoin];
 
 
 (* ::Section:: *)
-(*tadpole,A-octet,F1F2-order2,nonlocal*)
+(*tadpole,A-octet,F1F2,nonlocal*)
 
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(**)
 (*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)
@@ -563,7 +566,7 @@ serialize[fyTagTmp,coeJoin];
 
 
 (*\:8d39\:66fc\:56fe\:7684chpt tag\:ff0c\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9*)
-fyTag={"tad","oct","o2"};
+fyTag={"tad","oct","F1F2"};
 vtxType1=vtxType["F1F2","oct","o2","nloc"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxF1=vtxType["F1","oct","o2","nloc"];       vtxF2=vtxType["F2","oct","o2","nloc"];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
@@ -579,8 +582,8 @@ fyCoeKeycAllF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 ],
 fyCoeKeycAllF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
-]
-,fyCoeKeycStrF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+],
+fyCoeKeycStrF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
 ],
 fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
@@ -594,10 +597,13 @@ fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
 ]@vtx1;
+
+
 (*++++++++++++++++++++++++++ \:63d0\:53d6\:7cfb\:6570  ++++++++++++++++++++++++++++++++++++++++++++++++*)
+fyTag={"tad","oct","F1F2"};
 coeJoin[fyTag]=Join[
 (*\:52a0\:4e0a\:8d39\:66fc\:56fe\:7684\:7f16\:53f7*)
-Query[All,Prepend[chTagKey["Diag"]->chTag[fyTag]]]@vtxJoin[fyTag],
+Query[All,Prepend[chTagKey["chTag"]->chTag[fyTag]]]@vtxJoin[fyTag],
 (*\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:5b57\:6bb5*)
 Query[All,
 <|
@@ -607,7 +613,18 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serialize[fyTag,coeJoin]
+(*---------------------------- \:751f\:6210 F1 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
+fyTagTmp={"tad","oct","F1"};
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]]@Query[
+All,KeyDrop[{fyCoeKeycAllF2,fyCoeKeycStrF2,fyCoeKeycEMF2}](*\:5220\:9664\:5197\:4f59\:7684\:8026\:5408\:7cfb\:6570\:4fe1\:606f*)
+]@coeJoin[fyTag];
+serialize[fyTagTmp,coeJoin];
+(*---------------------------- \:751f\:6210 F2 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
+fyTagTmp={"tad","oct","F2"};
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
+]@Query[All,KeyDrop[{fyCoeKeycAllF1,fyCoeKeycStrF1,fyCoeKeycEMF1}]
+]@coeJoin[fyTag];
+serialize[fyTagTmp,coeJoin];
 
 
 (* ::Input:: *)
@@ -622,19 +639,34 @@ serialize[fyTag,coeJoin]
 (*tadpole,A-octet,addition,o2,nonlocal*)
 
 
-fyTagTmp={"tad","oct","o2"};
-fyTag={"tad","oct","add","o2"};
-coeJoin[fyTag]=coeJoin[fyTagTmp];
-serialize[fyTag,coeJoin]
+(* ::Input:: *)
+(*(* \:56fe\:5f62\:8868\:793a *)*)
+(*Graphics[{*)
+(*Black,Line[{{0,0},{end,0}}],*)
+(*Arrowheads[{{Automatic,.53}}],*)
+(*Arrow@BezierCurve[{*)
+(*{end/2,0},{0,end/2},{end,end/2},{end/2,0}*)
+(*}],*)
+(*Line[{{end/2,-end/6},{end/2,0}}],*)
+(*Disk[{end/2,0},0.1],*)
+(*Text["v1",{end/2,+5delta}]*)
+(*},ImageSize->Small]*)
+
+
+(* \:989d\:5916 tadpole \:56fe\:7684\:7cfb\:6570\:548c \:666e\:901a tadpole \:56fe\:7684\:7cfb\:6570\:76f8\:540c*)
+fyTag={"tad","oct","F1"};
+fyTagTmp={"tad","oct","F1","add"};
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
+]@coeJoin[fyTag];
+serialize[fyTagTmp,coeJoin]
 
 
 (* ::Section:: *)
-(*bubble, A-meson,strong-order2*)
+(*bubble, A-meson,order2*)
 
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(**)
 (*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)
@@ -680,6 +712,9 @@ fyCoeKeycAll->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 ],
 fyCoeKeycStr->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxType1(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
+],
+fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
 ]@vtxJoinTmp1[fyTag];
@@ -688,7 +723,7 @@ fyCoeKeycStr->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 fyTag={"bub","mes","o2"};
 coeJoin[fyTag]=Join[
 (*\:52a0\:4e0a\:8d39\:66fc\:56fe\:7684\:7f16\:53f7*)
-Query[All,Prepend[chTagKey["Diag"]->chTag[fyTag]]]@vtxJoin[fyTag],
+Query[All,Prepend[chTagKey["chTag"]->chTag[fyTag]]]@vtxJoin[fyTag],
 (*\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:5b57\:6bb5*)
 Query[All,
 <|
@@ -715,13 +750,13 @@ serialize[fyTag,coeJoin]
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(**)
 (*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)
 (*Arrow@BezierCurve[{*)
 (*{end/2,0},{0,end/2},{end,end/2},{end/2,0}*)
 (*}],Line[{{end/2,3/8*end},{end/2,end/2}}],*)
+(*Rectangle[{end/2-1.5delta,-1.5delta},{end/2+1.5delta,1.5delta}],*)
 (*Text["v1",{end/2,-4delta}],Text["v2",{end/2,end/3-delta}]*)
 (*},*)
 (*ImageSize->Small]*)
@@ -774,7 +809,7 @@ fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
 fyTag={"bub","mes","ten","o2"};
 coeJoin[fyTag]=Join[
 (*\:52a0\:4e0a\:8d39\:66fc\:56fe\:7684\:7f16\:53f7*)
-Query[All,Prepend[chTagKey["Diag"]->chTag[fyTag]]]@vtxJoin[fyTag],
+Query[All,Prepend[chTagKey["chTag"]->chTag[fyTag]]]@vtxJoin[fyTag],
 (*\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:5b57\:6bb5*)
 Query[All,
 <|
@@ -801,7 +836,6 @@ serialize[fyTag,coeJoin]
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(**)
 (*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Line[{{end/4,delta},{3/4end,delta}}],*)
@@ -907,7 +941,6 @@ serialize[fyTag,coeJoin]
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(**)
 (*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)
@@ -1000,7 +1033,7 @@ fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
 fyTag={"RB","dec","F1F2"};
 coeJoin[fyTag]=Join[
 (*\:52a0\:4e0a\:8d39\:66fc\:56fe\:7684\:7f16\:53f7*)
-Query[All,Prepend[chTagKey["Diag"]->chTag[fyTag]]]@vtxJoin[fyTag],
+Query[All,Prepend[chTagKey["chTag"]->chTag[fyTag]]]@vtxJoin[fyTag],
 (*\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:5b57\:6bb5*)
 Query[All,
 <|
@@ -1011,7 +1044,18 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serialize[fyTag,coeJoin]
+(*---------------------------- \:751f\:6210 F1 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
+fyTagTmp={"RB","dec","F1"};
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]]@Query[
+All,KeyDrop[{fyCoeKeycAllF2,fyCoeKeycStrF2,fyCoeKeycEMF2}](*\:5220\:9664\:5197\:4f59\:7684\:8026\:5408\:7cfb\:6570\:4fe1\:606f*)
+]@coeJoin[fyTag];
+serialize[fyTagTmp,coeJoin];
+(*---------------------------- \:751f\:6210 F2 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
+fyTagTmp={"RB","dec","F2"};
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
+]@Query[All,KeyDrop[{fyCoeKeycAllF1,fyCoeKeycStrF1,fyCoeKeycEMF1}]
+]@coeJoin[fyTag];
+serialize[fyTagTmp,coeJoin];
 
 
 (* ::Input:: *)
@@ -1028,7 +1072,6 @@ serialize[fyTag,coeJoin]
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(**)
 (*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)
@@ -1112,7 +1155,7 @@ coeJoin[fyTag]=Query[All,KeyDrop[(*\:5220\:9664\:5197\:4f59\:7684\:8026\:5408\:7
 ]
 ]@Join[
 (*\:52a0\:4e0a\:8d39\:66fc\:56fe\:7684\:7f16\:53f7*)
-Query[All,Prepend[chTagKey["Diag"]->chTag[fyTag]]]@vtxJoin[fyTag],
+Query[All,Prepend[chTagKey["chTag"]->chTag[fyTag]]]@vtxJoin[fyTag],
 (*\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:5b57\:6bb5*)
 Query[All,
 <|
@@ -1141,7 +1184,6 @@ serialize[fyTag,coeJoin]
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(**)
 (*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)
@@ -1225,7 +1267,7 @@ coeJoin[fyTag]=Query[All,KeyDrop[(*\:5220\:9664\:5197\:4f59\:7684\:8026\:5408\:7
 ]
 ]@Join[
 (*\:52a0\:4e0a\:8d39\:66fc\:56fe\:7684\:7f16\:53f7*)
-Query[All,Prepend[chTagKey["Diag"]->chTag[fyTag]]]@vtxJoin[fyTag],
+Query[All,Prepend[chTagKey["chTag"]->chTag[fyTag]]]@vtxJoin[fyTag],
 (*\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:5b57\:6bb5*)
 Query[All,
 <|
@@ -1254,7 +1296,6 @@ serialize[fyTag,coeJoin]
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(**)
 (*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)
@@ -1348,7 +1389,6 @@ serialize[fyTag,coeJoin]
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(**)
 (*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)
@@ -1440,17 +1480,21 @@ serialize[fyTag,coeJoin]
 (*Kroll-Ruderman, A-meson,decuplet,addition,left*)
 
 
-fyTag={"KR","mes","dec","add","left"};
-fyTagTmp={"KR","mes","dec","left"};
-coeJoin[fyTag]=coeJoin[fyTagTmp];
-serialize[fyTag,coeJoin]
+(* \:989d\:5916 KR \:56fe\:7684\:7cfb\:6570\:548c \:666e\:901a KR \:56fe\:7684\:7cfb\:6570\:76f8\:540c*)
+fyTagTmp={"KR","mes","dec","add","left"};
+fyTag={"KR","mes","dec","left"};
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
+]@coeJoin[fyTag];
+serialize[fyTagTmp,coeJoin]
 
 
 (* ::Section:: *)
 (*Kroll-Ruderman, A-meson,decuplet,addition,right*)
 
 
-fyTag={"KR","mes","dec","add","right"};
-fyTagTmp={"KR","mes","dec","right"};
-coeJoin[fyTag]=coeJoin[fyTagTmp];
-serialize[fyTag,coeJoin]
+(* \:989d\:5916 KR \:56fe\:7684\:7cfb\:6570\:548c \:666e\:901a KR \:56fe\:7684\:7cfb\:6570\:76f8\:540c*)
+fyTagTmp={"KR","mes","dec","add","right"};
+fyTag={"KR","mes","dec","right"};
+coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
+]@coeJoin[fyTag];
+serialize[fyTagTmp,coeJoin]
