@@ -26,6 +26,7 @@ recurFind[start];
 ]
 (* \:8bb0\:5f55 master Kernel \:7684\:8fd0\:884c\:6a21\:5f0f*)
 $inNBook=$Notebooks;
+echo[DateString[]];
 
 
 (* ::Section:: *)
@@ -184,7 +185,7 @@ SetAttributes[paraEnvIO,HoldAll];
 paraEnvIO[tag_,loopRefine_]:=ParallelSubmit[
 Block[{int,intTag,intExpr,time0Result,anaExpr,path},
 (*\:8bfb\:53d6\:79ef\:5206\:7684 wdx \:6587\:4ef6 *)
-echo["Refine loop integral of: ",tag];
+echo["Refine loop integral of: ",tag];echo[DateString[]];
 int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>".wdx"}]];
 (* \:4ece\:5173\:8054\:4e2d\:63d0\:53d6\:8868\:8fbe\:5f0f\:ff0c\:4f7f\:7528 Part \:8bed\:6cd5\:66f4\:5feb,\:76f8\:6bd4\:4e8e\:51fd\:6570\:8bed\:6cd5 *)
 intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)

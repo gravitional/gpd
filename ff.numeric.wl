@@ -21,7 +21,7 @@ Throw["I cann't find any init.wl in this project"]
 recurFind[start];
 ]
 (* \:8bb0\:5f55 master Kernel \:7684\:8fd0\:884c\:6a21\:5f0f*)
-$inNBook=$Notebooks;
+$inNBook=$Notebooks;echo[DateString[]," <<",fileName];
 
 
 (* ::Section:: *)
@@ -35,7 +35,7 @@ inputCml=$ScriptCommandLine,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
 inputCml={
 fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
 (* \:5728\:8fd9\:91cc\:63d0\:4f9b\:5176\:4ed6\:53c2\:6570, \:4f7f\:7528 mathematica \:8bed\:6cd5\:4e0b\:7684\:5f62\:5f0f\:ff0c\:5916\:9762\:7684 enString \:4f1a\:81ea\:52a8\:8f6c\:6362\:6210\:5b57\:7b26\:4e32, \:5c3d\:91cf\:591a\:4f7f\:7528Association\:7ed3\:6784*)
-"full",0.80`20,1.00`20,"Baryons","L_0.90_ci_1.00"
+"full",0.80`20,1.00`20,"Baryons","L-0.90.ci-1.00"
 }];
 echo["the input parameter is:\n",inputCml];
 
@@ -51,23 +51,26 @@ enString@inputCml[[6]]
 (*++++++++++++++++++++++++++++++++++++++++ \:68c0\:67e5\:8f93\:5165\:7684\:53c2\:6570\:662f\:5426\:5408\:6cd5 ++++++++++++++++++++++++++++++++++++++++*)
 If[Nand[
 StringMatchQ[cFitting,{"Sigma1","Sigma2","Nucleon","Cascade","Baryons"}],
-StringMatchQ[errorbarQ,{"notbar" ,"L_"~~NumberString~~"_ci_"~~NumberString}] (*eg."L_0.90_ci_1.50"*)
+StringMatchQ[errorbarQ,{"notbar","L-"~~NumberString~~".ci-"~~NumberString}] (*eg."L_0.90_ci_1.50"*)
 ],
 echo["Please check the input parameters"];Abort[]
 ]
 
 
-c3=c2-c1;
+(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
+echo[fittingsDir=FileNameJoin[{gitLocalName,"fittings"}]];
+If[!DirectoryQ[fittingsDir],CreateDirectory[fittingsDir];echo["Create a new directory: ./fittings/"]] ;
 (*++++++++++++++++++++++++++++++++ \:8bfb\:53d6c1,c2\:7684\:53d6\:503c ++++++++++++++++++++++++++++++++*)
+c3=c2-c1;
 echo["c1,c2 configuration"]
 If[errorbarQ==="notbar",
 (*++++++++++++++++++++++++++++++++ \:5982\:679c\:4e0d\:662f\:4e3a\:4e86\:8ba1\:7b97Error\:ff0c\:5c31\:4f7f\:7528\:5339\:914d\:7684c1c2\:8fdb\:884c\:8ba1\:7b97 ++++++++++++++++++++++++++++++++*)
-Print[cFittingDir=FileNameJoin[{gitLocalName,"expression-mfiles","c1c2_magfit_L_"<>par\[CapitalLambda]<>"_ci_"<>parC<>".m"}]];
+echo[cFittingPath=FileNameJoin[{fittingsDir,"c1c2-magfit.L-"<>par\[CapitalLambda]<>".ci-"<>parC<>".wdx"}]];
 (*++++++++++++++++++++++++++++++++ \:4f7f\:7528\:7b2c\:4e8c\:79cd\:91cd\:6574\:5316\:65b9\:6848,Z*tree+loop ++++++++++++++++++++++++++++++++*)
-Print[configc1c2=Get[cFittingDir][cFitting][[2,2]]];,
+echo[configc1c2=Import[cFittingPath][cFitting][[2,2]]];,
 (*++++++++++++++++++++++++++++++++ \:5982\:679c\:662f\:4e3a\:4e86\:8ba1\:7b97Error\:ff0c\:5c31\:4f7f\:7528\:6307\:5b9a \[CapitalLambda],ci \:5bf9\:5e94\:7684c1c2\:8fdb\:884c\:8ba1\:7b97 ++++++++++++++++++++++++++++++++*)
-Print[cFittingDir=FileNameJoin[{gitLocalName,"expression-mfiles","c1c2_magfit_"<>errorbarQ<>".m"}]];
-Print[configc1c2=Get[cFittingDir][cFitting][[2,2]]];
+echo[cFittingPath=FileNameJoin[{fittingsDir,"c1c2-magfit."<>errorbarQ<>".wdx"}]];
+echo[configc1c2=Import[cFittingPath][cFitting][[2,2]]];
 ]
 
 
@@ -85,10 +88,13 @@ echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 echo[coesDir=FileNameJoin[{gitLocalName,"coes"}]];
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868*)
 fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
+fyAmpPart=fyAmpTagLst[[1;;3]];
 
 
 echo["start import analytic and coes "];
-analytic=Import[FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[#,"."]<>".wdx"}]]&/@fyAmpTagLst;
+anaExpr=<|#->Import[FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[#,"."]<>".wdx"}]][["expr"]]|>&/@fyAmpPart;
+(* coes *)
+anaCoes=<|#->Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[#,"."]<>".wdx"}]]|>&/@fyAmpPart;
 
 
 (*\:8bfb\:5165\:7cfb\:6570\:63a5\:53e3*)
@@ -126,7 +132,7 @@ massV@fd[3,8,2]=mass\[CapitalXi]s;massV@fd[3,7,2]=mass\[CapitalXi]s;
 massV@fd[3,10,2]=mass\[CapitalOmega];
 
 
-massNum={
+numMass={
 (*  octet mesons *)
 mass\[Pi]->0.1381`20,massK->0.4956`20,mass\[Eta]8->0.5693`20,mass\[Eta]0->0.9452`20,
 (*  octet baryons *)

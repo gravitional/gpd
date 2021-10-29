@@ -25,7 +25,7 @@ Throw["I cann't find any init.wl in this project"]
 recurFind[start];
 ]
 (* \:8bb0\:5f55 master Kernel \:7684\:8fd0\:884c\:6a21\:5f0f*)
-$inNBook=$Notebooks;
+$inNBook=$Notebooks;echo[DateString[]];
 
 
 (* ::Section:: *)
