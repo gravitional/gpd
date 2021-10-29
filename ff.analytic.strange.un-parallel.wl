@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*analytic_local.wl*)
+(*ff.analytic.strange.un-parallel.wl*)
 
 
 (* ::Chapter:: *)
@@ -45,7 +45,7 @@ inputCml={
 fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:4ee4\:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:6b64\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
 (* \:5728\:8fd9\:91cc\:63d0\:4f9b\:5176\:4ed6\:53c2\:6570, \:4f7f\:7528 mathematica \:8bed\:6cd5\:4e0b\:7684\:5f62\:5f0f\:ff0c\:5916\:9762\:7684 enString \:4f1a\:81ea\:52a8\:8f6c\:6362\:6210\:5b57\:7b26\:4e32, \:5c3d\:91cf\:591a\:4f7f\:7528Association\:7ed3\:6784*)
 "full",
-"{16}"
+"All"
 }
 ];
 echo["the input parameter is:\n",inputCml];
@@ -54,7 +54,7 @@ echo["the input parameter is:\n",inputCml];
 (*\:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406*)
 (*+++++++++++++++++++++++++++++++++++++ \:9ed8\:8ba4\:503c +++++++++++++++++++++++++++++++++++++*)
 parOrder="full";
-fyAmpTagPart=fyAmpTagLst[[{17}]];(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
+fyAmpTagPart=fyAmpTagLst[[All]];(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
 (*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 3 +++++++++++++++++++++++++++++++++++++*)
 If[Length@inputCml>=3,
 Check[
@@ -139,7 +139,7 @@ intExpr=If[MatchQ[Head[#],Plus],Cancel/@#,Cancel@#
 time0Result=loopRefine[intExpr]//AbsoluteTiming;
 (* \:5c06\:7ed3\:679c\:8868\:793a\:6210 Association *)
 anaExpr=<|
-"tag"->intTag,
+chTagKey["chTag"]->chTag[intTag],
 "time"->First@time0Result,
 "expr"->Last@time0Result
 |>;

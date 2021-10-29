@@ -75,7 +75,7 @@ echo[configc1c2=Import[cFittingPath][cFitting][[2,2]]];
 
 
 (* ::Section:: *)
-(*read*)
+(*Read coes and exprs*)
 
 
 (*\:8f7d\:5165 package-X*)
@@ -84,17 +84,11 @@ chopLimit=10^-10;(*cut\:7cbe\:5ea6*)
 precision=20;(*\:7cbe\:786e\:5ea6*)
 
 
-echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 echo[coesDir=FileNameJoin[{gitLocalName,"coes"}]];
+echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868*)
 fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
 fyAmpPart=fyAmpTagLst[[1;;3]];
-
-
-echo["start import analytic and coes "];
-anaExpr=<|#->Import[FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[#,"."]<>".wdx"}]][["expr"]]|>&/@fyAmpPart;
-(* coes *)
-anaCoes=<|#->Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[#,"."]<>".wdx"}]]|>&/@fyAmpPart;
 
 
 (*\:8bfb\:5165\:7cfb\:6570\:63a5\:53e3*)
@@ -102,7 +96,7 @@ Get[FileNameJoin[{gitLocalName,"coes.interface.wl"}]];
 
 
 (* ::Section:: *)
-(*kinematic quantities*)
+(*Kinematic & Couplings*)
 
 
 (*\:58f0\:660e\:4e00\:4e9b\:8fd0\:52a8\:5b66\:53d8\:91cf,\:4f7f\:7528 atom \:8868\:8fbe\:5f0f\:ff0cpackage-X \:7684 loopIntegrate \:9700\:8981\:79ef\:5206\:52a8\:91cf\:4e3a\:539f\:5b50\:8868\:8fbe\:5f0f*)
@@ -133,6 +127,7 @@ massV@fd[3,10,2]=mass\[CapitalOmega];
 
 
 numMass={
+\[CapitalLambda]->0.80`20,
 (*  octet mesons *)
 mass\[Pi]->0.1381`20,massK->0.4956`20,mass\[Eta]8->0.5693`20,mass\[Eta]0->0.9452`20,
 (*  octet baryons *)
@@ -142,3 +137,35 @@ massUUU->0.939`20,massDDD->0.939`20,masssss->1.315`20,
 (*  decuplet baryons *)
 mass\[CapitalDelta]->1.232`20,mass\[CapitalSigma]s->1.385`20,mass\[CapitalXi]s->1.530`20,mass\[CapitalOmega]->1.672`20
 };
+
+
+(*c1->2.081,c2->(2/3 c1-1),c3->(-1/3 c1-1)*)
+configc1c2={c1->1.7356`20,c2->0.329`20};
+numCoupLst={
+cc["f"]->0.093`20,
+cc["D"]->0.76`20, cc["F"]->0.5`20,
+cc["C"]->parC,
+\[CapitalLambda]->par\[CapitalLambda],
+ch["u"]->2/3,ch["d"]->-1/3,ch["s"]->-1/3,
+Sequence@@configc1c2
+};
+
+
+(* ::Section:: *)
+(*a*)
+
+
+echo["start import coeffs and loop-exprs "];
+(* import coes *)
+SetAttributes[paraEnvIO,HoldAll];
+paraEnvIO[tag_]:=ParallelSubmit[
+Block[{coes,expr,assocLst},
+coes=Catenate[Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[#,"."]<>".wdx"}]]&/@fyAmpPart];
+expr=Import[FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[#,"."]<>".wdx"}]]&/@fyAmpPart;
+(* JoinAcross \:5229\:7528\:516c\:5171\:7684 chpt \:8d39\:66fc\:56fe tag\:ff0c\:8fde\:63a5\:7cfb\:6570\:4e0e\:5708\:79ef\:5206\:8868\:8fbe\:5f0f *)
+assocLst=JoinAcross[anaCoes,anaExpr,Key@chTagKey["chTag"]];
+(*++++++++++++++++++++*)
+teb=Query[All,
+(#[[Key@"expr"]]/.#)*(#[[Key@fyCoeKeycAll]]/.{fyCoe->Times,vtxCoe->Identity})&
+]@assocLst
+]]
