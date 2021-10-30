@@ -205,7 +205,7 @@ Block[{numer,denom,fyAmp,time0Result,path},
 numer=Times@@Cases[scalar,num[x_]:>x]*spin;(*\:751f\:6210\:5206\:5b50,*)
 denom=Cases[scalar,prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
 (* -----------------\:8fd4\:56de\:503c: \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
-echo["loopIntegrate on: ",fyTag];
+echo[DateString[],": loopIntegrate on: ",fyTag];
 time0Result=LoopIntegrate[numer,k,Sequence@@denom,Cancel->Automatic,Apart->True]/.onShell//AbsoluteTiming;
 fyAmp=<|
 "tag"->fyTag,
@@ -214,7 +214,7 @@ fyAmp=<|
 |>;
 (*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:5e76\:6253\:5370\:4fdd\:5b58\:6210\:529f*)
 path=FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[fyTag,"."]<>".wdx"}];
-Export[path,fyAmp];echo["Exporting finished: ",path];
+Export[path,fyAmp];echo[DateString[],": Exporting finished: ",path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:4e2d\:ff0c\:8fd4\:56de\:8ba1\:7b97\:7684\:7ed3\:679c*)
 If[$inNBook,fyAmp]]
 ]

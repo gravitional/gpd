@@ -147,25 +147,61 @@ cc["D"]->0.76`20, cc["F"]->0.5`20,
 cc["C"]->parC,
 \[CapitalLambda]->par\[CapitalLambda],
 ch["u"]->2/3,ch["d"]->-1/3,ch["s"]->-1/3,
+fyCoe->Times,vtxCoe->Identity,
 Sequence@@configc1c2
 };
+
+
+DiscBChop[x__]:=Chop[DiscB[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
+ScalarC0Chop[x__]:=Chop[ScalarC0[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
+numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
+
+
+paraInitial=Hold[
+(*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236, \:5173\:95ed Simplify \:5316\:7b80\:65f6\:95f4\:8d85\:51fa \:4fe1\:606f*)
+SetOptions[Simplify,TimeConstraint->1];
+SetOptions[Refine,TimeConstraint->1];
+Off[Simplify::time];Off[Refine::time];
+];
+ReleaseHold@paraInitial
+ParallelEvaluate[ReleaseHold@paraInitial];
+
+
+(*\:5e76\:884c\:8ba1\:7b97\:521d\:59cb\:5316*)
+DistributeDefinitions[
+gitLocalName,fileName,echo,enList,enString,$inNBook,
+parOrder,par\[CapitalLambda],parC,cFitting,errorbarQ,
+coesDir,mfilesDir,fyAmpPart,
+massV,numMass,numCoupLst,numPaVe
+];
+
+
+(* ::Chapter:: *)
+(*a*)
 
 
 (* ::Section:: *)
 (*a*)
 
 
+(*I I/(16\[Pi]^2)*)
 echo["start import coeffs and loop-exprs "];
 (* import coes *)
 SetAttributes[paraEnvIO,HoldAll];
 paraEnvIO[tag_]:=ParallelSubmit[
 Block[{coes,expr,assocLst},
-coes=Catenate[Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[#,"."]<>".wdx"}]]&/@fyAmpPart];
-expr=Import[FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[#,"."]<>".wdx"}]]&/@fyAmpPart;
+coes=Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[tag,"."]<>".wdx"}]];
+expr={Import[FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[tag,"."]<>".wdx"}]]};
 (* JoinAcross \:5229\:7528\:516c\:5171\:7684 chpt \:8d39\:66fc\:56fe tag\:ff0c\:8fde\:63a5\:7cfb\:6570\:4e0e\:5708\:79ef\:5206\:8868\:8fbe\:5f0f *)
-assocLst=JoinAcross[anaCoes,anaExpr,Key@chTagKey["chTag"]];
+assocLst=JoinAcross[coes,expr,Key@chTagKey["chTag"]];
 (*++++++++++++++++++++*)
-teb=Query[All,
-(#[[Key@"expr"]]/.#)*(#[[Key@fyCoeKeycAll]]/.{fyCoe->Times,vtxCoe->Identity})&
-]@assocLst
-]]
+teb=Query[All,KeyDrop[{
+mE,mm1,mo1,mo2,md1,md2,"time",fyCoeKey["cStr"],fyCoeKey["cEM"]
+}]]@Query[All,
+Append[#,"expr"->
+(#[["expr"]]/.numPaVe/.#/.numMass)*(#[[Key@fyCoeKeycAll]]/.numCoupLst)
+]&]@assocLst]]
+
+
+(* ::Chapter:: *)
+(*tree level*)

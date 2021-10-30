@@ -54,7 +54,7 @@ echo["the input parameter is:\n",inputCml];
 (*\:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406*)
 (*+++++++++++++++++++++++++++++++++++++ \:9ed8\:8ba4\:503c +++++++++++++++++++++++++++++++++++++*)
 parOrder="full";
-fyAmpTagPart=fyAmpTagLst[[All]];(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
+fyAmpTagPart=fyAmpTagLst;(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
 (*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 3 +++++++++++++++++++++++++++++++++++++*)
 If[Length@inputCml>=3,
 Check[
@@ -126,7 +126,7 @@ ReleaseHold@paraInitial
 (*\:8bbe\:7f6e\:73af\:5883:\:8bfb\:53d6\:79ef\:5206\:8868\:8fbe\:5f0f\:ff0c\:4ee5\:53ca\:5c06\:8ba1\:7b97\:7684\:7ed3\:679c\:5199\:5165\:78c1\:76d8, \:53c2\:6570: \:5708\:79ef\:5206tag, \:5177\:4f53\:5904\:7406\:79ef\:5206\:7684\:51fd\:6570*)
 paraEnvIO[tag_,loopRefine_]:=Block[{int,intTag,intExpr,time0Result,anaExpr,path},
 (*\:8bfb\:53d6\:79ef\:5206\:7684 wdx \:6587\:4ef6 *)
-echo["Refine loop integral of: ",tag];echo[DateString[]];
+echo[DateString[],": Refine loop integral of: ",tag];
 int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>".wdx"}]];
 (* \:4ece\:5173\:8054\:4e2d\:63d0\:53d6\:8868\:8fbe\:5f0f\:ff0c\:4f7f\:7528 Part \:8bed\:6cd5\:66f4\:5feb,\:76f8\:6bd4\:4e8e\:51fd\:6570\:8bed\:6cd5 *)
 intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)
@@ -145,7 +145,8 @@ chTagKey["chTag"]->chTag[intTag],
 |>;
 (*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:4fdd\:5b58\:8ba1\:7b97\:51fa\:7684\:7ed3\:679c*)
 path=FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
-Export[path,anaExpr];echo["Exporting finished: ", path];
+Export[path,anaExpr];
+echo[DateString[],": Exporting finished: ", path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:754c\:9762,\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*)
 If[$inNBook,anaExpr]]
 

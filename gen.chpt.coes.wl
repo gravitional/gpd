@@ -1228,18 +1228,17 @@ vtxType1=vtxType["F1","oct"];vtx1=vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F2","oct"];vtx2=vtx[unq["type"->vtxType2]];
 vtxF1=vtxType["F1","oct","nloc"];
 vtxF2=vtxType["F2","oct","nloc"];
-massKeyOct=MassKey["vtx","oct"];
-k\[CapitalLambda]0=kn["\[CapitalLambda]0"];
-kQ=kn["Q"];
+massKey=mE;
+\[CapitalLambda];Q2;(*\:8fd0\:52a8\:5b66\:91cf*)
 (* --------------------------------- \:6c42\:89e3\:65b9\:7a0b --------------------------------- *)
 vtx[unq["type"->vtxtp]]=Query[All,KeyDrop[{vtxType1,vtxType2}](*\:53bb\:9664\:5197\:4f59\:7684\:8bb0\:5f55*)
 ]@Query[All,(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f,\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
 Append[#,First@Solve[{
-vtxF1-kQ^2/(4 #@massKeyOct^2)*vtxF2==#@vtxType1*k\[CapitalLambda]0^4/(kQ^2+k\[CapitalLambda]0^2)^2,
-vtxF1+vtxF2==k\[CapitalLambda]0^4/(kQ^2+k\[CapitalLambda]0^2)^2 (#@vtxType1 + #@vtxType2)}
+vtxF1-Q2/(4 #@massKey^2)*vtxF2==#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
+vtxF1+vtxF2==\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)}
 ,{vtxF1,vtxF2}]]&
 ]@Query[All,(*\:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag*)
-Append[#,massKeyOct->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,2])]&
+Append[#,massKey->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,2])]&
 ]@JoinAcross[vtx1,vtx2,(*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
 {Key@fdTypeOctb,Key@fdTypeOct}];
 
@@ -1261,20 +1260,18 @@ vtxType1=vtxType["F1","oct","o2"];vtx1=vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F2","oct","o2"];vtx2=vtx[unq["type"->vtxType2]];
 vtxF1=vtxType["F1","oct","o2","nloc"];
 vtxF2=vtxType["F2","oct","o2","nloc"];
-massKeyOct=MassKey["vtx","oct"];
-k\[CapitalLambda]0=kn["\[CapitalLambda]0"];
-kQ=kn["Q"];
+massKey=mE;
 (* --------------------------------- \:6c42\:89e3\:65b9\:7a0b --------------------------------- *)
 vtx[unq["type"->vtxtp]]=Query[All,KeyDrop[{vtxType1,vtxType2}]
 ]@Query[All,(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f,\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
 Append[#,First@Solve[{
-vtxF1-kQ^2/(4#@massKeyOct^2) vtxF2==#@vtxType1*k\[CapitalLambda]0^4/(kQ^2+k\[CapitalLambda]0^2)^2,
-vtxF1+vtxF2==k\[CapitalLambda]0^4/(kQ^2+k\[CapitalLambda]0^2)^2 (#@vtxType1+ #@vtxType2)
+vtxF1-Q2/(4#@massKey^2) vtxF2==#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
+vtxF1+vtxF2==\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1+ #@vtxType2)
 }
 ,{vtxF1,vtxF2}
 ]]&
 ]@Query[All,(*\:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag*)
-Append[#,massKeyOct->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,2])]&
+Append[#,massKey->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,2])]&
 ]@JoinAcross[vtx1,vtx2,(*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
 {Key@fdTypeOctb,Key@fdTypeOct,Key@fdTypeMes,Key@fdTypeMesOut}
 ];
@@ -1289,18 +1286,16 @@ vtxtp=vtxType["F1F2","dec","nloc"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\
 vtxType1=vtxType["F1","dec"];vtx1=vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F2","dec"];vtx2=vtx[unq["type"->vtxType2]];
 vtxF1=vtxType["F1","dec","nloc"];vtxF2=vtxType["F2","dec","nloc"];
-massKeyDec=MassKey["vtx","dec"];
-k\[CapitalLambda]0=kn["\[CapitalLambda]0"];
-kQ=kn["Q"];
+massKey=mE;
 (* --------------------------------- \:6c42\:89e3\:65b9\:7a0b --------------------------------- *)
 vtx[unq["type"->vtxtp]]=Query[All,KeyDrop[{vtxType1,vtxType2}](*\:53bb\:9664\:5197\:4f59\:7684\:8bb0\:5f55*)
 ]@Query[All,(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f,\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
 Append[#,First@Solve[{
-vtxF1-kQ^2/(4 #@massKeyDec^2)*vtxF2==#@vtxType1*k\[CapitalLambda]0^4/(kQ^2+k\[CapitalLambda]0^2)^2,
-vtxF1+vtxF2==k\[CapitalLambda]0^4/(kQ^2+k\[CapitalLambda]0^2)^2 (#@vtxType1 + #@vtxType2)}
+vtxF1-Q2/(4 #@massKey^2)*vtxF2==#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
+vtxF1+vtxF2==\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)}
 ,{vtxF1,vtxF2}]]&
 ]@Query[All,(*\:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag*)
-Append[#,massKeyDec->(#@fdTypeDec/.fd[a_,b_,0]:>fd[a,b,2])]&
+Append[#,massKey->(#@fdTypeDec/.fd[a_,b_,0]:>fd[a,b,2])]&
 ]@JoinAcross[vtx1,vtx2,(*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
 {Key@fdTypeDecb,Key@fdTypeDec}];
 

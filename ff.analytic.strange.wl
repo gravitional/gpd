@@ -151,7 +151,7 @@ ParallelEvaluate[ReleaseHold@paraInitial];
 If[$fineSubmit,
 paraEnvIO[tag_,loopRefine_]:=Block[{int,intTag,intExpr,time0Result,anaExpr,path},
 (*\:8bfb\:53d6\:79ef\:5206\:7684 wdx \:6587\:4ef6 *)
-echo["Refine loop integral of: ",tag];
+echo[DateString[],": Refine loop integral of: ",tag];
 int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>".wdx"}]];
 (* \:4ece\:5173\:8054\:4e2d\:63d0\:53d6\:8868\:8fbe\:5f0f\:ff0c\:4f7f\:7528 Part \:8bed\:6cd5\:66f4\:5feb, \:76f8\:6bd4\:4e8e\:51fd\:6570\:8bed\:6cd5 *)
 intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)
@@ -164,13 +164,14 @@ loopRefine,#,{2},(* \:8ba1\:7b97\:89e3\:6790\:8868\:8fbe\:5f0f, Mapping loopRefi
 Method->"FinestGrained"(*Method->Automatic*)
 ]&@intExpr//AbsoluteTiming;
 anaExpr=<|
-"tag"->intTag,
+chTagKey["chTag"]->chTag[intTag],
 "time"->First@time0Result,
 "expr"->Last@time0Result
 |>;
 (*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:4fdd\:5b58\:8ba1\:7b97\:51fa\:7684\:7ed3\:679c*)
 path=FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
-Export[path,anaExpr];echo["Exporting finished: ", path];
+Export[path,anaExpr];
+echo[DateString[],": Exporting finished: ", path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:754c\:9762,\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*)
 If[$inNBook,anaExpr],
 (* +++++++++++++++++ \:5982\:679c\:5708\:79ef\:5206\:4e0d\:662f Plus[...] \:7684\:5f62\:5f0f +++++++++++++++++++ *)
@@ -185,7 +186,7 @@ SetAttributes[paraEnvIO,HoldAll];
 paraEnvIO[tag_,loopRefine_]:=ParallelSubmit[
 Block[{int,intTag,intExpr,time0Result,anaExpr,path},
 (*\:8bfb\:53d6\:79ef\:5206\:7684 wdx \:6587\:4ef6 *)
-echo["Refine loop integral of: ",tag];echo[DateString[]];
+echo[DateString[],": Refine loop integral of: ",tag];
 int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>".wdx"}]];
 (* \:4ece\:5173\:8054\:4e2d\:63d0\:53d6\:8868\:8fbe\:5f0f\:ff0c\:4f7f\:7528 Part \:8bed\:6cd5\:66f4\:5feb,\:76f8\:6bd4\:4e8e\:51fd\:6570\:8bed\:6cd5 *)
 intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)
@@ -198,13 +199,14 @@ intExpr=If[MatchQ[Head[#],Plus],Cancel/@#,Cancel@#
 time0Result=loopRefine[intExpr]//AbsoluteTiming;
 (* \:5c06\:7ed3\:679c\:8868\:793a\:6210 Association *)
 anaExpr=<|
-"tag"->intTag,
+chTagKey["chTag"]->chTag[intTag],
 "time"->First@time0Result,
 "expr"->Last@time0Result
 |>;
 (*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:4fdd\:5b58\:8ba1\:7b97\:51fa\:7684\:7ed3\:679c*)
 path=FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
-Export[path,anaExpr];echo["Exporting finished: ", path];
+Export[path,anaExpr];
+echo[DateString[],": Exporting finished: ", path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:754c\:9762,\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*)
 If[$inNBook,anaExpr]
 ]]]
