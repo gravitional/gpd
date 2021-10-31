@@ -38,10 +38,6 @@ recurFind[start];
 Get[FileNameJoin[{gitLocalName,"gen.format.wl"}]];(*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
 
 
-(* ::Chapter::Closed:: *)
-(*strong interaction*)
-
-
 (* ---------------------------- \:4e00\:4e9b\:8f93\:5165\:63a5\:53e3\:ff0c\:65b9\:4fbf\:8f93\:5165\:548c\:540e\:7eed\:66f4\:6539 ---------------------------- *)
 unq::usage="\:5c06\:8f93\:5165\:53c2\:6570\:7ec4\:6210\:5217\:8868\:ff0c\:6216\:8005\:5173\:8054,\:9884\:7559\:7684\:51fd\:6570\:63a5\:53e3";
 unq[fiels__]:=Association[fiels]
@@ -57,7 +53,11 @@ undefined;
 vtxCoeAnti[x_]:=vtxCoe[-x]
 
 
-(* ::Section:: *)
+(* ::Chapter::Closed:: *)
+(*strong interaction*)
+
+
+(* ::Section::Closed:: *)
 (*Strong,BB\[Phi],DF*)
 
 
@@ -151,7 +151,7 @@ vtxtpFlip->(#@vtxtp)
 ]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong, BT\[Phi], C*)
 
 
@@ -240,7 +240,7 @@ vtxtpFlip->(#@vtxtp/.vtxCoe->vtxCoeAnti)
 ]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong, TT\[Phi], H*)
 
 
@@ -327,7 +327,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalXi]*-"],mes["K0b"],coeIn[vtxtp,-1/Sqr
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong ,BB\[Phi]\[Phi]*)
 
 
@@ -404,7 +404,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mesout["K0b"],coe
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong,BB\[Phi]\[Phi],tensor coupling*)
 
 
@@ -485,7 +485,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mesout["K0b"],coe
 };
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Mass filed, electric magnetic current*)
 
 
@@ -547,7 +547,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],coeIn[vtxtp,0]](*\:6dfb\:52
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*F1,BB\[Phi]A, DF*)
 
 
@@ -701,7 +701,7 @@ vtxtpEMFlip->(#@vtxtpEM/.vtxCoe->vtxCoeAnti)
 ]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*F1,BT\[Phi]A, C*)
 
 
@@ -817,7 +817,7 @@ vtxtpEMFlip->(#@vtxtpEM)
 ]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*F1,oder2,BB\[Phi]\[Phi]A*)
 
 
@@ -925,7 +925,7 @@ coeIn[vtxtpStr,-I/2]]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*F1,TTA,order 1*)
 
 
@@ -958,7 +958,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*F1,TT\[Phi]\[Phi]A, order 2*)
 
 
@@ -1046,11 +1046,11 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],mes["K0"],mesout["K0b"],coe
 };
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*anomalous magnetic moment*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*octet,order1,BBA*)
 
 
@@ -1073,7 +1073,7 @@ unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[vtxtp,(cc["c1"](ch["u
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*octet,order2,BB\[Phi]\[Phi]A*)
 
 
@@ -1158,7 +1158,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],mes["K+"],mesout["K-"],coeI
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*decuplet,order1,TTA*)
 
 
@@ -1181,7 +1181,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*trans magnetic,order1,BTA*)
 
 
@@ -1226,21 +1226,33 @@ vtxtpFlip->(#@vtxtp/.vtxCoe->vtxCoeAnti)
 vtxtp=vtxType["F1F2","oct","nloc"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 vtxType1=vtxType["F1","oct"];vtx1=vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F2","oct"];vtx2=vtx[unq["type"->vtxType2]];
-vtxF1=vtxType["F1","oct","nloc"];
-vtxF2=vtxType["F2","oct","nloc"];
-massKey=mE;
-\[CapitalLambda];Q2;(*\:8fd0\:52a8\:5b66\:91cf*)
-(* --------------------------------- \:6c42\:89e3\:65b9\:7a0b --------------------------------- *)
-vtx[unq["type"->vtxtp]]=Query[All,KeyDrop[{vtxType1,vtxType2}](*\:53bb\:9664\:5197\:4f59\:7684\:8bb0\:5f55*)
-]@Query[All,(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f,\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
-Append[#,First@Solve[{
-vtxF1-Q2/(4 #@massKey^2)*vtxF2==#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
-vtxF1+vtxF2==\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)}
-,{vtxF1,vtxF2}]]&
-]@Query[All,(*\:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag*)
-Append[#,massKey->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,2])]&
-]@JoinAcross[vtx1,vtx2,(*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
-{Key@fdTypeOctb,Key@fdTypeOct}];
+vtxF1=vtxType["F1","oct","nloc"];vtxF2=vtxType["F2","oct","nloc"];
+vtxGE=vtxType["GE","oct","nloc"];vtxGM=vtxType["GM","oct","nloc"];
+massKey;\[CapitalLambda];Q2;(*\:8fd0\:52a8\:5b66\:91cf*)
+(* --------------------------------- \:6dfb\:52a0\:5404\:79cd tag --------------------------------- *)
+vtx[unq["type"->vtxtp]]=(Query[All,
+(*+++++++++++++++++++++++++ \:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag +++++++++++++++++++++++++*)
+(*\:590d\:5408\:7b97\:7b26:/*, \:88ab\:8fde\:63a5\:7684\:51fd\:6570\:4ece\:5de6\:5230\:53f3\:4f9d\:6b21\:4f5c\:7528\:5230\:5173\:8054\:4e0a *)
+(Append[#,massKey->
+(#@fdTypeOct/.fd[a_,b_,0]:>massV@fd[a,b,2])*
+(#@fdTypeOctb/.fd[c_,d_,1]:>massV@fd[c,d,2])
+]&)/*
+(*------------------------- \:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f, \:6dfb\:52a0 GE GMtag -------------------------*)
+(Append[#,{
+vtxGE->#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
+vtxGM->\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)
+}]&)/*
+(*------------------------- \:7528\:65b9\:7a0b\:53cd\:89e3\:51fa\:975e\:5b9a\:57df F1(Q2),F2(Q2), \:6dfb\:52a0 F1,F2 tag -------------------------*)
+(Append[#,First@Solve[{(* Solve \:8fd4\:56de Rules *)
+(*\:8fd9\:91cc\:76f4\:63a5\:628a massKey \:8f6c\:6362\:6210\:4e86\:5e95\:5c42\:7684\:8d28\:91cf\:5f62\:5f0f,\:4f8b\:5982 fd[2,1,2]*)
+vtxF1-Q2/(4*#@massKey)*vtxF2==#@vtxGE, 
+vtxF1+vtxF2==#@vtxGM}
+,{vtxF1,vtxF2}]]&)/*
+(*------------------------- \:5220\:6389\:5197\:4f59\:7684\:5b57\:6bb5 -------------------------*)
+KeyDrop[{vtxType1,vtxType2,massKey}]
+]@
+(*+++++++++++++++++++++++++ \:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765 +++++++++++++++++++++++++*)
+JoinAcross[vtx1,vtx2,{Key@fdTypeOctb,Key@fdTypeOct}]);
 
 
 (* ::Section:: *)
@@ -1258,23 +1270,32 @@ mesSym[vtx_]:=Union[vtx,vtx/.mesAntiRule];
 vtxtp=vtxType["F1F2","oct","o2","nloc"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 vtxType1=vtxType["F1","oct","o2"];vtx1=vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F2","oct","o2"];vtx2=vtx[unq["type"->vtxType2]];
-vtxF1=vtxType["F1","oct","o2","nloc"];
-vtxF2=vtxType["F2","oct","o2","nloc"];
-massKey=mE;
-(* --------------------------------- \:6c42\:89e3\:65b9\:7a0b --------------------------------- *)
-vtx[unq["type"->vtxtp]]=Query[All,KeyDrop[{vtxType1,vtxType2}]
-]@Query[All,(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f,\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
-Append[#,First@Solve[{
-vtxF1-Q2/(4#@massKey^2) vtxF2==#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
-vtxF1+vtxF2==\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1+ #@vtxType2)
-}
-,{vtxF1,vtxF2}
-]]&
-]@Query[All,(*\:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag*)
-Append[#,massKey->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,2])]&
-]@JoinAcross[vtx1,vtx2,(*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
-{Key@fdTypeOctb,Key@fdTypeOct,Key@fdTypeMes,Key@fdTypeMesOut}
-];
+vtxF1=vtxType["F1","oct","o2","nloc"];vtxF2=vtxType["F2","oct","o2","nloc"];
+vtxGE=vtxType["GE","oct","o2","nloc"];vtxGM=vtxType["GM","oct","o2","nloc"];
+massKey;\[CapitalLambda];Q2;(*\:8fd0\:52a8\:5b66\:91cf*)
+(* --------------------------------- \:6dfb\:52a0\:5404\:79cd tag --------------------------------- *)
+vtx[unq["type"->vtxtp]]=(Query[All,
+(*+++++++++++++++++++++++++ \:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag +++++++++++++++++++++++++*)
+(Append[#,massKey->
+(#@fdTypeOct/.fd[a_,b_,0]:>massV@fd[a,b,2])*
+(#@fdTypeOctb/.fd[c_,d_,1]:>massV@fd[c,d,2])
+]&)/*
+(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f,\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
+(Append[#,{
+vtxGE->#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
+vtxGM->\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)
+}]&)/*
+(*------------------------- \:7528\:65b9\:7a0b\:53cd\:89e3\:51fa\:975e\:5b9a\:57df F1(Q2),F2(Q2), \:6dfb\:52a0 F1,F2 tag -------------------------*)
+(Append[#,First@Solve[{(* Solve \:8fd4\:56de Rules *)
+(*\:8fd9\:91cc\:76f4\:63a5\:628a massKey \:8f6c\:6362\:6210\:4e86\:5e95\:5c42\:7684\:8d28\:91cf\:5f62\:5f0f,\:4f8b\:5982 fd[2,1,2]*)
+vtxF1-Q2/(4*#@massKey)*vtxF2==#@vtxGE, 
+vtxF1+vtxF2==#@vtxGM}
+,{vtxF1,vtxF2}]]&)/*
+(*------------------------- \:5220\:6389\:5197\:4f59\:7684\:952e -------------------------*)
+KeyDrop[{vtxType1,vtxType2,massKey}]
+]@
+(*+++++++++++++++++++++++++ \:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765 +++++++++++++++++++++++++*)
+JoinAcross[vtx1,vtx2,{Key@fdTypeOctb,Key@fdTypeOct,Key@fdTypeMes,Key@fdTypeMesOut}]);
 
 
 (* ::Section:: *)
@@ -1286,18 +1307,31 @@ vtxtp=vtxType["F1F2","dec","nloc"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\
 vtxType1=vtxType["F1","dec"];vtx1=vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F2","dec"];vtx2=vtx[unq["type"->vtxType2]];
 vtxF1=vtxType["F1","dec","nloc"];vtxF2=vtxType["F2","dec","nloc"];
-massKey=mE;
-(* --------------------------------- \:6c42\:89e3\:65b9\:7a0b --------------------------------- *)
-vtx[unq["type"->vtxtp]]=Query[All,KeyDrop[{vtxType1,vtxType2}](*\:53bb\:9664\:5197\:4f59\:7684\:8bb0\:5f55*)
-]@Query[All,(*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f,\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
-Append[#,First@Solve[{
-vtxF1-Q2/(4 #@massKey^2)*vtxF2==#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
-vtxF1+vtxF2==\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)}
-,{vtxF1,vtxF2}]]&
-]@Query[All,(*\:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag*)
-Append[#,massKey->(#@fdTypeDec/.fd[a_,b_,0]:>fd[a,b,2])]&
-]@JoinAcross[vtx1,vtx2,(*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
-{Key@fdTypeDecb,Key@fdTypeDec}];
+vtxGE=vtxType["GE","dec","nloc"];vtxGM=vtxType["GM","dec","nloc"];
+massKey;\[CapitalLambda];Q2;(*\:8fd0\:52a8\:5b66\:91cf*)
+(* --------------------------------- \:6dfb\:52a0\:5404\:79cd tag --------------------------------- *)
+vtx[unq["type"->vtxtp]]=(Query[All,
+(*+++++++++++++++++++++++++ \:52a0\:4e0a\:7c92\:5b50\:8d28\:91cftag +++++++++++++++++++++++++*)
+(Append[#,massKey->
+(#@fdTypeDec/.fd[a_,b_,0]:>massV@fd[a,b,2])*
+(#@fdTypeDecb/.fd[c_,d_,1]:>massV@fd[c,d,2])
+]&)/*
+(*------------------------- \:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f, \:6dfb\:52a0 GE GMtag -------------------------*)
+(Append[#,{
+vtxGE->#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
+vtxGM->\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)
+}]&)/*
+(*------------------------- \:7528\:65b9\:7a0b\:53cd\:89e3\:51fa\:975e\:5b9a\:57df F1(Q2),F2(Q2), \:6dfb\:52a0 F1,F2 tag -------------------------*)
+(Append[#,First@Solve[{(* Solve \:8fd4\:56de Rules *)
+(*\:8fd9\:91cc\:76f4\:63a5\:628a massKey \:8f6c\:6362\:6210\:4e86\:5e95\:5c42\:7684\:8d28\:91cf\:5f62\:5f0f,\:4f8b\:5982 fd[2,1,2]*)
+vtxF1-Q2/(4*#@massKey)*vtxF2==#@vtxGE, 
+vtxF1+vtxF2==#@vtxGM}
+,{vtxF1,vtxF2}]]&)/*
+(*------------------------- \:5220\:6389\:5197\:4f59\:7684\:5b57\:6bb5 -------------------------*)
+KeyDrop[{vtxType1,vtxType2,massKey}]
+]@
+(*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
+JoinAcross[vtx1,vtx2,{Key@fdTypeDecb,Key@fdTypeDec}]);
 
 
 (* ::Chapter:: *)

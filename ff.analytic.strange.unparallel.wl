@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*ff.analytic.strange.un-parallel.wl*)
+(*ff.analytic.strange.unparallel.wl*)
 
 
 (* ::Chapter:: *)
@@ -25,7 +25,7 @@ Throw["I cann't find any init.wl in this project"]
 recurFind[start];
 ]
 (* \:8bb0\:5f55 master Kernel \:7684\:8fd0\:884c\:6a21\:5f0f*)
-$inNBook=$Notebooks;echo[DateString[]];
+$inNBook=$Notebooks;echo["Executed time: ",DateString[]];
 
 
 (* ::Section:: *)
@@ -33,8 +33,8 @@ $inNBook=$Notebooks;echo[DateString[]];
 
 
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
-(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868*)
-fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
+(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
+Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
@@ -54,11 +54,11 @@ echo["the input parameter is:\n",inputCml];
 (*\:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406*)
 (*+++++++++++++++++++++++++++++++++++++ \:9ed8\:8ba4\:503c +++++++++++++++++++++++++++++++++++++*)
 parOrder="full";
-fyAmpTagPart=fyAmpTagLst;(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
+fyAmpTagPart=fyAmpLoopLst;(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
 (*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 3 +++++++++++++++++++++++++++++++++++++*)
 If[Length@inputCml>=3,
 Check[
-fyAmpTagPart=fyAmpTagLst[[ToExpression@inputCml[[3]]]],
+fyAmpTagPart=fyAmpLoopLst[[ToExpression@inputCml[[3]]]],
 echo["para 3: Part speciation is not valid"];Abort[]
 ]]
 (*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 2 +++++++++++++++++++++++++++++++++++++*)
@@ -152,23 +152,26 @@ If[$inNBook,anaExpr]]
 
 
 (*\:6839\:636e\:811a\:672c\:53c2\:6570\:ff0c\:7ed9\:51fa\:5e76\:884c\:8ba1\:7b97\:65f6 paraLRefine \:7684\:5177\:4f53\:5b9a\:4e49, \:8fdb\:884c\:7ea7\:6570\:5c55\:5f00\:ff0c\:6216\:8005\:8ba1\:7b97\:5b8c\:6574\:8868\:8fbe\:5f0f *)
-Switch[parOrder,
-(* +++++++++++++++++++++++++++++++++++++ order0 +++++++++++++++++++++++++++++++++++++  *)
-"ord0",
-paraLRefine[tag_]:=paraEnvIO[tag,
-LoopRefineSeries[#,{Q2,0,0},Organization->Function]&
-],
-(* +++++++++++++++++++ order1  ++++++++++++++++++ *)
-"ord1",
-paraLRefine[tag_]:=paraEnvIO[tag,
-LoopRefineSeries[#,{Q2,0,1},Organization->Function]&
-],
-(* +++++++++++++++++++ full  ++++++++++++++++++ *)
-"full",
-paraLRefine[tag_]:=paraEnvIO[tag,
-LoopRefine[#,Organization->Function]&
+paraLRefine[tag_]:=Switch[{parOrder,tag},
+(*+++++++++++++++++++ order0,RB F1,F2 +++++++++++++++++++*)
+{"ord0",{"RB","oct","F1"}|{"RB","oct","F2"}},
+paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,0},{mo2,mo1,1},Organization->Function]&],
+(*+++++++++++++++++++ order0,others +++++++++++++++++++*)
+{"ord0",_},
+paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,0},Organization->Function]&],
+(* +++++++++++++++++++ order1,RB F1,F2 ++++++++++++++++++ *)
+{"ord1",{"RB","oct","F1"}|{"RB","oct","F2"}},
+paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,1},{mo2,mo1,1},Organization->Function]&],
+(*+++++++++++++++++++ order1,others +++++++++++++++++++*)
+{"ord1",_},
+paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,1},Organization->Function]&],
+(*+++++++++++++++++++ full,RB F1,F2 +++++++++++++++++++*)
+{"full",{"RB","oct","F1"}|{"RB","oct","F2"}},
+paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},Organization->Function]&],
+(*+++++++++++++++++++ full,others +++++++++++++++++++*)
+{"full",_},
+paraEnvIO[tag,LoopRefine[#,Organization->Function]&]
 ]
-];
 
 
 (* ::Section:: *)

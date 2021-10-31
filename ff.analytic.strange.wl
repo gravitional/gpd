@@ -36,8 +36,8 @@ echo[DateString[]];
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
 If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory: ./mfiles/"]] ;
-(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868*)
-fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
+(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
+Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
@@ -58,7 +58,7 @@ echo["the input parameter is:\n",inputCml];
 (*\:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406*)
 (*+++++++++++++++++++++++++++++++++++++ \:9ed8\:8ba4\:503c +++++++++++++++++++++++++++++++++++++*)
 $fineSubmit=False;
-fyAmpTagPart=fyAmpTagLst;(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
+fyAmpTagPart=fyAmpLoopLst;(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
 parOrder="ord0";
 (*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 4 +++++++++++++++++++++++++++++++++++++*)
 If[Length@inputCml>=4,
@@ -70,7 +70,7 @@ _,echo["para 4: Parallel scheme, one of: 'coarse', 'fine'"];Abort[]
 (*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 3 +++++++++++++++++++++++++++++++++++++*)
 If[Length@inputCml>=3,
 Check[
-fyAmpTagPart=fyAmpTagLst[[ToExpression@inputCml[[3]]]],
+fyAmpTagPart=fyAmpLoopLst[[ToExpression@inputCml[[3]]]],
 echo["para 3: Part speciation is not valid"];Abort[]
 ]]
 (*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 2 +++++++++++++++++++++++++++++++++++++*)
@@ -93,7 +93,6 @@ Abort[]
 
 
 If[NameQ["\[Sigma]"],echo["please remove the definitions of \[Sigma], \[Sigma] will be used in package-X"];Remove["Global`\[Sigma]"]];(* \[Sigma] \:662f package-X \:7684\:4fdd\:7559\:6807\:8bc6\:7b26,\:9700\:8981\:6e05\:9664*)
-echo["launch parallel kernels"];
 (* \:5e76\:884c\:8fd0\:7b97\:51c6\:5907*)
 Needs["X`"];ParallelNeeds["X`"];
 (*\:542f\:52a8\:5e76\:884c\:5185\:6838*)

@@ -4,7 +4,7 @@
 (*integral_strange.wl*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*initial*)
 
 
@@ -28,15 +28,15 @@ recurFind[start];
 $inNBook=$Notebooks;echo[DateString[]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*cmd argumnets*)
 
 
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
 If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory: ./mfiles/"]] ;
-(* \:6240\:6709\:8d39\:66fc\:56fe\:7684 tag \:5217\:8868 *)
-fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
+(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
+Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
@@ -53,11 +53,11 @@ echo["the input parameter is:\n",inputCml];
 
 (*\:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406*)
 (*+++++++++++++++++++++++++++++++++++++ \:9ed8\:8ba4\:503c +++++++++++++++++++++++++++++++++++++*)
-fyAmpTagPart=fyAmpTagLst;(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
+fyAmpTagPart=fyAmpLoopLst;(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
 (*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 2 +++++++++++++++++++++++++++++++++++++*)
 If[Length@inputCml>=2,
 Check[
-echo[fyAmpTagPart=fyAmpTagLst[[ToExpression@inputCml[[2]]]]],
+echo[fyAmpTagPart=fyAmpLoopLst[[ToExpression@inputCml[[2]]]]],
 echo["para 2: Part speciation is not valid"];Abort[]
 ]]
 
@@ -153,7 +153,7 @@ LTensor[MetricG,\[Alpha],\[Beta]] Dirac1 -1/3 DiracMatrix[LTensor[DiracG,\[Alpha
  ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*kinematic quantities*)
 
 
@@ -223,7 +223,7 @@ If[$inNBook,fyAmp]]
 end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,mes,oct*)
 
 
@@ -257,7 +257,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,left*)
 
 
@@ -301,7 +301,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,right*)
 
 
@@ -529,7 +529,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tadpole,oct,F1*)
 
 
@@ -572,7 +572,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tadpole,oct,F1,add*)
 
 
@@ -616,7 +616,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tadpole,oct,F2*)
 
 
@@ -660,7 +660,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*bubble,mes,o2*)
 
 
@@ -704,7 +704,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*bubble,mes,ten,o2*)
 
 
@@ -748,7 +748,7 @@ tag
 ]];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*loop Integral: decuplet*)
 
 
@@ -987,7 +987,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,dec,left*)
 
 
@@ -1124,7 +1124,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,dec,add,right*)
 
 

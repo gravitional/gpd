@@ -4,6 +4,10 @@
 (*ff.numeric.wl*)
 
 
+(* ::Chapter:: *)
+(*initial*)
+
+
 (*\:672c\:6587\:4ef6\:7684\:540d\:79f0*)
 fileName=If[$Notebooks,NotebookFileName[],$InputFileName];
 (*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c\:ff0c\:5c31\:5237\:65b0\:7b14\:8bb0\:672c\:7684\:6807\:9898*)
@@ -35,7 +39,7 @@ inputCml=$ScriptCommandLine,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
 inputCml={
 fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
 (* \:5728\:8fd9\:91cc\:63d0\:4f9b\:5176\:4ed6\:53c2\:6570, \:4f7f\:7528 mathematica \:8bed\:6cd5\:4e0b\:7684\:5f62\:5f0f\:ff0c\:5916\:9762\:7684 enString \:4f1a\:81ea\:52a8\:8f6c\:6362\:6210\:5b57\:7b26\:4e32, \:5c3d\:91cf\:591a\:4f7f\:7528Association\:7ed3\:6784*)
-"full",0.80`20,1.00`20,"Baryons","L-0.90.ci-1.00"
+"ord0",0.80`20,1.00`20,"Baryons","L-0.90.ci-1.00"
 }];
 echo["the input parameter is:\n",inputCml];
 
@@ -78,17 +82,23 @@ echo[configc1c2=Import[cFittingPath][cFitting][[2,2]]];
 (*Read coes and exprs*)
 
 
-(*\:8f7d\:5165 package-X*)
-Needs["X`"];(*ParallelNeeds["X`"];CloseKernels[];LaunchKernels[];*)
-chopLimit=10^-10;(*cut\:7cbe\:5ea6*)
-precision=20;(*\:7cbe\:786e\:5ea6*)
+$parallelQ=False;(*\:662f\:5426\:5f00\:59cb\:5e76\:884c\:5185\:6838*)
+If[$parallelQ,
+(*+++++++++++++++++++ \:542f\:52a8\:5e76\:884c\:5185\:6838 +++++++++++++++++++*)
+Needs["X`"];ParallelNeeds["X`"];
+CloseKernels[];(*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
+Switch[{$MachineName,$System},
+{"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
+_,LaunchKernels[]
+];,
+Needs["X`"];]
 
 
 echo[coesDir=FileNameJoin[{gitLocalName,"coes"}]];
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
-(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868*)
-fyAmpTagLst=Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
-fyAmpPart=fyAmpTagLst[[1;;3]];
+(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
+Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
+fyAmpPart=fyAmpLoopLst;
 
 
 (*\:8bfb\:5165\:7cfb\:6570\:63a5\:53e3*)
@@ -122,12 +132,13 @@ massV@fd[2,8,2]=mass\[CapitalLambda];
 (* decuplet baryons *)
 massV@fd[3,1,2]=mass\[CapitalDelta]; massV@fd[3,2,2]=mass\[CapitalDelta];massV@fd[3,3,2]=mass\[CapitalDelta]; massV@fd[3,4,2]=mass\[CapitalDelta]; 
 massV@fd[3,5,2]=mass\[CapitalSigma]s;massV@fd[3,6,2]=mass\[CapitalSigma]s; massV@fd[3,7,2]=mass\[CapitalSigma]s;
-massV@fd[3,8,2]=mass\[CapitalXi]s;massV@fd[3,7,2]=mass\[CapitalXi]s;
+massV@fd[3,8,2]=mass\[CapitalXi]s;massV@fd[3,9,2]=mass\[CapitalXi]s;
 massV@fd[3,10,2]=mass\[CapitalOmega];
 
 
+(*\:7ed9\:51fa \:8d28\:91cf\:5177\:4f53\:6570\:503c \:7684\:66ff\:6362\:89c4\:5219*)
 numMass={
-\[CapitalLambda]->0.80`20,
+\[CapitalLambda]->SetPrecision[ToExpression@par\[CapitalLambda],20],
 (*  octet mesons *)
 mass\[Pi]->0.1381`20,massK->0.4956`20,mass\[Eta]8->0.5693`20,mass\[Eta]0->0.9452`20,
 (*  octet baryons *)
@@ -139,22 +150,29 @@ mass\[CapitalDelta]->1.232`20,mass\[CapitalSigma]s->1.385`20,mass\[CapitalXi]s->
 };
 
 
+(*----------- PaVe\:4e3b\:79ef\:5206 \:89e3\:6790\:5f0f\:4e2d\:7684\:7279\:6b8a\:51fd\:6570, \:5ef6\:8fdf Chop \:907f\:514dDiscB\:5e26\:6765\:7684\:5fae\:5c0f\:5047\:865a\:90e8 -----------*)
+DiscBChop[x__]:=Chop[DiscB[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
+ScalarC0Chop[x__]:=Chop[ScalarC0[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
+(*\:7279\:6b8a\:51fd\:6570\:7684 \:5ef6\:8fdfChop*)
+numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
+
+
 (*c1->2.081,c2->(2/3 c1-1),c3->(-1/3 c1-1)*)
-configc1c2={c1->1.7356`20,c2->0.329`20};
+configc1c2={
+cc["c1"]->1.7356`20,cc["c2"]->0.329`20,
+cc["c4"]->6.8`20,cc["cT"]->2.72`20
+};
+(*------------------- \:5c06\:7cfb\:6570\:7684\:5177\:4f53\:6570\:503c\:4ee3\:5165 -------------------*)
 numCoupLst={
 cc["f"]->0.093`20,
 cc["D"]->0.76`20, cc["F"]->0.5`20,
-cc["C"]->parC,
-\[CapitalLambda]->par\[CapitalLambda],
+cc["C"]->SetPrecision[ToExpression@parC,20],
+cc["b9"]->1.36,cc["b10"]->1.24,cc["b11"]->0.46,
+\[CapitalLambda]->SetPrecision[ToExpression@par\[CapitalLambda],20],
 ch["u"]->2/3,ch["d"]->-1/3,ch["s"]->-1/3,
 fyCoe->Times,vtxCoe->Identity,
 Sequence@@configc1c2
 };
-
-
-DiscBChop[x__]:=Chop[DiscB[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
-ScalarC0Chop[x__]:=Chop[ScalarC0[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
-numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
 
 
 paraInitial=Hold[
@@ -162,46 +180,69 @@ paraInitial=Hold[
 SetOptions[Simplify,TimeConstraint->1];
 SetOptions[Refine,TimeConstraint->1];
 Off[Simplify::time];Off[Refine::time];
+chopLimit=10^-10;(*cut\:7cbe\:5ea6*)
+precision=20;(*\:7cbe\:786e\:5ea6*)
 ];
 ReleaseHold@paraInitial
-ParallelEvaluate[ReleaseHold@paraInitial];
 
 
 (*\:5e76\:884c\:8ba1\:7b97\:521d\:59cb\:5316*)
+If[$parallelQ,
+ParallelEvaluate[ReleaseHold@paraInitial];
 DistributeDefinitions[
 gitLocalName,fileName,echo,enList,enString,$inNBook,
 parOrder,par\[CapitalLambda],parC,cFitting,errorbarQ,
 coesDir,mfilesDir,fyAmpPart,
 massV,numMass,numCoupLst,numPaVe
-];
+];]
 
 
 (* ::Chapter:: *)
-(*a*)
+(*Loops numeric*)
 
 
 (* ::Section:: *)
-(*a*)
+(*parallel IO*)
 
 
-(*I I/(16\[Pi]^2)*)
-echo["start import coeffs and loop-exprs "];
-(* import coes *)
-SetAttributes[paraEnvIO,HoldAll];
-paraEnvIO[tag_]:=ParallelSubmit[
-Block[{coes,expr,assocLst},
+import$Eva[tag_]:=Block[{coes,expr,assocLst},
 coes=Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[tag,"."]<>".wdx"}]];
 expr={Import[FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[tag,"."]<>".wdx"}]]};
 (* JoinAcross \:5229\:7528\:516c\:5171\:7684 chpt \:8d39\:66fc\:56fe tag\:ff0c\:8fde\:63a5\:7cfb\:6570\:4e0e\:5708\:79ef\:5206\:8868\:8fbe\:5f0f *)
 assocLst=JoinAcross[coes,expr,Key@chTagKey["chTag"]];
 (*++++++++++++++++++++*)
-teb=Query[All,KeyDrop[{
-mE,mm1,mo1,mo2,md1,md2,"time",fyCoeKey["cStr"],fyCoeKey["cEM"]
-}]]@Query[All,
-Append[#,"expr"->
-(#[["expr"]]/.numPaVe/.#/.numMass)*(#[[Key@fyCoeKeycAll]]/.numCoupLst)
-]&]@assocLst]]
+Query[All,
+(*-------------- \:5708\:79ef\:5206*\:7cfb\:6570,\:5e76\:6570\:503c\:5316 --------------*)
+(Append[#,
+"expr"->Simplify[Times[Normal[#[["expr"]]]/.numPaVe,#[[Key@fyCoeKeycAll]]]/.#/.numCoupLst/.numMass]
+]&)/*
+(*-------------- \:5220\:9664\:5197\:4f59\:7684\:5b57\:6bb5 --------------*)
+KeyDrop[{
+mm1,mo1,mo2,md1,md2,"time",fyCoeKey["cStr"],fyCoeKey["cEM"]
+}]
+]@assocLst
+]
+
+
+(*I I/(16\[Pi]^2)*)
+echo["start import coeffs and loop-exprs "];
+(* import coes *)
+If[$parallelQ,
+SetAttributes[paraEnvIO,HoldAll];
+paraEnvIO[tag_]:=ParallelSubmit[import$Eva[tag]],
+paraEnvIO[tag_]:=import$Eva[tag]
+]
+
+
+(* ::Input:: *)
+(*numAssoc=WaitAll[paraEnvIO/@fyAmpPart];*)
+
+
+numAssoc=paraEnvIO/@fyAmpPart;
 
 
 (* ::Chapter:: *)
-(*tree level*)
+(*tree level contributions*)
+
+
+treeFsGs=Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[#,"."]<>".wdx"}]]&@fyAmpTree;
