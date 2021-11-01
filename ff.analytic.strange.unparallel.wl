@@ -35,6 +35,8 @@ $inNBook=$Notebooks;echo["Executed time: ",DateString[]];
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
 Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
+(*\:5bfc\:5165\:4e00\:4e9b\:8f93\:5165\:63a5\:53e3*)
+Get[FileNameJoin@{gitLocalName,"coes.interface.wl"}];
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
@@ -128,9 +130,8 @@ paraEnvIO[tag_,loopRefine_]:=Block[{int,intTag,intExpr,time0Result,anaExpr,path}
 (*\:8bfb\:53d6\:79ef\:5206\:7684 wdx \:6587\:4ef6 *)
 echo[DateString[],": Refine loop integral of: ",tag];
 int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>".wdx"}]];
-(* \:4ece\:5173\:8054\:4e2d\:63d0\:53d6\:8868\:8fbe\:5f0f\:ff0c\:4f7f\:7528 Part \:8bed\:6cd5\:66f4\:5feb,\:76f8\:6bd4\:4e8e\:51fd\:6570\:8bed\:6cd5 *)
 intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)
-intExpr=int[["expr"]];(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
+intExpr=int@ffsF1F2;(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
 (* \:5bf9\:5708\:79ef\:5206\:7684\:8868\:8fbe\:5f0f\:8fdb\:884c\:9884\:5316\:7b80*)
 intExpr=If[MatchQ[Head[#],Plus],Cancel/@#,Cancel@#
 ]&/@intExpr;
@@ -141,7 +142,7 @@ time0Result=loopRefine[intExpr]//AbsoluteTiming;
 anaExpr=<|
 chTagKey["chTag"]->chTag[intTag],
 "time"->First@time0Result,
-"expr"->Last@time0Result
+ffsF1F2->Last@time0Result
 |>;
 (*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:4fdd\:5b58\:8ba1\:7b97\:51fa\:7684\:7ed3\:679c*)
 path=FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
@@ -155,13 +156,13 @@ If[$inNBook,anaExpr]]
 paraLRefine[tag_]:=Switch[{parOrder,tag},
 (*+++++++++++++++++++ order0,RB F1,F2 +++++++++++++++++++*)
 {"ord0",{"RB","oct","F1"}|{"RB","oct","F2"}},
-paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,0},{mo2,mo1,1},Organization->Function]&],
+paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,0},Organization->Function]&],
 (*+++++++++++++++++++ order0,others +++++++++++++++++++*)
 {"ord0",_},
 paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,0},Organization->Function]&],
 (* +++++++++++++++++++ order1,RB F1,F2 ++++++++++++++++++ *)
 {"ord1",{"RB","oct","F1"}|{"RB","oct","F2"}},
-paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,1},{mo2,mo1,1},Organization->Function]&],
+paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,1},Organization->Function]&],
 (*+++++++++++++++++++ order1,others +++++++++++++++++++*)
 {"ord1",_},
 paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,1},Organization->Function]&],

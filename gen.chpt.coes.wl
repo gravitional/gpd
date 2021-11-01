@@ -1244,10 +1244,10 @@ vtxGM->\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)
 }]&)/*
 (*------------------------- \:7528\:65b9\:7a0b\:53cd\:89e3\:51fa\:975e\:5b9a\:57df F1(Q2),F2(Q2), \:6dfb\:52a0 F1,F2 tag -------------------------*)
 (Append[#,First@Solve[{(* Solve \:8fd4\:56de Rules *)
-(*\:8fd9\:91cc\:76f4\:63a5\:628a massKey \:8f6c\:6362\:6210\:4e86\:5e95\:5c42\:7684\:8d28\:91cf\:5f62\:5f0f,\:4f8b\:5982 fd[2,1,2]*)
+(*\:8fd9\:91cc\:76f4\:63a5\:628a massKey \:8f6c\:6362\:6210\:4e86\:5e95\:5c42\:7684\:8d28\:91cf\:5f62\:5f0f,\:4f8b\:5982 massV@fd[2,1,2]*)
 vtxF1-Q2/(4*#@massKey)*vtxF2==#@vtxGE, 
-vtxF1+vtxF2==#@vtxGM}
-,{vtxF1,vtxF2}]]&)/*
+vtxF1+vtxF2==#@vtxGM
+},{vtxF1,vtxF2}]]&)/*
 (*------------------------- \:5220\:6389\:5197\:4f59\:7684\:5b57\:6bb5 -------------------------*)
 KeyDrop[{vtxType1,vtxType2,massKey}]
 ]@

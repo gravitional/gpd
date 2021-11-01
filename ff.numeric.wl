@@ -99,9 +99,7 @@ echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
 Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
 fyAmpPart=fyAmpLoopLst;
-
-
-(*\:8bfb\:5165\:7cfb\:6570\:63a5\:53e3*)
+(*\:8bfb\:5165\:4e00\:4e9b\:8f93\:5165\:63a5\:53e3*)
 Get[FileNameJoin[{gitLocalName,"coes.interface.wl"}]];
 
 
@@ -150,13 +148,6 @@ mass\[CapitalDelta]->1.232`20,mass\[CapitalSigma]s->1.385`20,mass\[CapitalXi]s->
 };
 
 
-(*----------- PaVe\:4e3b\:79ef\:5206 \:89e3\:6790\:5f0f\:4e2d\:7684\:7279\:6b8a\:51fd\:6570, \:5ef6\:8fdf Chop \:907f\:514dDiscB\:5e26\:6765\:7684\:5fae\:5c0f\:5047\:865a\:90e8 -----------*)
-DiscBChop[x__]:=Chop[DiscB[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
-ScalarC0Chop[x__]:=Chop[ScalarC0[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
-(*\:7279\:6b8a\:51fd\:6570\:7684 \:5ef6\:8fdfChop*)
-numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
-
-
 (*c1->2.081,c2->(2/3 c1-1),c3->(-1/3 c1-1)*)
 configc1c2={
 cc["c1"]->1.7356`20,cc["c2"]->0.329`20,
@@ -175,13 +166,26 @@ Sequence@@configc1c2
 };
 
 
+medRule::usage="medRule[x], \:4f20\:5165\:4e00\:4e2a\:5173\:8054\:ff0c\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:66ff\:6362\:89c4\:5219, \:52a0\:4e0a\:5404\:79cd\:8026\:5408\:5e38\:6570";
+medRule[x_]:=Dispatch@Merge[{KeyTake[x,{mE,mm1,mo1,mo2,md1,md2}]/.numMass,numMass,numCoupLst},Last];
+toGEGM::usage="toGEGM[x], \:4f20\:5165 {F1,F2} ";
+toGEGM[x_?ListQ]:={First[x]-Q2/(4*mE)*Last[x], Total[x]};
+
+
+chopLimit=10^-10;(*cut\:7cbe\:5ea6*)precision=20;(*\:7cbe\:786e\:5ea6*)
+(*----------- PaVe\:4e3b\:79ef\:5206 \:89e3\:6790\:5f0f\:4e2d\:7684\:7279\:6b8a\:51fd\:6570, \:5ef6\:8fdf Chop \:907f\:514dDiscB\:5e26\:6765\:7684\:5fae\:5c0f\:5047\:865a\:90e8 -----------*)
+DiscBChop[x__]:=Chop[DiscB[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
+ScalarC0Chop[x__]:=Chop[ScalarC0[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
+(*\:7279\:6b8a\:51fd\:6570\:7684 \:5ef6\:8fdfChop*)
+numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
+chop[x_]:=Chop[x,chopLimit]
+
+
 paraInitial=Hold[
 (*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236, \:5173\:95ed Simplify \:5316\:7b80\:65f6\:95f4\:8d85\:51fa \:4fe1\:606f*)
 SetOptions[Simplify,TimeConstraint->1];
 SetOptions[Refine,TimeConstraint->1];
 Off[Simplify::time];Off[Refine::time];
-chopLimit=10^-10;(*cut\:7cbe\:5ea6*)
-precision=20;(*\:7cbe\:786e\:5ea6*)
 ];
 ReleaseHold@paraInitial
 
@@ -193,7 +197,9 @@ DistributeDefinitions[
 gitLocalName,fileName,echo,enList,enString,$inNBook,
 parOrder,par\[CapitalLambda],parC,cFitting,errorbarQ,
 coesDir,mfilesDir,fyAmpPart,
-massV,numMass,numCoupLst,numPaVe
+massV,numMass,numCoupLst,numPaVe,
+chopLimit,chop,precision,
+medRule,toGEGM
 ];]
 
 
@@ -210,18 +216,19 @@ coes=Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[tag,"."]<>".wdx"}]];
 expr={Import[FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[tag,"."]<>".wdx"}]]};
 (* JoinAcross \:5229\:7528\:516c\:5171\:7684 chpt \:8d39\:66fc\:56fe tag\:ff0c\:8fde\:63a5\:7cfb\:6570\:4e0e\:5708\:79ef\:5206\:8868\:8fbe\:5f0f *)
 assocLst=JoinAcross[coes,expr,Key@chTagKey["chTag"]];
-(*++++++++++++++++++++*)
+(*++++++++++++++++++++++++ \:6dfb\:52a0\:5404\:79cd\:5b57\:6bb5 ++++++++++++++++++++++++*)
 Query[All,
 (*-------------- \:5708\:79ef\:5206*\:7cfb\:6570,\:5e76\:6570\:503c\:5316 --------------*)
 (Append[#,
-"expr"->Simplify[Times[Normal[#[["expr"]]]/.numPaVe,#[[Key@fyCoeKeycAll]]]/.#/.numCoupLst/.numMass]
-]&)/*
-(*-------------- \:5220\:9664\:5197\:4f59\:7684\:5b57\:6bb5 --------------*)
+ffsF1F2->Simplify[chop[Times[Normal[#@ffsF1F2]/.numPaVe,#[[Key@fyCoeKeycAll]]]/.medRule[#]]]
+])&/*
+(*-------------- \:7531 F1F2 expr \:7ebf\:6027\:7ec4\:5408\:51fa GE,GM --------------*)
+(Append[#,ffsGEGM->(toGEGM[#@ffsF1F2]/.medRule[#])]&)/*
+(*-------------- \:5220\:9664\:5197\:4f59\:5b57\:6bb5 --------------*)
 KeyDrop[{
 mm1,mo1,mo2,md1,md2,"time",fyCoeKey["cStr"],fyCoeKey["cEM"]
 }]
-]@assocLst
-]
+]@assocLst]
 
 
 (*I I/(16\[Pi]^2)*)
@@ -241,8 +248,36 @@ paraEnvIO[tag_]:=import$Eva[tag]
 numAssoc=paraEnvIO/@fyAmpPart;
 
 
+(* GroupBy \:8fed\:4ee3\:5206\:7ec4\:7684\:7ed3\:679c\:662f\:4e00\:4e2a\:4e2a\:7684\:5c0f\:7ec4,\:5143\:7d20\:88ab\:653e\:5165\:62ec\:53f7\:4e2d, \:518d\:6b21\:5f62\:6210 {assoc,...} \:7684\:7ed3\:6784\:ff0c
+\:4f7f\:7528 Reduce \:51fd\:6570\:5904\:7406\:8fd9\:4e9b\:7ed3\:679c: \:5148\:901a\:8fc7 Query \:5728\:5c0f\:7ec4\:4e2d\:53d6\:51fa\:7279\:5b9a\:7684\:952e\:ff0c\:5728\:8fd9\:91cc\:662f F1F2,GEGM \:7684\:6570\:503c\:7ed3\:679c,
+\:53d6\:51fa\:7684\:7ed3\:679c\:4ecd\:662f {assoc,...} \:7684\:7ed3\:6784\:ff0c\:518d\:4f7f\:7528 Merge \:51fd\:6570\:5408\:5e76\:5c0f\:7ec4\:7684\:7ed3\:679c\:ff0c\:4f20\:5165 Total \:51fd\:6570\:6267\:884c\:6c42\:548c. 
+\:8fd9\:91cc\:7684\:6c42\:548c,\:5c06\:5355\:4e2a\:8d39\:66fc\:56fe\:4e2d\:4e0d\:540c\:7684\:53cd\:5e94\:9053\:76f8\:52a0.
+*)
+sumGroup[x_?ListQ]:=Merge[Query[All,{Key@ffsF1F2,Key@ffsGEGM}]@x,Total];
+
+
+(*GroupBy \:6309\:7167\:5217\:8868\:4e2d\:7684\:5206\:7c7b\:51fd\:6570\:ff0c\:751f\:6210\:4e00\:4e2a\:5d4c\:5957\:5173\:8054,\:8fd9\:91cc\:662f\:6309{\:5165\:5c04\:7c92\:5b50,\:8d39\:66fc\:56fe}, 
+\:7136\:540e\:5c06 sumGroup \:4f5c\:4e3a Reduce \:51fd\:6570\:4f5c\:7528\:5230\:6700\:7ec8\:5c42\:7684\:5c0f\:7ec4\:4e0a*)
+loopchanSum=Query[
+GroupBy[#,{Key@inOct,Key@chTagKey["chTag"]},sumGroup]&
+]@Catenate@numAssoc;
+(*+++++++++++++++++++ \:8fd9\:91cc\:7684\:6c42\:548c\:ff0c\:5c06\:6bcf\:4e2a\:5165\:5c04\:7c92\:5b50\:7684\:ff0c\:6240\:6709\:8d39\:66fc\:56fe\:7684\:7ed3\:679c\:76f8\:52a0 +++++++++++++++++++*)
+loopAmpSum=Query[All,
+Simplify[Merge[Values@#,Total]]&
+]@chanSum;
+(* \:6700\:7ec8\:7ed3\:679c\:7684\:7ed3\:6784\:5927\:81f4\:5982\:4e0b\:ff1a
+\[LeftAssociation]fd[2,1,0]\[Rule]\[LeftAssociation]Total"\[Rule]\[LeftAssociation]ffsF1F2\[Rule]{F1,F2},ffsGEGM\[Rule]{GE,GM}\[RightAssociation]\[RightAssociation],
+(\:5176\:4ed6\:7c92\:5b50\:7684\:7ed3\:679c,\:7ed3\:6784\:7c7b\:4f3c)\[RightAssociation]*)
+
+
 (* ::Chapter:: *)
 (*tree level contributions*)
 
 
-treeFsGs=Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[#,"."]<>".wdx"}]]&@fyAmpTree;
+treeFsGs=Query[All,
+(Append[#,ffsF1F2->Simplify[chop[{#@fyCoeKeycAllF1,#@fyCoeKeycAllF2}/.medRule[#]]]]&)/*
+(Append[#,ffsGEGM->Simplify[chop[{#@fyCoeKeycAllF1,#@fyCoeKeycAllF2}/.medRule[#]]]]&)
+]@Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[#,"."]<>".wdx"}]]&@fyAmpTree;
+(*++++++++++++++++++++++++++  \:63d0\:53d6\:51fa\:6811\:56fe\:9636\:7684\:6570\:503c\:7ed3\:679c  +++++++++++++++++++++++++++++++++++*)
+treeSum=Association@Query[All,
+#@inOct->KeyTake[#,{ffsF1F2,ffsGEGM}]&]@treeFsGs;

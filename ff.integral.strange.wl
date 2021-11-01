@@ -4,7 +4,7 @@
 (*integral_strange.wl*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*initial*)
 
 
@@ -28,7 +28,7 @@ recurFind[start];
 $inNBook=$Notebooks;echo[DateString[]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*cmd argumnets*)
 
 
@@ -37,6 +37,8 @@ echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 If[!DirectoryQ[mfilesDir],CreateDirectory[mfilesDir];echo["Create a new directory: ./mfiles/"]] ;
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
 Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
+(*\:5bfc\:5165\:4e00\:4e9b\:8f93\:5165\:63a5\:53e3*)
+Get[FileNameJoin@{gitLocalName,"coes.interface.wl"}];
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
@@ -91,7 +93,7 @@ LoopIntegrate[delayedNumerator, k, {k - p2, m}, {k - p1, m}, {k, 0}] /. {p1.p1 -
 *)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Package-X*)
 
 
@@ -153,7 +155,7 @@ LTensor[MetricG,\[Alpha],\[Beta]] Dirac1 -1/3 DiracMatrix[LTensor[DiracG,\[Alpha
  ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*kinematic quantities*)
 
 
@@ -187,7 +189,8 @@ Off[Simplify::time];Off[Refine::time];
 (*\:5e76\:884c\:521d\:59cb\:5316*)
 DistributeDefinitions[$inNBook,gitLocalName,fileName,echo,enList,enString,
 mfilesDir,
-reg,prp,intgd,num,prp1,dprop,cltcom,dgam3,\[CapitalTheta],spDec
+reg,prp,intgd,num,prp1,dprop,cltcom,dgam3,\[CapitalTheta],spDec,
+ffsF1F2
 ];
 ReleaseHold@paraInitial
 ParallelEvaluate[ReleaseHold@paraInitial];
@@ -210,7 +213,7 @@ time0Result=LoopIntegrate[numer,k,Sequence@@denom,Cancel->Automatic,Apart->True]
 fyAmp=<|
 "tag"->fyTag,
 "time"->First@time0Result,
-"expr"->Last@time0Result
+ffsF1F2->Last@time0Result
 |>;
 (*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:5e76\:6253\:5370\:4fdd\:5b58\:6210\:529f*)
 path=FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[fyTag,"."]<>".wdx"}];
