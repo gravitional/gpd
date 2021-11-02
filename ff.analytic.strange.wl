@@ -237,3 +237,6 @@ LoopRefine[#,Organization->Function]&
 
 
 analyLst=WaitAll[paraLRefine/@fyAmpTagPart];
+
+
+echo[DateString[]," : finished, SessionTime : ",SessionTime[]];

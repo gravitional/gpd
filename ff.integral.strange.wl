@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*integral_strange.wl*)
+(*ff.integral.strange.wl*)
 
 
 (* ::Chapter:: *)
@@ -29,7 +29,7 @@ $inNBook=$Notebooks;echo[DateString[]];
 
 
 (* ::Section:: *)
-(*cmd argumnets*)
+(*cmd arguments*)
 
 
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
@@ -130,7 +130,13 @@ dprop[p_,m_,\[Mu]_,\[Nu]_]:=(-LTensor[MetricG,\[Mu],\[Nu]]*Dirac1(*\:5355\:4f4d\
 )
 
 
+(*!!! k \:662f\:5708\:79ef\:5206\:53d8\:91cf\:ff0caddition \:56fe\:7684\:6b63\:89c4\:5b50\:7684\:6807\:91cf\:90e8\:5206\:6ee1\:8db3 R(q-k)=R(k-q), 
+\:8fd9\:91cc\:6709\:4e2a bug \:4e0e Package-X \:7684\:5b9e\:73b0\:6709\:5173\:7cfb. \:4ee5\:4e0b\:4e24\:4e2a\:79ef\:5206\:7684\:7ed3\:679c\:672c\:5e94\:8be5\:76f8\:540c\:ff0c\:4f46 Package-x \:7ed9\:51fa\:7684\:7ed3\:679c\:5374\:4e0d\:540c\:ff0c\:9700\:8981\:624b\:52a8\:628a -k \:6362\:6210 +k 
+LoopIntegrate[1,k,{-p1+p2,\[CapitalLambda],2},{k,\[CapitalLambda],2},{k,\[CapitalLambda],2},{k-p1+p2,\[CapitalLambda],2},{k,mm1},{-k+p1,mo1}]
+LoopIntegrate[1,k,{-p1+p2,\[CapitalLambda],2},{k,\[CapitalLambda],2},{-k,\[CapitalLambda],2},{-k-p1+p2,\[CapitalLambda],2},{k,mm1},{-k+p2,mo1}]!!!
+*)
 cltcom::usage="\:6b63\:89c4\:5b50\:7684\:7ec4\:5408";
+cltcom[{-k_,q_},{m\[Phi]_,\[CapitalLambda]_}]:=cltcom[{k,-q},{m\[Phi],\[CapitalLambda]}];
 cltcom[{k_,q_},{m\[Phi]_,\[CapitalLambda]_}]:=intgd[
 num[(\[CapitalLambda]^2-m\[Phi]^2)^2*(LDot[k,k]+LDot[k+q,k+q]-2 \[CapitalLambda]^2)(-1)],(*(2k+q)^\[Mu] \:653e\:5728\:65cb\:91cf\:90e8\:5206\:8003\:8651 *)
 prp[{k,\[CapitalLambda],2}],prp[{k+q,\[CapitalLambda],2}]
@@ -200,6 +206,7 @@ ParallelEvaluate[ReleaseHold@paraInitial];
 (*loop Integral: octet*)
 
 
+SetAttributes[paraLintConst,HoldAll];
 SetAttributes[paraLintSubmit,HoldAll];
 paraLintSubmit[spin_,scalar_,fyTag_]:=ParallelSubmit[
 (* ParallelSubmit \:5177\:6709 HoldAllComplete \:5c5e\:6027, \:4e0b\:9762\:7684 Block \:5757\:4e0d\:4f1a\:88ab\:8ba1\:7b97 *)
@@ -233,7 +240,7 @@ end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","mes","oct"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 LTensor[2k+p2-p1,\[Mu]]*Spur[
@@ -260,7 +267,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,left*)
 
 
@@ -278,7 +285,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","oct","left"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 Spur[
@@ -304,7 +311,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,right*)
 
 
@@ -322,7 +329,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","oct","right"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 Spur[
@@ -348,7 +355,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,add,left*)
 
 
@@ -367,7 +374,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","oct","add","left"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 (* -R^\[Mu](-k,q) \:7684 -(-2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
@@ -394,7 +401,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,add,right*)
 
 
@@ -413,7 +420,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","oct","add","right"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 (* R^\[Mu](k,q)\:4e2d\:7684 (2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
@@ -458,7 +465,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","oct","F1"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 Spur[
@@ -504,7 +511,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","oct","F2"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 (I LTensor[p2-p1,\[Nu]])/(2mE)*Spur[
@@ -532,7 +539,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,oct,F1*)
 
 
@@ -552,7 +559,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"tad","oct","F1"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 Spur[
@@ -575,7 +582,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,oct,F1,add*)
 
 
@@ -596,7 +603,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"tad","oct","F1","add"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 (-1)LTensor[2k+(p2-p1),\[Mu]]*Spur[
@@ -619,7 +626,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,oct,F2*)
 
 
@@ -640,7 +647,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"tad","oct","F2"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 (I LTensor[p2-p1,\[Nu]])/(2mE) *Spur[
@@ -663,7 +670,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble,mes,o2*)
 
 
@@ -683,7 +690,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"bub","mes","o2"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 LTensor[2k+p2-p1,\[Mu]]*Spur[
@@ -707,7 +714,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble,mes,ten,o2*)
 
 
@@ -727,7 +734,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"bub","mes","ten","o2"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 LTensor[p2-p1,\[Rho]]*LTensor[k,\[Nu]]*LTensor[2k+p2-p1,\[Mu]]*Spur[
@@ -774,7 +781,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","mes","dec"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 LTensor[k+p2-p1,\[Alpha]]*LTensor[k,\[Nu]]*LTensor[2k+p2-p1,\[Mu]]*Spur[
@@ -818,7 +825,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","dec","F1"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 LTensor[k,\[Alpha]]*LTensor[k,\[Eta]]*Spur[
@@ -865,7 +872,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","dec","F2"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 LTensor[k,\[Alpha]]*LTensor[k,\[Eta]]*(I LTensor[p2-p1,\[Nu]])/(2md1)*Spur[
@@ -912,7 +919,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","trans","left"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 LTensor[k,\[Alpha]]*LTensor[p2-p1,\[Nu]]*Spur[
@@ -961,7 +968,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","trans","right"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 LTensor[k,\[Alpha]]*LTensor[p2-p1,\[Nu]]*Spur[
@@ -1009,7 +1016,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","dec","left"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 LTensor[k,\[Rho]]*Spur[
@@ -1054,7 +1061,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","dec","right"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 LTensor[k,\[Beta]]*Spur[
@@ -1100,7 +1107,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","dec","add","left"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 (* -R^\[Mu](-k,q) \:7684 -(-2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
@@ -1147,7 +1154,7 @@ tag
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"KR","mes","dec","add","right"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
-paraLintSubmit[
+paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 (* R^\[Mu](k,q) \:7684 (2k+q)^\[Mu] \:8003\:8651\:5728\:8fd9\:91cc *)
@@ -1179,4 +1186,7 @@ tag
 
 
 (* Set \:5177\:6709 HoldFirst \:5c5e\:6027*)
-fyAmpLst=WaitAll[fyAmp[#,{"intg","eid"}]&/@fyAmpTagPart];
+fyAmpLst=WaitAll[(fyAmp[#,{"intg","eid"}]&/@fyAmpTagPart)/.paraLintConst->paraLintSubmit];
+
+
+echo[DateString[]," : finished, SessionTime : ",SessionTime[]];

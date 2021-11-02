@@ -20,6 +20,11 @@ gitLocalName=AbsoluteFileName[DirectoryName[If[$Notebooks,NotebookFileName[],$In
 
 
 (* ::Input:: *)
+(*(* \:4f1a\:8bdd\:7684\:8fd0\:884c\:65f6\:95f4 *)*)
+(*$sessionTime:=StringRiffle[{Quotient[#,3600],"h:",Quotient[Mod[#,3600],60],"m:",Mod[#,60],"s"}]&@SessionTime[]*)
+
+
+(* ::Input:: *)
 (*(*\:5c06 WL \:6587\:4ef6\:8f6c\:6362\:6210 nb \:6587\:4ef6*)*)
 (*wlToNB[wl_]:=Module[{wlObj=NotebookOpen[wl,Visible->False]},*)
 (*FrontEndExecute[FrontEndToken[wlObj,"Save",{StringTrim[wl,".wl"~~EndOfString]<>".nb","Notebook"}]];*)

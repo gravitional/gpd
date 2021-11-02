@@ -180,3 +180,6 @@ paraEnvIO[tag,LoopRefine[#,Organization->Function]&]
 
 
 analyLst=paraLRefine/@fyAmpTagPart;
+
+
+echo[DateString[]," : finished, SessionTime : ",SessionTime[]];

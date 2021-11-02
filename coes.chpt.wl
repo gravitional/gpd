@@ -71,14 +71,14 @@ md1->"md1",md2->"md2"
 testFmt[n_]:=EchoFunction[InputForm]@#[[n]]&
 
 
-(* ::Chapter:: *)
-(*channels*)
-
-
 (*read \:7cfb\:6570 association \:7684\:8f93\:5165\:63a5\:53e3*)
 Get[FileNameJoin[{gitLocalName,"coes.interface.wl"}]];
 (* \:56fe\:5f62\:8868\:793a\:521d\:59cb\:5316 *)
 end=4;delta=0.05;
+
+
+(* ::Chapter:: *)
+(*channels*)
 
 
 (* ::Section::Closed:: *)
@@ -140,6 +140,7 @@ Key@fyVtx3@fdTypeMes(*\:7531\:9876\:70b92\:63a8\:5bfc\:7684mes\:6b63\:573a==\:98
 ];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 (*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5\:ff0c\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+overallFac=1;
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
@@ -148,6 +149,7 @@ medOct1->#@fyVtx1@fdTypeOctb,(*\:9876\:70b91,oct,\:51fa\:5c04\:573a*)
 medMes1->#@fyVtx2@fdTypeMes,(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++ \:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef +++++++++++++++++++++++++*)
 fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3,(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
@@ -157,6 +159,7 @@ fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:76
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
@@ -231,6 +234,7 @@ vtx2,(*\:9876\:70b92\:ff0c\:4fee\:9970\:8fc7\:7684\:4ecb\:5b50\:7535\:78c1\:6d41
 ];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 (*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5\:ff0c\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+overallFac=(-1);
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct\:5165\:5c04\:573a*)
@@ -239,6 +243,7 @@ medOct1->#@fyVtx1@fdTypeOctb,(*\:9876\:70b91,oct\:51fa\:5c04\:573a*)
 medMes1->#@fyVtx2@fdTypeMes,(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
 fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
@@ -247,6 +252,7 @@ fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:76
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx1@vtxType1EM
 ]
 |>&
@@ -274,11 +280,11 @@ serialize[fyTag,coeJoin]
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
 (*fyTag={"KR","mes","oct","left"};*)
 (*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,4,0]*)
+(*inOct->fd[2,2,0]*)
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman,A-meson,octet,right*)
 
 
@@ -321,6 +327,7 @@ vtx2,(*\:9876\:70b92\:ff0c\:4fee\:9970\:8fc7\:7684\:4ecb\:5b50\:7535\:78c1\:6d41
 ];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 (*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5\:ff0c\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+overallFac=(1);
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct\:5165\:5c04\:573a*)
@@ -329,6 +336,7 @@ medOct1->#@fyVtx1@fdTypeOctb,(*\:9876\:70b91,oct\:51fa\:5c04\:573a*)
 medMes1->#@fyVtx2@fdTypeMes,(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
 fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
@@ -337,6 +345,7 @@ fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:76
 #@fyVtx2@vtxType2Str(*\:9876\:70b92,\:8026\:5408\:7cfb\:6570,\:5f3a\:4f5c\:7528\:90e8\:5206*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxType2EM
 ]
 |>&
@@ -364,7 +373,7 @@ serialize[fyTag,coeJoin]
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
 (*fyTag={"KR","mes","oct","right"};*)
 (*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,1,0]*)
+(*inOct->fd[2,2,0]*)
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
@@ -392,8 +401,15 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 serialize[fyTagTmp,coeJoin]
 
 
+(* ::Input:: *)
+(*fyTag={"KR","mes","oct","left"};*)
+(*Query[Cases@KeyValuePattern[*)
+(*inOct->fd[2,1,0]*)
+(*]]@coeJoin[fyTag]//dsetFmt*)
+
+
 (* ::Section::Closed:: *)
-(*Kroll-Ruderman, A-mes, oct, add, right*)
+(*Kroll-Ruderman, A-meson, octet,addition,right*)
 
 
 (* ::Input:: *)
@@ -416,7 +432,14 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 serialize[fyTagTmp,coeJoin]
 
 
-(* ::Section:: *)
+(* ::Input:: *)
+(*fyTag={"KR","mes","oct","right"};*)
+(*Query[Cases@KeyValuePattern[*)
+(*inOct->fd[2,1,0]*)
+(*]]@coeJoin[fyTag]//dsetFmt*)
+
+
+(* ::Section::Closed:: *)
 (*RainBow,A-octet,F1F2,nonlocal*)
 
 
@@ -475,6 +498,7 @@ Key@fyVtx3@fdTypeOct(*\:7531\:9876\:70b92\:63a8\:5bfc\:7684oct\:6b63\:573a\:ff0c
 ];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
 (*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5\:ff0c\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+overallFac=I;
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91\:5165\:5c04\:573a*)
@@ -484,11 +508,13 @@ medOct1->#@fyVtx2@fdTypeOct,(*\:9876\:70b92 oct \:5165\:5c04\:573a*)
 medOct2->#@fyVtx2@fdTypeOctb,(*\:9876\:70b92 oct \:51fa\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
 fyCoeKeycAllF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3,(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
 ],
 fyCoeKeycAllF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3,(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
@@ -502,9 +528,11 @@ fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEMF1->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
 ],
 fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
 ]
 |>&
@@ -684,11 +712,14 @@ vtxJoin[fyTag]=Query[All,
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91 oct \:5165\:5c04\:573a*)
 outOct->#@fyVtx1@fdTypeOctb,(*\:9876\:70b91 oct \:51fa\:5c04\:573a*)
 medMes1->#@fyVtx1@fdTypeMes,(*\:9876\:70b91,mes,\:51fa\:5c04\:573a*)
-(*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
+(*+++++++++++++++++++++++++++++ \:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef +++++++++++++++++++++++++++++*)
+overallFac=(-I);
 fyCoeKeycAllF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+overallFac,
 #@fyVtx1@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
 ],
 fyCoeKeycAllF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+-overallFac,
 #@fyVtx1@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
 ],
 fyCoeKeycStrF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
@@ -698,9 +729,11 @@ fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
 ],
 fyCoeKeycEMF1->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx1@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
 ],
 fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+-overallFac,
 #@fyVtx1@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
 ]
 |>&
@@ -760,13 +793,13 @@ serialize[fyTagTmp,coeJoin];
 
 (* ::Input:: *)
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
-(*fyTag={"tad","oct","o2"};*)
+(*fyTag={"tad","oct","F1F2"};*)
 (*Query[Cases@KeyValuePattern[*)
 (*inOct->fd[2,1,0]*)
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tadpole,A-octet,addition,o2,nonlocal*)
 
 
@@ -792,7 +825,7 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 serialize[fyTagTmp,coeJoin]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*bubble, A-meson,order2*)
 
 
@@ -829,8 +862,8 @@ vtxJoin1[fyTag],(*\:9876\:70b91,\:4fee\:9970\:8fc7\:7684\:5f3a\:76f8\:4e92\:4f5c
 vtx2,(*\:9876\:70b92,\:4ecb\:5b50\:7535\:78c1\:6d41\:76f8\:4e92\:4f5c\:7528*)
 {Key@fyVtx2@fdTypeMes}(*\:7c98\:8fde\:9876\:70b91,2\:3002\:7c98\:8fde\:6761\:4ef6\:662f\:ff1a\:4ece\:9876\:70b91\:63a8\:5bfc\:7684\:5165\:5c04\:573a\[Equal]\:53cd\:5e38\:78c1\:77e9\:5b57\:6bb5\:4e2d\:7684\:5165\:5c04\:573a*)
 ,"Inner"];
-(*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
-(*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+(*++++++++++++++++++++++ \:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217  ++++++++++++++++++++++*)
+overallFac=(-I);
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91, oct,\:5165\:5c04\:573a*)
@@ -838,6 +871,7 @@ outOct->#@fyVtx1@fdTypeOctb,(*\:9876\:70b91,oct,\:51fa\:5c04\:573a*)
 medMes1->#@fyVtx2@fdTypeMes,(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
 fyCoeKeycAll->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
@@ -845,6 +879,7 @@ fyCoeKeycStr->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxType1(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
@@ -875,7 +910,7 @@ serialize[fyTag,coeJoin]
 (*]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*bubble,A-meson,tensor-order 2*)
 
 
@@ -915,8 +950,8 @@ vtxJoin1[fyTag],(*\:9876\:70b91,\:4fee\:9970\:8fc7\:7684\:5f3a\:76f8\:4e92\:4f5c
 vtx2,(*\:9876\:70b92,\:4ecb\:5b50\:7535\:78c1\:6d41\:76f8\:4e92\:4f5c\:7528*)
 {Key@fyVtx2@fdTypeMes,Key@fyVtx2@fdTypeMesOut}(*\:7c98\:8fde\:9876\:70b91,2\:3002\:7c98\:8fde\:6761\:4ef6\:662f\:ff1a\:4ece\:9876\:70b91\:63a8\:5bfc\:7684\:5165\:5c04\:573a\[Equal]\:53cd\:5e38\:78c1\:77e9\:5b57\:6bb5\:4e2d\:7684\:5165\:5c04\:573a*)
 ,"Inner"];
-(*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
-(*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+(*+++++++++++++++++++++++++++++++++ \:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217 ++++++++++++++++++++++++++++++++*)
+overallFac=(-1);
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
@@ -924,6 +959,7 @@ outOct->#@fyVtx1@fdTypeOctb,(*\:9876\:70b91,oct,\:51fa\:5c04\:573a*)
 medMes1->#@fyVtx2@fdTypeMes,(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
 fyCoeKeycAll->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
@@ -931,6 +967,7 @@ fyCoeKeycStr->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxType1(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
@@ -961,7 +998,7 @@ serialize[fyTag,coeJoin]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RainBow,A-meson,decuplet mediate*)
 
 
@@ -1016,8 +1053,8 @@ Key@fyVtx3@fdTypeOctb,(*\:9876\:70b93\:7684\:51fa\:5c04\:573a,\:8981\:6c42\:548c
 Key@fyVtx3@fdTypeMes(*\:7531\:9876\:70b92\:63a8\:5bfc\:7684mes\:6b63\:573a==\:9876\:70b93\:7684mes\:6b63\:573a*)
 }
 ,"Inner"];
-(*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
-(*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+(*++++++++++++++++++++++++++ \:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217 ++++++++++++++++++++++++++++++++++*)
+overallFac=(-1);
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
@@ -1026,6 +1063,7 @@ medDec1->#@fyVtx1@fdTypeDecb,(*\:9876\:70b91,dec,\:51fa\:5c04\:573a*)
 medMes1->#@fyVtx2@fdTypeMes,(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
 fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3,(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
@@ -1035,6 +1073,7 @@ fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:76
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
@@ -1124,8 +1163,8 @@ Key@fyVtx3@fdTypeOctb(*\:9876\:70b93\:7684\:51fa\:5c04\:573a,\:8981\:6c42\:548c\
 }
 ,"Inner"
 ];
-(*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
-(*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+(*++++++++++++++++++ \:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217 ++++++++++++++++++++++++++++++++++++++++*)
+overallFac=(-I);
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
@@ -1134,11 +1173,13 @@ medMes1->#@fyVtx3@fdTypeMes,(*\:9876\:70b93,mes,\:5165\:5c04\:573a*)
 medDec1->#@fyVtx2@fdTypeDec,(*\:9876\:70b92,dec,\:5165\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
 fyCoeKeycAllF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3,(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
 ],
 fyCoeKeycAllF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3,(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
@@ -1152,9 +1193,11 @@ fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEMF1->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
 ],
 fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
 ]
 |>&
@@ -1277,8 +1320,8 @@ Key@fyVtx3@fdTypeOct(*\:7531\:9876\:70b92\:63a8\:5bfc\:7684Dec,\:5339\:914d\:987
 }
 ,"Inner"
 ];
-(*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
-(*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+(*+++++++++++++++++++++++++ \:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217 ++++++++++++++++++++++++++++++++++++*)
+overallFac=(-1);
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
@@ -1288,6 +1331,7 @@ medDec1->#@fyVtx2@fdTypeDec,(*\:9876\:70b92,dec,\:5165\:5c04\:573a*)
 medOct1->#@fyVtx2@fdTypeOctb,(*\:9876\:70b92,oct,\:51fa\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
 fyCoeKeycAll->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3,(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570, \:53cd\:5e38\:78c1\:77e9 *)
@@ -1297,6 +1341,7 @@ fyCoeKeycStr->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxType2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570, \:53cd\:5e38\:78c1\:77e9 *)
 ]
 |>&
@@ -1389,8 +1434,8 @@ Key@fyVtx3@fdTypeDec(*\:7531\:9876\:70b92\:63a8\:5bfc\:7684Dec,\:5339\:914d\:987
 }
 ,"Inner"
 ];
-(*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
-(*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+(*+++++++++++++++++++++++++ \:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217 +++++++++++++++++++++++++++++++++++++*)
+overallFac=(-1);
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
@@ -1400,6 +1445,7 @@ medOct1->#@fyVtx2@fdTypeOct,(*\:9876\:70b92,oct,\:5165\:5c04\:573a*)
 medDec1->#@fyVtx2@fdTypeDecb,(*\:9876\:70b92,dec,\:51fa\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
 fyCoeKeycAll->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx3@vtxType3,(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570, \:53cd\:5e38\:78c1\:77e9 *)
@@ -1409,6 +1455,7 @@ fyCoeKeycStr->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx3@vtxType3(*\:9876\:70b93\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxType2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570, \:53cd\:5e38\:78c1\:77e9 *)
 ]
 |>&
@@ -1444,7 +1491,7 @@ serialize[fyTag,coeJoin]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman, A-meson,decuplet,left*)
 
 
@@ -1486,8 +1533,8 @@ vtx2,(*\:9876\:70b92,\:4fee\:9970\:8fc7\:7684\:4ecb\:5b50\:7535\:78c1\:6d41,\:52
 {Key@fyVtx2@fdTypeMes,Key@fyVtx2@fdTypeDec,Key@fyVtx2@fdTypeOctb}(*\:7c98\:8fde\:9876\:70b91,2.\:6761\:4ef6\:662f\:ff1a\:4ece\:9876\:70b91\:63a8\:5bfc\:7684\:51fa\:5c04mes out\[Equal]\:4ecb\:5b50\:7535\:78c1\:6d41\:7684\:51fa\:5c04mesb*)
 ,"Inner"
 ];
-(*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
-(*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+(*+++++++++++++++++++++++++ \:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217 ++++++++++++++++++++++++++++++++++++*)
+overallFac=1;
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
@@ -1496,6 +1543,7 @@ medDec1->#@fyVtx1@fdTypeDecb,(*\:9876\:70b91,dec,\:51fa\:5c04\:573a*)
 medMes1->#@fyVtx2@fdTypeMes,(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
 fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
@@ -1504,6 +1552,7 @@ fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:76
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx1@vtxType1EM(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
@@ -1537,7 +1586,7 @@ serialize[fyTag,coeJoin]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman, A-meson,decuplet,right*)
 
 
@@ -1579,8 +1628,8 @@ vtx2,(*\:9876\:70b92,\:4fee\:9970\:8fc7\:7684\:4ecb\:5b50\:7535\:78c1\:6d41,\:52
 {Key@fyVtx2@fdTypeMes,Key@fyVtx2@fdTypeDec,Key@fyVtx2@fdTypeOctb}(*\:7c98\:8fde\:9876\:70b91,2.\:6761\:4ef6\:662f\:ff1a\:4ece\:9876\:70b91\:63a8\:5bfc\:7684\:51fa\:5c04mes out\[Equal]\:4ecb\:5b50\:7535\:78c1\:6d41\:7684\:51fa\:5c04mesb*)
 ,"Inner"
 ];
-(*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*)
-(*\:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217*)
+(*+++++++++++++++++++++ \:9009\:53d6\:9700\:8981\:7684\:5b57\:6bb5,\:5e76\:6309\:7167\:987a\:5e8f\:6392\:5217 ++++++++++++++++++++++++++++++++++*)
+overallFac=(-1);
 vtxJoin[fyTag]=Query[All,
 <|
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
@@ -1589,6 +1638,7 @@ medDec1->#@fyVtx1@fdTypeDecb,(*\:9876\:70b91,dec,\:51fa\:5c04\:573a*)
 medMes1->#@fyVtx2@fdTypeMes,(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*\:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef *)
 fyCoeKeycAll->fyCoe[(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef*)
+overallFac,
 #@fyVtx1@vtxType1,(*\:9876\:70b91\:7684\:8026\:5408\:7cfb\:6570*)
 #@fyVtx2@vtxType2(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
@@ -1597,6 +1647,7 @@ fyCoeKeycStr->fyCoe[(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:8026\:5408\:7cfb\:6570\:76
 #@fyVtx2@vtxType2Str(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ],
 fyCoeKeycEM->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+overallFac,
 #@fyVtx2@vtxType2EM(*\:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570*)
 ]
 |>&
@@ -1630,7 +1681,7 @@ serialize[fyTag,coeJoin]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman, A-meson,decuplet,addition,left*)
 
 
@@ -1642,7 +1693,7 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 serialize[fyTagTmp,coeJoin]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman, A-meson,decuplet,addition,right*)
 
 

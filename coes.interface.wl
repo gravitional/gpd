@@ -52,5 +52,10 @@ MassMes1=mm1;MassMes2=mm2;(*\:4e2d\:95f4 oct \:4ecb\:5b50 1,2*)
 MassDec1=md1;MassDec2=md2;(*\:4e2d\:95f4 dec \:91cd\:5b501,2*)
 
 
-ffsF1F2=formFactor["F1F2"];
-ffsGEGM=formFactor["GEGM"];
+(* ::Input:: *)
+(*ffsF1F2=formFactor["F1F2"];*)
+(*ffsGEGM=formFactor["GEGM"];*)
+
+
+ffsF1F2="F1F2";
+ffsGEGM="GEGM";
