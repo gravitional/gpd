@@ -197,7 +197,7 @@ DistributeDefinitions[
 gitLocalName,fileName,echo,enList,enString,$inNBook,
 parOrder,par\[CapitalLambda],parC,cFitting,errorbarQ,
 coesDir,mfilesDir,fyAmpPart,
-massV,numMass,numCoupLst,numPaVe,
+massV,numMass,numCoupLst,numPaVe,otherCoes,
 chopLimit,chop,precision,
 medRule,toGEGM
 ];]
@@ -220,7 +220,9 @@ assocLst=JoinAcross[coes,expr,Key@chTagKey["chTag"]];
 Query[All,
 (*-------------- \:5708\:79ef\:5206*\:7cfb\:6570,\:5e76\:6570\:503c\:5316 --------------*)
 (Append[#,
-ffsF1F2->Simplify[chop[Times[Normal[#@ffsF1F2]/.numPaVe,#[[Key@fyCoeKeycAll]]]/.medRule[#]]]
+ffsF1F2->Simplify[chop[Times[
+Normal[#@ffsF1F2]/.numPaVe,#@fyCoeKeycAll,otherCoes[#@chTagKey["chTag"]]
+]/.medRule[#]]]
 ])&/*
 (*-------------- \:7531 F1F2 expr \:7ebf\:6027\:7ec4\:5408\:51fa GE,GM --------------*)
 (Append[#,ffsGEGM->(toGEGM[#@ffsF1F2]/.medRule[#])]&)/*
@@ -248,29 +250,30 @@ paraEnvIO[tag_]:=import$Eva[tag]
 numAssoc=paraEnvIO/@fyAmpPart;
 
 
+(* \:7b5b\:9009\:51fa\:7279\:5b9a\:7684\:4fe1\:606f\:ff0c\:4fbf\:4e8e\:67e5\:770b\:6bcf\:4e2a\:8d39\:66fc\:56fe\:ff0c\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:8d21\:732e*)
+pickGroup[x_]:=Query[All,<|Lookup[#,{medMes1,medOct1},"None"]->#[[{Key@ffsF1F2,Key@ffsGEGM}]]|>&]@x;
+loopChans=Query[
+GroupBy[#,{Key@inOct,Key@chTagKey["chTag"]},pickGroup]&
+]@Catenate@numAssoc;
+
+
 (* GroupBy \:8fed\:4ee3\:5206\:7ec4\:7684\:7ed3\:679c\:662f\:4e00\:4e2a\:4e2a\:7684\:5c0f\:7ec4,\:5143\:7d20\:88ab\:653e\:5165\:62ec\:53f7\:4e2d, \:518d\:6b21\:5f62\:6210 {assoc,...} \:7684\:7ed3\:6784\:ff0c
 \:4f7f\:7528 Reduce \:51fd\:6570\:5904\:7406\:8fd9\:4e9b\:7ed3\:679c: \:5148\:901a\:8fc7 Query \:5728\:5c0f\:7ec4\:4e2d\:53d6\:51fa\:7279\:5b9a\:7684\:952e\:ff0c\:5728\:8fd9\:91cc\:662f F1F2,GEGM \:7684\:6570\:503c\:7ed3\:679c,
 \:53d6\:51fa\:7684\:7ed3\:679c\:4ecd\:662f {assoc,...} \:7684\:7ed3\:6784\:ff0c\:518d\:4f7f\:7528 Merge \:51fd\:6570\:5408\:5e76\:5c0f\:7ec4\:7684\:7ed3\:679c\:ff0c\:4f20\:5165 Total \:51fd\:6570\:6267\:884c\:6c42\:548c. 
 \:8fd9\:91cc\:7684\:6c42\:548c,\:5c06\:5355\:4e2a\:8d39\:66fc\:56fe\:4e2d\:4e0d\:540c\:7684\:53cd\:5e94\:9053\:76f8\:52a0.
 *)
-pickGroup[x_]:=Query[All,{Key@ffsF1F2,Key@ffsGEGM}]@x;
 sumGroup[x_?ListQ]:=Merge[Query[All,{Key@ffsF1F2,Key@ffsGEGM}]@x,Total];
 
 
 (*GroupBy \:6309\:7167\:5217\:8868\:4e2d\:7684\:5206\:7c7b\:51fd\:6570\:ff0c\:751f\:6210\:4e00\:4e2a\:5d4c\:5957\:5173\:8054,\:8fd9\:91cc\:662f\:6309{\:5165\:5c04\:7c92\:5b50,\:8d39\:66fc\:56fe}, 
 \:7136\:540e\:5c06 sumGroup \:4f5c\:4e3a Reduce \:51fd\:6570\:4f5c\:7528\:5230\:6700\:7ec8\:5c42\:7684\:5c0f\:7ec4\:4e0a*)
-loopchanSum=Query[
-GroupBy[#,{Key@inOct,Key@chTagKey["chTag"]},Query[All,{Key@ffsF1F2,Key@ffsGEGM}]@#]&
-]@Catenate@numAssoc;
-
-
-loopchanSum=Query[
+loopChanSum=Query[
 GroupBy[#,{Key@inOct,Key@chTagKey["chTag"]},sumGroup]&
 ]@Catenate@numAssoc;
 (*+++++++++++++++++++ \:8fd9\:91cc\:7684\:6c42\:548c\:ff0c\:5c06\:6bcf\:4e2a\:5165\:5c04\:7c92\:5b50\:7684\:ff0c\:6240\:6709\:8d39\:66fc\:56fe\:7684\:7ed3\:679c\:76f8\:52a0 +++++++++++++++++++*)
 loopAmpSum=Query[All,
 Simplify[Merge[Values@#,Total]]&
-]@loopchanSum;
+]@loopChanSum;
 (* \:6700\:7ec8\:7ed3\:679c\:7684\:7ed3\:6784\:5927\:81f4\:5982\:4e0b\:ff1a
 \[LeftAssociation]fd[2,1,0]\[Rule]\[LeftAssociation]Total"\[Rule]\[LeftAssociation]ffsF1F2\[Rule]{F1,F2},ffsGEGM\[Rule]{GE,GM}\[RightAssociation]\[RightAssociation],
 (\:5176\:4ed6\:7c92\:5b50\:7684\:7ed3\:679c,\:7ed3\:6784\:7c7b\:4f3c)\[RightAssociation]*)
@@ -287,6 +290,50 @@ treeFsGs=Query[All,
 (*++++++++++++++++++++++++++  \:63d0\:53d6\:51fa\:6811\:56fe\:9636\:7684\:6570\:503c\:7ed3\:679c  +++++++++++++++++++++++++++++++++++*)
 treeSum=Association@Query[All,
 #@inOct->KeyTake[#,{ffsF1F2,ffsGEGM}]&]@treeFsGs;
+
+
+Merge[{treeSum,loopAmpSum},<|"tree"->First[#],"loop"->Last[#]|>&];
+
+
+(* ::Chapter:: *)
+(*test neutral*)
+
+
+(*\:68c0\:67e5\:662f\:5426\:6ee1\:8db3 \:4e2d\:6027\:7c92\:5b50 \:7535\:8377\:5b88\:6052*)
+sect1=Key/@{
+chTag@{"RB","mes","oct"},
+chTag@{"KR","mes","oct","left"},
+chTag@{"KR","mes","oct","add","left"},
+chTag@{"RB","oct","F1"},
+chTag@{"RB","oct","F2"}
+};
+sect2=Key/@{
+chTag@{"RB","mes","dec"},
+chTag@{"RB","dec","F1"},
+chTag@{"RB","dec","F2"},
+chTag@{"RB","trans","left"},
+chTag@{"KR","mes","dec","left"},
+chTag@{"KR","mes","dec","add","left"}
+};
+sect3=Key/@{
+chTag@{"tad","oct","F1"},
+chTag@{"tad","oct","F1","add"},
+chTag@{"tad","oct","F2"},
+chTag@{"bub","mes","o2"},
+chTag@{"bub","mes","ten","o2"}
+};
+
+
+Query[{Key@fd[2,8,0]},sect1/*Total,({Key@ffsF1F2}),Extract[1],Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&
+]@loopChanSum
+Query[{Key@fd[2,8,0]},sect1,{Key@ffsF1F2},Extract[1],Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&
+]@loopChanSum
+Query[{Key@fd[2,8,0]},sect1,TableForm,All,{Key@ffsF1F2},Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&
+]@loopChans
+
+
+(* ::Chapter:: *)
+(*EOF*)
 
 
 echo[DateString[]," : finished, SessionTime : ",SessionTime[]];

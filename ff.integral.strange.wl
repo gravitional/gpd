@@ -65,13 +65,14 @@ echo["para 2: Part speciation is not valid"];Abort[]
 
 
 (*
-\:53ef\:4ee5\:4f7f\:7528 LooprefineSeries \:5c55\:5f00\:5230 order 2, \:4e5f\:5c31\:662f Q2^2, Q2= - q^2.
-\:4f7f\:7528 strange \:62c9\:5f00\:65b9\:5f0f.
-\:7ea7\:6570\:5c55\:5f00\:7684\:7cfb\:6570\:53ef\:4ee5\:4f7f\:7528 SeriesCoefficient[expr,order] \:6765\:53d1\:73b0.
-\:53d1\:6563\:68c0\:67e5\:ff0c\:786e\:4fdd\:6ca1\:6709\:53d1\:6563.
-\:4f7f\:7528\:7684\:6b63\:89c4\:5b50\:4e3a (\[CapitalLambda]^2-m\[Phi]^2)^2/(k^2-\[CapitalLambda]^2+i \[CurlyEpsilon])^2,
-\:7535\:78c1\:9876\:70b9\:4f7f\:7528\:7684\:6b63\:89c4\:5b50\:9700\:8981\:4f5c\:7ebf\:6027\:53d8\:6362.
-\:6839\:636e Package-X \:7684\:7ea6\:5b9a\:ff0c\:5708\:79ef\:5206\:524d\:9762\:4e0d\:9700\:8981\:8f93\:5165,1/(2\[Pi])^4
++ !! \:8bb0\:5f97\:5982\:679c\:6709\:4f20\:64ad\:5b50\:662f {-k,m}, \:8981\:628a\:5b83\:6539\:6210 {k,m}, \:5426\:5219 Package-X \:53ef\:80fd\:4f1a\:4ea7\:751f\:4e0d\:6070\:5f53\:7ed3\:679c !!
++ \:53ef\:4ee5\:4f7f\:7528 LooprefineSeries \:5c55\:5f00\:5230 order 2, \:4e5f\:5c31\:662f Q2^2, Q2= - q^2.
++ \:4f7f\:7528 strange \:62c9\:5f00\:65b9\:5f0f.
++ \:7ea7\:6570\:5c55\:5f00\:7684\:7cfb\:6570\:53ef\:4ee5\:4f7f\:7528 SeriesCoefficient[expr,order] \:6765\:53d1\:73b0.
++ \:53d1\:6563\:68c0\:67e5\:ff0c\:786e\:4fdd\:6ca1\:6709\:53d1\:6563.
++ \:4f7f\:7528\:7684\:6b63\:89c4\:5b50\:4e3a (\[CapitalLambda]^2-m\[Phi]^2)^2/(k^2-\[CapitalLambda]^2+i \[CurlyEpsilon])^2,
++ \:7535\:78c1\:9876\:70b9\:4f7f\:7528\:7684\:6b63\:89c4\:5b50\:9700\:8981\:4f5c\:7ebf\:6027\:53d8\:6362.
++ \:6839\:636e Package-X \:7684\:7ea6\:5b9a\:ff0c\:5708\:79ef\:5206\:524d\:9762\:4e0d\:9700\:8981\:8f93\:5165,1/(2\[Pi])^4
 ++++++++++++++++++++++++++++++++++++++++++++++++
 \:5982\:679c\:8fd0\:884c\:901f\:5ea6\:6bd4\:8f83\:6162\:ff0c\:53ef\:4ee5\:8bbe\:7f6e\:9009\:9879 LoopRefine[xxx,Organization -> None],\:8fd9\:6837\:53ef\:4ee5\:6539\:5584\:8ba1\:7b97\:901f\:5ea6.
 Package - X \:7684\:4e0d\:540c\:53ea\:5904\:5728\:4e8e, \:5b83\:7684\:5206\:5b50\:4f5c\:4e3a\:4e00\:4e2a\:6574\:4f53\:8f93\:5165, \:4f7f\:7528\:51fd\:6570 LTensor,DiracMatrix \:7b49\:7b49.
@@ -202,14 +203,17 @@ ReleaseHold@paraInitial
 ParallelEvaluate[ReleaseHold@paraInitial];
 
 
+end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
+
+
 (* ::Chapter:: *)
 (*loop Integral: octet*)
 
 
-SetAttributes[paraLintConst,HoldAll];
+SetAttributes[paraLintConst,HoldAll];(* \:7528\:6765\:8bb0\:5f55\:5708\:56fe\:7684\:8f93\:5165,\:5e76\:4e0d\:8ba1\:7b97\:6216\:8005\:63d0\:4ea4\:4efb\:52a1 *)
 SetAttributes[paraLintSubmit,HoldAll];
 paraLintSubmit[spin_,scalar_,fyTag_]:=ParallelSubmit[
-(* ParallelSubmit \:5177\:6709 HoldAllComplete \:5c5e\:6027, \:4e0b\:9762\:7684 Block \:5757\:4e0d\:4f1a\:88ab\:8ba1\:7b97 *)
+(* ParallelSubmit \:5177\:6709 HoldAllComplete \:5c5e\:6027, \:4e0b\:9762\:7684\:4ee3\:7801\:5757\:4e0d\:4f1a\:88ab\:8ba1\:7b97 *)
 Block[{numer,denom,fyAmp,time0Result,path},
 (* \:5408\:6210\:5708\:79ef\:5206\:7684\:5206\:5b50\:548c\:5206\:6bcd *)
 numer=Times@@Cases[scalar,num[x_]:>x]*spin;(*\:751f\:6210\:5206\:5b50,*)
@@ -230,10 +234,23 @@ If[$inNBook,fyAmp]]
 ]
 
 
-end=4;delta=end/80;(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)
+(* \:53ef\:4ee5\:7528\:6765\:6d4b\:8bd5\:67d0\:4e2a\:7ed3\:679c, paraLintConst->paraLintTest *)
+paraLintTest[spin_,scalar_,fyTag_]:=Block[{numer,denom,fyAmp,time0Result,path},
+(* \:5408\:6210\:5708\:79ef\:5206\:7684\:5206\:5b50\:548c\:5206\:6bcd *)
+numer=Times@@Cases[scalar,num[x_]:>x]*spin;(*\:751f\:6210\:5206\:5b50,*)
+denom=Cases[scalar,prp[x_]:>x];(*\:751f\:6210\:5206\:6bcd,\:4e5f\:5c31\:662f\:4f20\:64ad\:5b50*)
+(* -----------------\:8fd4\:56de\:503c: \:5c06\:5708\:79ef\:5206,\:5206\:89e3\:5230\:6807\:51c6\:57fa Passarino-Veltman \:51fd\:6570 -------------------------------- *)
+echo[DateString[],": loopIntegrate on: ",fyTag];
+time0Result=LoopIntegrate[numer,k,Sequence@@denom,Cancel->Automatic,Apart->True]/.onShell//AbsoluteTiming;
+<|
+"tag"->fyTag,
+"time"->First@time0Result,
+ffsF1F2->Last@time0Result
+|>
+]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,mes,oct*)
 
 
@@ -447,7 +464,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,oct,F1,*)
 
 
@@ -493,7 +510,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,oct,F2,*)
 
 
@@ -758,7 +775,7 @@ tag
 ]];
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*loop Integral: decuplet*)
 
 
@@ -899,7 +916,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,trans,left*)
 
 
@@ -948,7 +965,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,trans,right*)
 
 
@@ -997,7 +1014,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,dec,left*)
 
 
@@ -1087,7 +1104,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,dec,add,left*)
 
 
@@ -1134,7 +1151,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,dec,add,right*)
 
 

@@ -37,7 +37,7 @@ Get[FileNameJoin[{gitLocalName,"gen.format.wl"}]](*\:8bfb\:5165\:5b9a\:4e49\:4ee
 
 
 (* ::Chapter:: *)
-(*\:5177\:4f53\:5b9e\:73b0*)
+(*implement*)
 
 
 (* ::Section:: *)
@@ -117,12 +117,12 @@ mat["\[Phi]"]={
 {fd[1,3,0],-1/Sqrt[2] fd[1,2,0]+1/Sqrt[6] fd[1,8,0],fd[1,6,0]},
 {fd[1,5,0],fd[1,7,0],-2/Sqrt[6] fd[1,8,0]}
 };
-mat["u"]=IdentityMatrix[dim]+(I/(Sqrt[2]lecs["f"]))*mat["\[Phi]"];
-mat["U"]=IdentityMatrix[dim]+((I*Sqrt[2])/lecs["f"])*mat["\[Phi]"];
+mat["u"]=IdentityMatrix[dim]+(I/(Sqrt[2]lecs["f"]))*mat["\[Phi]"]+(I/(Sqrt[2]lecs["f"]))^2/2!*mat["\[Phi]"] . mat["\[Phi]"];
+mat["U"]=IdentityMatrix[dim]+((I*Sqrt[2])/lecs["f"])*mat["\[Phi]"]+((I*Sqrt[2])/lecs["f"])^2/2!*mat["\[Phi]"] . mat["\[Phi]"];
 (*\:4ecb\:5b50\:573a\:77e9\:9635\:7684\:5384\:7c73\:5171\:8f6d*)
 mat["\[Phi]\[Dagger]"]=mat["\[Phi]"];
-mat["u\[Dagger]"]=IdentityMatrix[dim]-(I/(Sqrt[2]lecs["f"]))*mat["\[Phi]"];
-mat["U\[Dagger]"]=IdentityMatrix[dim]-((I*Sqrt[2])/lecs["f"])*mat["\[Phi]"];
+mat["u\[Dagger]"]=IdentityMatrix[dim]+(-I/(Sqrt[2]lecs["f"]))*mat["\[Phi]"]+(-I/(Sqrt[2]lecs["f"]))^2/2!*mat["\[Phi]"] . mat["\[Phi]"];
+mat["U\[Dagger]"]=IdentityMatrix[dim]+(-(I*Sqrt[2])/lecs["f"])*mat["\[Phi]"]+(-(I*Sqrt[2])/lecs["f"])^2/2!*mat["\[Phi]"] . mat["\[Phi]"];
 
 
 (* ::Text:: *)
@@ -232,7 +232,8 @@ constantQ::usage="constantQ[sym:_],\:68c0\:6d4b sym \:662f\:5426\:4e3a\:5e38\:65
 pde1::usage="pde[\[PartialD]\[Mu],B] \:504f\:5bfc\:6570\:51fd\:6570,\:5bf9\:5e38\:6570\:6c42\:5bfc\:7b49\:4e8e\:96f6,\[PartialD].(A.B)=A*\[PartialD]B+B*\[PartialD]A,\[PartialD].(A+B)=\[PartialD]A+\[PartialD]B";
 pde1[pd_,Plus[x_,y__]]:=Plus[pde1[pd,x],pde1[pd,Plus[y]]]
 pde1[pd_,Times[x_,y__]]:=Times[x,pde1[pd,Times[y]]]+Times[Times[y],pde1[pd,x]]
-pde1[pd_,Power[sym_,m_.]]:=If[constantQ[sym],0,pde[pd,Power[sym,m]]](*\:8003\:8651power\:7684\:60c5\:51b5\:66f4\:52a0\:5168\:9762\:ff0c\:5e76\:4f7f\:7528power\:9ed8\:8ba4\:503c1*)
+pde1[pd_,Power[sym_,m_]]:=If[constantQ[sym],0,m*pde1[pd,sym]*pde1[pd,Power[sym,m-1]]](*\:8003\:8651power\:7684\:60c5\:51b5\:66f4\:52a0\:5168\:9762\:ff0c\:5e76\:4f7f\:7528power\:9ed8\:8ba4\:503c1*)
+pde1[pd_,sym_]:=If[constantQ[sym],0,pde[pd,sym]]
 (*\:4e0a\:9762\:4f7f\:7528\:4e86 pde,gma \:51fd\:6570*)
 gma1::usage="gma1[\[Gamma]\[Mu],B,direction],\:4e58\:4e0a\[Gamma]\:51fd\:6570,\:9ed8\:8ba4\:662f\:4ece\:5de6\:8fb9\:4e58\:4e0a\:7684,\[Gamma].(A+B)=\[Gamma].A+\[Gamma].B, \[Gamma]C*B=C*\[Gamma].B";
 gma1[gm_,Plus[x_,y__]]:=Plus[gma1[gm,x],gma1[gm,Plus[y]]]
@@ -246,7 +247,7 @@ ltzScript1[sym:_,idxes:__]:=If[constantQ[sym],sym,ltzScript[sym,idxes]]
 
 
 (* ::Section:: *)
-(*\:5206\:7c7b\:548c\:6392\:5e8f*)
+(*Gather & Sort*)
 
 
 (* ::Text:: *)
@@ -363,11 +364,12 @@ Background->{Automatic,{{LightOrange,White}}},Frame->All,FrameStyle->White
 
 (*\:624b\:5f81 Lagrangian \:7684\:5404\:9879,\:6309\:7167\:8026\:5408\:5e38\:6570\:8fdb\:884c\:6392\:5217\:ff1a*)
 lag=<||>;
+ordRule={lecs["f"]^x_/;x<-2->0};
 
 
 (*\:624b\:5f81\:5f3a\:5b50\:6d41*)
-crt["\[CapitalGamma]",\[Mu]_,"hd"]:=1/2 (mat["u"] . ltz[mat["u\[Dagger]"],"tp"->"\[PartialD]","idx"->\[Mu]]+mat["u\[Dagger]"] . ltz[mat["u"],"tp"->"\[PartialD]","idx"->\[Mu]])(*\:624b\:5f81\:77e2\:91cf\:6d41,\:5f3a\:76f8\:4e92\:4f5c\:7528\:90e8\:5206*)
-crt["u",\[Mu]_,"hd"]:=(I/2) (mat["u"] . ltz[mat["u\[Dagger]"],"tp"->"\[PartialD]","idx"->\[Mu]]-mat["u\[Dagger]"] . ltz[mat["u"],"tp"->"\[PartialD]","idx"->\[Mu]])(*\:624b\:5f81\:8f74\:77e2\:6d41*)
+crt["\[CapitalGamma]",\[Mu]_,"hd"]:=(1/2Expand[mat["u"] . ltz[mat["u\[Dagger]"],"tp"->"\[PartialD]","idx"->\[Mu]]+mat["u\[Dagger]"] . ltz[mat["u"],"tp"->"\[PartialD]","idx"->\[Mu]]]/.ordRule)(*\:624b\:5f81\:77e2\:91cf\:6d41,\:5f3a\:76f8\:4e92\:4f5c\:7528\:90e8\:5206*)
+crt["u",\[Mu]_,"hd"]:=((I/2)Expand[mat["u"] . ltz[mat["u\[Dagger]"],"tp"->"\[PartialD]","idx"->\[Mu]]-mat["u\[Dagger]"] . ltz[mat["u"],"tp"->"\[PartialD]","idx"->\[Mu]]]/.ordRule)(*\:624b\:5f81\:8f74\:77e2\:6d41*)
 
 
 (*\:516b\:91cd\:6001\:ff1aTr[Overscript[B, _](I*\[Gamma].\[PartialD]-MB)B]*)
@@ -390,7 +392,7 @@ mat["Bbar"] . (I*cmt[Dot,crt["\[CapitalGamma]","\[Mu]","hd"],ltz[mat["B"],"tp"->
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["oct,\[CapitalGamma]\[Mu]"],
-ContainsAll,{fd[2,3,0],fd[2,3,1]}
+ContainsAll,{fd[2,1,0],fd[2,1,1]}
 ]
 
 
@@ -428,7 +430,7 @@ ltz[mat["U\[Dagger]"],"tp"->"\[PartialD]","idx"->"\[Mu]"]
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
-lag["mes"]/.{lecs["1/f"]->1/lecs["f"]},
+lag["mes"],
 ContainsAny,Flatten[Array[fd,{1,8,1},{{1,1},{1,8},{0,0}}]](*\:4ecb\:5b50\:573a\:ff0c\:6b63\:573a*)
 ]
 
@@ -440,8 +442,8 @@ lag["DF"]=Expand[
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
-lag["DF"]/.{lecs["1/f"]->1/lecs["f"]},
-ContainsAny,{fd[2,3,0],fd[2,3,1]}(*\:53ea\:67e5\:770b\:6838\:5b50*)
+lag["DF"],
+ContainsAny,{fd[2,8,0],fd[2,8,1]}(*\:53ea\:67e5\:770b\:6838\:5b50*)
 ]
 
 
@@ -549,7 +551,7 @@ vfd2[\[Mu]_,\[Nu]_]:=ltz[vfd[\[Nu]],"tp"->"\[PartialD]","idx"->\[Mu]]-ltz[vfd[\[
 vfd2["-Iq\[Nu]",\[Mu]_,\[Nu]_]:=(-I*fv[q,\[Mu]]*vfd[\[Nu]]+I*fv[q,\[Nu]]*vfd[\[Mu]])(*F\[Mu]\[Nu],\:7535\:78c1\:573a\:5f20\:91cf\:ff0c\:5728\:52a8\:91cf\:7a7a\:95f4\:7684\:5f62\:5f0f\:ff0c\:5149\:5b50\:52a8\:91cf\:4e3a-Iq\[Nu]*)
 vfd2["F\[Mu]\[Nu]",\[Mu]_,\[Nu]_]:=F\[Mu]\[Nu]["\[Mu]","\[Nu]"](*F\[Mu]\[Nu],\:7535\:78c1\:573a\:5f20\:91cf\:ff0c\:5728\:4f4d\:7f6e\:7a7a\:95f4\:7684\:5f62\:5f0f*)
 crt[{"F\[Mu]\[Nu]",0},\[Mu]_,\[Nu]_]:=vfd2["F\[Mu]\[Nu]",\[Mu],\[Nu]]*(Qqk)(*\:5c55\:5f00\:5230\:7b2c0\:9636*)
-crt[{"F\[Mu]\[Nu]",2},\[Mu]_,\[Nu]_]:=vfd2["F\[Mu]\[Nu]",\[Mu],\[Nu]]*(1/2)*(mat["u\[Dagger]"] . Qqk . mat["u"]+mat["u"] . Qqk . mat["u\[Dagger]"])(*\:5c55\:5f00\:5230\:7b2c2\:9636*)
+crt[{"F\[Mu]\[Nu]",2},\[Mu]_,\[Nu]_]:=vfd2["F\[Mu]\[Nu]",\[Mu],\[Nu]]*(1/2*Expand[mat["u\[Dagger]"] . Qqk . mat["u"]+mat["u"] . Qqk . mat["u\[Dagger]"]]/.ordRule)(*\:5c55\:5f00\:5230\:7b2c2\:9636*)
 
 
 (* ::Text:: *)
@@ -562,13 +564,12 @@ crt[{"F\[Mu]\[Nu]",2},\[Mu]_,\[Nu]_]:=vfd2["F\[Mu]\[Nu]",\[Mu],\[Nu]]*(1/2)*(mat
 
 ntct["oct"]=Expand[lecs["1"]/2*Tr[(*lecs["1"]\:5c31\:662f1\:ff0c\:52a8\:80fd\:9879\:7684\:7279\:5f81*)
 mat["Bbar"] . cmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]+mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]]
-]+
-lecs["1"]*Tr[Qqk]*Tr[mat["Bbar"] . ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]]
+]+lecs["1"]*Tr[Qqk]*Tr[mat["Bbar"] . ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]]
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
-(ntct["oct"]/.lecs["1/f"]^2->0),
-ContainsAll,{fd[2,3,0],fd[2,3,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
+ntct["oct"]/.ordRule,
+ContainsAll,{fd[2,7,0],fd[2,7,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
 ]
 
 
@@ -582,7 +583,7 @@ lecs["F"]/2*Tr[mat["Bbar"] . cmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
-(ntct["DF"]),
+ntct["DF"]/.ordRule,
 ContainsAny,{fd[2,1,0],fd[2,1,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
 ]
 
@@ -602,7 +603,7 @@ ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Nu]"]*(inner+TensorTranspose[inner,{2,3,1}
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
-(ntct["dec"]/.lecs["1/f"]^2->0),
+ntct["dec"]/.ordRule,
 ContainsAny,{fd[3,1,0],fd[3,1,1]}
 ]
 
@@ -646,7 +647,7 @@ mat["Bbar"] . TensorContract[(mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
-(ntct["C"]),
+ntct["C"]/.ordRule,
 ContainsAny,{fd[2,1,0],fd[2,1,1]}
 ]
 
