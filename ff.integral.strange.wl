@@ -250,8 +250,12 @@ ffsF1F2->Last@time0Result
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,mes,oct*)
+
+
+(* ::Input:: *)
+(*\[LeftAngleBracket]\[ScriptU][p2,mE],Subscript[\[Gamma], \[Mu]],\[Gamma]5,\[Gamma] . (p1-k)+mo1 \[DoubleStruckOne],\[Gamma] . k,\[Gamma]5,\[ScriptU][p1,mE]\[RightAngleBracket]//FermionLineExpand*)
 
 
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
@@ -284,7 +288,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,left*)
 
 
@@ -328,7 +332,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,right*)
 
 
@@ -372,7 +376,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,add,left*)
 
 
@@ -418,7 +422,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,add,right*)
 
 
@@ -464,7 +468,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,oct,F1,*)
 
 
@@ -510,7 +514,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,oct,F2,*)
 
 
@@ -580,7 +584,7 @@ paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 Spur[
-2 LTensor[DiracG,\[Mu]],(*\[Gamma]^\[Mu] \:77e9\:9635*)
+LTensor[DiracG,\[Mu]],(*\[Gamma]^\[Mu] \:77e9\:9635*)
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
 Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
@@ -624,7 +628,7 @@ paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
 (-1)LTensor[2k+(p2-p1),\[Mu]]*Spur[
-4 LDot[DiracG,k],(*\:79ef\:5206\:5728 k\[Rule]-k \:53d8\:6362\:4e0b,\:6d88\:53bb\:5947\:51fd\:6570\:7684\:90e8\:5206,*)
+2 LDot[DiracG,k],(*\:79ef\:5206\:5728 k\[Rule]-k \:53d8\:6362\:4e0b,\:6d88\:53bb\:5947\:51fd\:6570\:7684\:90e8\:5206,*)
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
 Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
@@ -643,7 +647,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tadpole,oct,F2*)
 
 
@@ -687,7 +691,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*bubble,mes,o2*)
 
 
@@ -710,8 +714,8 @@ fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
 paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
-LTensor[2k+p2-p1,\[Mu]]*Spur[
-LDot[DiracG,(2k+p2-p1)],
+4 LTensor[k,\[Mu]]*Spur[
+LDot[DiracG,k],
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
 Projector["F2",\[Mu]][{p1,mE},{p2,mE}]
@@ -731,7 +735,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*bubble,mes,ten,o2*)
 
 
@@ -775,7 +779,7 @@ tag
 ]];
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*loop Integral: decuplet*)
 
 
@@ -916,7 +920,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,trans,left*)
 
 
@@ -965,7 +969,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,trans,right*)
 
 
@@ -1014,7 +1018,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,dec,left*)
 
 
@@ -1104,7 +1108,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,dec,add,left*)
 
 
@@ -1151,7 +1155,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,dec,add,right*)
 
 

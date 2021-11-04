@@ -11,7 +11,7 @@
 (*\:4f7f\:7528\:7684\:8bb0\:53f7\:53c2\:8003\:ff1ahttps://arxiv.org/pdf/1806.07551.pdf*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*initial*)
 
 
@@ -41,17 +41,10 @@ Get[FileNameJoin[{gitLocalName,"gen.format.wl"}]](*\:8bfb\:5165\:5b9a\:4e49\:4ee
 
 
 (* ::Section:: *)
-(*\:5e38\:6570*)
+(*constants*)
 
 
-(* ::Text:: *)
-(*\:5e38\:6570\:77e9\:9635\:ff0c\:6bd4\:5982 Gellman \:77e9\:9635*)
-
-
-(* ::DisplayFormula:: *)
 (*SU(3)\:7fa4\:57fa\:672c\:8868\:793a\:7684\:751f\:6210\:5143\:ff0c=1/2 Gellman*)
-
-
 dim=3;(*\:4e3a\:5bf9\:79f0\:7fa4SU(3)\:9009\:53d6\:7684\:8868\:793a\:7684\:7ef4\:5ea6*)
 
 
@@ -69,29 +62,20 @@ IdentityMatrix[dim],
 gellmann::usage="gellmann[1]\:ff0c\:7ed9\:51fa\:7b2c1\:4e2agellmann\:77e9\:9635";
 
 
-(* ::Text:: *)
 (*Levi - Civita \:5f20\:91cf *)
-
-
 levi=LeviCivitaTensor[3];
 
 
-(* ::Text:: *)
-(*\:5b9a\:4e49\:5e7f\:4e49\:7684\:5bf9\:6613\:548c\:53cd\:5bf9\:6613\:ff0c\:5bf9\:4e8e\:67d0\:79cd\:8fd0\:7b97f\:ff0c*)
-
-
+(*\:5bf9\:4e8e\:67d0\:79cd\:8fd0\:7b97f\:ff0c\:5b9a\:4e49\:5bf9\:6613\:548c\:53cd\:5bf9\:6613 *)
 cmt[f_,x_,y_]:=f[x,y]-f[y,x](*\:8fdb\:884c\:5bf9\:6613\:8fd0\:7b97*)
 acmt[f_,x_,y_]:=f[x,y]+f[y,x](*\:8fdb\:884c\:53cd\:5bf9\:6613\:8fd0\:7b97*)
 
 
 (* ::Section:: *)
-(*\:573a\:77e9\:9635*)
+(*fields*)
 
 
-(* ::Text:: *)
-(*\:4ecb\:5b50\:77e9\:9635*)
-
-
+(* \:4ecb\:5b50\:77e9\:9635 *)
 mat::usage="mat[\[Phi]],\:5176\:4e2d\:5404\:7c92\:5b50\:6536\:96c6\:5230\:7684\:77e9\:9635tag\:662f
 meson::
 \[Phi],u,U,\[Phi]\[ConjugateTranspose],u\[ConjugateTranspose],U\[ConjugateTranspose],M\[Phi]
@@ -101,10 +85,7 @@ decuplet::
 T,Tbar,MT";
 
 
-(* ::Text:: *)
-(*\:4ecb\:5b50\:77e9\:9635 and dagger \:8d28\:91cf\:9879*)
-
-
+(*\:4ecb\:5b50\:77e9\:9635 \[Phi],\[Phi]\[Dagger] \:7684\:8d28\:91cf\:9879*)
 mat["m\[Phi]"]={
 {fd[1,{2,8},2],fd[1,1,2],fd[1,4,2]},
 {fd[1,3,2],fd[1,{2,8},2],fd[1,6,2]},
@@ -232,7 +213,7 @@ constantQ::usage="constantQ[sym:_],\:68c0\:6d4b sym \:662f\:5426\:4e3a\:5e38\:65
 pde1::usage="pde[\[PartialD]\[Mu],B] \:504f\:5bfc\:6570\:51fd\:6570,\:5bf9\:5e38\:6570\:6c42\:5bfc\:7b49\:4e8e\:96f6,\[PartialD].(A.B)=A*\[PartialD]B+B*\[PartialD]A,\[PartialD].(A+B)=\[PartialD]A+\[PartialD]B";
 pde1[pd_,Plus[x_,y__]]:=Plus[pde1[pd,x],pde1[pd,Plus[y]]]
 pde1[pd_,Times[x_,y__]]:=Times[x,pde1[pd,Times[y]]]+Times[Times[y],pde1[pd,x]]
-pde1[pd_,Power[sym_,m_]]:=If[constantQ[sym],0,m*pde1[pd,sym]*pde1[pd,Power[sym,m-1]]](*\:8003\:8651power\:7684\:60c5\:51b5\:66f4\:52a0\:5168\:9762\:ff0c\:5e76\:4f7f\:7528power\:9ed8\:8ba4\:503c1*)
+pde1[pd_,Power[sym_,m_]]:=If[constantQ[sym],0,m*pde1[pd,sym]*pde1[pd,Power[sym,m-1]]](* \:5bf9 power \:7684\:4f5c\:7528*)
 pde1[pd_,sym_]:=If[constantQ[sym],0,pde[pd,sym]]
 (*\:4e0a\:9762\:4f7f\:7528\:4e86 pde,gma \:51fd\:6570*)
 gma1::usage="gma1[\[Gamma]\[Mu],B,direction],\:4e58\:4e0a\[Gamma]\:51fd\:6570,\:9ed8\:8ba4\:662f\:4ece\:5de6\:8fb9\:4e58\:4e0a\:7684,\[Gamma].(A+B)=\[Gamma].A+\[Gamma].B, \[Gamma]C*B=C*\[Gamma].B";
@@ -246,7 +227,7 @@ ltzScript1[Times[x:_,y:__],idx:_]:=Times[ltzScript1[x,idx],ltzScript1[Times[y],i
 ltzScript1[sym:_,idxes:__]:=If[constantQ[sym],sym,ltzScript[sym,idxes]]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Gather & Sort*)
 
 
@@ -368,8 +349,10 @@ ordRule={lecs["f"]^x_/;x<-2->0};
 
 
 (*\:624b\:5f81\:5f3a\:5b50\:6d41*)
-crt["\[CapitalGamma]",\[Mu]_,"hd"]:=(1/2Expand[mat["u"] . ltz[mat["u\[Dagger]"],"tp"->"\[PartialD]","idx"->\[Mu]]+mat["u\[Dagger]"] . ltz[mat["u"],"tp"->"\[PartialD]","idx"->\[Mu]]]/.ordRule)(*\:624b\:5f81\:77e2\:91cf\:6d41,\:5f3a\:76f8\:4e92\:4f5c\:7528\:90e8\:5206*)
-crt["u",\[Mu]_,"hd"]:=((I/2)Expand[mat["u"] . ltz[mat["u\[Dagger]"],"tp"->"\[PartialD]","idx"->\[Mu]]-mat["u\[Dagger]"] . ltz[mat["u"],"tp"->"\[PartialD]","idx"->\[Mu]]]/.ordRule)(*\:624b\:5f81\:8f74\:77e2\:6d41*)
+crt["\[CapitalGamma]",\[Mu]_,"hd"]:=(1/2Expand[mat["u"] . ltz[mat["u\[Dagger]"],"tp"->"\[PartialD]","idx"->\[Mu]]+
+mat["u\[Dagger]"] . ltz[mat["u"],"tp"->"\[PartialD]","idx"->\[Mu]]]/.ordRule)(*\:624b\:5f81\:77e2\:91cf\:6d41,\:5f3a\:76f8\:4e92\:4f5c\:7528\:90e8\:5206*)
+crt["u",\[Mu]_,"hd"]:=((I/2)Expand[mat["u"] . ltz[mat["u\[Dagger]"],"tp"->"\[PartialD]","idx"->\[Mu]]
+-mat["u\[Dagger]"] . ltz[mat["u"],"tp"->"\[PartialD]","idx"->\[Mu]]]/.ordRule)(*\:624b\:5f81\:8f74\:77e2\:6d41*)
 
 
 (*\:516b\:91cd\:6001\:ff1aTr[Overscript[B, _](I*\[Gamma].\[PartialD]-MB)B]*)
@@ -546,12 +529,16 @@ Format[qk[2],StandardForm]:=Subscript[Q,d]
 Format[qk[3],StandardForm]:=Subscript[Q,s]
 (*\:4e09\:79cd\:5938\:514b\:7684\:7535\:8377\:77e9\:9635*)
 Qqk:=DiagonalMatrix[{ch["u"],ch["d"],ch["s"]}]
-(*\:8ddf\:5916\:90e8\:7535\:78c1\:573a\:8026\:5408\:7684\:7535\:78c1\:6d41*)
-vfd2[\[Mu]_,\[Nu]_]:=ltz[vfd[\[Nu]],"tp"->"\[PartialD]","idx"->\[Mu]]-ltz[vfd[\[Mu]],"tp"->"\[PartialD]","idx"->\[Nu]](*F\[Mu]\[Nu],\:7535\:78c1\:573a\:5f20\:91cf*)
-vfd2["-Iq\[Nu]",\[Mu]_,\[Nu]_]:=(-I*fv[q,\[Mu]]*vfd[\[Nu]]+I*fv[q,\[Nu]]*vfd[\[Mu]])(*F\[Mu]\[Nu],\:7535\:78c1\:573a\:5f20\:91cf\:ff0c\:5728\:52a8\:91cf\:7a7a\:95f4\:7684\:5f62\:5f0f\:ff0c\:5149\:5b50\:52a8\:91cf\:4e3a-Iq\[Nu]*)
-vfd2["F\[Mu]\[Nu]",\[Mu]_,\[Nu]_]:=F\[Mu]\[Nu]["\[Mu]","\[Nu]"](*F\[Mu]\[Nu],\:7535\:78c1\:573a\:5f20\:91cf\:ff0c\:5728\:4f4d\:7f6e\:7a7a\:95f4\:7684\:5f62\:5f0f*)
+(*+++++++++++++++++++++++++++ \:8ddf\:5916\:90e8\:7535\:78c1\:573a\:8026\:5408\:7684\:7535\:78c1\:6d41 +++++++++++++++++++++++++++*)
+(*F\[Mu]\[Nu],\:7535\:78c1\:573a\:5f20\:91cf*)
+vfd2[\[Mu]_,\[Nu]_]:=ltz[vfd[\[Nu]],"tp"->"\[PartialD]","idx"->\[Mu]]-ltz[vfd[\[Mu]],"tp"->"\[PartialD]","idx"->\[Nu]]
+(*F\[Mu]\[Nu],\:7535\:78c1\:573a\:5f20\:91cf\:ff0c\:5728\:52a8\:91cf\:7a7a\:95f4\:7684\:5f62\:5f0f\:ff0c\:5149\:5b50\:52a8\:91cf\:4e3a-Iq\[Nu]*)
+vfd2["-Iq\[Nu]",\[Mu]_,\[Nu]_]:=(-I*fv[q,\[Mu]]*vfd[\[Nu]]+I*fv[q,\[Nu]]*vfd[\[Mu]])
+(*F\[Mu]\[Nu],\:7535\:78c1\:573a\:5f20\:91cf\:ff0c\:5728\:4f4d\:7f6e\:7a7a\:95f4\:7684\:5f62\:5f0f*)
+vfd2["F\[Mu]\[Nu]",\[Mu]_,\[Nu]_]:=F\[Mu]\[Nu]["\[Mu]","\[Nu]"]
 crt[{"F\[Mu]\[Nu]",0},\[Mu]_,\[Nu]_]:=vfd2["F\[Mu]\[Nu]",\[Mu],\[Nu]]*(Qqk)(*\:5c55\:5f00\:5230\:7b2c0\:9636*)
-crt[{"F\[Mu]\[Nu]",2},\[Mu]_,\[Nu]_]:=vfd2["F\[Mu]\[Nu]",\[Mu],\[Nu]]*(1/2*Expand[mat["u\[Dagger]"] . Qqk . mat["u"]+mat["u"] . Qqk . mat["u\[Dagger]"]]/.ordRule)(*\:5c55\:5f00\:5230\:7b2c2\:9636*)
+crt[{"F\[Mu]\[Nu]",2},\[Mu]_,\[Nu]_]:=vfd2["F\[Mu]\[Nu]",\[Mu],\[Nu]]*(1/2*Expand[mat["u\[Dagger]"] . Qqk . mat["u"]+
+mat["u"] . Qqk . mat["u\[Dagger]"]]/.ordRule)(*\:5c55\:5f00\:5230\:7b2c2\:9636*)
 
 
 (* ::Text:: *)
@@ -563,13 +550,14 @@ crt[{"F\[Mu]\[Nu]",2},\[Mu]_,\[Nu]_]:=vfd2["F\[Mu]\[Nu]",\[Mu],\[Nu]]*(1/2*Expan
 
 
 ntct["oct"]=Expand[lecs["1"]/2*Tr[(*lecs["1"]\:5c31\:662f1\:ff0c\:52a8\:80fd\:9879\:7684\:7279\:5f81*)
-mat["Bbar"] . cmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]+mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]]
+mat["Bbar"] . cmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]+
+mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]]
 ]+lecs["1"]*Tr[Qqk]*Tr[mat["Bbar"] . ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]]
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 ntct["oct"]/.ordRule,
-ContainsAll,{fd[2,7,0],fd[2,7,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
+ContainsAll,{fd[2,1,0],fd[2,1,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
 ]
 
 
@@ -578,8 +566,10 @@ ContainsAll,{fd[2,7,0],fd[2,7,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
 
 
 ntct["DF"]=Expand[
-lecs["D"]/2*Tr[mat["Bbar"] . acmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]+
-lecs["F"]/2*Tr[mat["Bbar"] . cmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]
+lecs["D"]/2*Tr[mat["Bbar"] . acmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]-
+mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]+
+lecs["F"]/2*Tr[mat["Bbar"] . cmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]-
+mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
@@ -706,7 +696,7 @@ lecs["c2"]*Tr[mat["Bbar"] . cmt[Dot,crt[{"F\[Mu]\[Nu]",2},"\[Mu]","\[Nu]"],ltz[m
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["mag8"]/.{lecs["c3"]->lecs["c2"]-lecs["c1"]},
-ContainsAll,{fd[2,4,1],fd[2,8,0]}
+ContainsAll,{fd[2,1,1],fd[2,1,0]}
 ]
 
 
