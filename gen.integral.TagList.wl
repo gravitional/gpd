@@ -76,9 +76,9 @@ fyAmpTreeLst={
 (*chTag@{"tree","oct","F1F2"}->fyCoe[1],*)
 (**)
 (*chTag@{"tad","oct","F1"}->fyCoe[I],*)
-(*chTag@{"tad","oct","F1","add"}->fyCoe[I],*)
-(*chTag@{"tad","oct","F2"}->fyCoe[I],*)
+(*chTag@{"tad","oct","F1","add"}->fyCoe[-I],*)
 (**)
+(*chTag@{"tad","oct","F2"}->fyCoe[I],*)
 (**)
 (*chTag@{"bub","mes","o2"}->fyCoe[-I],*)
 (*chTag@{"bub","mes","ten","o2"}->fyCoe[-1],*)
@@ -113,7 +113,8 @@ chTag@{"RB","oct","F2"}->fyCoe[I],
 chTag@{"tree","oct","F1F2"}->fyCoe[1],
 
 chTag@{"tad","oct","F1"}->fyCoe[I],
-chTag@{"tad","oct","F1","add"}->fyCoe[I],
+chTag@{"tad","oct","F1","add"}->fyCoe[-I],
+
 chTag@{"tad","oct","F2"}->fyCoe[I],
 
 chTag@{"bub","mes","o2"}->fyCoe[-I],

@@ -489,7 +489,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mesout["K0b"],coe
 (*Mass filed, electric magnetic current*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*F1,meson,\[Phi]\[Phi]A*)
 
 
@@ -1025,7 +1025,7 @@ unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[vtxtp,(cc["c1"](ch["u
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*octet,order2,BB\[Phi]\[Phi]A*)
 
 
@@ -1166,11 +1166,11 @@ vtxtpFlip->(#@vtxtp/.vtxCoe->vtxCoeAnti)
 ]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*anomalous magnetic, to nonlocal*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*octet,order 1*)
 
 
@@ -1204,10 +1204,12 @@ vtxF1+vtxF2==#@vtxGM
 KeyDrop[{vtxType1,vtxType2,massKey}]
 ]@
 (*+++++++++++++++++++++++++ \:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765 +++++++++++++++++++++++++*)
-JoinAcross[vtx1,vtx2,{Key@fdTypeOctb,Key@fdTypeOct}]);
+(JoinAcross[vtx1,vtx2,{Key@fdTypeOctb,Key@fdTypeOct},"Outer"]
+/.{Missing["Unmatched"]->vtxCoe[0]})
+);
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*octet,order 2*)
 
 
@@ -1247,10 +1249,13 @@ vtxF1+vtxF2==#@vtxGM}
 KeyDrop[{vtxType1,vtxType2,massKey}]
 ]@
 (*+++++++++++++++++++++++++ \:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765 +++++++++++++++++++++++++*)
-JoinAcross[vtx1,vtx2,{Key@fdTypeOctb,Key@fdTypeOct,Key@fdTypeMes,Key@fdTypeMesOut}]);
+(* \:6b64\:5904\:5408\:7406\:7684 joinspec \:662f "Outer"\:ff0c \:5141\:8bb8 ai \:548c bj \:7684\:952e\:4e0d\:5339\:914d\:ff0c\:8fd9\:6837\:53ef\:4ee5\:81ea\:52a8\:586b\:5145\:4e0d\:5b58\:5728\:7684\:8bb0\:5f55\:ff0c \:518d\:4f7f\:7528\:66ff\:6362\:66ff\:6362\:6210\:96f6*)
+(JoinAcross[vtx1,vtx2,{Key@fdTypeOctb,Key@fdTypeOct,Key@fdTypeMes,Key@fdTypeMesOut},"Outer"]
+/.{Missing["Unmatched"]->vtxCoe[0]})
+);
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*decuplet, order 1*)
 
 
@@ -1283,7 +1288,9 @@ vtxF1+vtxF2==#@vtxGM}
 KeyDrop[{vtxType1,vtxType2,massKey}]
 ]@
 (*\:5c06\:53cd\:5e38\:78c1\:77e9\:7684F1,F2\:8fde\:63a5\:8d77\:6765*)
-JoinAcross[vtx1,vtx2,{Key@fdTypeDecb,Key@fdTypeDec}]);
+(JoinAcross[vtx1,vtx2,{Key@fdTypeDecb,Key@fdTypeDec},"Outer"]
+/.{Missing["Unmatched"]->vtxCoe[0]})
+);
 
 
 (* ::Chapter::Closed:: *)

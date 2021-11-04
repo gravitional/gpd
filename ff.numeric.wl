@@ -279,6 +279,21 @@ Simplify[Merge[Values@#,Total]]&
 (\:5176\:4ed6\:7c92\:5b50\:7684\:7ed3\:679c,\:7ed3\:6784\:7c7b\:4f3c)\[RightAssociation]*)
 
 
+(* ::Input:: *)
+(*Query[KeySort/*Normal/*(Column[#,Spacings->2]&),*)
+(*sect1/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&),*)
+(*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),*)
+(*Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*]@loopChanSum*)
+
+
+(* ::Input:: *)
+(*Query[KeySort/*Normal/*(TableForm[#,TableSpacing->{3.5, 1}]&),*)
+(*Normal/*(TableForm[#,TableSpacing->{1.5, 1}]&),*)
+(*Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*]@loopAmpSum*)
+
+
 (* ::Chapter:: *)
 (*tree level contributions*)
 
@@ -300,14 +315,14 @@ Merge[{treeSum,loopAmpSum},<|"tree"->First[#],"loop"->Last[#]|>&];
 
 
 (*\:68c0\:67e5\:662f\:5426\:6ee1\:8db3 \:4e2d\:6027\:7c92\:5b50 \:7535\:8377\:5b88\:6052*)
-sect1=Key/@{
+sectOct=Key/@{
 chTag@{"RB","mes","oct"},
 chTag@{"KR","mes","oct","left"},
 chTag@{"KR","mes","oct","add","left"},
 chTag@{"RB","oct","F1"},
 chTag@{"RB","oct","F2"}
 };
-sect2=Key/@{
+sectDec=Key/@{
 chTag@{"RB","mes","dec"},
 chTag@{"RB","dec","F1"},
 chTag@{"RB","dec","F2"},
@@ -315,21 +330,29 @@ chTag@{"RB","trans","left"},
 chTag@{"KR","mes","dec","left"},
 chTag@{"KR","mes","dec","add","left"}
 };
-sect3=Key/@{
+sectBub=Key/@{
 chTag@{"tad","oct","F1"},
 chTag@{"tad","oct","F1","add"},
 chTag@{"tad","oct","F2"},
 chTag@{"bub","mes","o2"},
 chTag@{"bub","mes","ten","o2"}
 };
+sectMag=Key/@{
+chTag@{"RB","oct","F2"},
+chTag@{"tad","oct","F2"},
+chTag@{"bub","mes","ten","o2"},
+chTag@{"RB","dec","F2"},
+chTag@{"RB","trans","left"}
+};
 
 
-Query[{Key@fd[2,8,0]},sect1/*Total,({Key@ffsF1F2}),Extract[1],Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&
-]@loopChanSum
-Query[{Key@fd[2,8,0]},sect1,{Key@ffsF1F2},Extract[1],Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&
-]@loopChanSum
-Query[{Key@fd[2,8,0]},sect1,TableForm,All,{Key@ffsF1F2},Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&
-]@loopChans
+(* ::Input:: *)
+(*Query[{Key@fd[2,8,0]},sect1/*Total,({Key@ffsF1F2}),Extract[1],Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*]@loopChanSum*)
+(*Query[{Key@fd[2,8,0]},sect1,{Key@ffsF1F2},Extract[1],Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*]@loopChanSum*)
+(*Query[{Key@fd[2,8,0]},sect1,TableForm,All,{Key@ffsF1F2},Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*]@loopChans*)
 
 
 (* ::Chapter:: *)
