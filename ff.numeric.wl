@@ -39,7 +39,7 @@ inputCml=$ScriptCommandLine,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
 inputCml={
 fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
 (* \:5728\:8fd9\:91cc\:63d0\:4f9b\:5176\:4ed6\:53c2\:6570, \:4f7f\:7528 mathematica \:8bed\:6cd5\:4e0b\:7684\:5f62\:5f0f\:ff0c\:5916\:9762\:7684 enString \:4f1a\:81ea\:52a8\:8f6c\:6362\:6210\:5b57\:7b26\:4e32, \:5c3d\:91cf\:591a\:4f7f\:7528Association\:7ed3\:6784*)
-"ord0",0.80`20,1.00`20,"Baryons","L-0.90.ci-1.00"
+"ord0",0.90`20,1.50`20,"Baryons","notbar"
 }];
 echo["the input parameter is:\n",inputCml];
 
@@ -96,6 +96,8 @@ Needs["X`"];]
 
 echo[coesDir=FileNameJoin[{gitLocalName,"coes"}]];
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
+(* 1st \:5bfc\:5165\:6b21\:5e8f: \:8bfb\:5165\:6392\:7248 *)
+Once@Get[FileNameJoin[{gitLocalName,"gen.format.wl"}]];
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
 Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
 fyAmpPart=fyAmpLoopLst;
@@ -148,10 +150,10 @@ mass\[CapitalDelta]->1.232`20,mass\[CapitalSigma]s->1.385`20,mass\[CapitalXi]s->
 };
 
 
-(*c1->2.081,c2->(2/3 c1-1),c3->(-1/3 c1-1)*)
+(*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)
 configc1c2={
-cc["c1"]->1.7356`20,cc["c2"]->0.329`20,
-cc["c4"]->6.8`20,cc["cT"]->2.72`20
+cc["c1"]->1.6766`20,cc["c2"]->0.4984`20,
+cc["c4"]->1.6766`20/Sqrt[3],cc["cT"]->0.4984`20*3/2+1/2
 };
 (*------------------- \:5c06\:7cfb\:6570\:7684\:5177\:4f53\:6570\:503c\:4ee3\:5165 -------------------*)
 numCoupLst={
@@ -279,21 +281,6 @@ Simplify[Merge[Values@#,Total]]&
 (\:5176\:4ed6\:7c92\:5b50\:7684\:7ed3\:679c,\:7ed3\:6784\:7c7b\:4f3c)\[RightAssociation]*)
 
 
-(* ::Input:: *)
-(*Query[KeySort/*Normal/*(Column[#,Spacings->2]&),*)
-(*sect1/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&),*)
-(*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),*)
-(*Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
-(*]@loopChanSum*)
-
-
-(* ::Input:: *)
-(*Query[KeySort/*Normal/*(TableForm[#,TableSpacing->{3.5, 1}]&),*)
-(*Normal/*(TableForm[#,TableSpacing->{1.5, 1}]&),*)
-(*Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
-(*]@loopAmpSum*)
-
-
 (* ::Chapter:: *)
 (*tree level contributions*)
 
@@ -347,11 +334,35 @@ chTag@{"RB","trans","left"}
 
 
 (* ::Input:: *)
-(*Query[{Key@fd[2,8,0]},sect1/*Total,({Key@ffsF1F2}),Extract[1],Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*(*\:5c55\:793a\:7c92\:5b50\:7684\:603b\:7ed3\:679c*)*)
+(*Query[KeySort/*Normal/*(TableForm[#,TableSpacing->{3.5, 1}]&),*)
+(*Normal/*(TableForm[#,TableSpacing->{1.5, 1}]&),*)
+(*Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*]@loopAmpSum*)
+
+
+(* ::Input:: *)
+(*(* \:5bf9\:67d0\:4e9b\:56fe\:7684\:7ed3\:679c\:6c42\:548c\:ff0c*)*)
+(*Query[{Key@fd[2,1,0]},sectOct/*Total,({Key@ffsF1F2}),Extract[1],Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
 (*]@loopChanSum*)
-(*Query[{Key@fd[2,8,0]},sect1,{Key@ffsF1F2},Extract[1],Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+
+
+(* ::Input:: *)
+(*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:7684\:7ed3\:679c *)*)
+(*Query[{Key@fd[2,1,0]}/*Normal/*(Column[#,Spacings->2]&),*)
+(*sectOct/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&),*)
+(*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),*)
+(*Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
 (*]@loopChanSum*)
-(*Query[{Key@fd[2,8,0]},sect1,TableForm,All,{Key@ffsF1F2},Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+
+
+(* ::Input:: *)
+(*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:7ed3\:679c *)*)
+(*Query[{Key@fd[2,1,0]}/*Normal/*(Column[#,Spacings->2,Frame->None]&),*)
+(*sectOct/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]",Frame->All,FrameStyle->{Blue,Opacity[.5]}]&),*)
+(*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),*)
+(*All,*)
+(*{Key@ffsF1F2},Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
 (*]@loopChans*)
 
 
