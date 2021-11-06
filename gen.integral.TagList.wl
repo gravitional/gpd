@@ -123,9 +123,9 @@ chTag@{"bub","mes","ten","o2"}->fyCoe[-1],
 chTag@{"RB","mes","dec"}->fyCoe[1],
 
 chTag@{"RB","dec","F1"}->fyCoe[I],
-chTag@{"RB","dec","F2"}->fyCoe[I],
+chTag@{"RB","dec","F2"}->fyCoe[-I],(*\:6b64\:5904\:6709\:8d1f\:53f7*)
 
-chTag@{"RB","trans","left"}->fyCoe[2],
+chTag@{"RB","trans","left"}->fyCoe[-2],(*\:6b64\:5904\:6709\:8d1f\:53f7*)
 
 chTag@{"KR","mes","dec","left"}->fyCoe[2],
 chTag@{"KR","mes","dec","add","left"}->fyCoe[2]

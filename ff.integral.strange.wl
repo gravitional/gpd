@@ -603,7 +603,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tadpole,oct,F1,add*)
 
 
@@ -779,7 +779,7 @@ tag
 ]];
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*loop Integral: decuplet*)
 
 
@@ -827,7 +827,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,dec,F1*)
 
 
@@ -873,7 +873,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,dec,F2*)
 
 

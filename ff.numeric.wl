@@ -343,7 +343,8 @@ chTag@{"RB","trans","left"}
 
 (* ::Input:: *)
 (*(* \:5bf9\:67d0\:4e9b\:56fe\:7684\:7ed3\:679c\:6c42\:548c\:ff0c*)*)
-(*Query[{Key@fd[2,1,0]},sectOct/*Total,({Key@ffsF1F2}),Extract[1],Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*Query[{Key@fd[2,1,0]},sectOct/*Total,({Key@ffsF1F2}),Extract[1],*)
+(*Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
 (*]@loopChanSum*)
 
 

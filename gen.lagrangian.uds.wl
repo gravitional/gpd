@@ -213,7 +213,7 @@ constantQ::usage="constantQ[sym:_],\:68c0\:6d4b sym \:662f\:5426\:4e3a\:5e38\:65
 pde1::usage="pde[\[PartialD]\[Mu],B] \:504f\:5bfc\:6570\:51fd\:6570,\:5bf9\:5e38\:6570\:6c42\:5bfc\:7b49\:4e8e\:96f6,\[PartialD].(A.B)=A*\[PartialD]B+B*\[PartialD]A,\[PartialD].(A+B)=\[PartialD]A+\[PartialD]B";
 pde1[pd_,Plus[x_,y__]]:=Plus[pde1[pd,x],pde1[pd,Plus[y]]]
 pde1[pd_,Times[x_,y__]]:=Times[x,pde1[pd,Times[y]]]+Times[Times[y],pde1[pd,x]]
-pde1[pd_,Power[sym_,m_]]:=If[constantQ[sym],0,m*pde1[pd,sym]*pde1[pd,Power[sym,m-1]]](* \:5bf9 power \:7684\:4f5c\:7528*)
+pde1[pd_,Power[sym_,m_]]:=If[constantQ[sym],0,m*Power[sym,m-1]*pde1[pd,sym]](* \:5bf9 power \:7684\:4f5c\:7528*)
 pde1[pd_,sym_]:=If[constantQ[sym],0,pde[pd,sym]]
 (*\:4e0a\:9762\:4f7f\:7528\:4e86 pde,gma \:51fd\:6570*)
 gma1::usage="gma1[\[Gamma]\[Mu],B,direction],\:4e58\:4e0a\[Gamma]\:51fd\:6570,\:9ed8\:8ba4\:662f\:4ece\:5de6\:8fb9\:4e58\:4e0a\:7684,\[Gamma].(A+B)=\[Gamma].A+\[Gamma].B, \[Gamma]C*B=C*\[Gamma].B";
@@ -414,7 +414,7 @@ ltz[mat["U\[Dagger]"],"tp"->"\[PartialD]","idx"->"\[Mu]"]
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["mes"],
-ContainsAny,Flatten[Array[fd,{1,8,1},{{1,1},{1,8},{0,0}}]](*\:4ecb\:5b50\:573a\:ff0c\:6b63\:573a*)
+ContainsAny,{fd[1,1,0],fd[1,1,1]}(*\:4ecb\:5b50\:573a\:ff0c\:6b63\:573a*)
 ]
 
 
@@ -426,16 +426,12 @@ lag["DF"]=Expand[
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["DF"],
-ContainsAny,{fd[2,8,0],fd[2,8,1]}(*\:53ea\:67e5\:770b\:6838\:5b50*)
+ContainsAny,{(*fd[2,1,0],*)fd[2,8,1]}(*\:53ea\:67e5\:770b\:6838\:5b50*)
 ]
 
 
 (* ::Text:: *)
-(*calC,*)
-
-
-(* ::Text:: *)
-(*\:8fd9\:4e00\:9879\:6bd4\:8f83\:590d\:6742\:ff0c\:6c42\:548c\:5728\:4e09\:4e2a\:5c42\:6b21\:4e0a\:8fdb\:884c\:ff0cSU(3)\:5473\:9053\:7a7a\:95f4\:ff0cltz \:6d1b\:4f26\:5179\:6307\:6807\:7a7a\:95f4\:ff0cSpinor \:65cb\:91cf\:5206\:91cf\:3002\:4ed6\:4eec\:662f\:76f8\:4e92\:72ec\:7acb\:7684\:3002*)
+(*calC, \:8fd9\:4e00\:9879\:6bd4\:8f83\:590d\:6742\:ff0c\:6c42\:548c\:5728\:4e09\:4e2a\:5c42\:6b21\:4e0a\:8fdb\:884c\:ff0cSU(3)\:5473\:9053\:7a7a\:95f4\:ff0cltz \:6d1b\:4f26\:5179\:6307\:6807\:7a7a\:95f4\:ff0cSpinor \:65cb\:91cf\:5206\:91cf\:3002\:4ed6\:4eec\:662f\:76f8\:4e92\:72ec\:7acb\:7684\:3002*)
 
 
 (* ::DisplayFormula:: *)
@@ -450,10 +446,7 @@ ContainsAny,{fd[2,8,0],fd[2,8,1]}(*\:53ea\:67e5\:770b\:6838\:5b50*)
 (*\[Gamma]0.(I*\[Sigma]\[Mu]\[Nu])\[ConjugateTranspose].\[Gamma]0=-I*\[Sigma]\[Mu]\[Nu],*)
 
 
-(* ::DisplayFormula:: *)
-(*\[ScriptCapitalC]Tr[Contract[\[CurlyEpsilon] . Subscript[Tbar, \[Mu]] . Subscript[u, \[Nu]],{{1,4}}] . (\[CapitalTheta]^\[Mu]\[Nu] . B)]+\[ScriptCapitalC]Tr[Bbar . Contract[Subscript[u, \[Mu]] . \[CapitalTheta]^\[Mu]\[Nu] . Subscript[T, \[Nu]] . (-\[CurlyEpsilon]),{{1,4}}]]*)
-
-
+(*\[ScriptCapitalC]Tr[Bbar.Contract[Subscript[u, \[Mu]].\[CapitalTheta]^\[Mu]\[Nu].Subscript[T, \[Nu]].(-\[CurlyEpsilon]),{{1,4}}]]+\[ScriptCapitalC]Tr[Contract[\[CurlyEpsilon].Subscript[Tbar, \[Mu]].Subscript[u, \[Nu]],{{1,4}}].\[CapitalTheta]^\[Mu]\[Nu].B]*)
 lag["C"]=Expand[(lecs["C"])*(
 Tr[
 mat["Bbar"] .
@@ -469,18 +462,11 @@ ltz[mat["B"],"tp"->"\[CapitalTheta]","idx"->"\[Mu]\[Nu]"]
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["C"],
-ContainsAny,{fd[2,1,0],fd[2,1,1]}
+ContainsAny,{(*fd[2,1,0],*)fd[2,1,1]}
 ]
 
 
-(* ::Text:: *)
-(*\:5341\:91cd\:6001\:4ecb\:5b50\:8026\:5408\:9879 calH,*)
-
-
-(* ::DisplayFormula:: *)
-(*T\[Nu]^ijl u\[Alpha]^kl \!\(\*OverscriptBox[\(T\[Mu]\), \(_\)]\)^ijk . \[Gamma]\[Mu]\[Nu]\[Alpha] . \[Gamma]5*)
-
-
+(*\:5341\:91cd\:6001\:4ecb\:5b50\:8026\:5408\:9879 calH, T\[Nu]^ijl u\[Alpha]^kl Overscript[T\[Mu], _]^ijk.\[Gamma]\[Mu]\[Nu]\[Alpha].\[Gamma]5*)
 lag["H"]=Expand[(-lecs["H"])*(
 Flatten[ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Mu]"]] .
 Flatten[crt["u","\[Alpha]","hd"] . ltz2[{mat["T"],"\[Nu]"(*\:573a\:7684\:6307\:6807*)},{"\[Gamma]","\[Mu]\[Nu]\[Alpha]5"}]]
@@ -489,14 +475,11 @@ Flatten[crt["u","\[Alpha]","hd"] . ltz2[{mat["T"],"\[Nu]"(*\:573a\:7684\:6307\:6
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["H"],
-ContainsAny,{fd[3,1,0],(*\:53ea\:67e5\:770b\[CapitalDelta]++*)fd[3,1,1]}
+ContainsAny,{(*fd[3,2,0],*)fd[3,1,1]}(*\:53ea\:67e5\:770b\[CapitalDelta]++*)
 ]
 
 
-(* ::DisplayFormula:: *)
-(*\:5f20\:91cf\:8026\:5408\:9879,\[ScriptCapitalL]=I/2 b9*Tr[Bbar Subscript[A, \[Mu]]] . \[Sigma]^\[Mu]\[Nu] . Tr[Subscript[A, \[Nu]] . B]+I/2 b10*Tr[Bbar[Subscript[A, \[Mu]],Subscript[A, \[Nu]]] . \[Sigma]^\[Mu]\[Nu] . B]+I/2 b11*Tr[Bbar{Subscript[A, \[Mu]],Subscript[A, \[Nu]]} . \[Sigma]^\[Mu]\[Nu] . B]*)
-
-
+(*\:5f20\:91cf\:8026\:5408\:9879, 1/2 \[ImaginaryI] b9 Tr[Bbar Subscript[A, \[Mu]]].\[Sigma]^\[Mu]\[Nu].Tr[Subscript[A, \[Nu]].B]+1/2 \[ImaginaryI] b10 Tr[Bbar[Subscript[A, \[Mu]],Subscript[A, \[Nu]]].\[Sigma]^\[Mu]\[Nu].B]+1/2 \[ImaginaryI] b11 Tr[Bbar {Subscript[A, \[Mu]],Subscript[A, \[Nu]]}.\[Sigma]^\[Mu]\[Nu].B] *)
 SymIdx[A\[Mu]_,A\[Nu]_]:=Module[{U\[Mu],U\[Nu],L\[Mu],L\[Nu],D\[Mu],D\[Nu]},
 U\[Mu]=UpperTriangularize[A\[Mu]];U\[Nu]=UpperTriangularize[A\[Nu]];
 L\[Mu]=LowerTriangularize[A\[Mu]];L\[Nu]=LowerTriangularize[A\[Nu]];
@@ -514,7 +497,7 @@ lecs["b9"]*(Tr[mat["Bbar"] . crt["u","\[Mu]","hd"]]*Tr[crt["u","\[Nu]","hd"] . l
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["bbb"],
-ContainsAll,{fd[2,3,0],fd[2,3,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
+ContainsAll,{fd[2,8,0],fd[2,8,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
 ]
 
 
@@ -557,14 +540,12 @@ mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]"]
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 ntct["oct"]/.ordRule,
-ContainsAll,{fd[2,1,0],fd[2,1,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
+ContainsAll,{fd[2,8,0],fd[2,8,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
 ]
 
 
-(* ::DisplayFormula:: *)
-(*+(D/2)Tr[Bbar\[Gamma]^\[Mu] . Subscript[\[Gamma], 5] . {u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u,B}]+F/2 Tr[Bbar\[Gamma]^\[Mu] . Subscript[\[Gamma], 5] . [u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u,B]]+*)
-
-
+(*(D/2)Tr[Bbar.\[Gamma]\[Mu] .\[Gamma]5 . {u . \[Lambda]^a . u\[Dagger]-u\[Dagger]. \[Lambda]^a . u,B}]+
+F/2 Tr[Bbar.\[Gamma]\[Mu] . \[Gamma]5 . [u . \[Lambda]^a . u\[Dagger]-u\[Dagger]. \[Lambda]^a . u,B]]*)
 ntct["DF"]=Expand[
 lecs["D"]/2*Tr[mat["Bbar"] . acmt[Dot,mat["u"] . Qqk . mat["u\[Dagger]"]-
 mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"]]]+
@@ -574,14 +555,11 @@ mat["u\[Dagger]"] . Qqk . mat["u"],ltz[mat["B"],"tp"->"\[Gamma]","idx"->"\[Mu]5"
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 ntct["DF"]/.ordRule,
-ContainsAny,{fd[2,1,0],fd[2,1,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
+ContainsAny,{fd[2,8,0](*,fd[2,1,1]*)}(*\:53ea\:67e5\:770b\:6838\:5b50*)
 ]
 
 
-(* ::DisplayFormula:: *)
-(*+(1/2) Subscript[Tbar, \[Nu]] \[Gamma]^\[Nu]\[Alpha]\[Mu] (u . \[Lambda]^a . u\[ConjugateTranspose]+u\[ConjugateTranspose] . \[Lambda]^a . u,Subscript[T, \[Alpha]])*)
-
-
+(*1/2 Subscript[Tbar, \[Nu]].\[Gamma]^\[Nu]\[Alpha]\[Mu].(u.\[Lambda]^a.u\[Dagger]+u\[Dagger].\[Lambda]^a.u.Subscript[T, \[Alpha]])*)
 ntct["dec"]=Module[{inner},
 inner=(mat["u"] . Qqk . mat["u\[Dagger]"]+mat["u\[Dagger]"] . Qqk . mat["u"]) . ltz2[{mat["T"],"\[Alpha]"},{"\[Gamma]","\[Nu]\[Alpha]\[Mu]"}];
 Expand[lecs["1"]/2 (
@@ -594,51 +572,27 @@ ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Nu]"]*(inner+TensorTranspose[inner,{2,3,1}
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 ntct["dec"]/.ordRule,
-ContainsAny,{fd[3,1,0],fd[3,1,1]}
+ContainsAny,{(*fd[3,1,0],*)fd[3,10,1]}
 ]
 
 
-(* ::Text:: *)
-(*decuplet*)
-
-
-(* ::DisplayFormula:: *)
-(*\[ScriptCapitalC]\[CurlyEpsilon]^ijk \!\(\*SubsuperscriptBox[*)
-(*OverscriptBox[\(T\), \(_\)], \(\[Mu]\), \(ilm\)]\) \[CapitalTheta]^\[Mu]\[Nu] \!\(\*SubsuperscriptBox[\(u\), \(\[Nu]\), \(lj\)]\) B^mk+\[ScriptCapitalC]\[CurlyEpsilon]^ijk Bbar^km \[CapitalTheta]^\[Mu]\[Nu] \!\(\*SubsuperscriptBox[\(T\), \(\[Mu]\), \(ilm\)]\) \!\(\*SubsuperscriptBox[\(u\), \(\[Nu]\), \(lj\)]\)*)
-
-
-(* ::DisplayFormula:: *)
-(*\[ScriptCapitalC]\[CurlyEpsilon]^jki \!\(\*SubsuperscriptBox[*)
-(*OverscriptBox[\(T\), \(_\)], \(\[Mu]\), \(iml\)]\) \!\(\*SubsuperscriptBox[\(u\), \(\[Nu]\), \(lj\)]\) \[CapitalTheta]^\[Mu]\[Nu] B^mk+\[ScriptCapitalC] Bbar^km \!\( *)
-(*\*SubsuperscriptBox[\(u\), \(\[Mu]\), \(jl\)] . *)
-(*\*SuperscriptBox[\(\[CapitalTheta]\), \(\[Mu]\[Nu]\)] . *)
-(*\*SubsuperscriptBox[\(T\), \(\[Nu]\), \(lmi\)]\)(-\[CurlyEpsilon]^ikj)*)
-
-
-(* ::DisplayFormula:: *)
-(*\[ScriptCapitalC]Tr[Contract[\[CurlyEpsilon] . Subscript[Tbar, \[Mu]] . Subscript[u, \[Nu]],{{1,4}}] . (\[CapitalTheta]^\[Mu]\[Nu] . B)]+\[ScriptCapitalC]Tr[Bbar . Contract[Subscript[u, \[Mu]] . \[CapitalTheta]^\[Mu]\[Nu] . Subscript[T, \[Nu]] . (-\[CurlyEpsilon]),{{1,4}}]]*)
-
-
-(* ::Text:: *)
-(*\:5bf9\:5e94\:7684\:5b88\:6052\:6d41\:4e3a*)
-
-
-(* ::DisplayFormula:: *)
-(*+(\[ScriptCapitalC]/2)Tr[Contract[\[CurlyEpsilon] . Subscript[Tbar, \[Nu]] . (u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u),{{1,4}}] . (\[CapitalTheta]^\[Nu]\[Mu] . B)]+\[ScriptCapitalC]/2 Tr[Bbar . Contract[(u . \[Lambda]^a . u\[ConjugateTranspose]-u\[ConjugateTranspose] . \[Lambda]^a . u) . \[CapitalTheta]^\[Mu]\[Nu] . Subscript[T, \[Nu]] . (-\[CurlyEpsilon]),{{1,4}}]]*)
-
-
+(* Decuplet
+\[ScriptCapitalC].Bbar^km .\[CurlyEpsilon]^ijk .\[CapitalTheta]^\[Mu]\[Nu]. Subsuperscript[T, \[Mu], ilm] .Subsuperscript[u, \[Nu], lj].+\[ScriptCapitalC].B^mk.\[CurlyEpsilon]^ijk. \[CapitalTheta]^\[Mu]\[Nu]. Subsuperscript[u, \[Nu], lj]. Subsuperscript[Overscript[T, _], \[Mu], ilm]
+\[ScriptCapitalC].\[CurlyEpsilon]^jki. Subsuperscript[Overscript[T, _], \[Mu], iml] .Subsuperscript[u, \[Nu], lj] .\[CapitalTheta]^\[Mu]\[Nu] .B^mk.+\[ScriptCapitalC] .Bbar^km. Subsuperscript[u, \[Mu], jl].\[CapitalTheta]^\[Mu]\[Nu].Subsuperscript[T, \[Nu], lmi].(-\[CurlyEpsilon]^ikj)
+\[ScriptCapitalC].Tr[Bbar.Contract[Subscript[u, \[Mu]].\[CapitalTheta]^\[Mu]\[Nu].Subscript[T, \[Nu]].(-\[CurlyEpsilon]),{{1,4}}]]+\[ScriptCapitalC].Tr[Contract[\[CurlyEpsilon].Subscript[Tbar, \[Mu]].Subscript[u, \[Nu]],{{1,4}}].\[CapitalTheta]^\[Mu]\[Nu].B]
+\:5bf9\:5e94\:7684\:5b88\:6052\:6d41\:4e3a:
+1/2 \[ScriptCapitalC] Tr[Bbar.Contract[(u.\[Lambda]^a.u\[Dagger]-u\[Dagger].\[Lambda]^a.u).\[CapitalTheta]^\[Mu]\[Nu].Subscript[T, \[Nu]].(-\[CurlyEpsilon]),{{1,4}}]]+1/2 \[ScriptCapitalC] Tr[Contract[\[CurlyEpsilon].Subscript[Tbar, \[Nu]].(u.\[Lambda]^a.u\[Dagger]-u\[Dagger].\[Lambda]^a.u),{{1,4}}].\[CapitalTheta]^\[Nu]\[Mu].B]
+*)
 ntct["C"]=Expand[lecs["C"]/2*(
-Tr[
-TensorContract[levi . ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Nu]"] . (mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"]),{{1,4}}] . ltz[mat["B"],"tp"->"\[CapitalTheta]","idx"->"\[Nu]\[Mu]"]]+
-Tr[
-mat["Bbar"] . TensorContract[(mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"]) . ltz2[{mat["T"],"\[Nu]"},{"\[CapitalTheta]","\[Mu]\[Nu]"}] . (-levi),{{1,4}}]
-]
-)
-];
+Tr[TensorContract[levi . ltz[mat["Tbar"],"tp"->"ltz","idx"->"\[Nu]"] .
+(mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"]),{{1,4}}] . ltz[mat["B"],"tp"->"\[CapitalTheta]","idx"->"\[Nu]\[Mu]"]]+
+Tr[mat["Bbar"] . TensorContract[(mat["u"] . Qqk . mat["u\[Dagger]"]-mat["u\[Dagger]"] . Qqk . mat["u"]) .
+ltz2[{mat["T"],"\[Nu]"},{"\[CapitalTheta]","\[Mu]\[Nu]"}] . (-levi),{{1,4}}]
+])];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 ntct["C"]/.ordRule,
-ContainsAny,{fd[2,1,0],fd[2,1,1]}
+ContainsAny,{(*fd[2,1,0],*)fd[2,8,1]}
 ]
 
 
@@ -723,36 +677,16 @@ ContainsAny,Flatten[Array[fd,{1,10,1},{{3,3},{1,10},{0,0}}]](*\:5341\:91cd\:6001
 ]
 
 
-(* ::Text:: *)
-(*\:516b\:91cd\:6001--\:5341\:91cd\:6001\:8f6c\:79fb\:78c1\:77e9*)
-
-
-(* ::DisplayFormula:: *)
-(*(-I*e*Sqrt[3]c4)/mN Subscript[F, \[Mu]\[Nu]]*(Subscript[\[Epsilon], ijk] Subscript[Q, il]Subscript[Bbar, jm] . \[Gamma]^\[Mu] . \[Gamma]^5 . \!\(\*SubsuperscriptBox[\(T\), \(klm\), \(\[Nu]\)]\)-Subscript[\[Epsilon], ijk] Subscript[Q, li]\!\( *)
-(*\*SubsuperscriptBox[*)
-(*OverscriptBox[\(T\), \(_\)], \(klm\), \(\[Nu]\)] . *)
-(*\*SuperscriptBox[\(\[Gamma]\), \(\[Mu]\)] . *)
-(*\*SuperscriptBox[\(\[Gamma]\), \(5\)] . *)
-(*\*SubscriptBox[\(B\), \(mj\)]\))*)
-
-
-(* ::DisplayFormula:: *)
-(*=(-I*e*Sqrt[3]c4)/mN*(Bbar^jm (\!\( *)
-(*\*SubsuperscriptBox[\(F\), \(\[Mu]\[Nu]\), \(a\)] *)
-(*\*SuperscriptBox[\(\[Lambda]\), \(a\)]\))^il . \[Gamma]^\[Mu] . \[Gamma]^5 . T^(\[Nu],lmk) . (-\[Epsilon]^kji)-\[Epsilon]^ijk Tbar^(\[Nu],kml) (\!\( *)
-(*\*SubsuperscriptBox[\(F\), \(\[Mu]\[Nu]\), \(a\)] *)
-(*\*SuperscriptBox[\(\[Lambda]\), \(a\)]\))^li . \[Gamma]^\[Mu] . \[Gamma]^5 . B^mj)*)
-
-
-(* ::DisplayFormula:: *)
-(*=(I*e*Sqrt[3]c4)/mN (Tr[Bbar . \[Gamma]^\[Mu] . \[Gamma]^5 . \!\(\*SuperscriptBox[\(( *)
-(*\*SubscriptBox[\(F\), \(\[Mu]\[Nu]\)] . *)
-(*\*SuperscriptBox[\(T\), \(\[Nu]\)] . \[CurlyEpsilon])\), \({1, 4}\)]\)]+Tr[\!\(\*SuperscriptBox[\((\[CurlyEpsilon] . *)
-(*\*SuperscriptBox[*)
-(*OverscriptBox[\(T\), \(_\)], \(\[Nu]\)] . *)
-(*\*SubscriptBox[\(F\), \(\[Mu]\[Nu]\)])\), \({1, 4}\)]\) . \[Gamma]^\[Mu] . \[Gamma]^5 . B])*)
-
-
+(*\:516b\:91cd\:6001--\:5341\:91cd\:6001\:8f6c\:79fb\:78c1\:77e9:
+(-I*e*Sqrt[3]c4)/mN .F_\[Mu]\[Nu]*(\[Epsilon]_ijk.Q_il.Bbar_jm . \[Gamma]\[Mu].\[Gamma]5.Subsuperscript[T, klm, \[Nu]]-\[Epsilon]_ijk.Q_li.Tbar_klm^\[Nu].\[Gamma]\[Mu].\[Gamma]^5.B_mj)
+=(-I*e*Sqrt[3]c4)/mN*(Bbar^jm (\!\(
+\*SubsuperscriptBox[\(F\), \(\[Mu]\[Nu]\), \(a\)]
+\*SuperscriptBox[\(\[Lambda]\), \(a\)]\))^il . \[Gamma]^\[Mu] . \[Gamma]^5 . T^(\[Nu],lmk) .
+ (-\[Epsilon]^kji)-\[Epsilon]^ijk Tbar^(\[Nu],kml) (\!\(
+\*SubsuperscriptBox[\(F\), \(\[Mu]\[Nu]\), \(a\)]
+\*SuperscriptBox[\(\[Lambda]\), \(a\)]\))^li . \[Gamma]^\[Mu] . \[Gamma]^5 . B^mj)
+=(I*e*Sqrt[3]c4)/mN (Tr[Bbar . \[Gamma]^\[Mu] . \[Gamma]^5 . (Subscript[F, \[Mu]\[Nu]].T^\[Nu].\[CurlyEpsilon])^{1,4}]+Tr[(\[CurlyEpsilon].Overscript[T, _]^\[Nu].Subscript[F, \[Mu]\[Nu]])^{1,4} . \[Gamma]^\[Mu] . \[Gamma]^5 . B])
+*)
 lag["mag8,10"]=Expand[
 (I*e*Sqrt[3]*lecs["c4"])/MN*
 vfd2["F\[Mu]\[Nu]","\[Mu]","\[Nu]"]*(
