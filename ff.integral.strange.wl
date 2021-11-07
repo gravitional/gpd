@@ -4,6 +4,10 @@
 (*ff.integral.strange.wl*)
 
 
+(* ::Text:: *)
+(*\:4e0e\:4e4b\:524d\:4f7f\:7528\:7684\:6b63\:89c4\:5b50\:6709\:6240\:4e0d\:540c\:ff0c\:6240\:4ee5\:7ed3\:679c\:4e5f\:4f1a\:7a0d\:6709\:4e0d\:540c.*)
+
+
 (* ::Chapter:: *)
 (*initial*)
 
@@ -250,7 +254,7 @@ ffsF1F2->Last@time0Result
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,mes,oct*)
 
 

@@ -59,3 +59,5 @@ MassDec1=md1;MassDec2=md2;(*\:4e2d\:95f4 dec \:91cd\:5b501,2*)
 
 ffsF1F2="F1F2";
 ffsGEGM="GEGM";
+ffsTreeF1F2="TreeF1F2";ffsLoopF1F2="LoopF1F2";
+ffsTreeGEGM="TreeGEGM";ffsLoopGEGM="LoopGEGM";
