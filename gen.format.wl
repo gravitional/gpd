@@ -141,7 +141,7 @@ fdStr[type]={(*\:4ecb\:5b50\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a*)
 "\[Eta]8"
 };
 (* ++++++++ \:5b9a\:4e49\:4ecb\:5b50\:8f93\:5165\:63a5\:53e3, ff["\[Pi]+"]=fd[1,1,0] ++++++++ *)
-Once@MapThread[Set,{ff/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]}]
+Once@MapThread[Set,{ff/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]}];
 ff["\[Pi]\[Eta]"]=fd[1,{0,2,8},0];(*\[Eta]0,\[Pi]0,\[Eta]8,\:7684\:7b80\:5e76\:8868\:793a*)
 (* ----------- \:4ecb\:5b50Key-Value, \:4f8b\:5982 mes["\[Pi]+"]={"mes"}\[Rule]fd[1,1,0] ----------- *)
 Once@MapThread[Set,{mes/@fdStr[type],fdType[type]->#& /@ Array[fd[1,#,0]&,9,{0,8}] }];(*Array \:751f\:6210 \:4ecb\:5b50\:7684raw\:8868\:793a*)

@@ -97,11 +97,11 @@ Needs["X`"];]
 echo[coesDir=FileNameJoin[{gitLocalName,"coes"}]];
 echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
 (* 1st \:5bfc\:5165\:6b21\:5e8f: \:8bfb\:5165\:6392\:7248 *)
-Once@Get[FileNameJoin[{gitLocalName,"gen.format.wl"}]];
+(*Once@Get[FileNameJoin[{gitLocalName,"gen.format.wl"}]];*)
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
 Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
 fyAmpPart=fyAmpLoopLst;
-(*\:8bfb\:5165\:4e00\:4e9b\:8f93\:5165\:63a5\:53e3*)
+(*\:8bfb\:5165\:5404\:79cd\:8f93\:5165\:63a5\:53e3*)
 Get[FileNameJoin[{gitLocalName,"coes.interface.wl"}]];
 
 
@@ -118,47 +118,11 @@ md1;md2;(*\:4e2d\:95f4\:5341\:91cd\:6001\:91cd\:5b50*)
 Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
 
 
-(* \:5c06\:8d28\:91cf\:8f6c\:6362\:6210\:66f4\:7b80\:6d01\:7684\:539f\:5b50\:8868\:8fbe\:5f0f *)
-(*  octet mesons *)
-massV@fd[1,0,2]=mass\[Eta]0;
-massV@fd[1,1,2]=mass\[Pi]; massV@fd[1,2,2]=mass\[Pi]; massV@fd[1,3,2]=mass\[Pi];
-massV@fd[1,4,2]=massK; massV@fd[1,5,2]=massK; massV@fd[1,6,2]=massK; massV@fd[1,7,2]=massK;
-massV@fd[1,8,2]=mass\[Eta]8;
-(* octet baryons *)
-massV@fd[2,1,2]=massN; massV@fd[2,2,2]=massN;
-massV@fd[2,3,2]=mass\[CapitalSigma]; massV@fd[2,4,2]=mass\[CapitalSigma]; massV@fd[2,5,2]=mass\[CapitalSigma];
-massV@fd[2,6,2]=mass\[CapitalXi]; massV@fd[2,7,2]=mass\[CapitalXi];
-massV@fd[2,8,2]=mass\[CapitalLambda];
-(* decuplet baryons *)
-massV@fd[3,1,2]=mass\[CapitalDelta]; massV@fd[3,2,2]=mass\[CapitalDelta];massV@fd[3,3,2]=mass\[CapitalDelta]; massV@fd[3,4,2]=mass\[CapitalDelta]; 
-massV@fd[3,5,2]=mass\[CapitalSigma]s;massV@fd[3,6,2]=mass\[CapitalSigma]s; massV@fd[3,7,2]=mass\[CapitalSigma]s;
-massV@fd[3,8,2]=mass\[CapitalXi]s;massV@fd[3,9,2]=mass\[CapitalXi]s;
-massV@fd[3,10,2]=mass\[CapitalOmega];
-
-
-(*\:7ed9\:51fa \:8d28\:91cf\:5177\:4f53\:6570\:503c \:7684\:66ff\:6362\:89c4\:5219*)
-numMass={
-\[CapitalLambda]->SetPrecision[ToExpression@par\[CapitalLambda],20],
-(*  octet mesons *)
-mass\[Pi]->0.1381`20,massK->0.4956`20,mass\[Eta]8->0.5693`20,mass\[Eta]0->0.9452`20,
-(*  octet baryons *)
-mass\[CapitalSigma]->1.193`20,massN->0.939`20,mass\[CapitalXi]->1.315`20,
-mass\[CapitalLambda]->1.116`20,mass\[CapitalLambda]\[CapitalSigma]->1.155`20,
-massUUU->0.939`20,massDDD->0.939`20,masssss->1.315`20,
-(*  decuplet baryons *)
-mass\[CapitalDelta]->1.232`20,mass\[CapitalSigma]s->1.385`20,mass\[CapitalXi]s->1.530`20,mass\[CapitalOmega]->1.672`20
-};
-
-
 (*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)
 configc1c2={
 cc["c1"]->1.6766`20,cc["c2"]->0.4984`20,
 cc["c4"]->1.6766`20/Sqrt[3],cc["cT"]->0.4984`20*3/2+1/2
 };
-(*------------------- \:7cfb\:6570\:5934\:90e8\:7684\:663e\:5f0f rule -------------------*)
-coesRule={fyCoe->Times,vtxCoe->Identity};
-(*------------------- \:7535\:8377\:7684\:66ff\:6362\:89c4\:5219 -------------------*)
-chargeRule={ch["u"]->2/3,ch["d"]->-1/3,ch["s"]->-1/3};
 (*------------------- \:5c06\:7cfb\:6570\:7684\:5177\:4f53\:6570\:503c\:4ee3\:5165 -------------------*)
 numCoupLst={
 cc["f"]->0.093`20,
@@ -166,7 +130,6 @@ cc["D"]->0.76`20, cc["F"]->0.50`20,
 cc["C"]->SetPrecision[ToExpression@parC,20],
 cc["b9"]->1.36,cc["b10"]->1.24,cc["b11"]->0.46,
 \[CapitalLambda]->SetPrecision[ToExpression@par\[CapitalLambda],20],
-Sequence@@chargeRule,
 Sequence@@coesRule,
 Sequence@@configc1c2
 };
@@ -176,15 +139,6 @@ medRule::usage="medRule[x], \:4f20\:5165\:4e00\:4e2a\:5173\:8054\:ff0c\:751f\:62
 medRule[x_]:=Dispatch@Merge[{KeyTake[x,{mE,mm1,mo1,mo2,md1,md2}]/.numMass,numMass,numCoupLst},Last];
 toGEGM::usage="toGEGM[x], \:4f20\:5165 {F1,F2} ";
 toGEGM[x_?ListQ]:={First[x]-Q2/(4*mE)*Last[x], Total[x]};
-
-
-chopLimit=10^-10;(*cut\:7cbe\:5ea6*)precision=20;(*\:7cbe\:786e\:5ea6*)
-(*----------- PaVe\:4e3b\:79ef\:5206 \:89e3\:6790\:5f0f\:4e2d\:7684\:7279\:6b8a\:51fd\:6570, \:5ef6\:8fdf Chop \:907f\:514dDiscB\:5e26\:6765\:7684\:5fae\:5c0f\:5047\:865a\:90e8 -----------*)
-DiscBChop[x__]:=Chop[DiscB[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
-ScalarC0Chop[x__]:=Chop[ScalarC0[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
-(*\:7279\:6b8a\:51fd\:6570\:7684 \:5ef6\:8fdfChop*)
-numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
-chop[x_]:=Chop[x,chopLimit]
 
 
 paraInitial=Hold[
@@ -204,8 +158,8 @@ gitLocalName,fileName,echo,enList,enString,$inNBook,
 parOrder,par\[CapitalLambda],parC,cFitting,errorbarQ,
 coesDir,mfilesDir,fyAmpPart,
 massV,numMass,numCoupLst,numPaVe,otherCoes,
-chopLimit,chop,precision,
-medRule,toGEGM
+quaCharge,medRule,toGEGM,
+chopLimit,chop,precision
 ];]
 
 
@@ -294,38 +248,6 @@ Simplify[Merge[Values@#,Total]]&
 (*test neutral*)
 
 
-(*\:68c0\:67e5\:662f\:5426\:6ee1\:8db3 \:4e2d\:6027\:7c92\:5b50 \:7535\:8377\:5b88\:6052*)
-sectOct=Key/@{
-chTag@{"RB","mes","oct"},
-chTag@{"KR","mes","oct","left"},
-chTag@{"KR","mes","oct","add","left"},
-chTag@{"RB","oct","F1"},
-chTag@{"RB","oct","F2"}
-};
-sectDec=Key/@{
-chTag@{"RB","mes","dec"},
-chTag@{"RB","dec","F1"},
-chTag@{"RB","dec","F2"},
-chTag@{"RB","trans","left"},
-chTag@{"KR","mes","dec","left"},
-chTag@{"KR","mes","dec","add","left"}
-};
-sectBub=Key/@{
-chTag@{"tad","oct","F1"},
-chTag@{"tad","oct","F1","add"},
-chTag@{"tad","oct","F2"},
-chTag@{"bub","mes","o2"},
-chTag@{"bub","mes","ten","o2"}
-};
-sectMag=Key/@{
-chTag@{"RB","oct","F2"},
-chTag@{"tad","oct","F2"},
-chTag@{"bub","mes","ten","o2"},
-chTag@{"RB","dec","F2"},
-chTag@{"RB","trans","left"}
-};
-
-
 (* ::Input:: *)
 (*(*\:5c55\:793a\:7c92\:5b50\:7684\:603b\:7ed3\:679c*)*)
 (*Query[KeySort/*Normal/*(TableForm[#,TableSpacing->{3.5, 1}]&),*)
@@ -356,7 +278,7 @@ chTag@{"RB","trans","left"}
 (*sectDec/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]",Frame->All,FrameStyle->{Blue,Opacity[.5]}]&),*)
 (*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),All,{*)
 (*(Key@ffsGEGM)/*(Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&),*)
-(*(Key@fyCoeKeycAll)/*ReplaceAll[coesRule~Join~chargeRule]*)
+(*(Key@fyCoeKeycAll)/*ReplaceAll[coesRule~Join~quaCharge["uds"]]*)
 (*}*)
 (*]@loopChans*)
 
@@ -366,30 +288,76 @@ chTag@{"RB","trans","left"}
 
 
 treeFsGs=Query[All,
+(*\:6dfb\:52a0 \:5f62\:72b6\:56e0\:5b50 F1F2*)
 (Append[#,ffsF1F2->Simplify[chop[{#@fyCoeKeycAllF1,#@fyCoeKeycAllF2}/.medRule[#]]]]&)/*
+(*\:6dfb\:52a0 \:5f62\:72b6\:56e0\:5b50 GEGM *)
 (Append[#,ffsGEGM->Simplify[chop[{#@fyCoeKeycAllF1,#@fyCoeKeycAllF2}/.medRule[#]]]]&)
 ]@Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[#,"."]<>".wdx"}]]&@fyAmpTree;
+
+
+(*\:53ea\:9009\:51fa\:521d\:672b\:6001\:4e3a\:76f8\:540c\:91cd\:5b50\:7684\:8bb0\:5f55*)
+sameOctQ[assoc_]:=SameQ[assoc@inOct,assoc@outOct/.conjOct];
 (*++++++++++++++++++++++++++  \:63d0\:53d6\:51fa\:6811\:56fe\:9636\:7684\:6570\:503c\:7ed3\:679c  +++++++++++++++++++++++++++++++++++*)
-treeSum=Association@Query[All,
-#@inOct->KeyTake[#,{ffsF1F2,ffsGEGM}]&]@treeFsGs;
+treeSum=Association@Query[Select@sameOctQ,
+#@inOct->KeyTake[#,{inOct,ffsF1F2,ffsGEGM}]&]@treeFsGs;
 
 
 (* ::Chapter:: *)
 (*renorm*)
 
 
-Merge[{treeSum,loopAmpSum},<|
+(* \:5c06 \:6811\:56fe\:548c\:5708\:56fe\:7684\:7ed3\:679c\:653e\:5728\:4e00\:8d77\:ff0c\:5e76\:5c55\:5e73\:5d4c\:5957\:7ed3\:6784*)
+ffsMerged=Merge[{treeSum,loopAmpSum},<|
 AssociationThread[{ffsTreeF1F2,ffsLoopF1F2},Lookup[#,ffsF1F2]],
-AssociationThread[{ffsTreeGEGM,ffsLoopGEGM},Lookup[#,ffsGEGM]]
+AssociationThread[{ffsTreeGEGM,ffsLoopGEGM},Lookup[#,ffsGEGM]],
+KeyTake[First@#,{inOct}](*First@# \:4e3a treeSum *)
 |>&];
 
 
-<|
-fd[2,2,0]->(ffs[[Key@fd[2,1,0],Key@ffsLoopF1F2,1]]/.Q2->0),
-fd[2,4,0]->(ffs[[Key@fd[2,3,0],Key@ffsLoopF1F2,1]]/.Q2->0),
-fd[2,6,0]->(ffs[[Key@fd[2,7,0],Key@ffsLoopF1F2,1]]/.Q2->0),
-fd[2,8,0]->(ffs[[Key@fd[2,9,0],Key@ffsLoopF1F2,1]]/.Q2->0)
-|>
+(*\:6311\:9009\:51fa tree,loop f1 \:7684\:8d21\:732e\:ff0c\:8ba1\:7b97\:91cd\:6b63\:5316\:5e38\:6570*)
+fnRenorm[fd_,quarkQ_]:=Abs[
+chopQ2@ffsMerged[[Key@fd,Key@ffsTreeF1F2,1]]-
+chopQ2@ffsMerged[[Key@fd,Key@ffsLoopF1F2,1]]]/.quarkQ;
+(*\:5bf9\:4e8e\:5e26\:7535\:91cd\:5b50\:ff0c\:4f7f\:7528\:81ea\:5df1\:7684F1 \:8ba1\:7b97\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570 *)
+fnRenormSelf[fd_]:=fd->fnRenorm[fd,quaCharge["uds"]];
+(*+++++++++++++++++++++ \:8bb0\:5f55\:91cd\:6b63\:5316\:5e38\:6570 +++++++++++++++++++++*)
+renormRule=KeySort@<|
+(*----------- \:5e26\:7535 oct \:91cd\:5b50 -----------*)
+fnRenormSelf@fd[2,1,0],
+fnRenormSelf@fd[2,3,0],
+fnRenormSelf@fd[2,5,0],
+fnRenormSelf@fd[2,7,0],
+(*----------- \:4e2d\:6027 oct \:91cd\:5b50 -----------*)
+fd[2,2,0]->fnRenorm[fd[2,1,0],quaCharge["uds"]],
+fd[2,4,0]->fnRenorm[fd[2,3,0],quaCharge["uds"]],
+fd[2,6,0]->fnRenorm[fd[2,7,0],quaCharge["uds"]],
+fd[2,8,0]->fnRenorm[fd[2,8,0],quaCharge["u"]](*\:4f7f\:7528 u flavor EM\:6d41\:8ba1\:7b97*)
+|>;
+
+
+(*+++++++++++++++++ \:52a0\:4e0a\:91cd\:6b63\:5316\:5e38\:6570 *+++++++++++++++++*)
+ffsWithRen=Query[All,
+Append[#,recon->renormRule@#@inOct]&
+]@ffsMerged;
+(*\:6253\:5370\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570*)
+Query[Values/*StringRiffle,Key@recon,chopQ2/*(N[#,4]&)]@ffsWithRen
+
+
+numFFs=Query[All,<|
+tagNum["tr","uds"]->chopQ2[#@ffsTreeGEGM/.quaCharge["uds"]],
+tagNum["tr","u"]->chopQ2[#@ffsTreeGEGM/.quaCharge["u"]],
+tagNum["tr","d"]->chopQ2[#@ffsTreeGEGM/.quaCharge["d"]],
+tagNum["tr","s"]->chopQ2[#@ffsTreeGEGM/.quaCharge["s"]],
+(*loop*)
+tagNum["lo","uds"]->chopQ2[#@ffsLoopGEGM/.quaCharge["uds"]],
+tagNum["lo","u"]->chopQ2[#@ffsLoopGEGM/.quaCharge["u"]],
+tagNum["lo","d"]->chopQ2[#@ffsLoopGEGM/.quaCharge["d"]],
+tagNum["lo","s"]->chopQ2[#@ffsLoopGEGM/.quaCharge["s"]],
+(*total = tree +(Z-1)*tree+loop*)
+tagNum["tr+lo","uds"]->chopQ2[
+#@recon*#@ffsTreeGEGM+#@ffsLoopGEGM/.quaCharge["uds"]]
+|>&
+]@ffsWithRen;
 
 
 (* ::Chapter:: *)

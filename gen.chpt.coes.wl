@@ -327,7 +327,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalXi]*-"],mes["K0b"],coeIn[vtxtp,-1/Sqr
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong ,BB\[Phi]\[Phi]*)
 
 
@@ -372,7 +372,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mesout["K0b"],coe
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Strong,BB\[Phi]\[Phi],tensor coupling*)
 
 
@@ -484,7 +484,7 @@ unq[mes["K0b"],mesout["K0"],coeIn[vtxtp,-I(ch["d"]-ch["s"])]]
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*F1,oder1,BBA,*)
 
 
@@ -878,7 +878,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalOmega]-"],coeIn[vtxtp,3ch["s"]]]
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*F1,TT\[Phi]\[Phi]A, order 2*)
 
 
@@ -1030,7 +1030,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalXi]*0"],mes["\[Pi]0"],mesout["K-"],co
 (*anomalous magnetic moment*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*octet,order1,BBA*)
 
 
@@ -1053,7 +1053,7 @@ unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[vtxtp,(cc["c1"](ch["u
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*octet,order2,BB\[Phi]\[Phi]A*)
 
 
