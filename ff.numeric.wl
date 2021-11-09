@@ -344,20 +344,79 @@ Query[Values/*StringRiffle,Key@recon,chopQ2/*(N[#,4]&)]@ffsWithRen
 
 
 numFFs=Query[All,<|
-tagNum["tr","uds"]->chopQ2[#@ffsTreeGEGM/.quaCharge["uds"]],
-tagNum["tr","u"]->chopQ2[#@ffsTreeGEGM/.quaCharge["u"]],
-tagNum["tr","d"]->chopQ2[#@ffsTreeGEGM/.quaCharge["d"]],
-tagNum["tr","s"]->chopQ2[#@ffsTreeGEGM/.quaCharge["s"]],
+tagNum["tr","uds"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["uds"]],
+tagNum["tr","u"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["u"]],
+tagNum["tr","d"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["d"]],
+tagNum["tr","s"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["s"]],
 (*loop*)
-tagNum["lo","uds"]->chopQ2[#@ffsLoopGEGM/.quaCharge["uds"]],
-tagNum["lo","u"]->chopQ2[#@ffsLoopGEGM/.quaCharge["u"]],
-tagNum["lo","d"]->chopQ2[#@ffsLoopGEGM/.quaCharge["d"]],
-tagNum["lo","s"]->chopQ2[#@ffsLoopGEGM/.quaCharge["s"]],
+tagNum["lo","uds"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["uds"]],
+tagNum["lo","u"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["u"]],
+tagNum["lo","d"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["d"]],
+tagNum["lo","s"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["s"]],
 (*total = tree +(Z-1)*tree+loop*)
-tagNum["tr+lo","uds"]->chopQ2[
+tagNum["tr+lo","uds"]->chopQ2Val[
 #@recon*#@ffsTreeGEGM+#@ffsLoopGEGM/.quaCharge["uds"]]
 |>&
 ]@ffsWithRen;
+
+
+(* ::Section:: *)
+(*Display*)
+
+
+(* \:5bf9 data \:4e2d\:7684 head \:8fdb\:884c\:8f6c\:6362\:ff0c\:8f93\:51fa\:663e\:793a\:683c\:5f0f*)
+numDisp={fd->fdDisp,numKey->StringRiffle,numVal->(N[#,3]&)};
+dataDsip[x_]:=Dataset[x/.{Association->assoc}
+/.numDisp/.{assoc->Association}
+];
+(* \:5c06 Dataset \:8f6c\:6362\:6210\:4e8c\:7ef4\:5217\:8868\:5f62\:5f0f *)
+dataToGrid::usage="dataToGrid[title,dataset], title \:5c06\:4f5c\:4e3a\:5217\:8868\:7684\:6807\:9898";
+dataToGrid[title_,x_]:=Prepend[
+KeyValueMap[Prepend[Values[#2],#1]&,x],
+Prepend[Query[First,Keys]@x,title]
+]
+(* Curry \:5f62\:5f0f *)
+dataToGrid[title_]:=dataToGrid[title,#]&
+
+
+(* \:4f7f\:7528 Grid \:663e\:5f0f \:4e8c\:7ef4\:5217\:8868 *)
+gridTable[dataSet_,title_,background_]:=Grid[
+dataToGrid[title]@numFFs/.numDisp,
+ItemSize->Automatic,
+Frame->{All,All},
+Spacings->{1,1.5},
+Background->background
+]
+
+
+(*\:80cc\:666f\:8272\:914d\:7f6e*)
+dataBackground={
+None,(* color horizontal: x1, x2, x3...*)
+{
+LightCyan,{None,LightBlue}
+}(* color vertical: y1, y2, y3...*)
+};
+If[$inNBook,
+gridTable[
+numFFs,"GEGM",
+dataBackground]]
+
+
+(* ::Section:: *)
+(*export*)
+
+
+(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
+echo[resultsDir=FileNameJoin[{gitLocalName,"results"}]];
+If[!DirectoryQ[resultsDir],CreateDirectory[resultsDir];echo["Create a new directory: ",resultsDir]];
+
+
+(*\:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
+serialize[numFFs_]:=Block[{path},
+path=FileNameJoin[{resultsDir,"nums."<>StringRiffle[{parOrder,par\[CapitalLambda],parC,cFitting,errorbarQ},"-"]<>".wdx"}];
+Export[path,numFFs];
+echo["Exporting finished: ", path];
+]
 
 
 (* ::Chapter:: *)

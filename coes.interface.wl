@@ -4,10 +4,13 @@
 (*interfaces*)
 
 
-ff::usage="human-readable \:5f62\:5f0f\:7684\:8f93\:5165\:63a5\:53e3\:ff0c\:589e\:52a0\:7a0b\:5e8f\:53ef\:8bfb\:6027";
+ff::usage="human-readable \:5f62\:5f0f\:7684\:8f93\:5165\:63a5\:53e3\:ff0c\:65b9\:4fbf\:8f93\:5165";
+(* \:8bbe\:7f6e\:6620\:5c04\:89c4\:5219\:ff0cSession \:4e2d\:53ea\:8fd0\:884c\:4e00\:6b21 *)
+setOnce[x_,y_]:=Once@Set[x,y]
 
 
-(*\:516b\:91cd\:6001\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
+Block[{type,fdStr},
+(*++++++++++++++++++++++++++++++++ \:516b\:91cd\:6001\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++++++++++*)
 type="mes";
 fdStr[type]={(*\:4ecb\:5b50\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a*)
 "\[Eta]0",
@@ -16,11 +19,16 @@ fdStr[type]={(*\:4ecb\:5b50\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a*)
 "\[Eta]8"
 };
 (* ++++++++ \:5b9a\:4e49\:4ecb\:5b50\:8f93\:5165\:63a5\:53e3, ff["\[Pi]+"]=fd[1,1,0] ++++++++ *)
-Once@MapThread[Set,{ff/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]}];
-ff["\[Pi]\[Eta]"]=fd[1,{0,2,8},0];(*\[Eta]0,\[Pi]0,\[Eta]8,\:7684\:7b80\:5e76\:8868\:793a*)
-
-
-(* ++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++ *)
+setOnce[
+ff/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]
+];
+setOnce[ff["\[Pi]\[Eta]"]=fd[1,{0,2,8},0]
+];(*\[Eta]0,\[Pi]0,\[Eta]8,\:7684\:7b80\:5e76\:8868\:793a*)
+(*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
+setOnce[
+Array[fdDisp[1,#,0]&,9,{0,8}],fdStr[type]
+];
+(*++++++++++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++++++++++*)
 type="oct";
 fdStr[type]={
 "p","n",
@@ -28,9 +36,15 @@ fdStr[type]={
 "\[CapitalXi]0","\[CapitalXi]-",
 "\[CapitalLambda]"};
 (* ----- \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3,  ff["p"]=fd[2,1,0] ----- *)
-Once@MapThread[Set,{ff/@fdStr[type],Array[fd[2,#,0]&,8]}];
-ff["\[CapitalSigma]0\[CapitalLambda]"]=fd[2,{4,8},0];(*\[CapitalSigma]0,\[CapitalLambda],\:7684\:7b80\:5e76\:8868\:793a*)
-(* ++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a ++++++++++++++++++++++++ *)
+setOnce[ff/@fdStr[type],
+Array[fd[2,#,0]&,8]];
+setOnce[ff["\[CapitalSigma]0\[CapitalLambda]"]=fd[2,{4,8},0]];(*\[CapitalSigma]0,\[CapitalLambda],\:7684\:7b80\:5e76\:8868\:793a*)
+(*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
+setOnce[
+Array[fdDisp[2,#,0]&,8],
+fdStr[type]
+];
+(*++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a ++++++++++++++++++++++++ *)
 type="octb";
 fdStr[type]={
 "pb","nb",
@@ -38,11 +52,15 @@ fdStr[type]={
 "\[CapitalXi]0b","\[CapitalXi]-b",
 "\[CapitalLambda]b"};
 (* ------ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3,  ff["p"]=fd[2,1,0] ------ *)
-Once@MapThread[Set,{ff/@fdStr[type], Array[fd[2,#,1]&,8]}];
-ff["\[CapitalSigma]0b\[CapitalLambda]b"]=fd[2,{4,8},1];(*\[CapitalSigma]0b,\[CapitalLambda]b \:7684\:7b80\:5e76\:8868\:793a*)
-
-
-(*\:5341\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
+setOnce[
+ff/@fdStr[type], Array[fd[2,#,1]&,8]
+];
+setOnce[ff["\[CapitalSigma]0b\[CapitalLambda]b"]=fd[2,{4,8},1]];(*\[CapitalSigma]0b,\[CapitalLambda]b \:7684\:7b80\:5e76\:8868\:793a*)
+(*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
+setOnce[
+Array[fdDisp[2,#,1]&,8],fdStr[type]
+];
+(*++++++++++++++++++++++++ \:5341\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++*)
 type="dec";
 fdStr[type]={
 "\[CapitalDelta]++","\[CapitalDelta]+","\[CapitalDelta]0","\[CapitalDelta]-",
@@ -51,7 +69,13 @@ fdStr[type]={
 "\[CapitalOmega]-"
 };
 (* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, ff["\[CapitalDelta]++"]=fd[3,1,0] ++++++++ *)
-Once@MapThread[Set,{ff/@fdStr[type], Array[fd[3,#,0]&,10]}];
+setOnce[
+ff/@fdStr[type],Array[fd[3,#,0]&,10]
+];
+(*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
+setOnce[
+Array[fdDisp[3,#,0]&,10],fdStr[type]
+];
 (*\:5341\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
 type="decb";
 fdStr[type]={
@@ -60,17 +84,35 @@ fdStr[type]={
 "\[CapitalXi]*0b","\[CapitalXi]*-b",
 "\[CapitalOmega]-b"
 };
-Once@MapThread[Set,{ff/@fdStr[type], Array[fd[3,#,1]&,10]}];
-
-
+setOnce[
+ff/@fdStr[type],Array[fd[3,#,1]&,10]
+];
+(*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
+setOnce[
+Array[fdDisp[3,#,1]&,10],fdStr[type]
+];
+(*++++++++++++++++++++++++ quark \:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++*)
 type="qua";
 fdStr[type]={"u","d","s"};
 (* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, quark human-readable, ff["u"]=fd[4,1,0] ++++++++ *)
-Once@MapThread[Set,{ff/@fdStr[type], Array[fd[4,#,0]&,3]}];
+setOnce[
+ff/@fdStr[type],Array[fd[4,#,0]&,3]
+];
+(*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
+setOnce[
+Array[fdDisp[4,#,0]&,3],fdStr[type]
+];
 (* -----------\:53cd\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3 ----------- *)
 type="quab";
 fdStr[type]={"ub","db","sb"};
-Once@MapThread[Set,{ff/@fdStr[type], Array[fd[4,#,1]&,3]}];
+setOnce[
+ff/@fdStr[type],Array[fd[4,#,1]&,3]
+];
+(*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
+setOnce[
+Array[fdDisp[4,#,1]&,3],fdStr[type]
+];
+]
 
 
 (* ::Section:: *)
@@ -132,25 +174,25 @@ recon="reNormConst";
 
 
 (*++++++++++++++ \:6570\:503c\:5316\:ff0c\:5404\:79cd\:60c5\:51b5\:6240\:4f7f\:7528\:7684 Key ++++++++++++++*)
-tagNum["tr","uds"]={"tree","uds"};
-tagNum["tr","u"]={"tree","u"};
-tagNum["tr","d"]={"tree","d"};
-tagNum["tr","s"]={"tree","s"};
+tagNum["tr","uds"]=numKey@{"tree","uds"};
+tagNum["tr","u"]=numKey@{"tree","u"};
+tagNum["tr","d"]=numKey@{"tree","d"};
+tagNum["tr","s"]=numKey@{"tree","s"};
 
-tagNum["lo","uds"]={"loop","uds"};
-tagNum["lo","u"]={"loop","u"};
-tagNum["lo","d"]={"loop","d"};
-tagNum["lo","s"]={"loop","s"};
+tagNum["lo","uds"]=numKey@{"loop","uds"};
+tagNum["lo","u"]=numKey@{"loop","u"};
+tagNum["lo","d"]=numKey@{"loop","d"};
+tagNum["lo","s"]=numKey@{"loop","s"};
 
-tagNum["qch","u"]={"quench","u"};
-tagNum["qch","d"]={"quench","d"};
-tagNum["qch","d"]={"quench","s"};
+tagNum["qch","u"]=numKey@{"quench","u"};
+tagNum["qch","d"]=numKey@{"quench","d"};
+tagNum["qch","d"]=numKey@{"quench","s"};
 
-tagNum["sea","u"]={"sea","u"};
-tagNum["sea","d"]={"sea","d"};
-tagNum["sea","s"]={"sea","s"};
+tagNum["sea","u"]=numKey@{"sea","u"};
+tagNum["sea","d"]=numKey@{"sea","d"};
+tagNum["sea","s"]=numKey@{"sea","s"};
 
-tagNum["tr+lo","uds"]={"tr+lo","uds"};
+tagNum["tr+lo","uds"]=numKey@{"tr+lo","uds"};
 
 
 (*++++++++++++++ octet baryons \:7535\:8377\:5171\:8f6d\:7684\:89c4\:5219\:8868 ++++++++++++++*)
@@ -245,8 +287,13 @@ DiscBChop[x__]:=Chop[DiscB[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165
 ScalarC0Chop[x__]:=Chop[ScalarC0[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
 (*\:7279\:6b8a\:51fd\:6570\:7684 \:5ef6\:8fdfChop*)
 numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
+
+
+(*\:53d6\:6574\:51fd\:6570\:ff0c\:820d\:5f03\:5fae\:5c0f\:7684\:6570\:503c\:8bef\:5dee*)
 chop[x_]:=Chop[x,chopLimit]
 chopQ2[x_]:=Simplify@Chop[x/.Q2->0,chopLimit]
+(*\:52a0\:4e0a\:63a5\:53e3 numFmt\:ff0c\:63a7\:5236\:6570\:5b57\:683c\:5f0f\:5316*)
+chopQ2Val[x_]:=numVal@chopQ2[x]
 
 
 (* ::Section:: *)
@@ -255,11 +302,11 @@ chopQ2[x_]:=Simplify@Chop[x/.Q2->0,chopLimit]
 
 (*\:6682\:65f6\:6ca1\:6709\:7684\:6570\:636e*)
 tempNone;
-
-
+(*\:5404\:79cd octet baryons \:7684 tag*)
 tagOctfds={
 ff["p"],ff["n"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]0"],ff["\[CapitalSigma]-"],
 ff["\[CapitalXi]0"],ff["\[CapitalXi]-"],ff["\[CapitalLambda]"]};
+
 
 numExper=<|
 (*experiment data*)
@@ -305,6 +352,3 @@ numExper=<|
 <|ffsGEGM->{numArd[0,0],numArd[-0.867,0.074]}|>
 }]
 |>;
-
-
-About
