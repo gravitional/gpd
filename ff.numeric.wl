@@ -53,8 +53,8 @@ $fittingQ=True;$fittingQ=True;
 (*++++++++++++++++++++++++++++++++++++++++ \:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406 ++++++++++++++++++++++++++++++++++++++++*)
 {$parOrdStr,$par\[CapitalLambda]Str,$parCStr,$fitScheme,$erroBar}={
 enString@$inputCml[[2]],
-enString@NumberForm[ToExpression@$inputCml[[3]],{3,2}],
-enString@NumberForm[ToExpression@$inputCml[[4]],{3,2}],
+enString@NumberForm[$inputCml[[3]],{3,2}],
+enString@NumberForm[$inputCml[[4]],{3,2}],
 enString@$inputCml[[5]],
 enString@$inputCml[[6]]
 }
@@ -65,6 +65,9 @@ StringMatchQ[$erroBar,{"notbar","L-"~~NumberString~~".ci-"~~NumberString}] (*eg.
 ],
 echo["Please check the input parameters"];Abort[]
 ]
+(* \:5904\:7406\:6570\:5b57 *)
+$parC=SetPrecision[ToExpression@$parCStr,20]
+$par\[CapitalLambda]=SetPrecision[ToExpression@$par\[CapitalLambda]Str,20]
 
 
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
@@ -77,10 +80,10 @@ If[$erroBar==="notbar",
 (*++++++++++++++++++++++++++++++++ \:5982\:679c\:4e0d\:662f\:4e3a\:4e86\:8ba1\:7b97Error\:ff0c\:5c31\:4f7f\:7528\:5339\:914d\:7684c1c2\:8fdb\:884c\:8ba1\:7b97 ++++++++++++++++++++++++++++++++*)
 echo[$fitSchemePath=FileNameJoin[{fittingsDir,"c1c2-magfit.L-"<>$par\[CapitalLambda]Str<>".ci-"<>$parCStr<>".wdx"}]];
 (*++++++++++++++++++++++++++++++++ \:4f7f\:7528\:7b2c\:4e8c\:79cd\:91cd\:6574\:5316\:65b9\:6848,Z*tree+loop ++++++++++++++++++++++++++++++++*)
-echo[configc1c2=Import[$fitSchemePath][$fitScheme][[2,2]]];,
+echo[numCCC=Import[$fitSchemePath][$fitScheme][[2,2]]];,
 (*++++++++++++++++++++++++++++++++ \:5982\:679c\:662f\:4e3a\:4e86\:8ba1\:7b97Error\:ff0c\:5c31\:4f7f\:7528\:6307\:5b9a \[CapitalLambda],ci \:5bf9\:5e94\:7684c1c2\:8fdb\:884c\:8ba1\:7b97 ++++++++++++++++++++++++++++++++*)
 echo[$fitSchemePath=FileNameJoin[{fittingsDir,"c1c2-magfit."<>$erroBar<>".wdx"}]];
-echo[configc1c2=Import[$fitSchemePath][$fitScheme][[2,2]]];
+echo[numCCC=Import[$fitSchemePath][$fitScheme][[2,2]]];
 ]
 
 
@@ -124,24 +127,24 @@ Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
 
 
 (*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)
-configc1c2={
+numCCC={
 cc["c1"]->1.6766`20,cc["c2"]->0.4984`20,
-cc["c4"]->1.6766`20/Sqrt[3],cc["cT"]->0.4984`20*3/2+1/2
+cc["c4"]->1.6766`20/Sqrt[3],cc["cT"]->0.4984`20*3/2+1/2,
+cc["C"]->$parC
 };
 
 
-(*------------------- \:5c06\:7cfb\:6570\:7684\:5177\:4f53\:6570\:503c\:4ee3\:5165 -------------------*)
+(*------------------- \:5c06\:8026\:5408\:5e38\:6570\:7684\:5177\:4f53\:6570\:503c\:4ee3\:5165 -------------------*)
 numCoupLst={
 cc["f"]->0.093`20,
 cc["D"]->0.76`20, cc["F"]->0.50`20,
 cc["b9"]->1.36,cc["b10"]->1.24,cc["b11"]->0.46,
-cc["C"]->SetPrecision[ToExpression@$parCStr,20],
-\[CapitalLambda]->SetPrecision[ToExpression@$par\[CapitalLambda]Str,20],
+\[CapitalLambda]->$par\[CapitalLambda],
 Sequence@@coesRule,
 (*------------------- \:5982\:679c\:662f\:62df\:5408\:ff0c\:5219\:8fd9\:91cc\:4e0d\:6307\:5b9a c1,c2 \:7684\:503c -----------------*)
 If[$fittingQ,
-Sequence@@{cc["c4"]->cc["c1"]/Sqrt[3],cc["cT"]->(3cc["c2"]+1)/2},
-Sequence@@configc1c2
+Sequence@@{cc["c4"]->cc["c1"]/Sqrt[3],cc["cT"]->(3cc["c2"]+1)/2},(*\:62df\:5408\:7684\:60c5\:51b5\:ff0c\:4e0d\:7ed9\:51fa c1,c2,C \:7684\:6570\:503c*)
+Sequence@@numCCC
 ]};
 
 
@@ -226,9 +229,7 @@ mm1,mo1,mo2,md1,md2,"time",fyCoeKey["cStr"],fyCoeKey["cEM"]
 ]@assocLst]
 
 
-(*I I/(16\[Pi]^2)*)
-echo["start import coeffs and loop-exprs "];
-(* import coes *)
+(*\:5bfc\:5165\:7cfb\:6570\:548c\:5708\:79ef\:5206*)
 If[$parallelQ,
 SetAttributes[paraEnvIO,HoldAll];
 paraEnvIO[tag_]:=ParallelSubmit[import$Eva[tag]],
@@ -238,7 +239,7 @@ paraEnvIO[tag_]:=import$Eva[tag]
 
 (*++++++++++++++++++++ \:5e76\:884c\:8ba1\:7b97 ++++++++++++++++++++*)
 If[$parallelQ,
-numAssoc=WaitAll[paraEnvIO/@fyAmpPart],
+numAssoc=WaitAll[paraEnvIO/@fyAmpPart],(*\:5e76\:884c\:60c5\:51b5\:ff0c\:9700\:8981 WaitAll \:4efb\:52a1*)
 numAssoc=paraEnvIO/@fyAmpPart
 ];
 
@@ -280,15 +281,15 @@ Simplify[Merge[Values@#,Total]]&
 (* ::Input:: *)
 (*(*\:5c55\:793a\:7c92\:5b50\:7684\:603b\:7ed3\:679c*)*)
 (*Query[KeySort/*Normal/*(TableForm[#,TableSpacing->{3.5, 1}]&),*)
-(*Normal/*(TableForm[#,TableSpacing->{1.5, 1}]&),*)
-(*Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*Normal/*(TableForm[#,TableSpacing->{1.5,1}]&),*)
+(*chopQ2/*chop*)
 (*]@loopAmpSum*)
 
 
 (* ::Input:: *)
 (*(* \:5bf9\:67d0\:4e9b\:56fe\:7684\:7ed3\:679c\:6c42\:548c\:ff0c*)*)
-(*Query[{Key@fd[2,1,0]},sectOct/*Total,({Key@ffsF1F2}),Extract[1],*)
-(*Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*Query[{Key@fd[2,1,0]},sectOct/*Total,({Key@ffsF1F2}),All,*)
+(*chopQ2*)
 (*]@loopChanSum*)
 
 
@@ -297,19 +298,17 @@ Simplify[Merge[Values@#,Total]]&
 (*Query[{Key@fd[2,1,0]}/*Normal/*(Column[#,Spacings->2]&),*)
 (*sectOct/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&),*)
 (*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),*)
-(*Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&*)
+(*chopQ2*)
 (*]@loopChanSum*)
 
 
 (* ::Input:: *)
 (*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:7ed3\:679c *)*)
-(*Query[{Key@fd[2,1,0]}/*Normal/*(Column[#,Spacings->2,Frame->None]&),*)
-(*sectDec/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]",Frame->All,FrameStyle->{Blue,Opacity[.5]}]&),*)
-(*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),All,{*)
-(*(Key@ffsGEGM)/*(Simplify[chop[I/(16\[Pi]^2)#/.Q2->0]]&),*)
-(*(Key@fyCoeKeycAll)/*ReplaceAll[coesRule~Join~quaCharge["uds"]]*)
-(*}*)
-(*]@loopChans*)
+(*Query[{Key@fd[2,1,0]}/*Normal/*(Column[#,Spacings->2]&),*)
+(*sectOct/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&),*)
+(*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),*)
+(*chopQ2*)
+(*]@loopChanSum*)
 
 
 (* ::Chapter:: *)
@@ -325,9 +324,9 @@ KeyTake[First@#,{inOct}](*First@# \:4e3a treeSum *)
 
 
 (*\:6311\:9009\:51fa tree,loop f1 \:7684\:8d21\:732e\:ff0c\:8ba1\:7b97\:91cd\:6b63\:5316\:5e38\:6570*)
-fnRenorm[fd_,quarkQ_]:=Abs[
-chopQ2@ffsMerged[[Key@fd,Key@ffsTreeF1F2,1]]-
-chopQ2@ffsMerged[[Key@fd,Key@ffsLoopF1F2,1]]]/.quarkQ;
+fnRenorm[fd_,quarkQ_]:=Abs@chopQ2[
+ffsMerged[[Key@fd,Key@ffsTreeF1F2,1]]-
+ffsMerged[[Key@fd,Key@ffsLoopF1F2,1]]/.quarkQ];
 (*\:5bf9\:4e8e\:5e26\:7535\:91cd\:5b50\:ff0c\:4f7f\:7528\:81ea\:5df1\:7684F1 \:8ba1\:7b97\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570 *)
 fnRenormSelf[fd_]:=fd->fnRenorm[fd,quaCharge["uds"]];
 (*+++++++++++++++++++++ \:8bb0\:5f55\:91cd\:6b63\:5316\:5e38\:6570 +++++++++++++++++++++*)
@@ -349,11 +348,21 @@ fd[2,8,0]->fnRenorm[fd[2,8,0],quaCharge["u"]](*\:4f7f\:7528 u flavor EM\:6d41\:8
 ffsWithRen=Query[All,
 Append[#,recon->renormRule@#@inOct]&
 ]@ffsMerged;
+
+
 (*\:6253\:5370\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570*)
+If[!$fittingQ,
 Query[Values/*StringRiffle,Key@recon,chopQ2/*(N[#,4]&)]@ffsWithRen
+]
 
 
-numFFs=Query[All,<|
+(* ::Input:: *)
+(*(*\:624b\:52a8\:67e5\:770b recons*)*)
+(*Query[All,{Key@recon}]@ffsWithRen*)
+
+
+numFFs=If[!$fittingQ,
+Query[All,<|
 tagNum["tr","uds"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["uds"]],
 tagNum["tr","u"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["u"]],
 tagNum["tr","d"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["d"]],
@@ -367,7 +376,36 @@ tagNum["lo","s"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["s"]],
 tagNum["tr+lo","uds"]->chopQ2Val[
 #@recon*#@ffsTreeGEGM+#@ffsLoopGEGM/.quaCharge["uds"]]
 |>&
-]@ffsWithRen;
+]@ffsWithRen,
+(*-------------- fitting \:4f7f\:7528\:7684\:8868\:8fbe\:5f0f --------------*)
+Query[All,<|
+(*total = tree +(Z-1)*tree+loop*)
+tagNum["tr+lo","uds"]->chopQ2Val[
+#@recon*#@ffsTreeGEGM+#@ffsLoopGEGM/.quaCharge["uds"]]
+|>&
+]@ffsWithRen];
+
+
+(* ::Section:: *)
+(*Fitting*)
+
+
+(*++++++++++++++++++ \:8ba1\:7b97\:6570\:636e - \:5b9e\:9a8c\:6570\:636e ++++++++++++++++++++++*)
+testMagMerged=Merge[{
+Query[All,(Key@tagNum["tr+lo","uds"])
+/*ReplaceAll[numVal->Identity]/*Last]@numFFs,
+(-1)numOctMaget
+},Total];
+
+
+(*\:5bf9\:5404\:79cd\:53ef\:80fd\:7684 fitting \:5e8f\:5217, \:6c42\:89e3 fitting \:503c *)
+testFit[testList_]:=With[{ccNum=1.0},
+NMinimize[{
+Query[(Key/@testList)/*ReplaceAll[cc["C"]->ccNum]/*Total,Power[#,2]&]@testMagMerged,
+{cc["c1"],cc["c2"]}\[Element]Reals},
+{cc["c1"],cc["c2"]},
+WorkingPrecision->MachinePrecision]];
+KeyValueMap[#1->testFit[#2]&,tagOctfds]
 
 
 (* ::Section:: *)
@@ -406,7 +444,7 @@ None,(* color horizontal: x1, x2, x3...*)
 LightCyan,{None,LightBlue}
 }(* color vertical: y1, y2, y3...*)
 };
-If[$inNBook,
+If[$inNBook &&!$fittingQ,
 gridTable[
 numFFs,"GEGM",
 dataBackground]]

@@ -115,6 +115,23 @@ Array[fdDisp[4,#,1]&,3],fdStr[type]
 ]
 
 
+(*\:5404\:79cd octet baryons \:7684 tag*)
+tagOctfds=<|
+"\[CapitalSigma]+-"->{ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"]},
+"\[CapitalSigma]"->{ff["\[CapitalSigma]+"],ff["\[CapitalSigma]0"],ff["\[CapitalSigma]-"]},
+"\[CapitalSigma]-p"->{ff["\[CapitalSigma]-"],ff["p"]},
+"\[CapitalSigma]-\[CapitalXi]-"->{ff["\[CapitalSigma]-"],ff["\[CapitalXi]-"]},
+"N"->{ff["p"],ff["n"]},
+"p\[CapitalXi]-"->{ff["p"],ff["\[CapitalXi]-"]},
+"\[CapitalXi]"->{ff["\[CapitalXi]0"],ff["\[CapitalXi]-"]},
+"charged"->{ff["p"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"],ff["\[CapitalXi]-"]},
+"many"->{ff["p"],ff["n"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"],ff["\[CapitalXi]0"],ff["\[CapitalXi]-"]},
+"most"->{ff["p"],ff["n"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"],ff["\[CapitalXi]0"],ff["\[CapitalXi]-"],ff["\[CapitalLambda]"]},
+"all"->{ff["p"],ff["n"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]0"],ff["\[CapitalSigma]-"],
+ff["\[CapitalXi]0"],ff["\[CapitalXi]-"],ff["\[CapitalLambda]"]}
+|>;
+
+
 (* ::Section:: *)
 (*keys*)
 
@@ -300,14 +317,16 @@ chopQ2Val[x_]:=numVal@chopQ2[x]
 (*experiment*)
 
 
+numOctMaget=<|
+ff["p"]->2.7928473446`28,ff["n"]->\[Minus]1.9130427`28,
+ff["\[CapitalSigma]+"]->2.458`28,ff["\[CapitalSigma]0"]->0.60`28,ff["\[CapitalSigma]-"]->\[Minus]1.160`28,
+ff["\[CapitalXi]0"]->\[Minus]1.250`28,ff["\[CapitalXi]-"]->\[Minus]0.6507`28,
+ff["\[CapitalLambda]"]->\[Minus]0.613`28
+|>;
+
+
 (*\:6682\:65f6\:6ca1\:6709\:7684\:6570\:636e*)
 tempNone;
-(*\:5404\:79cd octet baryons \:7684 tag*)
-tagOctfds={
-ff["p"],ff["n"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]0"],ff["\[CapitalSigma]-"],
-ff["\[CapitalXi]0"],ff["\[CapitalXi]-"],ff["\[CapitalLambda]"]};
-
-
 numExper=<|
 (*experiment data*)
 "exp."->AssociationThread[tagOctfds,
