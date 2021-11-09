@@ -9,16 +9,16 @@
 
 
 (*\:672c\:6587\:4ef6\:7684\:540d\:79f0*)
-fileName=If[$Notebooks,NotebookFileName[],$InputFileName];
+$fileName=If[$Notebooks,NotebookFileName[],$InputFileName];
 (*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c\:ff0c\:5c31\:5237\:65b0\:7b14\:8bb0\:672c\:7684\:6807\:9898*)
-Once@If[$Notebooks,NotebookWrite[Cells[][[1]],Cell[Last@FileNameSplit[fileName],"Title"]]];
+Once@If[$Notebooks,NotebookWrite[Cells[][[1]],Cell[Last@FileNameSplit[$fileName],"Title"]]];
 (*\:67e5\:627e init.wl, \:5bfc\:5165\:6839\:76ee\:5f55\:548c\:51fd\:6570\:5b9a\:4e49.*)
 Catch@Module[{recurFind,start=1,depMax},
-depMax=FileNameDepth[fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
+depMax=FileNameDepth[$fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
 (*-------\:5b9a\:4e49\:9012\:5f52\:51fd\:6570-------*)
 recurFind[dep_Integer]:=If[dep<=depMax,
-SetDirectory[DirectoryName[fileName,dep]];(*SetDirectory[]\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
-If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>gitLocalName],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
+SetDirectory[DirectoryName[$fileName,dep]];(*SetDirectory[]\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
+If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$gitLocalName],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
 ResetDirectory[];(*\:91cd\:8bbe\:4e3a\:4e4b\:524d\:7684\:76ee\:5f55*),
 Throw["I cann't find any init.wl in this project"]
 ];
@@ -32,11 +32,11 @@ $inNBook=$Notebooks;echo["Executed time: ",DateString[]];
 (*cmd arguments*)
 
 
-echo[mfilesDir=FileNameJoin[{gitLocalName,"mfiles"}]];
+echo[mfilesDir=FileNameJoin[{$gitLocalName,"mfiles"}]];
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
-Get[FileNameJoin@{gitLocalName,"gen.integral.TagList.wl"}];
+Get[FileNameJoin@{$gitLocalName,"gen.integral.TagList.wl"}];
 (*\:5bfc\:5165\:4e00\:4e9b\:8f93\:5165\:63a5\:53e3*)
-Get[FileNameJoin@{gitLocalName,"coes.interface.wl"}];
+Get[FileNameJoin@{$gitLocalName,"coes.interface.wl"}];
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
@@ -44,7 +44,7 @@ If[!$Notebooks,
 inputCml=$ScriptCommandLine,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
 (*++++++++++++++++++++++++++++++++++++++++*)
 inputCml={
-fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:4ee4\:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:6b64\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
+$fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:4ee4\:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:6b64\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
 (* \:5728\:8fd9\:91cc\:63d0\:4f9b\:5176\:4ed6\:53c2\:6570, \:4f7f\:7528 mathematica \:8bed\:6cd5\:4e0b\:7684\:5f62\:5f0f\:ff0c\:5916\:9762\:7684 enString \:4f1a\:81ea\:52a8\:8f6c\:6362\:6210\:5b57\:7b26\:4e32, \:5c3d\:91cf\:591a\:4f7f\:7528Association\:7ed3\:6784*)
 "full",
 "All"

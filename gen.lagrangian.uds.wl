@@ -16,16 +16,16 @@
 
 
 (*\:672c\:6587\:4ef6\:7684\:540d\:79f0*)
-fileName=If[$Notebooks,NotebookFileName[],$InputFileName];
+$fileName=If[$Notebooks,NotebookFileName[],$InputFileName];
 (*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c\:ff0c\:5c31\:5237\:65b0\:7b14\:8bb0\:672c\:7684\:6807\:9898*)
-Once@If[!$Notebooks,NotebookWrite[Cells[][[1]],Cell[Last@FileNameSplit[fileName],"Title"]]];
+Once@If[!$Notebooks,NotebookWrite[Cells[][[1]],Cell[Last@FileNameSplit[$fileName],"Title"]]];
 (*\:67e5\:627e init.wl, \:5bfc\:5165\:6839\:76ee\:5f55\:548c\:51fd\:6570\:5b9a\:4e49.*)
 Catch@Module[{recurFind,start=1,depMax},
-depMax=FileNameDepth[fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
+depMax=FileNameDepth[$fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
 (*-------\:5b9a\:4e49\:9012\:5f52\:51fd\:6570-------*)
 recurFind[dep_Integer]:=If[dep<=depMax,
-SetDirectory[DirectoryName[fileName,dep]];(*SetDirectory[]\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
-If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>gitLocalName],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
+SetDirectory[DirectoryName[$fileName,dep]];(*SetDirectory[]\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
+If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$gitLocalName],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
 ResetDirectory[];,
 Throw["I cann't find any init.wl in this project"]
 ];
@@ -33,7 +33,7 @@ recurFind[start];
 ]
 
 
-Get[FileNameJoin[{gitLocalName,"gen.format.wl"}]](*\:8bfb\:5165\:5b9a\:4e49\:4ee5\:53ca\:6392\:7248\:76f8\:5173\:7684\:6587\:4ef6*)
+Get[FileNameJoin[{$gitLocalName,"gen.format.wl"}]](*\:8bfb\:5165\:5b9a\:4e49\:4ee5\:53ca\:6392\:7248\:76f8\:5173\:7684\:6587\:4ef6*)
 
 
 (* ::Chapter:: *)
