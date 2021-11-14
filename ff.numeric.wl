@@ -47,7 +47,7 @@ echo["the input parameter is:\n",$inputCml];
 (*----------------- \:662f\:5426\:5f00\:59cb\:5e76\:884c\:5185\:6838 -----------------*)
 $parallelQ=False;
 (*----------------- \:662f\:5426\:5f00\:59cb\:62df\:5408\:7a0b\:5e8f -----------------*)
-$fittingQ=True;$fittingQ=True;
+$fittingQ=False;
 
 
 (*++++++++++++++++++++++++++++++++++++++++ \:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406 ++++++++++++++++++++++++++++++++++++++++*)
@@ -282,14 +282,14 @@ Simplify[Merge[Values@#,Total]]&
 (*(*\:5c55\:793a\:7c92\:5b50\:7684\:603b\:7ed3\:679c*)*)
 (*Query[KeySort/*Normal/*(TableForm[#,TableSpacing->{3.5, 1}]&),*)
 (*Normal/*(TableForm[#,TableSpacing->{1.5,1}]&),*)
-(*chopQ2/*chop*)
+(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
 (*]@loopAmpSum*)
 
 
 (* ::Input:: *)
 (*(* \:5bf9\:67d0\:4e9b\:56fe\:7684\:7ed3\:679c\:6c42\:548c\:ff0c*)*)
 (*Query[{Key@fd[2,1,0]},sectOct/*Total,({Key@ffsF1F2}),All,*)
-(*chopQ2*)
+(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
 (*]@loopChanSum*)
 
 
@@ -298,7 +298,7 @@ Simplify[Merge[Values@#,Total]]&
 (*Query[{Key@fd[2,1,0]}/*Normal/*(Column[#,Spacings->2]&),*)
 (*sectOct/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&),*)
 (*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),*)
-(*chopQ2*)
+(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
 (*]@loopChanSum*)
 
 
@@ -307,7 +307,7 @@ Simplify[Merge[Values@#,Total]]&
 (*Query[{Key@fd[2,1,0]}/*Normal/*(Column[#,Spacings->2]&),*)
 (*sectOct/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&),*)
 (*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),*)
-(*chopQ2*)
+(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
 (*]@loopChanSum*)
 
 
@@ -387,6 +387,48 @@ tagNum["tr+lo","uds"]->chopQ2Val[
 
 
 (* ::Section:: *)
+(*Display*)
+
+
+(* \:5bf9 data \:4e2d\:7684 head \:8fdb\:884c\:8f6c\:6362\:ff0c\:8f93\:51fa\:663e\:793a\:683c\:5f0f*)
+numDisp={fd->fdDisp,numKey->StringRiffle,numVal->(N[#,3]&)};
+dataDsip[x_]:=Dataset[x/.{Association->assoc}
+/.numDisp/.{assoc->Association}
+];
+(* \:5c06\:5d4c\:5957\:7684 {Assoc,Assoc} \:8f6c\:6362\:6210\:4e8c\:7ef4\:5217\:8868\:5f62\:5f0f *)
+dataToGrid::usage="dataToGrid[title,dataset], title \:5c06\:4f5c\:4e3a\:5217\:8868\:7684\:6807\:9898";
+dataToGrid[title_,x_]:=Prepend[
+KeyValueMap[Prepend[Values[#2],#1]&,x],
+Prepend[Query[First,Keys]@x,title]
+]
+(* Curry \:5f62\:5f0f *)
+dataToGrid[title_]:=dataToGrid[title,#]&
+
+
+(* \:4f7f\:7528 Grid \:663e\:793a \:4e8c\:7ef4\:5217\:8868 *)
+gridTable[dataSet_,title_,background_]:=Grid[
+dataToGrid[title]@dataSet/.numDisp,
+ItemSize->Automatic,
+Frame->{All,All},
+Spacings->{1,1.5},
+Background->background
+]
+
+
+(*\:80cc\:666f\:8272\:914d\:7f6e*)
+dataBackground={
+None,(* color horizontal: x1, x2, x3...*)
+{
+LightCyan,{None,LightBlue}
+}(* color vertical: y1, y2, y3...*)
+};
+If[$inNBook &&!$fittingQ,
+gridTable[
+numFFs,"GEGM",
+dataBackground]]
+
+
+(* ::Section:: *)
 (*Fitting*)
 
 
@@ -406,48 +448,6 @@ Query[(Key/@testList)/*ReplaceAll[cc["C"]->ccNum]/*Total,Power[#,2]&]@testMagMer
 {cc["c1"],cc["c2"]},
 WorkingPrecision->MachinePrecision]];
 KeyValueMap[#1->testFit[#2]&,tagOctfds]
-
-
-(* ::Section:: *)
-(*Display*)
-
-
-(* \:5bf9 data \:4e2d\:7684 head \:8fdb\:884c\:8f6c\:6362\:ff0c\:8f93\:51fa\:663e\:793a\:683c\:5f0f*)
-numDisp={fd->fdDisp,numKey->StringRiffle,numVal->(N[#,3]&)};
-dataDsip[x_]:=Dataset[x/.{Association->assoc}
-/.numDisp/.{assoc->Association}
-];
-(* \:5c06 Dataset \:8f6c\:6362\:6210\:4e8c\:7ef4\:5217\:8868\:5f62\:5f0f *)
-dataToGrid::usage="dataToGrid[title,dataset], title \:5c06\:4f5c\:4e3a\:5217\:8868\:7684\:6807\:9898";
-dataToGrid[title_,x_]:=Prepend[
-KeyValueMap[Prepend[Values[#2],#1]&,x],
-Prepend[Query[First,Keys]@x,title]
-]
-(* Curry \:5f62\:5f0f *)
-dataToGrid[title_]:=dataToGrid[title,#]&
-
-
-(* \:4f7f\:7528 Grid \:663e\:5f0f \:4e8c\:7ef4\:5217\:8868 *)
-gridTable[dataSet_,title_,background_]:=Grid[
-dataToGrid[title]@numFFs/.numDisp,
-ItemSize->Automatic,
-Frame->{All,All},
-Spacings->{1,1.5},
-Background->background
-]
-
-
-(*\:80cc\:666f\:8272\:914d\:7f6e*)
-dataBackground={
-None,(* color horizontal: x1, x2, x3...*)
-{
-LightCyan,{None,LightBlue}
-}(* color vertical: y1, y2, y3...*)
-};
-If[$inNBook &&!$fittingQ,
-gridTable[
-numFFs,"GEGM",
-dataBackground]]
 
 
 (* ::Section:: *)
