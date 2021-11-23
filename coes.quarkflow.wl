@@ -18,7 +18,7 @@ depMax=FileNameDepth[$fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
 (*-------\:5b9a\:4e49\:9012\:5f52\:51fd\:6570-------*)
 recurFind[dep_Integer]:=If[dep<=depMax,
 SetDirectory[DirectoryName[$fileName,dep]];(*SetDirectory[]\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
-If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$gitLocalName],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
+If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$srcRoot],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
 ResetDirectory[];,
 Throw["I cann't find any init.wl in this project"]
 ];
@@ -27,7 +27,7 @@ recurFind[start];
 
 
 (*\:8bfb\:5165\:50a8\:5b58\:9876\:70b9\:7cfb\:6570\:7684\:6587\:4ef6*)
-Get[FileNameJoin[{$gitLocalName,"coes.chpt.wl"}]];
+Get[FileNameJoin[{$srcRoot,"coes.chpt.wl"}]];
 
 
 (* ::Chapter:: *)

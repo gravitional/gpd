@@ -18,7 +18,7 @@ depMax=FileNameDepth[$fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
 (*-------\:5b9a\:4e49\:9012\:5f52\:51fd\:6570-------*)
 recurFind[dep_Integer]:=If[dep<=depMax,
 SetDirectory[DirectoryName[$fileName,dep]];(*SetDirectory[]\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
-If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$gitLocalName],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
+If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$srcRoot],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
 ResetDirectory[];(*\:91cd\:8bbe\:4e3a\:4e4b\:524d\:7684\:76ee\:5f55*),
 Throw["I cann't find any init.wl in this project"]
 ];
@@ -32,11 +32,11 @@ $inNBook=$Notebooks;echo["Executed time: ",DateString[]];
 (*cmd arguments*)
 
 
-echo[mfilesDir=FileNameJoin[{$gitLocalName,"mfiles"}]];
+echo[mfilesDir=FileNameJoin[{$srcRoot,"mfiles"}]];
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
-Get[FileNameJoin@{$gitLocalName,"gen.integral.TagList.wl"}];
+Get[FileNameJoin@{$srcRoot,"gen.integral.TagList.wl"}];
 (*\:5bfc\:5165\:4e00\:4e9b\:8f93\:5165\:63a5\:53e3*)
-Get[FileNameJoin@{$gitLocalName,"coes.interface.wl"}];
+Get[FileNameJoin@{$srcRoot,"coes.interface.wl"}];
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)

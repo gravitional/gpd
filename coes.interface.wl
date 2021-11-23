@@ -120,6 +120,7 @@ tagOctfds=<|
 "\[CapitalSigma]+-"->{ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"]},
 "\[CapitalSigma]"->{ff["\[CapitalSigma]+"],ff["\[CapitalSigma]0"],ff["\[CapitalSigma]-"]},
 "\[CapitalSigma]-p"->{ff["\[CapitalSigma]-"],ff["p"]},
+"\[CapitalSigma]N"->{ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"],ff["p"],ff["n"]},
 "\[CapitalSigma]-\[CapitalXi]-"->{ff["\[CapitalSigma]-"],ff["\[CapitalXi]-"]},
 "N"->{ff["p"],ff["n"]},
 "p\[CapitalXi]-"->{ff["p"],ff["\[CapitalXi]-"]},

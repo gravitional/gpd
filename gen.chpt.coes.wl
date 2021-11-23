@@ -27,7 +27,7 @@ depMax=FileNameDepth[$fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
 (*-------\:5b9a\:4e49\:9012\:5f52\:51fd\:6570-------*)
 recurFind[dep_Integer]:=If[dep<=depMax,
 SetDirectory[DirectoryName[$fileName,dep]];(*SetDirectory[]\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
-If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$gitLocalName],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
+If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$srcRoot],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
 ResetDirectory[];,
 Throw["I cann't find any init.wl in this project"]
 ];
@@ -35,7 +35,7 @@ recurFind[start];
 ]
 
 
-Get[FileNameJoin[{$gitLocalName,"gen.format.wl"}]];(*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
+Get[FileNameJoin[{$srcRoot,"gen.format.wl"}]];(*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
 
 
 (* ---------------------------- \:4e00\:4e9b\:8f93\:5165\:63a5\:53e3\:ff0c\:65b9\:4fbf\:8f93\:5165\:548c\:540e\:7eed\:66f4\:6539 ---------------------------- *)
@@ -46,7 +46,7 @@ coeIn::usage="coeIn[type,coes],\:7528\:4e8e\:8f93\:5165\:9876\:70b9\:7cfb\:6570"
 mesout::usage="\:533a\:522b\:4ecb\:5b50\:ff0cout\:8868\:793a\:51fa\:5c04";
 mesout[x_]:=mes[x,"out"]
 (* -------------------------- \:7c92\:5b50\:7c7b\:578b\:63a5\:53e3 --------------------------*)
-Get[FileNameJoin[{$gitLocalName,"coes.interface.wl"}]];
+Get[FileNameJoin[{$srcRoot,"coes.interface.wl"}]];
 (*++++++++++++++++++++++++++++++ \:65e0\:6cd5\:786e\:5b9a\:5927\:5c0f\:7684\:91cf +++++++++++++++++++++++++++*)
 undefined;
 (*--------------------------------------*)

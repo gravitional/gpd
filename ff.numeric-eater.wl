@@ -5,7 +5,7 @@
 
 
 (* ::Chapter:: *)
-(*initial*)
+(*initiate*)
 
 
 (*\:672c\:6587\:4ef6\:7684\:540d\:79f0*)
@@ -20,15 +20,15 @@ recurFind[dep_Integer]:=If[dep<=depMax,
 SetDirectory[DirectoryName[$fileName,dep]];(*SetDirectory[]\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
 If[FileExistsQ["init.wl"],
 (*\:5c06\:4e3b\:76ee\:5f55\:6dfb\:52a0\:5230\:641c\:7d22\:8def\:5f84*)
-Get["init.wl"];PrependTo[$Path,$gitLocalName];
-Throw["The base directory is : "<>$gitLocalName];,
+Get["init.wl"];PrependTo[$Path,$srcRoot];
+Throw["The base directory is : "<>$srcRoot];,
 recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
 ResetDirectory[];(*\:91cd\:8bbe\:4e3a\:4e4b\:524d\:7684\:76ee\:5f55*),
 Throw["I cann't find any init.wl in this project"]
 ];
 recurFind[start];
 ]
-(* \:8bb0\:5f55 master Kernel \:7684\:8fd0\:884c\:6a21\:5f0f*)
+(* \:8bb0\:5f55 master Kernel \:7684\:8fd0\:884c\:6a21\:5f0f,\:5e76\:884c\:8ba1\:7b97\:4e2d\:4f7f\:7528 *)
 $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
@@ -51,15 +51,32 @@ echo["the input parameter is:\n",$inputCml];
 (*----------------- \:662f\:5426\:5f00\:59cb\:5e76\:884c\:5185\:6838 -----------------*)
 $parallelQ=False;
 (*----------------- \:662f\:5426\:5f00\:59cb\:62df\:5408\:7a0b\:5e8f -----------------*)
-$fittingQ=True;
+$fittingQ=False;
 (*\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e*)
 $parOrdStr="ord0";
-$parC=0.90`20;
+$parC=1.50`20;
 $parCStr=enString@NumberForm[$parC,{3,2}];
-$par\[CapitalLambda]=1.50`20;
+$par\[CapitalLambda]=0.90`20;
 $par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
-$fitScheme="Baryons";
+$fitScheme="\[CapitalSigma]N";
 $erroBar="notbar";
+
+
+(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
+echo[fittingsDir=FileNameJoin[{$srcRoot,"fittings"}]];enDir[fittingsDir];
+ccfitted$Err=Query[Key@cc["\[CapitalLambda]",$par\[CapitalLambda]Str],Key@cc["C",$parCStr],$fitScheme]@Import@FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}]
+ccfitted=Last@ccfitted$Err;
+
+
+(*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)
+numCCRelation={cc["c4"]->cc["c1"]/Sqrt[3],cc["cT"]->(3cc["c2"]+1)/2};
+numCCC=If[$fittingQ,
+(*\:5982\:679c\:662f\:62df\:5408\:ff0c\:5219\:8fd9\:91cc\:4e0d\:6307\:5b9a c1,c2 \:7684\:503c*)
+numCCRelation,
+(* \:975e\:62df\:5408\:7684\:60c5\:51b5\:ff0c\:7ed9\:51fa c1,c2 \:7684\:5177\:4f53\:6570\:503c*)
+SetPrecision[
+Join[ccfitted,numCCRelation/.ccfitted,{cc["C"]->$parC}]
+,20]];
 
 
 (* ::Input:: *)
@@ -84,9 +101,6 @@ $erroBar="notbar";
 
 
 (* ::Input:: *)
-(*(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)*)
-(*echo[fittingsDir=FileNameJoin[{$gitLocalName,"fittings"}]];*)
-(*If[!DirectoryQ[fittingsDir],CreateDirectory[fittingsDir];echo["Create a new directory: ./fittings/"]] ;*)
 (*(*++++++++++++++++++++++++++++++++ \:8bfb\:53d6c1,c2\:7684\:53d6\:503c ++++++++++++++++++++++++++++++++*)*)
 (*(*c3=c2-c1;*)*)
 (*echo["c1,c2 configuration"]*)
@@ -101,108 +115,13 @@ $erroBar="notbar";
 (*]*)
 
 
-(* ::Section:: *)
-(*Read coes and exprs*)
-
-
-If[$parallelQ,
-(*+++++++++++++++++++ \:542f\:52a8\:5e76\:884c\:5185\:6838 +++++++++++++++++++*)
-Needs["X`"];ParallelNeeds["X`"];
-CloseKernels[];(*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
-Switch[{$MachineName,$System},
-{"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
-_,LaunchKernels[]
-];,
-Needs["X`"];]
-
-
-echo[coesDir=FileNameJoin[{$gitLocalName,"coes"}]];
-echo[mfilesDir=FileNameJoin[{$gitLocalName,"mfiles"}]];
-(* 1st \:5bfc\:5165\:6b21\:5e8f: \:8bfb\:5165\:6392\:7248 *)
-(*Once@Get["gen.format.wl"];*)
-(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
-Once@Get["gen.integral.TagList.wl"];
-fyAmpPart=fyAmpLoopLst;
-(*\:8bfb\:5165\:5404\:79cd\:8f93\:5165\:63a5\:53e3*)
-Once@Get["coes.interface.wl"];
-
-
-(*\:58f0\:660e\:4e00\:4e9b\:8fd0\:52a8\:5b66\:53d8\:91cf,\:4f7f\:7528 atom \:8868\:8fbe\:5f0f\:ff0cpackage-X \:7684 loopIntegrate \:9700\:8981\:79ef\:5206\:52a8\:91cf\:4e3a\:539f\:5b50\:8868\:8fbe\:5f0f*)
-\[CapitalLambda];(*\:6b63\:89c4\:5b50\:8d28\:91cf*)
-mE;(*\:5916\:817f\:7c92\:5b50\:7684\:8d28\:91cf*);
-mm1;mm2;(*\:4e2d\:95f4\:516b\:91cd\:6001\:4ecb\:5b50*)
-mo1;mo2;(*\:4e2d\:95f4\:516b\:91cd\:6001\:91cd\:5b50*)
-md1;md2;(*\:4e2d\:95f4\:5341\:91cd\:6001\:91cd\:5b50*)
-Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
-
-
-(* ::Section:: *)
-(*Kinematic & Couplings*)
-
-
-(*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)
-numCCC={
-cc["c1"]->1.6766`20,cc["c2"]->0.4984`20,
-cc["c4"]->1.6766`20/Sqrt[3],cc["cT"]->0.4984`20*3/2+1/2,
-cc["C"]->$parC
-};
-
-
-(*------------------- \:5c06\:8026\:5408\:5e38\:6570\:7684\:5177\:4f53\:6570\:503c\:4ee3\:5165 -------------------*)
-numCoupLst={
-cc["f"]->0.093`20,
-cc["D"]->0.76`20, cc["F"]->0.50`20,
-cc["b9"]->1.36,cc["b10"]->1.24,cc["b11"]->0.46,
-\[CapitalLambda]->$par\[CapitalLambda],
-Sequence@@coesRule,
-(*------------------- \:5982\:679c\:662f\:62df\:5408\:ff0c\:5219\:8fd9\:91cc\:4e0d\:6307\:5b9a c1,c2 \:7684\:503c -----------------*)
-If[$fittingQ,
-Sequence@@{cc["c4"]->cc["c1"]/Sqrt[3],cc["cT"]->(3cc["c2"]+1)/2},(*\:62df\:5408\:7684\:60c5\:51b5\:ff0c\:4e0d\:7ed9\:51fa c1,c2,C \:7684\:6570\:503c*)
-Sequence@@numCCC
-]};
-
-
-medRule::usage="medRule[x], \:4f20\:5165\:4e00\:4e2a\:5173\:8054\:ff0c\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:66ff\:6362\:89c4\:5219, \:52a0\:4e0a\:5404\:79cd\:8026\:5408\:5e38\:6570";
-medRule[x_]:=Dispatch@Merge[{KeyTake[x,{mE,mm1,mo1,mo2,md1,md2}]/.numMass,numMass,numCoupLst},Last];
-toGEGM::usage="toGEGM[x], \:4f20\:5165 {F1,F2} ";
-toGEGM[x_?ListQ]:={First[x]-Q2/(4*mE)*Last[x], Total[x]};
-
-
-paraInitial=Hold[
-(*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236, \:5173\:95ed Simplify \:5316\:7b80\:65f6\:95f4\:8d85\:51fa \:7684\:4fe1\:606f*)
-SetOptions[Simplify,TimeConstraint->1];
-SetOptions[Refine,TimeConstraint->1];
-Off[Simplify::time];Off[Refine::time];
-];
-ReleaseHold@paraInitial
-
-
-(*\:5e76\:884c\:8ba1\:7b97\:521d\:59cb\:5316*)
-If[$parallelQ,
-ParallelEvaluate[ReleaseHold@paraInitial];
-DistributeDefinitions[
-$gitLocalName,$fileName,echo,enList,enString,$inNBook,
-$parOrdStr,$par\[CapitalLambda]Str,$parCStr,$fitScheme,$erroBar,
-coesDir,mfilesDir,fyAmpPart,
-massV,numMass,numCoupLst,numPaVe,otherCoes,
-quaCharge,medRule,toGEGM,
-chopLimit,chop,precision
-];]
-
-
-(* ::Chapter:: *)
-(*worker*)
-
-
-(* \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
-Get["ff.numeric.worker.wl"];
-
-
 (* ::Chapter::Closed:: *)
 (*testing*)
 
 
 (* ::Input:: *)
+(*(* \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)*)
+(*If[$inNBook &&!$fittingQ,Get["ff.numeric.worker.wl"];]*)
 (*(*\:5c55\:793a\:7c92\:5b50\:7684\:603b\:7ed3\:679c*)*)
 (*Query[KeySort/*Normal/*(TableForm[#,TableSpacing->{3.5, 1}]&),*)
 (*Normal/*(TableForm[#,TableSpacing->{1.5,1}]&),*)
@@ -235,8 +154,12 @@ Get["ff.numeric.worker.wl"];
 (*]@loopChanSum*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Display*)
+
+
+(* \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
+If[$inNBook &&!$fittingQ,Get["ff.numeric.worker.wl"];]
 
 
 (* \:5bf9 data \:4e2d\:7684 head \:8fdb\:884c\:8f6c\:6362\:ff0c\:8f93\:51fa\:663e\:793a\:683c\:5f0f*)
@@ -281,40 +204,63 @@ dataBackground]]
 (*Fitting*)
 
 
+(*\:5bf9\:672a\:5b9a\:53c2\:6570\:8fdb\:884c\:62df\:5408*)
 If[$fittingQ,
-(*++++++++++++++++++ \:8ba1\:7b97\:6570\:636e - \:5b9e\:9a8c\:6570\:636e ++++++++++++++++++++++*)
+Module[{testMagMerged,testFit,$par\[CapitalLambda]Str,ccNumStr},
+(*\:6700\:540e\:7684\:7ed3\:679c\:4fdd\:5b58\:5728\:5173\:8054\:4e2d*)
+ccFittings=Association@Table[
+(*\:521d\:59cb\:5316 \[CapitalLambda] \:5b57\:7b26\:5f62\:5f0f *)
+$par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
+(* \:5bf9\:7279\:5b9a \[CapitalLambda], \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
+Get["ff.numeric.worker.wl"];
+(*\:5bf9\:7279\:5b9a \[CapitalLambda], \:8ba1\:7b97: \:6570\:503c\:7ed3\:679c - \:5b9e\:9a8c\:7ed3\:679c, numFFs \:5728 worker \:4e2d\:8ba1\:7b97 *)
 testMagMerged=Merge[{
 Query[All,(Key@tagNum["tr+lo","uds"])
 /*ReplaceAll[numVal->Identity]/*Last]@numFFs,
 (-1)numOctMaget
 },Total];
-(*------------------- \:5bf9\:5404\:79cd\:53ef\:80fd\:7684 fitting \:5e8f\:5217, \:6c42\:89e3 fitting \:503c -------------------*)
-testFit[testList_]:=With[{ccNum=1.0},
-NMinimize[{
+(* fitting \:51fd\:6570: \:5bf9\:4e8e\:7ed9\:5b9a\:7684 C \:503c, \:8fdb\:884c\:62df\:5408; \:5bf9\:5404\:79cd\:53ef\:80fd\:7684 fitting \:5e8f\:5217,\:6c42\:89e3c1,c2 \:7684fitting \:503c*)
+testFit[ccNum_,testList_]:=NMinimize[{
 Query[(Key/@testList)/*ReplaceAll[cc["C"]->ccNum]/*Total,Power[#,2]&]@testMagMerged,
 {cc["c1"],cc["c2"]}\[Element]Reals},
 {cc["c1"],cc["c2"]},
-WorkingPrecision->MachinePrecision]];
-(*------------ \:8ba1\:7b97 fitting \:7ed3\:679c -----------------*)
-KeyValueMap[#1->testFit[#2]&,tagOctfds](* \:5728interfaces \:4e2d\:5b9a\:4e49*)
+WorkingPrecision->MachinePrecision];
+(* \:6b21\:7ea7\:5173\:8054, \[CapitalLambda] \:6307\:5411\:5404\:79cd C fitting \:51fa\:7684\:7ed3\:679c*)
+cc["\[CapitalLambda]",$par\[CapitalLambda]Str]->Association@Table[
+(*\:521d\:59cb\:5316 C \:5b57\:7b26\:5f62\:5f0f*)
+ccNumStr=enString@NumberForm[ccNum,{3,2}];
+(*\:5faa\:73af\:8fdb\:5ea6\:63d0\:793a*)
+echo["Lambda: ",$par\[CapitalLambda]Str,", C: ",ccNumStr];
+(* \:6b21\:7ea7\:5173\:8054, C \:6307\:5411\:5404\:79cd \:62df\:5408\:5b50\:96c6\:7684\:7ed3\:679c, \:5982 \[CapitalSigma]+0-, pN, All,*)
+cc["C",ccNumStr]->KeyValueMap[#1->testFit[ccNum,#2]&,tagOctfds]
+,{ccNum,{1.0,1.1,1.2,1.3,1.4,1.5}}
 ]
+,{$par\[CapitalLambda],{0.80`20,0.85`20,0.90`20,0.95`20,1.00`20}}]
+]];
 
 
 (* ::Section:: *)
 (*export*)
 
 
-(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
-echo[resultsDir=FileNameJoin[{$gitLocalName,"results"}]];
-If[!DirectoryQ[resultsDir],CreateDirectory[resultsDir];echo["Create a new directory: ",resultsDir]];
-
-
 (*\:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
-serialize[numFFs_]:=Block[{path},
+serialize["ccFittings",result_]:=Block[{path},
+path=FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}];
+Export[path,result];
+echo["Exporting finished: ", path];]
+
+
+(* ::Input:: *)
+(*serialize["ccFittings",ccFittings]*)
+
+
+(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
+echo[resultsDir=FileNameJoin[{$srcRoot,"results"}]];enDir[resultsDir];
+(*\:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
+serialize["result",result_]:=Block[{path},
 path=FileNameJoin[{resultsDir,"nums."<>StringRiffle[{$parOrdStr,$par\[CapitalLambda]Str,$parCStr,$fitScheme,$erroBar},"-"]<>".wdx"}];
-Export[path,numFFs];
-echo["Exporting finished: ", path];
-]
+Export[path,result];
+echo["Exporting finished: ", path];]
 
 
 (* ::Chapter:: *)

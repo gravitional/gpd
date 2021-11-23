@@ -18,7 +18,7 @@ depMax=FileNameDepth[$fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
 (*-------\:5b9a\:4e49\:9012\:5f52\:51fd\:6570-------*)
 recurFind[dep_Integer]:=If[dep<=depMax,
 SetDirectory[DirectoryName[$fileName,dep]];(*SetDirectory[]\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
-If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$gitLocalName],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
+If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$srcRoot],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
 ResetDirectory[];,
 Throw["I cann't find any init.wl in this project"]
 ];
@@ -276,7 +276,7 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Input:: *)
-(*if="a";$outDir=FileNameJoin[{$gitLocalName,"/mfiles/"}]*)
+(*if="a";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 
@@ -347,7 +347,7 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Input:: *)
-(*if="b";$outDir=FileNameJoin[{$gitLocalName,"/mfiles/"}]*)
+(*if="b";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 
@@ -427,7 +427,7 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Input:: *)
-(*if="d";$outDir=FileNameJoin[{$gitLocalName,"/mfiles/"}];*)
+(*if="d";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}];*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 
@@ -499,7 +499,7 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Input:: *)
-(*$outDir=FileNameJoin[{$gitLocalName,"/mfiles/"}]*)
+(*$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 
@@ -568,7 +568,7 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Input:: *)
-(*$outDir=FileNameJoin[{$gitLocalName,"/mfiles/"}]*)
+(*$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 
@@ -637,7 +637,7 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Input:: *)
-(*$outDir=FileNameJoin[{$gitLocalName,"/mfiles/"}]*)
+(*$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 
@@ -706,7 +706,7 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Input:: *)
-(*if="h";$outDir=FileNameJoin[{$gitLocalName,"/mfiles/"}]*)
+(*if="h";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 
@@ -775,7 +775,7 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Input:: *)
-(*if="i";$outDir=FileNameJoin[{$gitLocalName,"/mfiles/"}]*)
+(*if="i";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 
@@ -846,7 +846,7 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Input:: *)
-(*if="j";$outDir=FileNameJoin[{$gitLocalName,"/mfiles/"}]*)
+(*if="j";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 

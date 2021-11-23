@@ -5,6 +5,89 @@
 
 
 (* ::Chapter:: *)
+(*initiate*)
+
+
+(* ::Section:: *)
+(*Read coes and exprs*)
+
+
+If[$parallelQ,
+(*+++++++++++++++++++ \:542f\:52a8\:5e76\:884c\:5185\:6838 +++++++++++++++++++*)
+Needs["X`"];ParallelNeeds["X`"];
+CloseKernels[];(*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
+Switch[{$MachineName,$System},
+{"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
+_,LaunchKernels[]
+];,
+Needs["X`"];]
+
+
+coesDir=FileNameJoin[{$srcRoot,"coes"}];
+mfilesDir=FileNameJoin[{$srcRoot,"mfiles"}];
+(* 1st \:5bfc\:5165\:6b21\:5e8f: \:8bfb\:5165\:6392\:7248 *)
+(*Once@Get["gen.format.wl"];*)
+(*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
+Once@Get["gen.integral.TagList.wl"];
+fyAmpPart=fyAmpLoopLst;
+(*\:8bfb\:5165\:5404\:79cd\:8f93\:5165\:63a5\:53e3*)
+Once@Get["coes.interface.wl"];
+
+
+(*\:58f0\:660e\:4e00\:4e9b\:8fd0\:52a8\:5b66\:53d8\:91cf,\:4f7f\:7528 atom \:8868\:8fbe\:5f0f\:ff0cpackage-X \:7684 loopIntegrate \:9700\:8981\:79ef\:5206\:52a8\:91cf\:4e3a\:539f\:5b50\:8868\:8fbe\:5f0f*)
+\[CapitalLambda];(*\:6b63\:89c4\:5b50\:8d28\:91cf*)
+mE;(*\:5916\:817f\:7c92\:5b50\:7684\:8d28\:91cf*);
+mm1;mm2;(*\:4e2d\:95f4\:516b\:91cd\:6001\:4ecb\:5b50*)
+mo1;mo2;(*\:4e2d\:95f4\:516b\:91cd\:6001\:91cd\:5b50*)
+md1;md2;(*\:4e2d\:95f4\:5341\:91cd\:6001\:91cd\:5b50*)
+Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
+
+
+(* ::Section:: *)
+(*Kinematic & Couplings*)
+
+
+(*------------------- \:5c06\:8026\:5408\:5e38\:6570\:7684\:5177\:4f53\:6570\:503c\:4ee3\:5165 -------------------*)
+numCoupLst={
+cc["f"]->0.093`20,
+cc["D"]->0.76`20, cc["F"]->0.50`20,
+cc["b9"]->1.36,cc["b10"]->1.24,cc["b11"]->0.46,
+\[CapitalLambda]->$par\[CapitalLambda],
+Sequence@@coesRule,
+(* c1,c2, C \:7684\:503c*)
+Sequence@@numCCC
+};
+
+
+medRule::usage="medRule[x], \:4f20\:5165\:4e00\:4e2a\:5173\:8054\:ff0c\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:66ff\:6362\:89c4\:5219, \:52a0\:4e0a\:5404\:79cd\:8026\:5408\:5e38\:6570";
+medRule[x_]:=Dispatch@Merge[{KeyTake[x,{mE,mm1,mo1,mo2,md1,md2}]/.numMass,numMass,numCoupLst},Last];
+toGEGM::usage="toGEGM[x], \:4f20\:5165 {F1,F2} ";
+toGEGM[x_?ListQ]:={First[x]-Q2/(4*mE)*Last[x], Total[x]};
+
+
+paraInitial=Hold[
+(*\:8bbe\:7f6e\:5316\:7b80\:65f6\:95f4\:9650\:5236, \:5173\:95ed Simplify \:5316\:7b80\:65f6\:95f4\:8d85\:51fa \:7684\:4fe1\:606f*)
+SetOptions[Simplify,TimeConstraint->1];
+SetOptions[Refine,TimeConstraint->1];
+Off[Simplify::time];Off[Refine::time];
+];
+ReleaseHold@paraInitial
+
+
+(*\:5e76\:884c\:8ba1\:7b97\:521d\:59cb\:5316*)
+If[$parallelQ,
+ParallelEvaluate[ReleaseHold@paraInitial];
+DistributeDefinitions[
+$srcRoot,$fileName,echo,enList,enString,$inNBook,
+$parOrdStr,$par\[CapitalLambda]Str,$parCStr,$fitScheme,$erroBar,
+coesDir,mfilesDir,fyAmpPart,
+massV,numMass,numCoupLst,numPaVe,otherCoes,
+quaCharge,medRule,toGEGM,
+chopLimit,chop,precision
+];]
+
+
+(* ::Chapter:: *)
 (*tree level contributions*)
 
 
