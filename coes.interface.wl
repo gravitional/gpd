@@ -1,6 +1,23 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
+(*static*)
+
+
+(*\:5708\:56fe\:7ed3\:679c\:7ea7\:6570\:5c55\:5f00\:7684 level*)
+$ord0="ord0";
+$ord1="ord1";
+$ordFull="full";
+
+
+(*\:5708\:79ef\:5206 Keys\:ff0c\:4e0d\:540c\:7c92\:5ea6\:7684\:8ba1\:7b97\:7ed3\:679c*)
+kLoopAssoc="loopAssoc";
+kLoopChannel="loopChan";
+kLoopChanSum="loopChanSum";
+kLoopAmpSum="loopAmpSum";
+
+
+(* ::Section::Closed:: *)
 (*interfaces*)
 
 
@@ -275,20 +292,17 @@ massV@fd[3,10,2]=mass\[CapitalOmega];
 
 (*\:7ed9\:51fa \:8d28\:91cf\:5177\:4f53\:6570\:503c \:7684\:66ff\:6362\:89c4\:5219*)
 numMass={
-\[CapitalLambda]->SetPrecision[ToExpression@par\[CapitalLambda],20],
-(*  octet mesons *)
-mass\[Pi]->0.1381`20,massK->0.4956`20,mass\[Eta]8->0.5693`20,mass\[Eta]0->0.9452`20,
+(*octet mesons*)
+mass\[Pi]->0.1381`30,massK->0.4956`30,mass\[Eta]8->0.5693`30,mass\[Eta]0->0.9452`30,
 (*  octet baryons *)
-mass\[CapitalSigma]->1.193`20,massN->0.939`20,mass\[CapitalXi]->1.315`20,
-mass\[CapitalLambda]->1.116`20,mass\[CapitalLambda]\[CapitalSigma]->1.155`20,
-massUUU->0.939`20,massDDD->0.939`20,masssss->1.315`20,
+mass\[CapitalSigma]->1.193`30,massN->0.939`30,mass\[CapitalXi]->1.315`30,
+mass\[CapitalLambda]->1.116`30,mass\[CapitalLambda]\[CapitalSigma]->1.155`30,
+massUUU->0.939`30,massDDD->0.939`30,masssss->1.315`30,
 (*  decuplet baryons *)
-mass\[CapitalDelta]->1.232`20,mass\[CapitalSigma]s->1.385`20,mass\[CapitalXi]s->1.530`20,mass\[CapitalOmega]->1.672`20
+mass\[CapitalDelta]->1.232`30,mass\[CapitalSigma]s->1.385`30,mass\[CapitalXi]s->1.530`30,mass\[CapitalOmega]->1.672`30
 };
-
-
-(*------------------- \:7cfb\:6570\:5934\:90e8\:7684\:663e\:5f0f rule -------------------*)
-coesRule={fyCoe->Times,vtxCoe->Identity};
+(*\:5982\:679c\:4e0d\:662f\:62df\:5408,\:53ef\:4ee5\:7a0d\:5fae\:964d\:4f4e\:7cbe\:5ea6*)
+If[!$fittingQ,numMass=SetPrecision[numMass,$precision]]
 
 
 (*------------------- \:7535\:8377\:7684\:66ff\:6362\:89c4\:5219 -------------------*)
@@ -298,31 +312,15 @@ quaCharge["d"]={ch["u"]->0,ch["d"]->1,ch["s"]->0};
 quaCharge["s"]={ch["u"]->0,ch["d"]->0,ch["s"]->1};
 
 
-(*+++++++++++++++++++++++++++ \:6570\:503c\:7cbe\:5ea6\:7684\:76f8\:5173\:8bbe\:7f6e +++++++++++++++++++++++++++*)
-chopLimit=10^-10;(*cut\:7cbe\:5ea6*)precision=20;(*\:7cbe\:786e\:5ea6*)
-(*----------- PaVe\:4e3b\:79ef\:5206 \:89e3\:6790\:5f0f\:4e2d\:7684\:7279\:6b8a\:51fd\:6570, \:5ef6\:8fdf Chop \:907f\:514dDiscB\:5e26\:6765\:7684\:5fae\:5c0f\:5047\:865a\:90e8 -----------*)
-DiscBChop[x__]:=Chop[DiscB[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
-ScalarC0Chop[x__]:=Chop[ScalarC0[x],chopLimit]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
-(*\:7279\:6b8a\:51fd\:6570\:7684 \:5ef6\:8fdfChop*)
-numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
-
-
-(*\:53d6\:6574\:51fd\:6570\:ff0c\:820d\:5f03\:5fae\:5c0f\:7684\:6570\:503c\:8bef\:5dee*)
-chop[x_]:=Chop[x,chopLimit]
-chopQ2[x_]:=Simplify@Chop[x/.Q2->0,chopLimit]
-(*\:52a0\:4e0a\:63a5\:53e3 numFmt\:ff0c\:63a7\:5236\:6570\:5b57\:683c\:5f0f\:5316*)
-chopQ2Val[x_]:=numVal@chopQ2[x]
-
-
 (* ::Section:: *)
 (*experiment*)
 
 
 numOctMaget=<|
-ff["p"]->2.7928473446`28,ff["n"]->\[Minus]1.9130427`28,
-ff["\[CapitalSigma]+"]->2.458`28,ff["\[CapitalSigma]0"]->0.60`28,ff["\[CapitalSigma]-"]->\[Minus]1.160`28,
-ff["\[CapitalXi]0"]->\[Minus]1.250`28,ff["\[CapitalXi]-"]->\[Minus]0.6507`28,
-ff["\[CapitalLambda]"]->\[Minus]0.613`28
+ff["p"]->2.7928473446`30,ff["n"]->\[Minus]1.9130427`30,
+ff["\[CapitalSigma]+"]->2.458`30,ff["\[CapitalSigma]0"]->0.60`30,ff["\[CapitalSigma]-"]->\[Minus]1.160`30,
+ff["\[CapitalXi]0"]->\[Minus]1.250`30,ff["\[CapitalXi]-"]->\[Minus]0.6507`30,
+ff["\[CapitalLambda]"]->\[Minus]0.613`30
 |>;
 
 
