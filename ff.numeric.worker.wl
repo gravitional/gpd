@@ -52,12 +52,12 @@ Sequence@@fyCoesRule,
 (* c1,c2, C \:7684\:503c*)
 Sequence@@fittedParas
 };
-(*\:5982\:679c\:4e0d\:662f\:62df\:5408,\:53ef\:4ee5\:7a0d\:5fae\:964d\:4f4e\:7cbe\:5ea6*)
-If[!$fittingQ,numCoupLst=SetPrecision[numCoupLst,$precision]]
 
 
 medRule::usage="medRule[x], \:4f20\:5165\:4e00\:4e2a\:5173\:8054,\:751f\:6210\:4e2d\:95f4\:7c92\:5b50\:8d28\:91cf\:7684\:66ff\:6362\:89c4\:5219, \:52a0\:4e0a\:5404\:79cd\:8026\:5408\:5e38\:6570";
-medRule[x_]:=Dispatch@Merge[{KeyTake[x,{mE,mm1,mo1,mo2,md1,md2}]/.numMass,numMass,numCoupLst},Last];
+(*\:5982\:679c\:4e0d\:662f\:62df\:5408,\:53ef\:4ee5\:7a0d\:5fae\:964d\:4f4e\:7cbe\:5ea6*)
+medRule[x_]:=Dispatch[SetPrecision[Merge[
+{KeyTake[x,{mE,mm1,mo1,mo2,md1,md2}]/.numMass,numMass,numCoupLst},Last],$precision]];
 toGEGM::usage="toGEGM[x], \:4f20\:5165 {F1,F2} ";
 toGEGM[x_?ListQ]:={First[x]-Q2/(4*mE)*Last[x], Total[x]};
 

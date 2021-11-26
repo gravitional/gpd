@@ -76,9 +76,9 @@ echo["the input parameter is:\n",$inputCml];
 $parallelQ=False;
 (*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
 $parOrdStr=$ordFull;
-$parC=SetPrecision[1.50`30,$precision];
+$parC=1.50`30;
 $parCStr=enString@NumberForm[$parC,{3,2}];
-$par\[CapitalLambda]=SetPrecision[0.90`30,$precision];
+$par\[CapitalLambda]=0.90`30;
 $par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
 $fitScheme="\[CapitalSigma]N";
 $erroBar="notbar";

@@ -301,8 +301,6 @@ massUUU->0.939`30,massDDD->0.939`30,masssss->1.315`30,
 (*  decuplet baryons *)
 mass\[CapitalDelta]->1.232`30,mass\[CapitalSigma]s->1.385`30,mass\[CapitalXi]s->1.530`30,mass\[CapitalOmega]->1.672`30
 };
-(*\:5982\:679c\:4e0d\:662f\:62df\:5408,\:53ef\:4ee5\:7a0d\:5fae\:964d\:4f4e\:7cbe\:5ea6*)
-If[!$fittingQ,numMass=SetPrecision[numMass,$precision]]
 
 
 (*------------------- \:7535\:8377\:7684\:66ff\:6362\:89c4\:5219 -------------------*)
