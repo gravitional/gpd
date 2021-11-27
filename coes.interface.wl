@@ -297,7 +297,7 @@ mass\[Pi]->0.1381`30,massK->0.4956`30,mass\[Eta]8->0.5693`30,mass\[Eta]0->0.9452
 (*  octet baryons *)
 mass\[CapitalSigma]->1.193`30,massN->0.939`30,mass\[CapitalXi]->1.315`30,
 mass\[CapitalLambda]->1.116`30,mass\[CapitalLambda]\[CapitalSigma]->1.155`30,
-massUUU->0.939`30,massDDD->0.939`30,masssss->1.315`30,
+massUUU->0.939`30,massDDD->0.939`30,massSSS->1.315`30,
 (*  decuplet baryons *)
 mass\[CapitalDelta]->1.232`30,mass\[CapitalSigma]s->1.385`30,mass\[CapitalXi]s->1.530`30,mass\[CapitalOmega]->1.672`30
 };
