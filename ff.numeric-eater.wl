@@ -253,8 +253,8 @@ Get["ff.numeric.worker.wl"];
 testMagMerged=Merge[{
 Query[All,(Key@tagNum["tr+lo","uds"])
 /*ReplaceAll[numVal->Identity]/*Last]@numFFs["v"][[$ord0]],
-(-1)numOctMaget
-},Total];
+numOctMaget
+},(First[#]-Last[#])/Last[#]&];(* (clac-expr)/expr*)
 (* fitting \:51fd\:6570: \:5bf9\:4e8e\:7ed9\:5b9a\:7684 C \:503c, \:8fdb\:884c\:62df\:5408; \:5bf9\:5404\:79cd\:53ef\:80fd\:7684 fitting \:5e8f\:5217,\:6c42\:89e3c1,c2 \:7684fitting \:503c*)
 testFit[ccNum_,testList_]:=NMinimize[{
 Query[(Key/@testList)/*ReplaceAll[cc["C"]->ccNum]/*Total,Power[#,2]&]@testMagMerged,
