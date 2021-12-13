@@ -76,34 +76,24 @@ echo["the input parameter is:\n",$inputCml];
 $parallelQ=False;
 (*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
 $parOrdStr=$ordFull;
-$parC=1.50`30;
-$parCStr=enString@NumberForm[$parC,{3,2}];
-$par\[CapitalLambda]=0.90`30;
+$par\[CapitalLambda]=0.90;
 $par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
-$fitScheme="\[CapitalSigma]N";
+(* fitScheme \:5b9a\:4e49\:89c1: tagOctfds*)
+$fitScheme={"\[CapitalSigma]N","\[CapitalSigma]+-","N","many","most"};
 $erroBar="notbar";
-(*-----------------\:662f\:5426\:5f00\:59cb\:62df\:5408\:7a0b\:5e8f---------------------*)
-$fittingQ=False;
-(*\:5982\:679c\:62df\:5408\:ff0c\:53ea\:9700\:8ba1\:7b97\:96f6\:70b9\:503c\:ff0c\:5373 series order 0*)
-If[$fittingQ,$parOrdStr=$ord0];
 
 
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
 echo[fittingsDir=FileNameJoin[{$srcRoot,"fittings"}]];enDir[fittingsDir];
 (*\:8bfb\:53d6 c1,c2 \:7684\:62df\:5408\:503c*)
-ccfitted$Err=Query[Key@cc["\[CapitalLambda]",$par\[CapitalLambda]Str],Key@cc["C",$parCStr],$fitScheme
-]@Import@FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}]
-ccfitted=Last@ccfitted$Err;
+ccfitted$Err=Query[Key@cc["\[CapitalLambda]",$par\[CapitalLambda]Str],All,$fitScheme
+]@Import@FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}];
 
 
 (*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)
 numCCRelation={cc["c4"]->cc["c1"]/Sqrt[3],cc["cT"]->(3cc["c2"]+1)/2};
-fittedParas=If[$fittingQ,
-(*\:5982\:679c\:662f\:62df\:5408\:ff0c\:5219\:8fd9\:91cc\:4e0d\:6307\:5b9a c1,c2,C \:7684\:503c*)
-numCCRelation,
-(* \:975e\:62df\:5408\:7684\:60c5\:51b5\:ff0c\:7ed9\:51fa c1,c2, C \:7684\:5177\:4f53\:6570\:503c*)
-Join[ccfitted,numCCRelation/.ccfitted,{cc["C"]->$parC}]
-];
+(* \:4e3a\:4e86\:91cd\:590d\:5229\:7528\:7ed3\:6784\:ff0c\:8fd9\:91cc\:4e0d\:6307\:5b9a c1,c2, C \:7684\:5177\:4f53\:6570\:503c*)
+fittedParas=numCCRelation;
 
 
 (*\:58f0\:660e\:4e00\:4e9b\:8fd0\:52a8\:5b66\:53d8\:91cf,\:4f7f\:7528 atom \:8868\:8fbe\:5f0f\:ff0cpackage-X \:7684 loopIntegrate \:9700\:8981\:79ef\:5206\:52a8\:91cf\:4e3a\:539f\:5b50\:8868\:8fbe\:5f0f*)
@@ -115,8 +105,8 @@ md1;md2;(*\:4e2d\:95f4\:5341\:91cd\:6001\:91cd\:5b50*)
 Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
 
 
-(* ::Chapter:: *)
-(*testing*)
+(* ::Chapter::Closed:: *)
+(*checking*)
 
 
 (* ::Input:: *)
@@ -167,23 +157,49 @@ Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
 
 
 (* ::Chapter:: *)
-(*Display*)
+(*numeric*)
 
 
 (* \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
-(*order full, \:5927\:7ea6 4m30s *)
+(*order full, \:5927\:7ea6 4m30s, \:4ee3\:5165\:6240\:6709\:6570\:503c; \:4ee3\:5165\:90e8\:5206\:6570\:503c: 3m50s *)
 If[$inNBook && !$fittingQ,Get["ff.numeric.worker.wl"];]
 
 
-(*\:6253\:5370\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570*)
-If[!$fittingQ,
-Query[Values/*StringRiffle,Key@recon,chopQ2/*(N[#,4]&)]@ffsMerged["WithRen"][[Key@$ord0]]
+(*\:63d0\:53d6\:51fa ffsMerged \:8ba1\:7b97\:7ed3\:679c\:4e2d, \:5173\:5fc3\:7684\:90e8\:5206, TreeGEGM,LoopGEGM,\:91cd\:6b63\:5316\:5e38\:6570*)
+ffsMerged["trimed"]=Query[All,All,Key/@{ffsTreeGEGM,ffsLoopGEGM,recon}]@ffsMerged["WithRen"];
+
+
+(* \:62df\:5408\:51fa\:7684 c1,c2 \:503c\:88ab\:653e\:5728 DataSet \:4e2d, \:4f7f\:7528 Query \:67e5\:8be2; \:8003\:8651 \:53c2\:6570\:4e4b\:95f4\:7684\:9650\:5236\:ff0c\:7ed9\:51fa\:6240\:6709\:53c2\:6570\:7684\:6570\:503c*)
+toNumFFs[ffsMerged_][$parC_][ccFitWithError_]:=Module[{ccfitted,fittedParas},
+ccfitted=Last@ccFitWithError;
+fittedParas=Join[ccfitted,numCCRelation/.ccfitted,{cc["C"]->$parC}];
+(*\:5c06\:53c2\:6570 c1,c2,C \:7684\:5177\:4f53\:503c*)
+Query[All,All,All,ReplaceAll[fittedParas]]@ffsMerged
 ]
 
 
-(* ::Input:: *)
-(*(*\:624b\:52a8\:67e5\:770b recons*)*)
-(*Query[All,{Key@recon}]@ffsWithRen*)
+(*\:5404\:79cd C,c1,c2 \:914d\:7f6e\:4e0b\:ff0c\:8ba1\:7b97\:51fa\:7684\:6570\:503c\:7ed3\:679c\:ff0c\:5938\:514b\:7535\:8377\:548c Q2 \:672a\:4ee3\:5165\:5177\:4f53\:6570\:503c*)
+Module[{ccNumStr},
+ffsMerged["confs"]=Association@Table[
+(*\:521d\:59cb\:5316 C \:5b57\:7b26\:5f62\:5f0f*)
+ccNumStr=enString@NumberForm[ccNum,{3,2}];
+(*\:4ee3\:5165\:62df\:5408\:786e\:5b9a\:7684\:6570\:503c*)
+Query[{Key@cc["C",ccNumStr]},{"\[CapitalSigma]N"},
+toNumFFs[ffsMerged["trimed"]][ccNum]
+]@ccfitted$Err
+(*{ccNum,{1.0,1.1,1.2,1.3,1.4,1.5}}*)
+,{ccNum,{1.0,1.1,1.2,1.3,1.4,1.5}} 
+]];
+
+
+(*\:6253\:5370\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570*)
+Query[Normal/*TableForm,All,Key@$ord0,Values/*StringRiffle,
+Key@recon,NumberForm[#,{5,4}]&
+]@ffsMerged["confs"]
+
+
+(* ::Chapter:: *)
+(*Display grid*)
 
 
 (* \:5bf9 data \:4e2d\:7684 head \:8fdb\:884c\:8f6c\:6362\:ff0c\:8f93\:51fa\:663e\:793a\:683c\:5f0f*)
@@ -223,71 +239,73 @@ gridTable[numFFs["v"][[$ord0]],
 "GEGM",dataBackground]]
 
 
+(* ::Chapter:: *)
+(*num FFs*)
+
+
+(*\:5904\:7406\:4f20\:5165\:7684 ffsMergedWithRen, \:7ed9\:51fa\:5404\:79cd\:5473\:9053\:7684\:7ed3\:679c,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 GEGM *)
+(*\:666e\:901a\:8ba1\:7b97, \:4f7f\:7528\:7684\:6570\:503c\:8868\:8fbe\:5f0f*)
+numFFs[ffsMergedWithRen_,chopQ2Val_]:=Query[All,<|
+tagNum["tr","uds"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["uds"]],
+tagNum["tr","u"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["u"]],
+tagNum["tr","d"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["d"]],
+tagNum["tr","s"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["s"]],
+(*loop*)
+tagNum["lo","uds"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["uds"]],
+tagNum["lo","u"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["u"]],
+tagNum["lo","d"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["d"]],
+tagNum["lo","s"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["s"]],
+(*total = tree +(Z-1)*tree+loop*)
+tagNum["tr+lo","uds"]->chopQ2Val[
+#@recon*#@ffsTreeGEGM+#@ffsLoopGEGM/.quaCharge["uds"]]
+|>&
+]@ffsMergedWithRen;
+
+
+(*\:6839\:636e\:8ba1\:7b97\:7684\:5c55\:5f00\:9636\:6570, $parOrdStr, \:9009\:62e9\:4e0d\:540c\:7684\:6570\:503c\:5904\:7406\:65b9\:5f0f; numVal \:662f\:9884\:7559\:63a5\:53e3, \:7528\:6765\:63a7\:5236\:6570\:5b57\:683c\:5f0f\:5316*)
+numFFs[<|"ord"->$parOrdStr_|>,ffsMergedWithRen_]:=Module[{chopQ2Val},
+Switch[$parOrdStr,
+(*\:5982\:679c\:8ba1\:7b97 order 0 \:7684\:6570\:636e,\:9009\:62e9 chopQ2, \:5373\:4ee4 Q2\[Rule]0*)
+$ord0,
+chopQ2Val[x_]:=numVal@chopQ2[x];
+numFFs[ffsMergedWithRen,chopQ2Val],
+(*\:5982\:679c\:8ba1\:7b97 order 1 order full \:7684\:6570\:636e, \:9009\:62e9 chop, \:4fdd\:7559 Q2 \:4f9d\:8d56*)
+_,
+chopQ2Val[x_]:=numVal@chop[x];
+numFFs[ffsMergedWithRen,chopQ2Val]
+]];
+
+
+(*\:751f\:6210\:6700\:7ec8\:7684\:6570\:503c\:8868\:793a*)
+numFFs["v"]=Switch[$parOrdStr,
+(*order 0 \:7684\:8ba1\:7b97\:7ed3\:679c*)
+$ord0,
+<|
+$ord0->numFFs[<|"ord"->$ord0|>,ffsMerged["WithRen"][[$ord0]]],
+Nothing
+|>,
+(* \:5176\:4ed6 order \:7684\:7ed3\:679c*)
+_,
+<|
+(*\:9644\:52a0 order 0 \:7684\:8ba1\:7b97\:7ed3\:679c*)
+$ord0->numFFs[<|"ord"->$ord0|>,ffsMerged["WithRen"][[$ord0]]],
+(* order 1, \:6216\:8005 order full \:7684\:8ba1\:7b97\:7ed3\:679c*)
+$parOrdStr->numFFs[<|"ord"->$parOrdStr|>,ffsMerged["WithRen"][[$parOrdStr]]]
+|>
+];
+
+
 (* ::Section:: *)
 (*export*)
 
 
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
 echo[resultsDir=FileNameJoin[{$srcRoot,"results"}]];enDir[resultsDir];
-(*\:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
+(*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
 serialize["result",result_]:=Block[{path},
 path=FileNameJoin[{resultsDir,"nums."<>StringRiffle[{$parOrdStr,$par\[CapitalLambda]Str,$parCStr,$fitScheme,$erroBar},"-"]<>".wdx"}];
 Export[path,result];
 echo["Exporting finished: ", path];]
-
-
-(* ::Chapter:: *)
-(*Fitting*)
-
-
-(*\:5bf9\:672a\:5b9a\:53c2\:6570\:8fdb\:884c\:62df\:5408*)
-If[$fittingQ,
-Module[{testMagMerged,testFit,$par\[CapitalLambda]Str,ccNumStr},
-(*\:6700\:540e\:7684\:7ed3\:679c\:4fdd\:5b58\:5728\:5173\:8054\:4e2d*)
-ccFittings=Association@Table[
-(*\:521d\:59cb\:5316 \[CapitalLambda] \:5b57\:7b26\:5f62\:5f0f *)
-$par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
-(* \:5bf9\:7279\:5b9a \[CapitalLambda], \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
-Get["ff.numeric.worker.wl"];
-(*\:5bf9\:7279\:5b9a \[CapitalLambda], \:8ba1\:7b97: \:6570\:503c\:7ed3\:679c - \:5b9e\:9a8c\:7ed3\:679c, numFFs \:5728 worker \:4e2d\:8ba1\:7b97 *)
-testMagMerged=Merge[{
-Query[All,(Key@tagNum["tr+lo","uds"])
-/*ReplaceAll[numVal->Identity]/*Last]@numFFs["v"][[$ord0]],
-numOctMaget
-},(First[#]-Last[#])/Last[#]&];(* (clac-expr)/expr*)
-(* fitting \:51fd\:6570: \:5bf9\:4e8e\:7ed9\:5b9a\:7684 C \:503c, \:8fdb\:884c\:62df\:5408; \:5bf9\:5404\:79cd\:53ef\:80fd\:7684 fitting \:5e8f\:5217,\:6c42\:89e3c1,c2 \:7684fitting \:503c*)
-testFit[ccNum_,testList_]:=NMinimize[{
-Query[(Key/@testList)/*ReplaceAll[cc["C"]->ccNum]/*Total,Power[#,2]&]@testMagMerged,
-{cc["c1"],cc["c2"]}\[Element]Reals},
-{cc["c1"],cc["c2"]},
-WorkingPrecision->$precision];(*\:7ed9\:5b9a\:6b64\:5904\:62df\:5408\:7684\:7cbe\:5ea6*)
-(* \:6b21\:7ea7\:5173\:8054, \[CapitalLambda] \:6307\:5411\:5404\:79cd C fitting \:51fa\:7684\:7ed3\:679c*)
-cc["\[CapitalLambda]",$par\[CapitalLambda]Str]->Association@Table[
-(*\:521d\:59cb\:5316 C \:5b57\:7b26\:5f62\:5f0f*)
-ccNumStr=enString@NumberForm[ccNum,{3,2}];
-(*\:5faa\:73af\:8fdb\:5ea6\:63d0\:793a*)
-echo["Lambda: ",$par\[CapitalLambda]Str,", C: ",ccNumStr];
-(* \:6b21\:7ea7\:5173\:8054, C \:6307\:5411\:5404\:79cd \:62df\:5408\:5b50\:96c6\:7684\:7ed3\:679c, \:5982 \[CapitalSigma]+0-, pN, All,*)
-cc["C",ccNumStr]->KeyValueMap[#1->testFit[ccNum,#2]&,tagOctfds]
-,{ccNum,{1.0`30,1.1`30,1.2`30,1.3`30,1.4`30,1.5`30}}
-]
-,{$par\[CapitalLambda],{0.80`30,0.85`30,0.90`30,0.95`30,1.00`30}}];
-]];
-
-
-(* ::Section:: *)
-(*export*)
-
-
-(*\:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
-serialize["ccFittings",result_]:=Block[{path},
-path=FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}];
-Export[path,result];
-echo["Exporting finished: ", path];]
-
-
-(* ::Input:: *)
-(*serialize["ccFittings",ccFittings]*)
 
 
 (* ::Chapter:: *)

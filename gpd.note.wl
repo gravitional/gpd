@@ -128,3 +128,74 @@ Kallen\[Lambda][mE,mE2,-Q2]>0
 
 Series[KallenExpand@Kallen\[Lambda][mE,mE2,-Q2],{mE2,mE,2}]//Simplify
 KallenExpand@Kallen\[Lambda][mE,mE2,-Q2]/.{mE2->mE+\[Delta]}//Simplify
+
+
+(* ::Chapter:: *)
+(*safdas*)
+
+
+(* ::Section:: *)
+(*num FFs bakup*)
+
+
+(*\:5224\:65ad\:662f\:5426\:5904\:4e8e fitting \:6a21\:5f0f, \:5904\:7406\:4f20\:5165\:7684 ffsMergedWithRen, \:7ed9\:51fa\:5404\:79cd\:5473\:9053\:7684\:7ed3\:679c,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 GEGM *)
+numFFs[<|"fit"->$fittingQ_|>,ffsMergedWithRen_,chopQ2Val_]:=Switch[$fittingQ,
+(*\:666e\:901a\:8ba1\:7b97, \:4f7f\:7528\:7684\:6570\:503c\:8868\:8fbe\:5f0f*)
+False,
+Query[All,<|
+tagNum["tr","uds"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["uds"]],
+tagNum["tr","u"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["u"]],
+tagNum["tr","d"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["d"]],
+tagNum["tr","s"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["s"]],
+(*loop*)
+tagNum["lo","uds"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["uds"]],
+tagNum["lo","u"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["u"]],
+tagNum["lo","d"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["d"]],
+tagNum["lo","s"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["s"]],
+(*total = tree +(Z-1)*tree+loop*)
+tagNum["tr+lo","uds"]->chopQ2Val[
+#@recon*#@ffsTreeGEGM+#@ffsLoopGEGM/.quaCharge["uds"]]
+|>&
+]@ffsMergedWithRen,
+(*-------------------- fitting \:65f6,\:4f7f\:7528\:7684\:8868\:8fbe\:5f0f --------------*)
+True,
+Query[All,<|
+(*total = tree +(Z-1)*tree+loop*)
+tagNum["tr+lo","uds"]->chopQ2Val[
+#@recon*#@ffsTreeGEGM+#@ffsLoopGEGM/.quaCharge["uds"]]
+|>&
+]@ffsMergedWithRen
+];
+
+
+(*\:6839\:636e\:8ba1\:7b97\:7684\:5c55\:5f00\:9636\:6570, $parOrdStr, \:9009\:62e9\:4e0d\:540c\:7684\:6570\:503c\:5904\:7406\:65b9\:5f0f; numVal \:662f\:9884\:7559\:63a5\:53e3, \:7528\:6765\:63a7\:5236\:6570\:5b57\:683c\:5f0f\:5316*)
+numFFs[<|"ord"->$parOrdStr_|>,ffsMergedWithRen_]:=Module[{chopQ2Val},
+Switch[$parOrdStr,
+(*\:5982\:679c\:8ba1\:7b97 order 0 \:7684\:6570\:636e,\:9009\:62e9 chopQ2, \:5373\:4ee4 Q2\[Rule]0*)
+$ord0,
+chopQ2Val[x_]:=numVal@chopQ2[x];
+numFFs[<|"fit"->$fittingQ|>,ffsMergedWithRen,chopQ2Val],
+(*\:5982\:679c\:8ba1\:7b97 order 1 order full \:7684\:6570\:636e, \:9009\:62e9 chop, \:4fdd\:7559 Q2 \:4f9d\:8d56*)
+_,
+chopQ2Val[x_]:=numVal@chop[x];
+numFFs[<|"fit"->$fittingQ|>,ffsMergedWithRen,chopQ2Val]
+]];
+
+
+(*\:751f\:6210\:6700\:7ec8\:7684\:6570\:503c\:8868\:793a*)
+numFFs["v"]=Switch[$parOrdStr,
+(*order 0 \:7684\:8ba1\:7b97\:7ed3\:679c*)
+$ord0,
+<|
+$ord0->numFFs[<|"ord"->$ord0|>,ffsMerged["WithRen"][[$ord0]]],
+Nothing
+|>,
+(* \:5176\:4ed6 order \:7684\:7ed3\:679c*)
+_,
+<|
+(*\:9644\:52a0 order 0 \:7684\:8ba1\:7b97\:7ed3\:679c*)
+$ord0->numFFs[<|"ord"->$ord0|>,ffsMerged["WithRen"][[$ord0]]],
+(* order 1, \:6216\:8005 order full \:7684\:8ba1\:7b97\:7ed3\:679c*)
+$parOrdStr->numFFs[<|"ord"->$parOrdStr|>,ffsMerged["WithRen"][[$parOrdStr]]]
+|>
+];

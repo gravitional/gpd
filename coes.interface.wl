@@ -17,7 +17,7 @@ kLoopChanSum="loopChanSum";
 kLoopAmpSum="loopAmpSum";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*interfaces*)
 
 
