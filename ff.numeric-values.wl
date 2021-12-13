@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*ff.numeric-eater.wl*)
+(*ff.numeric-values.wl*)
 
 
 (* ::Chapter:: *)
@@ -79,7 +79,7 @@ $parOrdStr=$ordFull;
 $par\[CapitalLambda]=0.90;
 $par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
 (* fitScheme \:5b9a\:4e49\:89c1: tagOctfds*)
-$fitScheme={"\[CapitalSigma]N","\[CapitalSigma]+-","N","many","most"};
+$fitScheme={"\[CapitalSigma]N","most"};
 $erroBar="notbar";
 
 
@@ -157,12 +157,12 @@ Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
 
 
 (* ::Chapter:: *)
-(*numeric*)
+(*numeric ffsMerged*)
 
 
 (* \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
 (*order full, \:5927\:7ea6 4m30s, \:4ee3\:5165\:6240\:6709\:6570\:503c; \:4ee3\:5165\:90e8\:5206\:6570\:503c: 3m50s *)
-If[$inNBook && !$fittingQ,Get["ff.numeric.worker.wl"];]
+If[$inNBook,Get["ff.numeric.worker.wl"];]
 
 
 (*\:63d0\:53d6\:51fa ffsMerged \:8ba1\:7b97\:7ed3\:679c\:4e2d, \:5173\:5fc3\:7684\:90e8\:5206, TreeGEGM,LoopGEGM,\:91cd\:6b63\:5316\:5e38\:6570*)
@@ -194,49 +194,8 @@ toNumFFs[ffsMerged["trimed"]][ccNum]
 
 (*\:6253\:5370\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570*)
 Query[Normal/*TableForm,All,Key@$ord0,Values/*StringRiffle,
-Key@recon,NumberForm[#,{5,4}]&
+Key@recon,NumberForm[#,{4,3}]&
 ]@ffsMerged["confs"]
-
-
-(* ::Chapter:: *)
-(*Display grid*)
-
-
-(* \:5bf9 data \:4e2d\:7684 head \:8fdb\:884c\:8f6c\:6362\:ff0c\:8f93\:51fa\:663e\:793a\:683c\:5f0f*)
-numDisp={fd->fdDisp,numKey->StringRiffle,numVal->(N[#,3]&)};
-dataDsip[x_]:=Dataset[x/.{Association->assoc}
-/.numDisp/.{assoc->Association}
-];
-(* \:5c06\:5d4c\:5957\:7684 {Assoc,Assoc} \:8f6c\:6362\:6210\:4e8c\:7ef4\:5217\:8868\:5f62\:5f0f *)
-dataToGrid::usage="dataToGrid[title,dataset], title \:5c06\:4f5c\:4e3a\:5217\:8868\:7684\:6807\:9898";
-dataToGrid[title_,x_]:=Prepend[
-KeyValueMap[Prepend[Values[#2],#1]&,x],
-Prepend[Query[First,Keys]@x,title]
-]
-(* Curry \:5f62\:5f0f *)
-dataToGrid[title_]:=dataToGrid[title,#]&
-
-
-(* \:4f7f\:7528 Grid \:663e\:793a \:4e8c\:7ef4\:5217\:8868 *)
-gridTable[dataSet_,title_,background_]:=Grid[
-dataToGrid[title]@dataSet/.numDisp,
-ItemSize->Automatic,
-Frame->{All,All},
-Spacings->{1,1.5},
-Background->background
-]
-
-
-(*\:80cc\:666f\:8272\:914d\:7f6e*)
-dataBackground={
-None,(* color horizontal: x1, x2, x3...*)
-{
-LightCyan,{None,LightBlue}
-}(* color vertical: y1, y2, y3...*)
-};
-If[$inNBook && !$fittingQ,
-gridTable[numFFs["v"][[$ord0]],
-"GEGM",dataBackground]]
 
 
 (* ::Chapter:: *)
@@ -245,7 +204,9 @@ gridTable[numFFs["v"][[$ord0]],
 
 (*\:5904\:7406\:4f20\:5165\:7684 ffsMergedWithRen, \:7ed9\:51fa\:5404\:79cd\:5473\:9053\:7684\:7ed3\:679c,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 GEGM *)
 (*\:666e\:901a\:8ba1\:7b97, \:4f7f\:7528\:7684\:6570\:503c\:8868\:8fbe\:5f0f*)
-numFFs[ffsMergedWithRen_,chopQ2Val_]:=Query[All,<|
+numFFs[ffsMergedWithRen_,chopQ2Val_]:=Query[
+(*oct \:6807\:7b7e\:5c42*)All,
+<|
 tagNum["tr","uds"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["uds"]],
 tagNum["tr","u"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["u"]],
 tagNum["tr","d"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["d"]],
@@ -263,7 +224,7 @@ tagNum["tr+lo","uds"]->chopQ2Val[
 
 
 (*\:6839\:636e\:8ba1\:7b97\:7684\:5c55\:5f00\:9636\:6570, $parOrdStr, \:9009\:62e9\:4e0d\:540c\:7684\:6570\:503c\:5904\:7406\:65b9\:5f0f; numVal \:662f\:9884\:7559\:63a5\:53e3, \:7528\:6765\:63a7\:5236\:6570\:5b57\:683c\:5f0f\:5316*)
-numFFs[<|"ord"->$parOrdStr_|>,ffsMergedWithRen_]:=Module[{chopQ2Val},
+numFFs[<|"ord"->$parOrdStr_|>][ffsMergedWithRen_]:=Module[{chopQ2Val},
 Switch[$parOrdStr,
 (*\:5982\:679c\:8ba1\:7b97 order 0 \:7684\:6570\:636e,\:9009\:62e9 chopQ2, \:5373\:4ee4 Q2\[Rule]0*)
 $ord0,
@@ -277,22 +238,21 @@ numFFs[ffsMergedWithRen,chopQ2Val]
 
 
 (*\:751f\:6210\:6700\:7ec8\:7684\:6570\:503c\:8868\:793a*)
-numFFs["v"]=Switch[$parOrdStr,
-(*order 0 \:7684\:8ba1\:7b97\:7ed3\:679c*)
-$ord0,
-<|
-$ord0->numFFs[<|"ord"->$ord0|>,ffsMerged["WithRen"][[$ord0]]],
-Nothing
-|>,
-(* \:5176\:4ed6 order \:7684\:7ed3\:679c*)
-_,
-<|
-(*\:9644\:52a0 order 0 \:7684\:8ba1\:7b97\:7ed3\:679c*)
-$ord0->numFFs[<|"ord"->$ord0|>,ffsMerged["WithRen"][[$ord0]]],
-(* order 1, \:6216\:8005 order full \:7684\:8ba1\:7b97\:7ed3\:679c*)
-$parOrdStr->numFFs[<|"ord"->$parOrdStr|>,ffsMerged["WithRen"][[$parOrdStr]]]
-|>
+numFFs["v"]=Module[{serLst=Query[1,1,Keys]@ffsMerged["confs"]},
+Association@Table[
+ser->Query[All,All,Key@ser,numFFs[<|"ord"->ser|>]
+]@ffsMerged["confs"]
+,{ser,serLst}]
 ];
+
+
+(*\:5173\:95ed CompiledFunction \:8b66\:544a\:ff0c\:4f1a\:9020\:6210 Query \:67e5\:8be2\:9000\:51fa*)
+Off[CompiledFunction::cfn]
+(*\:7ed8\:5236\:5404\:79cd\:914d\:7f6e\:4e0b\:7684\:66f2\:7ebf*)
+plot["v"]=Query[$ordFull,{Key@cc["C","1.00"]},{Key@"\[CapitalSigma]N"},All,
+Key@tagNum["lo","uds"],ReplaceAll[numVal->chop],All,
+Plot[#,{Q2,0.0001,1}]&
+]@numFFs["v"];
 
 
 (* ::Section:: *)
@@ -305,7 +265,50 @@ echo[resultsDir=FileNameJoin[{$srcRoot,"results"}]];enDir[resultsDir];
 serialize["result",result_]:=Block[{path},
 path=FileNameJoin[{resultsDir,"nums."<>StringRiffle[{$parOrdStr,$par\[CapitalLambda]Str,$parCStr,$fitScheme,$erroBar},"-"]<>".wdx"}];
 Export[path,result];
-echo["Exporting finished: ", path];]
+echo["Exporting finished: ", path];
+]
+
+
+(* ::Chapter:: *)
+(*Grid display *)
+
+
+(* \:5bf9 data \:4e2d\:7684 head \:8fdb\:884c\:8f6c\:6362\:ff0c\:8f93\:51fa\:663e\:793a\:683c\:5f0f*)
+numDisp={fd->fdDisp,numKey->StringRiffle,numVal->(N[#,3]&)};
+dataDsip[data_]:=Dataset[data/.{Association->assoc}
+/.numDisp/.{assoc->Association}
+];
+(* \:5c06\:5d4c\:5957\:7684 {Assoc,Assoc} \:8f6c\:6362\:6210\:4e8c\:7ef4\:5217\:8868\:5f62\:5f0f *)
+(* Curry \:5f62\:5f0f *)
+dataToGrid::usage="dataToGrid[title,dataset], title \:5c06\:4f5c\:4e3a\:5217\:8868\:7684\:6807\:9898";
+dataToGrid[title_][data_]:=Prepend[
+KeyValueMap[Prepend[Values[#2],#1]&,data],
+Prepend[Query[First,Keys]@data,title]
+]
+
+
+(* \:4f7f\:7528 Grid \:663e\:793a \:4e8c\:7ef4\:5217\:8868 *)
+gridTable[title_,background_][dataSet_]:=Grid[
+dataToGrid[title]@dataSet/.numDisp,
+ItemSize->Automatic,
+Frame->{All,All},
+Spacings->{1,1.5},
+Background->background
+]
+
+
+(*\:80cc\:666f\:8272\:914d\:7f6e*)
+dataBackground={
+None,(* color horizontal: x1, x2, x3...*)
+{
+LightCyan,{None,LightBlue}
+}(* color vertical: y1, y2, y3...*)
+};
+(*\:5e94\:7528\:8868\:683c\:6392\:7248*)
+If[$inNBook,
+gridTable["GEGM",dataBackground]@Query[
+$ord0,Key@cc["C","1.00"],Key@"\[CapitalSigma]N"]@numFFs["v"]
+]
 
 
 (* ::Chapter:: *)
