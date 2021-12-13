@@ -54,6 +54,7 @@ Once@Get["coes.interface.wl"];
 
 (*+++++++++++++++++++++++++++ \:6570\:503c\:7cbe\:5ea6\:7684\:76f8\:5173\:8bbe\:7f6e +++++++++++++++++++++++++++*)
 chopLimit=10^-10;(*cut\:7cbe\:5ea6*)$precision=MachinePrecision;(*\:7cbe\:786e\:5ea6*)
+$Q2Cut=0.0001;
 
 
 (* ::Section:: *)
@@ -246,13 +247,50 @@ ser->Query[All,All,Key@ser,numFFs[<|"ord"->ser|>]
 ];
 
 
-(*\:5173\:95ed CompiledFunction \:8b66\:544a\:ff0c\:4f1a\:9020\:6210 Query \:67e5\:8be2\:9000\:51fa*)
+(* ::Input:: *)
+(*(*\:5173\:95ed CompiledFunction \:8b66\:544a\:ff0c\:4f1a\:9020\:6210 Query \:67e5\:8be2\:9000\:51fa*)*)
+(*Off[CompiledFunction::cfn]*)
+(*(*---------\:7ed8\:5236\:5404\:79cd\:914d\:7f6e\:4e0b\:7684\:66f2\:7ebf-------------*)*)
+(*plot["v"]=Query[$ordFull,{Key@cc["C","1.00"]},{Key@"\[CapitalSigma]N"},All,*)
+(*Key@tagNum["lo","uds"],ReplaceAll[numVal->chop],All,*)
+(*Plot[#,{Q2,0.0001,1}]&*)
+(*]@numFFs["v"];*)
+
+
+(* ::Section:: *)
+(*recursive merge*)
+
+
+(*\:5206\:6bb5\:51fd\:6570, \:5219 Q2\[Equal]0 \:5904\:4f7f\:7528\:7cbe\:786e\:503c, \:5728 Q2>Q2Cut \:65f6\:4f7f\:7528\:5168\:8868\:8fbe\:5f0f\:4f5c\:56fe*)
+pieceWise[root_,branch_]:=Piecewise[{
+{root,0<=Q2<=$Q2Cut},
+{branch,Q2>$Q2Cut}
+}];
+(*\:5c06\:5206\:6bb5\:51fd\:6570\:5206\:522b\:4f5c\:7528\:5230 ge,gm \:4e0a*)
+mapthread[{ge_,gm_}]:=MapThread[pieceWise,{ge,gm}/.{numVal->Identity}]
+
+
+(*\:9012\:5f52 merge \:5173\:8054, \:4e00\:76f4\:5408\:5e76\:5230 \:6570\:503c\:5c42*)
+mergeRecur[{x:KeyValuePattern[{_numKey->_numVal}],y:KeyValuePattern[{_numKey->_numVal}]}]:=Merge[{x,y},mapthread];
+mergeRecur[{x_Association,y_Association}]:=Merge[{x,y},mergeRecur];
+
+
+(*\:751f\:6210 ge,gm \:7684\:5206\:6bb5\:51fd\:6570*)
+tea=Merge[{
+Query[$ord0]@numFFs["v"],
+Query[$ordFull]@numFFs["v"]
+},
+mergeRecur
+];
+
+
+(*\:5173\:95ed CompiledFunction \:8b66\:544a\:ff0c\:4e0d\:5f71\:54cd\:7ed3\:679c*)
 Off[CompiledFunction::cfn]
-(*\:7ed8\:5236\:5404\:79cd\:914d\:7f6e\:4e0b\:7684\:66f2\:7ebf*)
-plot["v"]=Query[$ordFull,{Key@cc["C","1.00"]},{Key@"\[CapitalSigma]N"},All,
-Key@tagNum["lo","uds"],ReplaceAll[numVal->chop],All,
-Plot[#,{Q2,0.0001,1}]&
-]@numFFs["v"];
+(* \:5bf9\:5f97\:5230\:7684\:5206\:6bb5\:51fd\:6570\:8fdb\:884c \:63d2\:503c *)
+tec=FunctionInterpolation[
+Query[1,1,1,9,1]@tea,
+{Q2,0,1}];
+Plot[tec[Q2],{Q2,0,1},PlotRange->Full]
 
 
 (* ::Section:: *)
