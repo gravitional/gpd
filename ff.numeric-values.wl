@@ -73,8 +73,10 @@ $ordFull,0.90`30,1.50`30,"Baryons","notbar"
 echo["the input parameter is:\n",$inputCml];
 
 
-(*-------------\:662f\:5426\:5f00\:59cb\:5e76\:884c\:5185\:6838--------------------*)
+(*\:8ba1\:7b97\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
 $parallelQ=False;
+(*\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
+$parallel$interpoQ=True;
 (*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
 $parOrdStr=$ordFull;
 $par\[CapitalLambda]=0.90;
@@ -157,12 +159,12 @@ Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
 (*]@loopResults["v"][[$parOrdStr,kLoopChanSum]]*)
 
 
-(* ::Chapter:: *)
-(*numeric ffsMerged*)
+(* ::Chapter::Closed:: *)
+(*numeric Form Factors Merged; all series*)
 
 
 (* \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
-(*order full, \:5927\:7ea6 4m30s, \:4ee3\:5165\:6240\:6709\:6570\:503c; \:4ee3\:5165\:90e8\:5206\:6570\:503c: 3m50s *)
+(*order full, Intel i7-6700 (8): \:5927\:7ea6 4m30s, \:4ee3\:5165\:6240\:6709\:6570\:503c; \:4ee3\:5165\:90e8\:5206\:6570\:503c: 3m50s *)
 If[$inNBook,Get["ff.numeric.worker.wl"];]
 
 
@@ -199,14 +201,14 @@ Key@recon,NumberForm[#,{4,3}]&
 ]@ffsMerged["confs"]
 
 
-(* ::Chapter:: *)
-(*num FFs*)
+(* ::Chapter::Closed:: *)
+(*numeric FFs; each contribution; all series*)
 
 
 (*\:5904\:7406\:4f20\:5165\:7684 ffsMergedWithRen, \:7ed9\:51fa\:5404\:79cd\:5473\:9053\:7684\:7ed3\:679c,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 GEGM *)
 (*\:666e\:901a\:8ba1\:7b97, \:4f7f\:7528\:7684\:6570\:503c\:8868\:8fbe\:5f0f*)
 numFFs[ffsMergedWithRen_,chopQ2Val_]:=Query[
-(*oct \:6807\:7b7e\:5c42*)All,
+(*fd[2,1,0]: oct \:6807\:7b7e\:5c42*)All,
 <|
 tagNum["tr","uds"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["uds"]],
 tagNum["tr","u"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["u"]],
@@ -238,12 +240,14 @@ numFFs[ffsMergedWithRen,chopQ2Val]
 ]];
 
 
-(*\:751f\:6210\:6700\:7ec8\:7684\:6570\:503c\:8868\:793a*)
-numFFs["v"]=Module[{serLst=Query[1,1,Keys]@ffsMerged["confs"]},
-Association@Table[
-ser->Query[All,All,Key@ser,numFFs[<|"ord"->ser|>]
-]@ffsMerged["confs"]
-,{ser,serLst}]
+(*\:751f\:6210\:6700\:7ec8\:7684\:6570\:503c\:8868\:793a, \:8003\:8651\:5173\:8054\:4e2d\:4e0d\:540c\:7684 series*)
+numFFs["v"]=Module[
+{serLst=Query[1,1,Keys]@ffsMerged["confs"]},(*\:8ba1\:7b97\:51fa series \:7684\:679a\:4e3e\:8303\:56f4*)
+Association@Map[
+(* \:904d\:5386 series \:7684\:96c6\:5408 serLst, \:9009\:62e9\:76f8\:5e94\:7684 numFFs *)
+#->Query[All,All,Key@#,numFFs[<|"ord"->#|>]
+]@ffsMerged["confs"]&,
+serLst]
 ];
 
 
@@ -257,39 +261,14 @@ ser->Query[All,All,Key@ser,numFFs[<|"ord"->ser|>]
 (*]@numFFs["v"];*)
 
 
-(* ::Section:: *)
-(*recursive merge*)
+(* ::Chapter:: *)
+(*interpolation; order full*)
 
 
-(*\:5206\:6bb5\:51fd\:6570, \:5219 Q2\[Equal]0 \:5904\:4f7f\:7528\:7cbe\:786e\:503c, \:5728 Q2>Q2Cut \:65f6\:4f7f\:7528\:5168\:8868\:8fbe\:5f0f\:4f5c\:56fe*)
-pieceWise[root_,branch_]:=Piecewise[{
-{root,0<=Q2<=$Q2Cut},
-{branch,Q2>$Q2Cut}
-}];
-(*\:5c06\:5206\:6bb5\:51fd\:6570\:5206\:522b\:4f5c\:7528\:5230 ge,gm \:4e0a*)
-mapthread[{ge_,gm_}]:=MapThread[pieceWise,{ge,gm}/.{numVal->Identity}]
+If[$parOrdStr===$ordFull,
+Get["ff.numeric-interpo.wl"];]
 
 
-(*\:9012\:5f52 merge \:5173\:8054, \:4e00\:76f4\:5408\:5e76\:5230 \:6570\:503c\:5c42*)
-mergeRecur[{x:KeyValuePattern[{_numKey->_numVal}],y:KeyValuePattern[{_numKey->_numVal}]}]:=Merge[{x,y},mapthread];
-mergeRecur[{x_Association,y_Association}]:=Merge[{x,y},mergeRecur];
-
-
-(*\:751f\:6210 ge,gm \:7684\:5206\:6bb5\:51fd\:6570*)
-tea=Merge[{
-Query[$ord0]@numFFs["v"],
-Query[$ordFull]@numFFs["v"]
-},
-mergeRecur
-];
-
-
-(*\:5173\:95ed CompiledFunction \:8b66\:544a\:ff0c\:4e0d\:5f71\:54cd\:7ed3\:679c*)
-Off[CompiledFunction::cfn]
-(* \:5bf9\:5f97\:5230\:7684\:5206\:6bb5\:51fd\:6570\:8fdb\:884c \:63d2\:503c *)
-tec=FunctionInterpolation[
-Query[1,1,1,9,1]@tea,
-{Q2,0,1}];
 Plot[tec[Q2],{Q2,0,1},PlotRange->Full]
 
 

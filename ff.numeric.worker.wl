@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*ff.numeric.wl.worker*)
+(*ff.numeric.worker.wl*)
 
 
 (* ::Chapter:: *)
@@ -9,7 +9,7 @@
 
 
 If[$parallelQ,
-(*+++++++++++++++++++ \:542f\:52a8\:5e76\:884c\:5185\:6838 +++++++++++++++++++*)
+(*\:65b0\:542f\:52a8\:7684\:5185\:6838\:ff0c\:4f1a\:81ea\:52a8\:52a0\:8f7d X`*)
 Needs["X`"];ParallelNeeds["X`"];
 CloseKernels[];(*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
 Switch[{$MachineName,$System},
@@ -154,7 +154,7 @@ sumGroup[x_?ListQ]:=Merge[Query[All,{Key@ffsF1F2,Key@ffsGEGM}]@x,Total];
 \:7136\:540e\:5c06 sumGroup \:4f5c\:4e3a Reduce \:51fd\:6570\:4f5c\:7528\:5230\:6700\:7ec8\:5c42\:7684\:5c0f\:7ec4\:4e0a*)
 
 
-(*\:7ed3\:679c\:4e3a\:4e00\:4e2a\:5173\:8054: <|loopChan,loopChanSum,loopAmpSum|>*)
+(* \:751f\:6210\:4e00\:4e2a\:5173\:8054: <|loopChan,loopChanSum,loopAmpSum|>*)
 loopResuGather[numAssoc_]:=Module[{loopChanSum},
 <|
 (*\:7c92\:5ea6\:4e3a,\:6bcf\:4e2a\:8d39\:66fc\:56fe\:7684\:6bcf\:4e2a\:53cd\:5e94\:9053*)
