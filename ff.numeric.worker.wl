@@ -178,9 +178,10 @@ Simplify[Merge[Values@#,Total]]&
 (*\:6839\:636e\:662f\:5426\:9700\:8981\:5e76\:884c,\:8c03\:7528\:4e0a\:9762\:7684\:51fd\:6570,\:4ee3\:5165\:8026\:5408\:5e38\:6570,\:8ba1\:7b97\:5708\:79ef\:5206\:548c\:7cfb\:6570*)
 loopResults[$parOrdStr_]:=Module[{numAssoc},
 numAssoc=If[$parallelQ,
-(*\:5e76\:884c\:60c5\:51b5,\:9700\:8981 WaitAll \:4efb\:52a1*)
-SetAttributes[paraEnvIO,HoldAll];(* HoldAll \:6240\:6709\:8868\:8fbe\:5f0f,\:4f20\:7ed9\:5b50\:6838\:8ba1\:7b97*)
+(* HoldAll \:6240\:6709\:8868\:8fbe\:5f0f,\:4f20\:7ed9\:5b50\:6838\:8ba1\:7b97*)
+SetAttributes[paraEnvIO,HoldAll];
 paraEnvIO[tag_]:=ParallelSubmit[import$Eva[tag,$parOrdStr]];
+(*\:5e76\:884c\:60c5\:51b5,\:9700\:8981 WaitAll \:4efb\:52a1*)
 WaitAll[paraEnvIO/@fyAmpPart],
 (*\:975e\:5e76\:884c\:60c5\:51b5*)
 paraEnvIO[tag_]:=import$Eva[tag,$parOrdStr];
