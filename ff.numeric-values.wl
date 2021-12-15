@@ -267,9 +267,12 @@ serLst]
 
 If[$parOrdStr===$ordFull,
 Get["ff.numeric-interpo.wl"];]
+(*$total:864, time: 20 min;*)
 
 
-Plot[tec[Q2],{Q2,0,1},PlotRange->Full]
+Plot[Through[Evaluate@
+Query[1,1,1,1]@interpoGEGM["v"]@Q2
+],{Q2,0,1},PlotRange->Full]
 
 
 (* ::Section:: *)
@@ -279,11 +282,16 @@ Plot[tec[Q2],{Q2,0,1},PlotRange->Full]
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
 echo[resultsDir=FileNameJoin[{$srcRoot,"results"}]];enDir[resultsDir];
 (*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
-serialize["result",result_]:=Block[{path},
-path=FileNameJoin[{resultsDir,"nums."<>StringRiffle[{$parOrdStr,$par\[CapitalLambda]Str,$parCStr,$fitScheme,$erroBar},"-"]<>".wdx"}];
+serialize["interpo",result_]:=Block[{path},
+path=FileNameJoin[{resultsDir,"interpo."<>StringRiffle[{$parOrdStr,"Lambda",$par\[CapitalLambda]Str,$erroBar},"-"]<>".wdx"}];
 Export[path,result];
 echo["Exporting finished: ", path];
 ]
+
+
+(* ::Input:: *)
+(*(*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6*)*)
+(*serialize["interpo",interpoGEGM["v"]]*)
 
 
 (* ::Chapter:: *)

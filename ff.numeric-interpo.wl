@@ -87,7 +87,7 @@ Sow@FunctionInterpolation;
 (*\:8bb0\:5f55\:8c03\:7528\:6b21\:6570\:ff0c\:6267\:884c\:591a\:6b21\:540e\:ff0c\:6253\:5370\:4e00\:6b21\:63d0\:793a*)
 $counter["next"];
 (*\:6253\:5370\:95f4\:9694;fits:2,CC:6,oct:8,contr:9,GEGM:2*)
-If[Divisible[$counter[],9],echo[DateString[],": $count: ",$counter[]]];
+If[Divisible[$counter[],8*9],echo[DateString[],": $count: ",$counter[]]];
 ];
 (*\:5c06\:5b9a\:4e49\:5206\:53d1\:5230\:5b50\:6838*)
 DistributeDefinitions[echoProgress];
@@ -102,6 +102,9 @@ waitAssoc[data_]:=Module[{assoc},
 WaitAll[data/.Association->assoc]/.assoc->Association]
 
 
+echo[DateString[],": $start interpolation on curves"]
+
+
 (* \:5bf9\:5f97\:5230\:7684\:5206\:6bb5\:51fd\:6570\:8fdb\:884c \:63d2\:503c *)
 (*\:6839\:636e\:5e76\:884c\:8bbe\:7f6e\:ff0cevaluation*)
 interpoGEGM["v"]=If[$parallel$interpoQ,
@@ -114,4 +117,4 @@ ParallelSubmit[echoProgress[$counter][FunctionInterpolation[#,{Q2,0,1}]]]&
 Query[All,All,All,All,All,
 echoProgress[$counter][FunctionInterpolation[#,{Q2,0,1}]]&
 ]@fullGEGM["v"]
-]
+];
