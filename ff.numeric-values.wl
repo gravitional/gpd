@@ -270,8 +270,8 @@ Get["ff.numeric-interpo.wl"];]
 (*$total:864, time: 20 min;*)
 
 
-Plot[Through[Evaluate@
-Query[1,1,1,1]@interpoGEGM["v"]@Q2
+Plot[Evaluate@Through[
+Query[1,1,1,1][interpoGEGM["v"]]@Q2
 ],{Q2,0,1},PlotRange->Full]
 
 
