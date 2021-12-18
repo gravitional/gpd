@@ -270,9 +270,17 @@ Get["ff.numeric-interpo.wl"];]
 (*$total:864, time: 20 min;*)
 
 
-Plot[Evaluate@Through[
-Query[1,1,1,1][interpoGEGM["v"]]@Q2
-],{Q2,0,1},PlotRange->Full]
+(* \:5bf9\:4e00\:7ec4\:51fd\:6570\:753b\:56fe *)
+plotLst[lst_]:=Plot[Evaluate@lst,{Q2,0,1},PlotRange->{{0,1},All},
+PlotTheme->{"Scientific"},PlotLegends->None]
+(* \:5c06\:5173\:8054\:5217\:8868\:4e2d\:7684\:5143\:7d20\:ff0c\:8f6c\:6362\:6210\:5e26 Callout \:7684 plot \:5c01\:88c5\:5f0f*)
+tagExprLst[assoc_Association]:=KeyValueMap[Legended[#2@Q2,#1]&,assoc]
+
+
+Query[Key@cc["C","1.00"],Key@"\[CapitalSigma]N",Key@fd[2,3,0],
+tagExprLst/*plotLst,
+(*\:7b2cn\:4e2a*)2
+][interpoGEGM["v"]]
 
 
 (* ::Section:: *)

@@ -1,6 +1,15 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
+(*query Dataset Skeleton*)
+
+
+(*\:5168\:5c3a\:5bf8 Dataset \:7684\:6982\:7565\:67e5\:8be2, n \:6307\:5b9a\:67e5\:8be2\:7684\:5c42\:6570 *)
+dataSkel[n_][data_]:=dataSkel[n-1][data]->Union@Flatten@Query[Sequence@@ConstantArray[Values,n],Keys]@data
+dataSkel[0][data_]:=Query[Keys]@data
+
+
+(* ::Section:: *)
 (*static*)
 
 
