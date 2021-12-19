@@ -210,8 +210,10 @@ MassDec1=md1;MassDec2=md2;(*\:4e2d\:95f4 dec \:91cd\:5b501,2*)
 
 
 (*++++++++++++++ \:5f62\:72b6\:56e0\:5b50\:540d\:79f0 Keys ++++++++++++++*)
-ffsF1F2="F1F2";
-ffsGEGM="GEGM";
+ffsF1F2="F1F2";ffsF1="F1";ffsF2="F2";
+(*\:7535\:78c1\:5f62\:72b6\:56e0\:5b50*)
+ffsGEGM="GEGM";ffsGE="GE";ffsGM="GM";
+(*\:6811\:56fe\:4e0e\:5708\:56fe*)
 ffsTreeF1F2="TreeF1F2";ffsLoopF1F2="LoopF1F2";
 ffsTreeGEGM="TreeGEGM";ffsLoopGEGM="LoopGEGM";
 recon="reNormConst";
