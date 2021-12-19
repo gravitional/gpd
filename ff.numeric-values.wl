@@ -201,11 +201,15 @@ Key@recon,NumberForm[#,{4,3}]&
 ]@ffsMerged["confs"]
 
 
+renormalConst["v"]=Query[All,All,Key@$ord0,All,Key@recon,All
+]@ffsMerged["confs"];
+
+
 (* ::Chapter:: *)
 (*numeric FFs; each contribution; all series*)
 
 
-(*\:5904\:7406\:4f20\:5165\:7684 ffsMergedWithRen, \:7ed9\:51fa\:5404\:79cd\:5473\:9053\:7684\:7ed3\:679c,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 GEGM *)
+(*\:5904\:7406\:4f20\:5165\:7684 ffsMergedWithRen,\:4ee3\:5165\:5938\:514b\:7535\:8377\:914d\:7f6e,\:7ed9\:51fa\:5404\:79cd\:5473\:9053\:7684\:7ed3\:679c,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 GEGM *)
 (*\:666e\:901a\:8ba1\:7b97, \:4f7f\:7528\:7684\:6570\:503c\:8868\:8fbe\:5f0f*)
 numFFs[ffsMergedWithRen_,chopQ2Val_]:=Query[
 (*fd[2,1,0]: oct \:6807\:7b7e\:5c42*)All,
@@ -251,36 +255,35 @@ serLst]
 ];
 
 
-(* ::Input:: *)
-(*(*\:5173\:95ed CompiledFunction \:8b66\:544a\:ff0c\:4f1a\:9020\:6210 Query \:67e5\:8be2\:9000\:51fa*)*)
-(*Off[CompiledFunction::cfn]*)
-(*(*---------\:7ed8\:5236\:5404\:79cd\:914d\:7f6e\:4e0b\:7684\:66f2\:7ebf-------------*)*)
-(*plot["v"]=Query[$ordFull,{Key@cc["C","1.00"]},{Key@"\[CapitalSigma]N"},All,*)
-(*Key@tagNum["lo","uds"],ReplaceAll[numVal->chop],All,*)
-(*Plot[#,{Q2,0.0001,1}]&*)
-(*]@numFFs["v"];*)
-
-
 (* ::Chapter:: *)
 (*interpolation; order full*)
 
 
+(*\:5bf9 Q2 \:7684 full \:9636\:8868\:8fbe\:5f0f\:505a\:63d2\:503c, \:65b9\:4fbf\:753b\:56fe\:548c\:7ec4\:5408*)
 If[$parOrdStr===$ordFull,
 Get["ff.numeric-interpo.wl"];]
 (*$total:864, time: 20 min;*)
 
 
-(* \:5bf9\:4e00\:7ec4\:51fd\:6570\:753b\:56fe *)
-plotLst[lst_]:=Plot[Evaluate@lst,{Q2,0,1},PlotRange->{{0,1},All},
-PlotTheme->{"Scientific"},PlotLegends->None]
-(* \:5c06\:5173\:8054\:5217\:8868\:4e2d\:7684\:5143\:7d20\:ff0c\:8f6c\:6362\:6210\:5e26 Callout \:7684 plot \:5c01\:88c5\:5f0f*)
-tagExprLst[assoc_Association]:=KeyValueMap[Legended[#2@Q2,#1]&,assoc]
-
-
-Query[Key@cc["C","1.00"],Key@"\[CapitalSigma]N",Key@fd[2,3,0],
-tagExprLst/*plotLst,
+If[$parOrdStr===$ordFull,
+Module[{plotLst,annotated,contribTag},
+(* \:5bf9 \:51fd\:6570\:7684\:5217\:8868 \:753b\:56fe *)
+plotLst[lst_]:=Plot[Evaluate@lst,{Q2,0,1},PlotTheme->{"Scientific"},
+PlotRange->{{0,1},All},Ticks->{Automatic,None},
+ImageSize->Large,
+PlotLegends->None];
+(*\:5c06\:5173\:8054\:5217\:8868\:4e2d\:7684\:5143\:7d20\:ff0c\:8f6c\:6362\:6210\:5e26\:6ce8\:91ca\:7684 wrapper \:8868\:8fbe\:5f0f, \:4f20\:5165 plot \:4f5c\:56fe*)
+annotated[assoc_Association]:=KeyValueMap[Legended[#2@Q2,#1/.{numKey->StringRiffle}]&,assoc];
+(*\:6311\:51fa\:8981\:5c55\:793a\:7684\:8d21\:732e, tree,loop,uds, sea,valence*)
+contribTag=Key/@{tagNum["lo","uds"],
+tagNum["lo","u"],tagNum["lo","d"],tagNum["lo","s"],
+tagNum["tr+lo","uds"]};
+(*\:901a\:8fc7 Query \:8bed\:6cd5\:ff0c\:8fdb\:884c\:7ed8\:56fe*)
+Query[Key@cc["C","1.00"],Key@"\[CapitalSigma]N",Key@fd[2,1,0],
+contribTag/*annotated/*plotLst,
 (*\:7b2cn\:4e2a*)2
 ][interpoGEGM["v"]]
+]]
 
 
 (* ::Section:: *)
@@ -340,7 +343,7 @@ LightCyan,{None,LightBlue}
 (*\:5e94\:7528\:8868\:683c\:6392\:7248*)
 If[$inNBook,
 gridTable["GEGM",dataBackground]@Query[
-$ord0,Key@cc["C","1.00"],Key@"\[CapitalSigma]N"]@numFFs["v"]
+$ord0,Key@cc["C","1.50"],Key@"\[CapitalSigma]N"]@numFFs["v"]
 ]
 
 
