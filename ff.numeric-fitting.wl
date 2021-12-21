@@ -41,7 +41,7 @@ mfilesDir=FileNameJoin[{$srcRoot,"mfiles"}];
 (* 1st \:5bfc\:5165\:6b21\:5e8f: \:8bfb\:5165\:6392\:7248 *)
 (*Once@Get["gen.format.wl"];*)
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
-Once@Get["gen.integral.TagList.wl"];
+Once@Get["gen.integral-TagList.wl"];
 (*\:8981\:8ba1\:7b97\:7684\:8d39\:66fc\:56fe\:5217\:8868*)
 fyAmpPart=fyAmpLoopLst;
 (*\:8bfb\:5165\:5404\:79cd\:8f93\:5165\:63a5\:53e3*)
@@ -53,7 +53,7 @@ Once@Get["coes.interface.wl"];
 
 
 (*+++++++++++++++++++++++++++ \:6570\:503c\:7cbe\:5ea6\:7684\:76f8\:5173\:8bbe\:7f6e +++++++++++++++++++++++++++*)
-chopLimit=10^-10;(*cut\:7cbe\:5ea6*)$precision=MachinePrecision;(*\:7cbe\:786e\:5ea6*)
+$chopLimit=10^-10;(*cut\:7cbe\:5ea6*)$precision=MachinePrecision;(*\:7cbe\:786e\:5ea6*)
 
 
 (*-------------\:662f\:5426\:5f00\:59cb\:5e76\:884c\:5185\:6838--------------------*)
@@ -131,7 +131,7 @@ ccFittings=Association@Table[
 (*\:521d\:59cb\:5316 \[CapitalLambda] \:5b57\:7b26\:5f62\:5f0f *)
 $par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
 (* \:5bf9\:7279\:5b9a \[CapitalLambda], \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
-Get["ff.numeric.worker.wl"];
+Get["ff.numeric-worker.wl"];
 (*\:5bf9\:7279\:5b9a \[CapitalLambda], \:8ba1\:7b97: \:6570\:503c\:7ed3\:679c - \:5b9e\:9a8c\:7ed3\:679c, numFFs \:5728 worker \:4e2d\:8ba1\:7b97 *)
 testMagMerged=Merge[{
 Query[All,(Key@tagNum["tr+lo","uds"])

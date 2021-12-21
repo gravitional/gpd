@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*ff.numeric.worker.wl*)
+(*ff.numeric-worker.wl*)
 
 
 (* ::Chapter:: *)
@@ -24,7 +24,7 @@ Needs["X`"];]
 
 
 (*\:53d6\:6574\:51fd\:6570\:ff0c\:820d\:5f03\:5fae\:5c0f\:7684\:6570\:503c\:8bef\:5dee*)
-Default[chop,2]=chopLimit;
+Default[chop,2]=$chopLimit;
 chop[expr_,limit_.]:=Chop[expr,limit]
 (*\:6839\:636e\:6c42\:89e3\:7684\:7ea7\:6570 level, \:8bbe\:5b9a\:4e0d\:540c\:7684 chop \:65b9\:5f0f*)
 chopQ2[x_]:=Simplify@chop[x/.Q2->0];
@@ -80,7 +80,7 @@ $parOrdStr,$par\[CapitalLambda]Str,$parCStr,$fitScheme,$erroBar,
 coesDir,mfilesDir,fyAmpPart,
 massV,numMass,numCoupLst,numPaVe,otherCoes,
 quaCharge,medRule,toGEGM,
-chopLimit,chop,$precision
+$chopLimit,chop,$precision
 ];]
 
 

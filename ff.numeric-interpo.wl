@@ -55,7 +55,7 @@ DistributeDefinitions[
 $srcRoot,$fileName,echo,enList,enString,$inNBook,
 (*\:5c40\:90e8\:73af\:5883\:53d8\:91cf*)
 $parOrdStr,$par\[CapitalLambda]Str,$fitScheme,$erroBar,
-chopLimit,chop,$precision,
+$chopLimit,chop,$precision,
 (*\:81ea\:5b9a\:4e49\:51fd\:6570*)
 numPaVe
 ];
