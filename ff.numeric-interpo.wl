@@ -17,7 +17,11 @@ mapthread[{ge_,gm_}]:=MapThread[pieceWise,{ge,gm}/.{numVal->Identity}]
 
 
 (*\:9012\:5f52 Merge \:5173\:8054, \:4e00\:76f4\:5408\:5e76\:5230 numKey->numVal \:5c42, \:5c06\:8fd9\:4e00\:5c42\:7684\:6570\:636e\:653e\:5165\:5206\:6bb5\:51fd\:6570*)
-mergeRecur[{x:KeyValuePattern[{_numKey->_numVal}],y:KeyValuePattern[{_numKey->_numVal}]}]:=Merge[{x,y},mapthread];
+mergeRecur[{
+x:KeyValuePattern[{_numKey->_numVal}],
+y:KeyValuePattern[{_numKey->_numVal}]
+}]:=Merge[{x,y},mapthread];
+(*\:5bf9\:4e8e\:5176\:4ed6\:5c42\:ff0c\:9012\:5f52\:5408\:5e76*)
 mergeRecur[{x_Association,y_Association}]:=Merge[{x,y},mergeRecur];
 
 

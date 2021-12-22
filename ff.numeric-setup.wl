@@ -42,10 +42,12 @@ $parallelQ=False;
 $parallel$interpoQ=True;
 (*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
 $parOrdStr=$ordFull;
-$par\[CapitalLambda]=0.90;
+$par\[CapitalLambda]=1.00;
 $par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
 (* fitScheme \:5b9a\:4e49\:89c1: tagOctfds*)
-$fitScheme={"\[CapitalSigma]N","most"};
+(*$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]-p","\[CapitalSigma]N","\[CapitalSigma]-\[CapitalXi]-","N","p\[CapitalXi]-","\[CapitalXi]","charged","many","most","all"};*)
+(*$fitScheme={"\[CapitalSigma]N","most"};*)
+$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all"};
 $erroBar="notbar";
 
 

@@ -104,7 +104,7 @@ Once@Get["coes.interface.wl"];
 
 (* \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
 (*order full, Intel i7-6700 (8): \:4ee3\:5165\:6240\:6709\:6570\:503c, ~ 4m30s ; \:4ee3\:5165\:90e8\:5206\:6570\:503c, ~3m50s *)
-If[$inNBook,Get["ff.numeric-worker.wl"];]
+Get["ff.numeric-worker.wl"];
 
 
 (*\:63d0\:53d6\:51fa ffsMerged \:8ba1\:7b97\:7ed3\:679c\:4e2d, \:5173\:5fc3\:7684\:90e8\:5206, TreeGEGM,LoopGEGM,\:91cd\:6b63\:5316\:5e38\:6570*)
@@ -126,7 +126,7 @@ ffsMerged["confs"]=Association@Table[
 (*\:521d\:59cb\:5316 C \:5b57\:7b26\:5f62\:5f0f*)
 ccNumStr=enString@NumberForm[ccNum,{3,2}];
 (*\:4ee3\:5165\:62df\:5408\:786e\:5b9a\:7684\:6570\:503c*)
-Query[{Key@cc["C",ccNumStr]},{"\[CapitalSigma]N"},
+Query[{Key@cc["C",ccNumStr]},All(*\:8ba1\:7b97\:6240\:6709\:62df\:5408\:65b9\:6848*),
 toNumFFs[ffsMerged["trimed"]][ccNum]
 ]@ccfitted$Err
 (*{ccNum,{1.0,1.1,1.2,1.3,1.4,1.5}}*)
@@ -142,6 +142,10 @@ Key@recon,NumberForm[#,{4,3}]&
 
 renormalConst["v"]=Query[All,All,Key@$ord0,All,Key@recon,All
 ]@ffsMerged["confs"];
+
+
+(*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6*)
+serialize["recons",interpoGEGM["v"]]
 
 
 (* ::Chapter:: *)
@@ -204,33 +208,11 @@ Get["ff.numeric-interpo.wl"];]
 (*$total:864, time: 20 min;*)
 
 
-If[$parOrdStr===$ordFull,
-Module[{plotLst,annotated,contribTag},
-(* \:5bf9 \:51fd\:6570\:7684\:5217\:8868 \:753b\:56fe *)
-plotLst[lst_]:=Plot[Evaluate@lst,{Q2,0,1},PlotTheme->{"Scientific"},
-PlotRange->{{0,1},All},Ticks->{Automatic,None},
-ImageSize->Large,
-PlotLegends->None];
-(*\:5c06\:5173\:8054\:5217\:8868\:4e2d\:7684\:5143\:7d20\:ff0c\:8f6c\:6362\:6210\:5e26\:6ce8\:91ca\:7684 wrapper \:8868\:8fbe\:5f0f, \:4f20\:5165 plot \:4f5c\:56fe*)
-annotated[assoc_Association]:=KeyValueMap[Legended[#2@Q2,#1/.{numKey->StringRiffle}]&,assoc];
-(*\:6311\:51fa\:8981\:5c55\:793a\:7684\:8d21\:732e, tree,loop,uds, sea,valence*)
-contribTag=Key/@{tagNum["lo","uds"],
-tagNum["lo","u"],tagNum["lo","d"],tagNum["lo","s"],
-tagNum["tr+lo","uds"]};
-(*\:901a\:8fc7 Query \:8bed\:6cd5\:ff0c\:8fdb\:884c\:7ed8\:56fe*)
-Query[Key@cc["C","1.00"],Key@"\[CapitalSigma]N",Key@fd[2,1,0],
-contribTag/*annotated/*plotLst,
-(*\:7b2cn\:4e2a*)2
-][interpoGEGM["v"]]
-]]
+(*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6*)
+serialize["interpo",interpoGEGM["v"]]
 
 
-(* ::Input:: *)
-(*(*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6*)*)
-(*serialize["interpo",interpoGEGM["v"]]*)
-
-
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*Grid display *)
 
 
