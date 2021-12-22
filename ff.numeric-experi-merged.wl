@@ -105,14 +105,34 @@ IntervalMarkersStyle->Automatic
 (*merge*)
 
 
-legend$function:=Legended[#2@Q2(*/#2[0]*),Placed[#1/.{numKey->StringRiffle},{{0.40,0.58},{0.,0.}}]]&
+legend$function:=Legended[#2@Q2(*/#2[0]*),Placed[#1/.{numKey->StringRiffle},{{1,0.58},{0.,0.}}]]&
 (*\:901a\:8fc7 Query \:8bed\:6cd5\:ff0c\:8fdb\:884c\:7ed8\:56fe*)
 Show[teb,
 (*\:8ba1\:7b97\:56fe*)
-Query[Key@cc["C","1.50"],Key@"\[CapitalSigma]+-",Key@ff["n"],
+Query[Key@cc["C","1.00"],Key@"N",Key@ff["n"],
 contribTag/*annotated[legend$function]
 /*plotLst,
 (*\:7b2cn\:4e2a*)1
-][interpoGEGM["v"]],
-PlotRange->{{0,1},Full}
+]@interpoGEGM["v"],
+PlotRange->{{0,1},Automatic}
+]
+
+
+(* ::Chapter:: *)
+(*Grid display *)
+
+
+(*\:80cc\:666f\:8272\:914d\:7f6e*)
+dataBackground={
+None,(* color horizontal: x1, x2, x3...*)
+{
+LightCyan,{None,LightBlue}
+}(* color vertical: y1, y2, y3...*)
+};
+(*\:5e94\:7528\:8868\:683c\:6392\:7248*)
+If[$inNBook,
+gridTable["GEGM",dataBackground]@Query[
+Key@cc["C","1.20"],Key@"N",
+All,All,All,NumberForm[Chop[#@0],4]&
+]@interpoGEGM["v"]
 ]

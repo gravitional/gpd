@@ -231,30 +231,6 @@ serialize["interpo",interpoGEGM["v"]]
 (*Grid display *)
 
 
-(* \:5bf9 data \:4e2d\:7684 head \:8fdb\:884c\:8f6c\:6362\:ff0c\:8f93\:51fa\:663e\:793a\:683c\:5f0f*)
-numDisp={fd->fdDisp,numKey->StringRiffle,numVal->(N[#,3]&)};
-dataDsip[data_]:=Dataset[data/.{Association->assoc}
-/.numDisp/.{assoc->Association}
-];
-(* \:5c06\:5d4c\:5957\:7684 {Assoc,Assoc} \:8f6c\:6362\:6210\:4e8c\:7ef4\:5217\:8868\:5f62\:5f0f *)
-(* Curry \:5f62\:5f0f *)
-dataToGrid::usage="dataToGrid[title,dataset], title \:5c06\:4f5c\:4e3a\:5217\:8868\:7684\:6807\:9898";
-dataToGrid[title_][data_]:=Prepend[
-KeyValueMap[Prepend[Values[#2],#1]&,data],
-Prepend[Query[First,Keys]@data,title]
-]
-
-
-(* \:4f7f\:7528 Grid \:663e\:793a \:4e8c\:7ef4\:5217\:8868 *)
-gridTable[title_,background_][dataSet_]:=Grid[
-dataToGrid[title]@dataSet/.numDisp,
-ItemSize->Automatic,
-Frame->{All,All},
-Spacings->{1,1.5},
-Background->background
-]
-
-
 (*\:80cc\:666f\:8272\:914d\:7f6e*)
 dataBackground={
 None,(* color horizontal: x1, x2, x3...*)
