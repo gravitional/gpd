@@ -37,6 +37,13 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 (*import module*)
 
 
+(*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
+$parOrdStr=$ordFull;
+$par\[CapitalLambda]=0.80;
+$par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
+$erroBar="notbar";
+
+
 (*\:5bfc\:5165\:6b64\:8ba1\:7b97\:7a0b\:5e8f\:7684\:53c2\:6570*)
 Get["ff.numeric-setup.wl"];
 (*\:8bfb\:5165\:5404\:79cd\:8f93\:5165\:63a5\:53e3*)
@@ -49,11 +56,15 @@ interpoGEGM["v"]=Import@localCachePath["interpo"];
 (* \:5bf9 \:51fd\:6570\:7684\:5217\:8868 \:753b\:56fe *)
 plotLst[lst_]:=Plot[Evaluate@lst,{Q2,0,1},
 PlotTheme->{"Scientific"},
-PlotRange->{{0,1},All},
+PlotRange->{{0,1},Full},
 ImageSize->Large,
 PlotLegends->None];
+
+
 (*\:5c06\:5173\:8054\:5217\:8868\:4e2d\:7684\:5143\:7d20\:ff0c\:8f6c\:6362\:6210\:5e26\:6ce8\:91ca\:7684 wrapper \:8868\:8fbe\:5f0f, \:4f20\:5165 plot \:4f5c\:56fe*)
-annotated[assoc_Association]:=KeyValueMap[Legended[#2@Q2/#2[0],#1/.{numKey->StringRiffle}]&,assoc];
+annotated[Legended_][assoc_Association]:=KeyValueMap[Legended,assoc];
+
+
 (*\:6311\:51fa\:8981\:5c55\:793a\:7684\:8d21\:732e, tree,loop,uds, sea,valence*)
 contribTag=Key/@{tagNum["lo","uds"],
 tagNum["lo","u"],tagNum["lo","d"],tagNum["lo","s"],
@@ -68,34 +79,40 @@ experiDir=FileNameJoin[{$srcRoot,"experiment"}];
 experiDataset=Get[FileNameJoin[{experiDir,"nucleon-data.auth-year.wl"}]];
 
 
-ListPlot[
-Values[assoc`expr[[inde]]],
-PlotRange->{Full,Full},
+annotated["experi"][leg$pos_][assoc_Association]:=KeyValueMap[
+Legended[#2,Placed[#1,leg$pos]]&,assoc];
+
+
+legend$function:=Legended[#2,Placed[#1,{{0.58,0.58},{0.,0.}}]]&
+(* \:7ed8\:5236\:5b9e\:9a8c\:70b9\:6570\:636e*)
+teb=ListPlot[Query[
+Key@ff["n"],ffsGEGM,1/*annotated[legend$function]
+]@experiDataset,
+PlotTheme->{"Scientific"},
+ImageSize->Large,
+PlotRange->{{0,1},Full},
 AxesOrigin->{0,0},
 PlotRangePadding->{{0,0},{Scaled[0.09],Scaled[0.12]}},
 PlotRangeClipping->True,
 ClippingStyle->Automatic,
-Sequence@@marker`expr`sequence[expr`errobar`style,inde]
+PlotMarkers->Automatic,
+IntervalMarkers->Automatic,
+IntervalMarkersStyle->Automatic
 ]
-
-
-teb=ListPlot[Query[
-Key@ff["n"],ffsGEGM,2
-]@experiDataset,
-PlotTheme->{"Scientific"},
-PlotRange->{{0,1},All},
-ImageSize->Large]
 
 
 (* ::Chapter:: *)
 (*merge*)
 
 
+legend$function:=Legended[#2@Q2(*/#2[0]*),Placed[#1/.{numKey->StringRiffle},{{0.40,0.58},{0.,0.}}]]&
 (*\:901a\:8fc7 Query \:8bed\:6cd5\:ff0c\:8fdb\:884c\:7ed8\:56fe*)
 Show[teb,
 (*\:8ba1\:7b97\:56fe*)
 Query[Key@cc["C","1.50"],Key@"\[CapitalSigma]+-",Key@ff["n"],
-contribTag/*annotated/*plotLst,
-(*\:7b2cn\:4e2a*)2
-][interpoGEGM["v"]]
+contribTag/*annotated[legend$function]
+/*plotLst,
+(*\:7b2cn\:4e2a*)1
+][interpoGEGM["v"]],
+PlotRange->{{0,1},Full}
 ]

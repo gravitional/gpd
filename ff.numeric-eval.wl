@@ -34,7 +34,22 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
 (* ::Section:: *)
-(*import module*)
+(*para & import module*)
+
+
+(*\:8ba1\:7b97\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
+$parallelQ=False;
+(*\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
+$parallel$interpoQ=True;
+(*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
+$parOrdStr=$ordFull;
+$par\[CapitalLambda]=1.00;
+$par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
+(* fitScheme \:5b9a\:4e49\:89c1: tagOctfds*)
+(*$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]-p","\[CapitalSigma]N","\[CapitalSigma]-\[CapitalXi]-","N","p\[CapitalXi]-","\[CapitalXi]","charged","many","most","all"};*)
+(*$fitScheme={"\[CapitalSigma]N","most"};*)
+$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all"};
+$erroBar="notbar";
 
 
 (*\:5bfc\:5165\:6b64\:8ba1\:7b97\:7a0b\:5e8f\:7684\:53c2\:6570----------------------------------------------------------*)
