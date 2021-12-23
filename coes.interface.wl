@@ -5,8 +5,11 @@
 
 
 (*\:5168\:5c3a\:5bf8 Dataset \:7684\:6982\:7565\:67e5\:8be2, n \:6307\:5b9a\:67e5\:8be2\:7684\:5c42\:6570 *)
-dataSkel[n_][data_]:=dataSkel[n-1][data]->Union@Flatten@Query[Sequence@@ConstantArray[Values,n],Keys]@data
-dataSkel[0][data_]:=Query[Keys]@data
+dataSkel[n_Integer][data_]:=dataSkel[n-1][data]->
+Union@Flatten@Query[Sequence@@ConstantArray[Values,n],Keys]@data;
+dataSkel[0][data_]:=Query[Keys]@data;
+(*\:4f7f\:7528 \:6570\:7ec4\:6df1\:5ea6 \:8c03\:7528*)
+dataStrut[data_]:=dataSkel[ArrayDepth@data-1]@data
 
 
 (* ::Section:: *)
@@ -142,7 +145,7 @@ Array[fdDisp[4,#,1]&,3],fdStr[type]
 
 
 (*\:5404\:79cd octet baryons \:7684 tag*)
-tagOctfds=<|
+$fittingScheme=<|
 "\[CapitalSigma]+-"->{ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"]},
 "\[CapitalSigma]"->{ff["\[CapitalSigma]+"],ff["\[CapitalSigma]0"],ff["\[CapitalSigma]-"]},
 "\[CapitalSigma]-p"->{ff["\[CapitalSigma]-"],ff["p"]},
@@ -334,51 +337,55 @@ ff["\[CapitalLambda]"]->\[Minus]0.613`30
 
 
 (*\:6682\:65f6\:6ca1\:6709\:7684\:6570\:636e*)
-tempNone;
+Module[{tagOctfds=Array[fd[2,#,0]&,8],
+tempNone=$tempNone,ffsGEGM},
+ffsGEGM="Exp.";
 numExper=<|
 (*experiment data*)
 "exp."->AssociationThread[tagOctfds,
 {
-<|ffsGEGM->{numArd[1,0],numArd[2.7928473446`20,tempNone]}|>,
-<|ffsGEGM->{numArd[0,0],numArd[\[Minus]1.9130427`20,tempNone]}|>,
+<|ffsGEGM->{numAround[1,0],numAround[2.7928473446,tempNone]}|>,
+<|ffsGEGM->{numAround[0,0],numAround[\[Minus]1.9130427,tempNone]}|>,
 
-<|ffsGEGM->{numArd[1,0],numArd[2.458`20,0.010]}|>,
-<|ffsGEGM->{numArd[0,0],numArd[0.60`20,tempNone]}|>,
-<|ffsGEGM->{numArd[-1,0],numArd[\[Minus]1.160`20,0.025]}|>,
+<|ffsGEGM->{numAround[1,0],numAround[2.458,0.010]}|>,
+<|ffsGEGM->{numAround[0,0],numAround[0.60,tempNone]}|>,
+<|ffsGEGM->{numAround[-1,0],numAround[\[Minus]1.160,0.025]}|>,
 
-<|ffsGEGM->{numArd[0,0],numArd[\[Minus]1.250`20,0.014]}|>,
-<|ffsGEGM->{numArd[-1,0],numArd[\[Minus]0.6507`20,0.080]}|>,
-<|ffsGEGM->{numArd[0,0],numArd[\[Minus]0.613`20,0.004]}|>
+<|ffsGEGM->{numAround[0,0],numAround[\[Minus]1.250,0.014]}|>,
+<|ffsGEGM->{numAround[-1,0],numAround[\[Minus]0.6507,0.080]}|>,
+<|ffsGEGM->{numAround[0,0],numAround[\[Minus]0.613,0.004]}|>
 }],
 (* Lattice data*)
+ffsGEGM="Lat.";
 "Lat."->AssociationThread[tagOctfds,
 {
-<|ffsGEGM->{numArd[1,0],numArd[2.4,0.02]}|>,
-<|ffsGEGM->{numArd[0,0],numArd[-1.59,0.0017]}|>,
+<|ffsGEGM->{numAround[1,0],numAround[2.4,0.02]}|>,
+<|ffsGEGM->{numAround[0,0],numAround[-1.59,0.0017]}|>,
 
-<|ffsGEGM->{numArd[1,0],numArd[2.27,0.0016]}|>,
-<|ffsGEGM->{numArd[0,0],numArd[tempNone,tempNone]}|>,
-<|ffsGEGM->{numArd[-1,0],numArd[\[Minus]0.88,0.008]}|>,
+<|ffsGEGM->{numAround[1,0],numAround[2.27,0.0016]}|>,
+<|ffsGEGM->{numAround[0,0],numAround[tempNone,tempNone]}|>,
+<|ffsGEGM->{numAround[-1,0],numAround[\[Minus]0.88,0.008]}|>,
 
-<|ffsGEGM->{numArd[0,0],numArd[\[Minus]1.32,0.004]}|>,
-<|ffsGEGM->{numArd[-1,0],numArd[\[Minus]0.71,0.003]}|>,
-<|ffsGEGM->{numArd[0,0],numArd[tempNone,tempNone]}|>
+<|ffsGEGM->{numAround[0,0],numAround[\[Minus]1.32,0.004]}|>,
+<|ffsGEGM->{numAround[-1,0],numAround[\[Minus]0.71,0.003]}|>,
+<|ffsGEGM->{numAround[0,0],numAround[tempNone,tempNone]}|>
 }],
 (*paper1 data*)
-"exp."->AssociationThread[tagOctfds,
+ffsGEGM="Paper";
+"paper"->AssociationThread[tagOctfds,
 {
-<|ffsGEGM->{numArd[1,0],numArd[2.735,0.121]}|>,
-<|ffsGEGM->{numArd[0,0],numArd[-1.956,0.103]}|>,
+<|ffsGEGM->{numAround[1,0],numAround[2.735,0.121]}|>,
+<|ffsGEGM->{numAround[0,0],numAround[-1.956,0.103]}|>,
 
-<|ffsGEGM->{numArd[1,0],numArd[2.537,0.201]}|>,
-<|ffsGEGM->{numArd[0,0],numArd[0.838,0.091]}|>,
-<|ffsGEGM->{numArd[-1,0],numArd[-0.861,0.040]}|>,
+<|ffsGEGM->{numAround[1,0],numAround[2.537,0.201]}|>,
+<|ffsGEGM->{numAround[0,0],numAround[0.838,0.091]}|>,
+<|ffsGEGM->{numAround[-1,0],numAround[-0.861,0.040]}|>,
 
-<|ffsGEGM->{numArd[0,0],numArd[-1.690,0.142]}|>,
-<|ffsGEGM->{numArd[-1,0],numArd[-0.840,0.087]}|>,
-<|ffsGEGM->{numArd[0,0],numArd[-0.867,0.074]}|>
+<|ffsGEGM->{numAround[0,0],numAround[-1.690,0.142]}|>,
+<|ffsGEGM->{numAround[-1,0],numAround[-0.840,0.087]}|>,
+<|ffsGEGM->{numAround[0,0],numAround[-0.867,0.074]}|>
 }]
-|>;
+|>];
 
 
 (* ::Section:: *)

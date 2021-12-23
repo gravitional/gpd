@@ -151,7 +151,7 @@ ccNumStr=enString@NumberForm[ccNum,{3,2}];
 (*\:5faa\:73af\:8fdb\:5ea6\:63d0\:793a*)
 echo["Lambda: ",$par\[CapitalLambda]Str,", C: ",ccNumStr];
 (* \:6b21\:7ea7\:5173\:8054, C \:6307\:5411\:5404\:79cd \:62df\:5408\:5b50\:96c6\:7684\:7ed3\:679c, \:5982 \[CapitalSigma]+0-, pN, All,*)
-cc["C",ccNumStr]->Association@KeyValueMap[#1->testFit[ccNum,#2]&,tagOctfds]
+cc["C",ccNumStr]->Association@KeyValueMap[#1->testFit[ccNum,#2]&,$fittingScheme]
 ,{ccNum,{1.0`30,1.1`30,1.2`30,1.3`30,1.4`30,1.5`30}}
 ]
 ,{$par\[CapitalLambda],{0.80`30,0.85`30,0.90`30,0.95`30,1.00`30}}];

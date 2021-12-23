@@ -39,7 +39,7 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 (*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
 $parOrdStr=$ordFull;
-$par\[CapitalLambda]=0.80;
+$par\[CapitalLambda]=1.00;
 $par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
 $erroBar="notbar";
 
@@ -109,7 +109,7 @@ legend$function:=Legended[#2@Q2(*/#2[0]*),Placed[#1/.{numKey->StringRiffle},{{1,
 (*\:901a\:8fc7 Query \:8bed\:6cd5\:ff0c\:8fdb\:884c\:7ed8\:56fe*)
 Show[teb,
 (*\:8ba1\:7b97\:56fe*)
-Query[Key@cc["C","1.00"],Key@"N",Key@ff["n"],
+Query[Key@cc["C","1.50"],Key@"N",Key@ff["n"],
 contribTag/*annotated[legend$function]
 /*plotLst,
 (*\:7b2cn\:4e2a*)1
@@ -119,7 +119,7 @@ PlotRange->{{0,1},Automatic}
 
 
 (* ::Chapter:: *)
-(*Grid display *)
+(*Grid display*)
 
 
 (*\:80cc\:666f\:8272\:914d\:7f6e*)
@@ -129,10 +129,20 @@ None,(* color horizontal: x1, x2, x3...*)
 LightCyan,{None,LightBlue}
 }(* color vertical: y1, y2, y3...*)
 };
-(*\:5e94\:7528\:8868\:683c\:6392\:7248*)
-If[$inNBook,
-gridTable["GEGM",dataBackground]@Query[
-Key@cc["C","1.20"],Key@"N",
+
+
+With[{
+(*\:5408\:5e76\:6570\:636e, \:5d4c\:5957\:5173\:8054\:ff0c\:9012\:5f52 Merge ++++++++++++++++++++++++++++++*)
+data=Nest[Merge,Identity,2]@{
+(*\:8ba1\:7b97\:503c*)
+Query[
+Key@cc["C","1.50"],Key@"\[CapitalSigma]+-",
 All,All,All,NumberForm[Chop[#@0],4]&
-]@interpoGEGM["v"]
+]@interpoGEGM["v"],
+(*\:5b9e\:9a8c\:503c*)
+Query["exp."]@numExper/.{numAround->Around,$tempNone->0}
+}},
+(*\:5e94\:7528\:8868\:683c\:6392\:7248++++++++++++++++++++++++++++++++++++++++*)
+If[$inNBook,
+gridTable["GEGM",dataBackground]@data]
 ]

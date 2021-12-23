@@ -66,3 +66,4 @@ localCachePath[filename_String]:=FileNameJoin[{resultsDir,StringRiffle[{filename
 (*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
 serialize[filename_String,result_]:=With[{path=localCachePath[filename]},
 Export[path,result];echo["Exporting finished: ", path];]
+locationMessage@serialize;

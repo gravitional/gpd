@@ -45,7 +45,7 @@ $parallel$interpoQ=True;
 $parOrdStr=$ordFull;
 $par\[CapitalLambda]=1.00;
 $par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
-(* fitScheme \:5b9a\:4e49\:89c1: tagOctfds*)
+(* fitScheme \:5b9a\:4e49\:89c1: $fittingScheme*)
 (*$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]-p","\[CapitalSigma]N","\[CapitalSigma]-\[CapitalXi]-","N","p\[CapitalXi]-","\[CapitalXi]","charged","many","most","all"};*)
 (*$fitScheme={"\[CapitalSigma]N","most"};*)
 $fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all"};
@@ -62,57 +62,6 @@ fyAmpPart=fyAmpLoopLst;
 Once@Get["coes.interface.wl"];
 
 
-(* ::Chapter::Closed:: *)
-(*checking*)
-
-
-(* ::Input:: *)
-(*(*chop \:96f6\:70b9*)*)
-(*chopQ2Val[x_]:=numVal@chopQ2[x]*)
-
-
-(* ::Input:: *)
-(*(*\:5c55\:793a\:7c92\:5b50\:7684\:603b\:7ed3\:679c*)*)
-(*Query[KeySort/*Normal/*(TableForm[#,TableSpacing->{3.5, 1}]&),*)
-(*Normal/*(TableForm[#,TableSpacing->{1.5,1}]&),*)
-(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
-(*]@loopResults["v"][[$parOrdStr,kLoopAmpSum]]*)
-
-
-(* ::Input:: *)
-(*(* \:5bf9\:67d0\:4e9b\:56fe\:7684\:7ed3\:679c\:6c42\:548c\:ff0c*)*)
-(*Query[{Key@fd[2,1,0]},sectOct/*Total,({Key@ffsF1F2}),All,*)
-(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
-(*]@loopResults["v"][[$parOrdStr,kLoopChanSum]]*)
-
-
-(* ::Input:: *)
-(*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:7684\:7ed3\:679c *)*)
-(*Query[{Key@fd[2,1,0]}/*Normal/*(Column[#,Spacings->2]&),*)
-(*sectOct/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&),*)
-(*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),*)
-(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
-(*]@loopResults["v"][[$parOrdStr,kLoopChanSum]]*)
-
-
-(* ::Input:: *)
-(*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:7ed3\:679c *)*)
-(*Query[{Key@fd[2,1,0]}/*Normal/*(Column[#,Spacings->2]&),*)
-(*sectOct/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&),*)
-(*Normal/*(TableForm[#,TableSpacing->{2, 1}]&),*)
-(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
-(*]@loopResults["v"][[$parOrdStr,kLoopChannel]]*)
-
-
-(* ::Input:: *)
-(*(*\:67e5\:770b\:7279\:5b9a\:7c92\:5b50\:ff0c\:7279\:5b9a\:56fe\:7684 GEGM*)*)
-(*Query[{Key@fd[2,1,0]},*)
-(*Key@chTag@{"RB","oct","F1"},*)
-(*Key@ffsGEGM,*)
-(*ReplaceAll[quaCharge["uds"]]*)
-(*]@loopResults["v"][[$parOrdStr,kLoopChanSum]]*)
-
-
 (* ::Chapter:: *)
 (*numeric Form Factors Merged; all series*)
 
@@ -126,12 +75,12 @@ Get["ff.numeric-worker.wl"];
 ffsMerged["trimed"]=Query[All,All,Key/@{ffsTreeGEGM,ffsLoopGEGM,recon}]@ffsMerged["WithRen"];
 
 
-(* \:62df\:5408\:51fa\:7684 c1,c2 \:503c\:88ab\:653e\:5728 DataSet \:4e2d, \:4f7f\:7528 Query \:67e5\:8be2; \:8003\:8651 \:53c2\:6570\:4e4b\:95f4\:7684\:9650\:5236\:ff0c\:7ed9\:51fa\:6240\:6709\:53c2\:6570\:7684\:6570\:503c*)
-toNumFFs[ffsMerged_][$parC_][ccFitWithError_]:=Module[{ccfitted,fittedParas},
-ccfitted=Last@ccFitWithError;
+(* \:62df\:5408\:51fa\:7684 c1,c2 \:503c\:88ab\:653e\:5728 ccfitted$Err \:4e2d, \:4f7f\:7528 Query \:67e5\:8be2; \:8003\:8651 \:53c2\:6570\:4e4b\:95f4\:7684\:9650\:5236\:ff0c\:7ed9\:51fa\:6240\:6709\:53c2\:6570\:7684\:6570\:503c*)
+toNumFFs[ffsMerged_][$parC_][ccfitted$Err_]:=Module[{ccfitted,fittedParas},
+ccfitted=Last@ccfitted$Err;
 fittedParas=Join[ccfitted,numCCRelation/.ccfitted,{cc["C"]->$parC}];
-(*\:5c06\:53c2\:6570 c1,c2,C \:7684\:5177\:4f53\:503c*)
-Query[All,All,All,ReplaceAll[fittedParas]]@ffsMerged
+(*\:5c06\:53c2\:6570 c1,c2,C \:7684\:5177\:4f53\:503c\:4ee3\:5165\:8868\:8fbe\:5f0f, ffsMerged \:662f\:51fd\:6570*)
+ffsMerged@fittedParas
 ]
 
 
@@ -142,25 +91,37 @@ ffsMerged["confs"]=Association@Table[
 ccNumStr=enString@NumberForm[ccNum,{3,2}];
 (*\:4ee3\:5165\:62df\:5408\:786e\:5b9a\:7684\:6570\:503c*)
 Query[{Key@cc["C",ccNumStr]},All(*\:8ba1\:7b97\:6240\:6709\:62df\:5408\:65b9\:6848*),
-toNumFFs[ffsMerged["trimed"]][ccNum]
+(* \:5e94\:7528\:5230 ccfitted$Err \:6570\:636e\:5c42\:7684\:51fd\:6570*)
+toNumFFs[(*\:9996\:53c2\:6570\:662f\:51fd\:6570\:ff0c\:6d88\:8d39\:4ea7\:751f \:53c2\:6570\:89c4\:5219*)
+Query[All,All,All,ReplaceAll[#]]@ffsMerged["trimed"]&
+][ccNum]
 ]@ccfitted$Err
-(*{ccNum,{1.0,1.1,1.2,1.3,1.4,1.5}}*)
+(* C\:7684\:8fed\:4ee3\:5217\:8868 *)
 ,{ccNum,{1.0,1.1,1.2,1.3,1.4,1.5}} 
 ]];
 
 
+(*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6*)
+serialize["ffs-merged",ffsMerged["confs"]];
+
+
+(* ::Section:: *)
+(*renormalization constant*)
+
+
 (*\:6253\:5370\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570*)
-Query[Normal/*TableForm,All,Key@$ord0,Values/*StringRiffle,
+If[$inNBook,
+Query[Normal/*TableForm,
+(*fitting Scheme \:5c42*)1,
+Key@$ord0,Values/*StringRiffle,
 Key@recon,NumberForm[#,{4,3}]&
 ]@ffsMerged["confs"]
+]
 
 
-renormalConst["v"]=Query[All,All,Key@$ord0,All,Key@recon,All
+renormalConst["v"]=Query[(*CC \:5c42*)All,(*fitting Scheme \:5c42*)1,$ord0,
+(*octet \:5c42*)All,(*\:6811 \:5708 \:91cd\:6b63\:5316\:5c42*)Key@recon,(*F1F2/GEGM \:5c42*)All
 ]@ffsMerged["confs"];
-
-
-(*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6*)
-serialize["recons",interpoGEGM["v"]]
 
 
 (* ::Chapter:: *)
@@ -169,8 +130,7 @@ serialize["recons",interpoGEGM["v"]]
 
 (*\:5904\:7406\:4f20\:5165\:7684 ffsMergedWithRen,\:4ee3\:5165\:5938\:514b\:7535\:8377\:914d\:7f6e,\:7ed9\:51fa\:5404\:79cd\:5473\:9053\:7684\:7ed3\:679c,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 GEGM *)
 (*\:666e\:901a\:8ba1\:7b97, \:4f7f\:7528\:7684\:6570\:503c\:8868\:8fbe\:5f0f*)
-numFFs[ffsMergedWithRen_,chopQ2Val_]:=Query[
-(*fd[2,1,0]: oct \:6807\:7b7e\:5c42*)All,
+numFFs[ffsMergedWithRen_,chopQ2Val_]:=Query[(* octet \:5c42*)All,
 <|
 tagNum["tr","uds"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["uds"]],
 tagNum["tr","u"]->chopQ2Val[#@ffsTreeGEGM/.quaCharge["u"]],
@@ -202,14 +162,14 @@ numFFs[ffsMergedWithRen,chopQ2Val]
 ]];
 
 
-(*\:751f\:6210\:6700\:7ec8\:7684\:6570\:503c\:8868\:793a, \:8003\:8651\:5173\:8054\:4e2d\:4e0d\:540c\:7684 series*)
-numFFs["v"]=Module[
-{serLst=Query[1,1,Keys]@ffsMerged["confs"]},(*\:8ba1\:7b97\:51fa series \:7684\:679a\:4e3e\:8303\:56f4*)
-Association@Map[
-(* \:904d\:5386 series \:7684\:96c6\:5408 serLst, \:9009\:62e9\:76f8\:5e94\:7684 numFFs *)
-#->Query[All,All,Key@#,numFFs[<|"ord"->#|>]
-]@ffsMerged["confs"]&,
-serLst]
+(*\:751f\:6210\:6700\:7ec8\:7684\:6570\:503c\:8868\:793a, \:8003\:8651\:5173\:8054\:4e2d\:4e0d\:540c\:7684\:5c55\:5f00 order*)
+numFFs["v"]=Module[(*\:8ba1\:7b97\:51fa order \:7684\:679a\:4e3e\:8303\:56f4*)
+{ordLst=Query[1, 1, Keys]@ffsMerged["confs"]},
+(* \:904d\:5386 order \:7684\:96c6\:5408 ordLst, \:9009\:62e9\:76f8\:5e94\:7684 numFFs *)
+Association@Map[#->Query[All,All,
+Key@#,numFFs[<|"ord" -> #|>]
+]@ffsMerged["confs"]&, ordLst
+]
 ];
 
 
