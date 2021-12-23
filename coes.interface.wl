@@ -7,9 +7,9 @@
 (*\:5168\:5c3a\:5bf8 Dataset \:7684\:6982\:7565\:67e5\:8be2, n \:6307\:5b9a\:67e5\:8be2\:7684\:5c42\:6570 *)
 dataSkel[n_Integer][data_]:=dataSkel[n-1][data]->
 Union@Flatten@Query[Sequence@@ConstantArray[Values,n],Keys]@data;
-dataSkel[0][data_]:=Query[Keys]@data;
+dataSkel[0][data_]:=Keys@data;
 (*\:4f7f\:7528 \:6570\:7ec4\:6df1\:5ea6 \:8c03\:7528*)
-dataStrut[data_]:=dataSkel[ArrayDepth@data-1]@data
+dataStrut[data_]:=dataSkel[ArrayDepth[data,AllowedHeads->Association]-1]@data
 
 
 (* ::Section:: *)
@@ -242,6 +242,7 @@ tagNum["sea","d"]=numKey@{"sea","d"};
 tagNum["sea","s"]=numKey@{"sea","s"};
 
 tagNum["tr+lo","uds"]=numKey@{"tr+lo","uds"};
+recordLocationInMessage@tagNum;
 
 
 (*++++++++++++++ octet baryons \:7535\:8377\:5171\:8f6d\:7684\:89c4\:5219\:8868 ++++++++++++++*)

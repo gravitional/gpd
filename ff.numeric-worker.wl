@@ -151,7 +151,7 @@ Key@ffsF1F2,Key@ffsGEGM,Key@fyCoeKeycAll
 *)
 sumGroup[x_?ListQ]:=Merge[Query[All,{Key@ffsF1F2,Key@ffsGEGM}]@x,Total];
 (*GroupBy \:6309\:7167\:5217\:8868\:4e2d\:7684\:5206\:7c7b\:51fd\:6570,\:751f\:6210\:4e00\:4e2a\:5d4c\:5957\:5173\:8054,\:8fd9\:91cc\:662f\:6309{\:5165\:5c04\:7c92\:5b50,\:8d39\:66fc\:56fe}, 
-\:7136\:540e\:5c06 sumGroup \:4f5c\:4e3a Reduce \:51fd\:6570\:4f5c\:7528\:5230\:6700\:7ec8\:5c42\:7684\:5c0f\:7ec4\:4e0a*)
+\:7136\:540e\:5c06 sumGroup \:4f5c\:4e3a Reduce \:51fd\:6570\:4f5c\:7528\:5230\:6700\:7ec8\:5c42\:7684\:5c0f\:7ec4\:4e0a,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 F1F2,GEGM*)
 
 
 (* \:751f\:6210\:4e00\:4e2a\:5173\:8054: <|loopChan,loopChanSum,loopAmpSum|>*)
@@ -213,10 +213,15 @@ KeyTake[First@#,{inOct}](*First@# \:4e3a treeSum *)
 
 (*\:540c\:6837,\:6839\:636e $parOrdStr \:7684\:503c,\:5224\:65ad\:662f\:5426\:989d\:5916\:8ba1\:7b97 ord0 *)
 ffsMerged["v"]=If[$parOrdStr===$ord0,
-<|$ord0->ffsMerged[treeSum,loopResults["v"][[$ord0,kLoopAmpSum]]]|>,
-<|$ord0->ffsMerged[treeSum,loopResults["v"][[$ord0,kLoopAmpSum]]],
-$parOrdStr->ffsMerged[treeSum,loopResults["v"][[$parOrdStr,kLoopAmpSum]]]
-|>];
+<|$ord0->ffsMerged[
+treeSum,loopResults["v"][[$ord0,kLoopAmpSum]]
+]|>,
+<|$ord0->ffsMerged[
+treeSum,loopResults["v"][[$ord0,kLoopAmpSum]]
+],
+$parOrdStr->ffsMerged[
+treeSum,loopResults["v"][[$parOrdStr,kLoopAmpSum]]
+]|>];
 
 
 (* ::Section:: *)

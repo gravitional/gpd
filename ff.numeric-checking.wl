@@ -42,7 +42,7 @@ $parallelQ=False;
 (*\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
 $parallel$interpoQ=True;
 (*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
-$parOrdStr=$ord0;
+$parOrdStr=$ordFull;
 $par\[CapitalLambda]=1.00;
 $par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
 (* fitScheme \:5b9a\:4e49\:89c1: $fittingScheme*)
@@ -66,9 +66,10 @@ Once@Get["coes.interface.wl"];
 (*numeric Form Factors Merged; all series*)
 
 
-(* \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
-(*order full, Intel i7-6700 (8): \:4ee3\:5165\:6240\:6709\:6570\:503c, ~ 4m30s ; \:4ee3\:5165\:90e8\:5206\:6570\:503c, ~3m50s *)
-Get["ff.numeric-worker.wl"];
+(* ::Input:: *)
+(*(* \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)*)
+(*(*order full, Intel i7-6700 (8): \:4ee3\:5165\:6240\:6709\:6570\:503c, ~ 4m30s ; \:4ee3\:5165\:90e8\:5206\:6570\:503c, ~3m50s *)*)
+(*Get["ff.numeric-worker.wl"];*)
 
 
 (* ::Chapter:: *)

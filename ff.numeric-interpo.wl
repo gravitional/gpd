@@ -113,12 +113,13 @@ echo[DateString[],": $start interpolation on curves"]
 (*\:6839\:636e\:5e76\:884c\:8bbe\:7f6e\:ff0cevaluation*)
 interpoGEGM["v"]=If[$parallel$interpoQ,
 (*\:5e76\:884c\:60c5\:51b5\:ff0c\:5206\:53d1\:5230\:5b50\:6838\:8ba1\:7b97*)
-waitAssoc@Query[
-All,All,All,All,All,
+waitAssoc@Query[(*ccValue*)All,(*fitScheme*)All,
+(*octet*)All,(*contribution*)All,(*GEGM*)All,
 ParallelSubmit[echoProgress[$counter][FunctionInterpolation[#,{Q2,0,1}]]]&
 ]@fullGEGM["v"],
 (*\:975e\:5e76\:884c\:60c5\:51b5\:ff1a\:5355\:6838\:987a\:5e8f\:6267\:884c*)
-Query[All,All,All,All,All,
+Query[(*ccValue*)All,(*fitScheme*)All,
+(*octet*)All,(*contribution*)All,(*GEGM*)All,
 echoProgress[$counter][FunctionInterpolation[#,{Q2,0,1}]]&
 ]@fullGEGM["v"]
 ];
