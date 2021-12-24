@@ -38,6 +38,9 @@ ff::usage="human-readable \:5f62\:5f0f\:7684\:8f93\:5165\:63a5\:53e3\:ff0c\:65b9
 setOnce[x_,y_]:=Once@Set[x,y]
 
 
+Activate@Inactive[Set][Inactive[ff]/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]]
+
+
 (*++++++++++++++++++++++++++++++++ \:516b\:91cd\:6001\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++++++++++*)
 Block[{type,fdStr},
 type="mes";
@@ -48,14 +51,16 @@ fdStr[type]={(*\:4ecb\:5b50\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a*)
 "\[Eta]8"
 };
 (* ++++++++ \:5b9a\:4e49\:4ecb\:5b50\:8f93\:5165\:63a5\:53e3, ff["\[Pi]+"]=fd[1,1,0] ++++++++ *)
-setOnce[
-ff/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]
+Activate@Inactive[Set][
+Inactive[ff]/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]
 ];
-setOnce[ff["\[Pi]\[Eta]"]=fd[1,{0,2,8},0]
+Activate@Inactive[Set][
+Inactive[ff]@"\[Pi]\[Eta]",fd[1,{0,2,8},0]
 ];(*\[Eta]0,\[Pi]0,\[Eta]8,\:7684\:7b80\:5e76\:8868\:793a*)
 (*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
-setOnce[
-Array[fdDisp[1,#,0]&,9,{0,8}],fdStr[type]
+Activate@Inactive[Set][
+Array[Inactive[fdDisp][1,#,0]&,9,{0,8}],
+fdStr[type]
 ];
 (*++++++++++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++++++++++*)
 type="oct";
@@ -391,6 +396,9 @@ ffsGEGM="Paper";
 
 (* ::Section:: *)
 (*Grid display*)
+
+
+recordLocationInMessage[numDisp,dataToGrid,gridTable]
 
 
 (* \:5bf9 data \:4e2d\:7684 head \:8fdb\:884c\:8f6c\:6362\:ff0c\:8f93\:51fa\:663e\:793a\:683c\:5f0f*)

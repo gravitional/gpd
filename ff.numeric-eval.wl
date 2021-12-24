@@ -142,14 +142,29 @@ numFFs["v"]=With[
 {orderLst=Query[1,1,Keys]@ffsMerged["confs"]},
 (*\:904d\:5386 order \:7684\:96c6\:5408 ordLst, \:9009\:62e9\:76f8\:5e94\:7684 numFFs*)
 Association@Map[#->
-Query[(*cc["C"]*)All,(*fitScheme*)All,
+Query[(*cc-values*)All,(*fitting-scheme*)All,
 (*order*)Key@#,(*octet*)All,
-(*tree,loop,recon*)
+(*tree-loop-FFactors,recons*)
 numFFs[<|"ord"->#|>]
 ]@ffsMerged["confs"]&,
 orderLst
+]];
+
+
+(* ::Section:: *)
+(*Grid display *)
+
+
+(*\:5e94\:7528\:8868\:683c\:6392\:7248*)
+If[$inNBook,
+gridTable["GEGM",dataBackground]@Query[
+(*order*)$ord0,
+(*cc-values*)Key@cc["C","1.50"],
+(*fitting-scheme*)Key@"\[CapitalSigma]+-",
+(*octet*)All,
+(*tree-loop-uds-contribution*)All
+]@numFFs["v"]
 ]
-];
 
 
 (* ::Chapter:: *)
@@ -164,17 +179,6 @@ Get["ff.numeric-interpo.wl"];]
 
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6*)
 serialize["interpo",interpoGEGM["v"]]
-
-
-(* ::Chapter:: *)
-(*Grid display *)
-
-
-(*\:5e94\:7528\:8868\:683c\:6392\:7248*)
-If[$inNBook,
-gridTable["GEGM",dataBackground]@Query[
-$ord0,Key@cc["C","1.50"],Key@"\[CapitalSigma]N"]@numFFs["v"]
-]
 
 
 (* ::Chapter:: *)
