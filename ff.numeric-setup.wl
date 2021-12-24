@@ -74,16 +74,15 @@ recordLocationInMessage@serialize;
 (*numeric cc RuleList*)
 
 
-(* \:62df\:5408\:51fa\:7684 c1,c2 \:503c\:88ab\:653e\:5728 ccfitted$Err \:4e2d, \:4f7f\:7528 Query \:67e5\:8be2; \:8003\:8651 \:53c2\:6570\:4e4b\:95f4\:7684\:9650\:5236\:ff0c\:7ed9\:51fa\:6240\:6709\:53c2\:6570\:7684\:6570\:503c*)
-apply$cc$numeric::usage="apply$cc$numeric[$parC][ffsMerged,ccfitted]
-$parC \:662f C\:53c2\:6570 \:7684\:503c, ffsMerged \:662f\:51fd\:6570, \:6d88\:8d39\:751f\:6210\:7684 {C,c1,c2} \:7684\:66ff\:6362\:89c4\:5219, 
-ccfitted \:662f fit \:7684\:7ed3\:679c, {c1,c2}\:7684\:6570\:503c\:5217\:8868";
-apply$cc$numeric[$parC_][ffsMerged_,ccfitted_]:=Module[{fittedParas},
-fittedParas=Join[ccfitted,numCCRelation/.ccfitted,{cc["C"]->$parC}];
-(*\:5c06\:53c2\:6570 c1,c2,C \:7684\:5177\:4f53\:503c\:4ee3\:5165\:8868\:8fbe\:5f0f, ffsMerged \:662f\:51fd\:6570*)
-ffsMerged@fittedParas
-];
 recordLocationInMessage@apply$cc$numeric;
+
+
+(* \:62df\:5408\:51fa\:7684 c1,c2 \:503c\:88ab\:653e\:5728 ccfitted$Err \:4e2d, \:4f7f\:7528 Query \:67e5\:8be2; \:8003\:8651 \:53c2\:6570\:4e4b\:95f4\:7684\:9650\:5236\:ff0c\:7ed9\:51fa\:6240\:6709\:53c2\:6570\:7684\:6570\:503c*)
+(*\:4e4b\:540e\:53ef\:4ee5\:5c06 \:53c2\:6570 c1,c2,C \:7684 \:66ff\:6362\:89c4\:5219\:4ee3\:5165\:8868\:8fbe\:5f0f, ffsMerged \:662f\:51fd\:6570*)
+apply$cc$numeric::usage="apply$cc$numeric[$parC_][ccfitted_]
+$parC \:662f C\:53c2\:6570 \:7684\:503c, ccfitted \:662f fit \:7684\:7ed3\:679c, {c1,c2}\:7684\:6570\:503c\:5217\:8868";
+apply$cc$numeric[$parC_][ccfitted_]:=Join[
+ccfitted,numCCRelation/.ccfitted,{cc["C"]->$parC}];
 
 
 (* ::Section:: *)

@@ -415,3 +415,12 @@ Frame->{All,All},
 Spacings->{1,1.5},
 Background->background
 ]
+
+
+(*\:80cc\:666f\:8272\:914d\:7f6e*)
+dataBackground={
+None,(* color horizontal: x1, x2, x3...*)
+{
+LightCyan,{None,LightBlue}
+}(* color vertical: y1, y2, y3...*)
+};

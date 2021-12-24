@@ -80,7 +80,9 @@ serialize["loop-result",loopResults["v"]];
 
 
 (*\:63d0\:53d6\:51fa ffsMerged \:8ba1\:7b97\:7ed3\:679c\:4e2d, \:5173\:5fc3\:7684\:90e8\:5206, TreeGEGM,LoopGEGM,\:91cd\:6b63\:5316\:5e38\:6570*)
-ffsMerged["trimed"]=Query[All,All,Key/@{ffsTreeGEGM,ffsLoopGEGM,recon}]@ffsMerged["WithRen"];
+ffsMerged["trimed"]=Query[(*order*)All,(*octet*)All,
+(*FFactors,recon,etc.*)Key/@{ffsTreeGEGM,ffsLoopGEGM,recon}
+]@ffsMerged["WithRen"];
 
 
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6\:ff1a\:5708\:56fe\:7684\:8ba1\:7b97\:7ed3\:679c*)
@@ -94,14 +96,16 @@ ffsMerged["confs"]=Association@Table[
 (*\:521d\:59cb\:5316 C \:5b57\:7b26\:5f62\:5f0f*)
 ccNumStr=enString@NumberForm[ccNum,{3,2}];
 (*\:4ee3\:5165\:62df\:5408\:786e\:5b9a\:7684\:6570\:503c*)
-Query[{Key@cc["C",ccNumStr]},All(*\:8ba1\:7b97\:6240\:6709\:62df\:5408\:65b9\:6848*),
-(* \:5e94\:7528\:5230 ccfitted$Err \:6570\:636e\:5c42\:7684\:51fd\:6570*)
-apply$cc$numeric[ccNum][(*\:9996\:53c2\:6570\:662f\:51fd\:6570\:ff0c\:6d88\:8d39\:4ea7\:751f \:53c2\:6570\:89c4\:5219*)
-Query[All,All,All,ReplaceAll[#]]@ffsMerged["trimed"]&,
-(*ccfitted \:7684\:9996\:5143\:7d20\:662f\:8bef\:5dee\:ff0c\:672b\:5143\:7d20\:662f c \:7684\:66ff\:6362\:89c4\:5219 *)
-Last@#]&
+Query[(*cc-values*){Key@cc["C",ccNumStr]},(*fitting-scheme*)All,
+(*ccfitted$Err \:6570\:636e\:5c42, ccfitted \:7684\:9996\:5143\:7d20\:662f\:8bef\:5dee\:ff0c\:672b\:5143\:7d20\:662f c \:7684\:66ff\:6362\:89c4\:5219, \:5982:
+{-5.551115123125783`*^-17,{cc["c1"]\[Rule]1.9165025864434668`,cc["c2"]\[Rule]0.5439905713541093`}}
+\:5c06\:751f\:6210\:7684 ccc \:66ff\:6362\:89c4\:5219\:5e94\:7528\:5230 \:5f62\:72b6\:56e0\:5b50\:7684\:8868\:8fbe\:5f0f\:4e0a*)
+Query[(*order*)All,(*octet*)All,(*tree-loop-FFactors,recons*)All,
+(*FFactors pair*)ReplaceAll[apply$cc$numeric[ccNum][Last@#]]
+]@ffsMerged["trimed"]&
+(*Query on \:62df\:5408\:7684\:6570\:636e\:5217\:8868*)
 ]@ccfitted$Err
-(* C\:7684\:8fed\:4ee3\:5217\:8868 *)
+(*C\:7684\:8fed\:4ee3\:5217\:8868*)
 ,{ccNum,{1.0,1.1,1.2,1.3,1.4,1.5}} 
 ]];
 
@@ -110,19 +114,22 @@ Last@#]&
 (*renormalization constant*)
 
 
+renormalConst["v"]=Query[(*cc-values*)All,(*fitting-scheme*)1,
+(*order*)Key@$ord0,(*octet*)All,(*tree-loop-FFactors,recons*)Key@recon,
+(*FFactors pair*)All
+]@ffsMerged["confs"];
+
+
+(*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6\:ff1a\:5708\:56fe\:7684\:8ba1\:7b97\:7ed3\:679c*)
+serialize["recons",renormalConst["v"]];
+
+
 (*\:6253\:5370\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570*)
 If[$inNBook,
-Query[Normal/*TableForm,
-(*fitting Scheme \:5c42*)1,
-Key@$ord0,Values/*StringRiffle,
-Key@recon,NumberForm[#,{4,3}]&
-]@ffsMerged["confs"]
+gridTable["recons",dataBackground]@
+Query[(*cc-values*)All,(*octet*)All,
+(*FFactors pair*)NumberForm[#,{4,3}]&]@renormalConst["v"]
 ]
-
-
-renormalConst["v"]=Query[(*CC \:5c42*)All,(*fitting Scheme \:5c42*)1,$ord0,
-(*octet \:5c42*)All,(*\:6811 \:5708 \:91cd\:6b63\:5316\:5c42*)Key@recon,(*F1F2/GEGM \:5c42*)All
-]@ffsMerged["confs"];
 
 
 (* ::Chapter:: *)
@@ -163,13 +170,6 @@ serialize["interpo",interpoGEGM["v"]]
 (*Grid display *)
 
 
-(*\:80cc\:666f\:8272\:914d\:7f6e*)
-dataBackground={
-None,(* color horizontal: x1, x2, x3...*)
-{
-LightCyan,{None,LightBlue}
-}(* color vertical: y1, y2, y3...*)
-};
 (*\:5e94\:7528\:8868\:683c\:6392\:7248*)
 If[$inNBook,
 gridTable["GEGM",dataBackground]@Query[
