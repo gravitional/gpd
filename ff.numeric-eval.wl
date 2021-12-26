@@ -34,15 +34,15 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
 (* ::Section:: *)
-(*para & import module*)
+(*parameters*)
 
 
-(*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged*)
+(*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged -------------------*)
 $renew$ffsMergedQ=True;
-(*\:662f\:5426\:8fd0\:884c\:5bf9\:7ed3\:679c\:7684 \:63d2\:503c \:7a0b\:5e8f*)
-$interpolateQ=True;
-(*\:8ba1\:7b97\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
+(*\:8ba1\:7b97\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838*)
 $parallelQ=False;
+(*\:662f\:5426\:8fd0\:884c\:5bf9\:7ed3\:679c\:7684 \:63d2\:503c \:7a0b\:5e8f --------------------*)
+$interpolateQ=True;
 (*\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
 $parallel$interpoQ=True;
 (*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
@@ -54,6 +54,10 @@ $par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
 (*$fitScheme={"\[CapitalSigma]N","most"};*)
 $fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all"};
 $erroBar="notbar";
+
+
+(* ::Section:: *)
+(*import module*)
 
 
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)

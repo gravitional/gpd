@@ -1,18 +1,6 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
-(*local cache directory*)
-
-
-(*\:7cfb\:6570\:6587\:4ef6\:7684\:6587\:4ef6\:5939*)
-coesDir=FileNameJoin[{$srcRoot,"coes"}];
-(*\:79ef\:5206\:8868\:8fbe\:5f0f\:7684\:6587\:4ef6\:5939*)
-mfilesDir=FileNameJoin[{$srcRoot,"mfiles"}];
-(*\:4fdd\:5b58\:8ba1\:7b97\:7ed3\:679c\:7684\:6587\:4ef6\:5939*)
-resultsDir=FileNameJoin[{$srcRoot,"results"}];enDir[resultsDir];
-
-
-(* ::Section:: *)
 (*num chop*)
 
 
@@ -26,7 +14,7 @@ $Q2Cut=0.0001;
 
 
 (* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
-If[!$Notebooks,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
+If[!$inNBook,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
 $inputCml=$ScriptCommandLine,
 (*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
 $inputCml={$fileName,
@@ -34,6 +22,64 @@ $inputCml={$fileName,
 $ordFull,0.90`30,1.50`30,"Baryons","notbar"
 }];
 echo["the input parameter is:\n",$inputCml];
+
+
+If[!$inNBook && Length@$inputCml>=2,
+Switch[$inputCml[[2]],
+1,
+$par\[CapitalLambda]=0.80,
+2,
+$par\[CapitalLambda]=0.90,
+3,$par\[CapitalLambda]=1.00,
+_,$par\[CapitalLambda]=0.90
+];]
+
+
+$par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
+echo["The configur is: ",$par\[CapitalLambda]];
+
+
+(* ::Section:: *)
+(*<<package*)
+
+
+If[$parallelQ,
+(*\:65b0\:542f\:52a8\:7684\:5185\:6838\:ff0c\:4f1a\:81ea\:52a8\:52a0\:8f7d X`*)
+Needs["X`"];ParallelNeeds["X`"];
+CloseKernels[];(*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
+Switch[{$MachineName,$System},
+{"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
+_,LaunchKernels[]
+];,
+Needs["X`"];]
+
+
+(*\:53d6\:6574\:51fd\:6570\:ff0c\:820d\:5f03\:5fae\:5c0f\:7684\:6570\:503c\:8bef\:5dee*)
+Default[chop,2]=$chopLimit;
+chop[expr_,limit_.]:=Chop[expr,limit]
+(*\:6839\:636e\:6c42\:89e3\:7684\:7ea7\:6570 level, \:8bbe\:5b9a\:4e0d\:540c\:7684 chop \:65b9\:5f0f*)
+chopQ2[x_]:=Simplify@chop[x/.Q2->0];
+(*----------- PaVe\:4e3b\:79ef\:5206 \:89e3\:6790\:5f0f\:4e2d\:7684\:7279\:6b8a\:51fd\:6570, \:5ef6\:8fdf Chop \:907f\:514dDiscB\:5e26\:6765\:7684\:5fae\:5c0f\:5047\:865a\:90e8 -----------*)
+DiscBChop[x__]:=chop[DiscB[x]]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
+ScalarC0Chop[x__]:=chop[ScalarC0[x]]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
+(*\:7279\:6b8a\:51fd\:6570\:7684 \:5ef6\:8fdfChop*)
+numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
+
+
+(* ::Section:: *)
+(*local cache directory*)
+
+
+(*\:7cfb\:6570\:6587\:4ef6\:7684\:6587\:4ef6\:5939*)
+coesDir=FileNameJoin[{$srcRoot,"coes"}];
+(*\:79ef\:5206\:8868\:8fbe\:5f0f\:7684\:6587\:4ef6\:5939*)
+mfilesDir=FileNameJoin[{$srcRoot,"mfiles"}];
+(*\:4fdd\:5b58\:8ba1\:7b97\:7ed3\:679c\:7684\:6587\:4ef6\:5939*)
+resultsDir=FileNameJoin[{$srcRoot,"results"}];enDir[resultsDir];
+
+
+(* ::Section:: *)
+(*<<fittings*)
 
 
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)

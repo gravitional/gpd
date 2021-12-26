@@ -8,17 +8,6 @@
 (*initiate*)
 
 
-If[$parallelQ,
-(*\:65b0\:542f\:52a8\:7684\:5185\:6838\:ff0c\:4f1a\:81ea\:52a8\:52a0\:8f7d X`*)
-Needs["X`"];ParallelNeeds["X`"];
-CloseKernels[];(*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
-Switch[{$MachineName,$System},
-{"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
-_,LaunchKernels[]
-];,
-Needs["X`"];]
-
-
 (* ::Section:: *)
 (*Couplings*)
 

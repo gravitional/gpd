@@ -1,22 +1,6 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
-(*num chop*)
-
-
-(*\:53d6\:6574\:51fd\:6570\:ff0c\:820d\:5f03\:5fae\:5c0f\:7684\:6570\:503c\:8bef\:5dee*)
-Default[chop,2]=$chopLimit;
-chop[expr_,limit_.]:=Chop[expr,limit]
-(*\:6839\:636e\:6c42\:89e3\:7684\:7ea7\:6570 level, \:8bbe\:5b9a\:4e0d\:540c\:7684 chop \:65b9\:5f0f*)
-chopQ2[x_]:=Simplify@chop[x/.Q2->0];
-(*----------- PaVe\:4e3b\:79ef\:5206 \:89e3\:6790\:5f0f\:4e2d\:7684\:7279\:6b8a\:51fd\:6570, \:5ef6\:8fdf Chop \:907f\:514dDiscB\:5e26\:6765\:7684\:5fae\:5c0f\:5047\:865a\:90e8 -----------*)
-DiscBChop[x__]:=chop[DiscB[x]]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
-ScalarC0Chop[x__]:=chop[ScalarC0[x]]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
-(*\:7279\:6b8a\:51fd\:6570\:7684 \:5ef6\:8fdfChop*)
-numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
-
-
-(* ::Section:: *)
 (*query Dataset Skeleton*)
 
 
