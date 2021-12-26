@@ -1,6 +1,22 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
+(*num chop*)
+
+
+(*\:53d6\:6574\:51fd\:6570\:ff0c\:820d\:5f03\:5fae\:5c0f\:7684\:6570\:503c\:8bef\:5dee*)
+Default[chop,2]=$chopLimit;
+chop[expr_,limit_.]:=Chop[expr,limit]
+(*\:6839\:636e\:6c42\:89e3\:7684\:7ea7\:6570 level, \:8bbe\:5b9a\:4e0d\:540c\:7684 chop \:65b9\:5f0f*)
+chopQ2[x_]:=Simplify@chop[x/.Q2->0];
+(*----------- PaVe\:4e3b\:79ef\:5206 \:89e3\:6790\:5f0f\:4e2d\:7684\:7279\:6b8a\:51fd\:6570, \:5ef6\:8fdf Chop \:907f\:514dDiscB\:5e26\:6765\:7684\:5fae\:5c0f\:5047\:865a\:90e8 -----------*)
+DiscBChop[x__]:=chop[DiscB[x]]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
+ScalarC0Chop[x__]:=chop[ScalarC0[x]]/;And@@NumericQ/@{x}(*\:5f53\:8f93\:5165\:662f\:6570\:5b57\:7684\:65f6\:5019\:ff0c\:624d\:8fdb\:884cchop*)
+(*\:7279\:6b8a\:51fd\:6570\:7684 \:5ef6\:8fdfChop*)
+numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
+
+
+(* ::Section:: *)
 (*query Dataset Skeleton*)
 
 
@@ -29,16 +45,17 @@ kLoopChanSum="loopChanSum";
 kLoopAmpSum="loopAmpSum";
 
 
+(*\:8868\:793a\:7ed3\:679c\:4e2d\:65e2\:5305\:542b \:6811\:56fe\:ff0c\:4e5f\:5305\:542b\:5708\:56fe*)
+keyTreeAndLoop="tree+loop";
+keyLoop="loop";
+
+
 (* ::Section:: *)
-(*interfaces*)
+(*ff, fd, fdDisp*)
 
 
 ff::usage="human-readable \:5f62\:5f0f\:7684\:8f93\:5165\:63a5\:53e3\:ff0c\:65b9\:4fbf\:8f93\:5165";
-(* \:8bbe\:7f6e\:6620\:5c04\:89c4\:5219\:ff0cSession \:4e2d\:53ea\:8fd0\:884c\:4e00\:6b21 *)
-setOnce[x_,y_]:=Once@Set[x,y]
-
-
-Activate@Inactive[Set][Inactive[ff]/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]]
+recordLocationInMessage@ff;
 
 
 (*++++++++++++++++++++++++++++++++ \:516b\:91cd\:6001\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++++++++++*)
@@ -62,7 +79,11 @@ Activate@Inactive[Set][
 Array[Inactive[fdDisp][1,#,0]&,9,{0,8}],
 fdStr[type]
 ];
+]
+
+
 (*++++++++++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++++++++++*)
+Block[{type,fdStr},
 type="oct";
 fdStr[type]={
 "p","n",
@@ -70,12 +91,16 @@ fdStr[type]={
 "\[CapitalXi]0","\[CapitalXi]-",
 "\[CapitalLambda]"};
 (* ----- \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3,  ff["p"]=fd[2,1,0] ----- *)
-setOnce[ff/@fdStr[type],
-Array[fd[2,#,0]&,8]];
-setOnce[ff["\[CapitalSigma]0\[CapitalLambda]"]=fd[2,{4,8},0]];(*\[CapitalSigma]0,\[CapitalLambda],\:7684\:7b80\:5e76\:8868\:793a*)
+Activate@Inactive[Set][
+Inactive[ff]/@fdStr[type],
+Array[fd[2,#,0]&,8]
+];
+Activate@Inactive[Set][
+Inactive[ff]@"\[CapitalSigma]0\[CapitalLambda]",fd[2,{4,8},0]
+];(*\[CapitalSigma]0,\[CapitalLambda],\:7684\:7b80\:5e76\:8868\:793a*)
 (*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
-setOnce[
-Array[fdDisp[2,#,0]&,8],
+Activate@Inactive[Set][
+Array[Inactive[fdDisp][2,#,0]&,8],
 fdStr[type]
 ];
 (*++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a ++++++++++++++++++++++++ *)
@@ -86,15 +111,24 @@ fdStr[type]={
 "\[CapitalXi]0b","\[CapitalXi]-b",
 "\[CapitalLambda]b"};
 (* ------ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3,  ff["p"]=fd[2,1,0] ------ *)
-setOnce[
-ff/@fdStr[type], Array[fd[2,#,1]&,8]
+Activate@Inactive[Set][
+Inactive[ff]/@fdStr[type],
+Array[fd[2,#,1]&,8]
 ];
-setOnce[ff["\[CapitalSigma]0b\[CapitalLambda]b"]=fd[2,{4,8},1]];(*\[CapitalSigma]0b,\[CapitalLambda]b \:7684\:7b80\:5e76\:8868\:793a*)
+Activate@Inactive[Set][
+Inactive[ff]@"\[CapitalSigma]0b\[CapitalLambda]b",
+fd[2,{4,8},1](*\[CapitalSigma]0b,\[CapitalLambda]b \:7684\:7b80\:5e76\:8868\:793a*)
+];
 (*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
-setOnce[
-Array[fdDisp[2,#,1]&,8],fdStr[type]
+Activate@Inactive[Set][
+Array[Inactive[fdDisp][2,#,1]&,8],
+fdStr[type]
 ];
+]
+
+
 (*++++++++++++++++++++++++ \:5341\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++*)
+Block[{type,fdStr},
 type="dec";
 fdStr[type]={
 "\[CapitalDelta]++","\[CapitalDelta]+","\[CapitalDelta]0","\[CapitalDelta]-",
@@ -103,14 +137,16 @@ fdStr[type]={
 "\[CapitalOmega]-"
 };
 (* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, ff["\[CapitalDelta]++"]=fd[3,1,0] ++++++++ *)
-setOnce[
-ff/@fdStr[type],Array[fd[3,#,0]&,10]
+Activate@Inactive[Set][
+Inactive[ff]/@fdStr[type],
+Array[fd[3,#,0]&,10]
 ];
 (*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
-setOnce[
-Array[fdDisp[3,#,0]&,10],fdStr[type]
+Activate@Inactive[Set][
+Array[Inactive[fdDisp][3,#,0]&,10],
+fdStr[type]
 ];
-(*\:5341\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
+(*\:5341\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a----------------------*)
 type="decb";
 fdStr[type]={
 "\[CapitalDelta]++b","\[CapitalDelta]+b","\[CapitalDelta]0b","\[CapitalDelta]-b",
@@ -118,33 +154,43 @@ fdStr[type]={
 "\[CapitalXi]*0b","\[CapitalXi]*-b",
 "\[CapitalOmega]-b"
 };
-setOnce[
-ff/@fdStr[type],Array[fd[3,#,1]&,10]
+Activate@Inactive[Set][
+Inactive[ff]/@fdStr[type],
+Array[fd[3,#,1]&,10]
 ];
 (*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
-setOnce[
-Array[fdDisp[3,#,1]&,10],fdStr[type]
+Activate@Inactive[Set][
+Array[Inactive[fdDisp][3,#,1]&,10],
+fdStr[type]
 ];
+]
+
+
 (*++++++++++++++++++++++++ quark \:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++*)
+Block[{type,fdStr},
 type="qua";
 fdStr[type]={"u","d","s"};
 (* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, quark human-readable, ff["u"]=fd[4,1,0] ++++++++ *)
-setOnce[
-ff/@fdStr[type],Array[fd[4,#,0]&,3]
+Activate@Inactive[Set][
+Inactive[ff]/@fdStr[type],
+Array[fd[4,#,0]&,3]
 ];
 (*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
-setOnce[
-Array[fdDisp[4,#,0]&,3],fdStr[type]
+Activate@Inactive[Set][
+Array[Inactive[fdDisp][4,#,0]&,3],
+fdStr[type]
 ];
 (* -----------\:53cd\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3 ----------- *)
 type="quab";
 fdStr[type]={"ub","db","sb"};
-setOnce[
-ff/@fdStr[type],Array[fd[4,#,1]&,3]
+Activate@Inactive[Set][
+Inactive[ff]/@fdStr[type],
+Array[fd[4,#,1]&,3]
 ];
 (*------------ \:8bbe\:7f6e\:573a\:7684 Display \:5185\:5bb9 ------------*)
-setOnce[
-Array[fdDisp[4,#,1]&,3],fdStr[type]
+Activate@Inactive[Set][
+Array[Inactive[fdDisp][4,#,1]&,3],
+fdStr[type]
 ];
 ]
 

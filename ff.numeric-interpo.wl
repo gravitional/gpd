@@ -26,9 +26,9 @@ mergeRecur[{x_Association,y_Association}]:=Merge[{x,y},mergeRecur];
 
 
 (*\:751f\:6210 GEGM \:7684\:5206\:6bb5\:51fd\:6570*)
-fullGEGM["v"]=Merge[{
-Query[$ord0]@numFFs["v"],
-Query[$ordFull]@numFFs["v"]
+fullGEGM["v",keyTreeAndLoop]=Merge[{
+Query[$ord0]@numFFs["v",keyTreeAndLoop],
+Query[$ordFull]@numFFs["v",keyTreeAndLoop]
 },
 mergeRecur
 ];
@@ -111,15 +111,15 @@ echo[DateString[],": $start interpolation on curves"]
 
 (* \:5bf9\:5f97\:5230\:7684\:5206\:6bb5\:51fd\:6570\:8fdb\:884c \:63d2\:503c *)
 (*\:6839\:636e\:5e76\:884c\:8bbe\:7f6e\:ff0cevaluation*)
-interpoGEGM["v"]=If[$parallel$interpoQ,
+interpoGEGM["v",keyTreeAndLoop]=If[$parallel$interpoQ,
 (*\:5e76\:884c\:60c5\:51b5\:ff0c\:5206\:53d1\:5230\:5b50\:6838\:8ba1\:7b97*)
 waitAssoc@Query[(*ccValue*)All,(*fitScheme*)All,
 (*octet*)All,(*contribution*)All,(*GEGM*)All,
 ParallelSubmit[echoProgress[$counter][FunctionInterpolation[#,{Q2,0,1}]]]&
-]@fullGEGM["v"],
+]@fullGEGM["v",keyTreeAndLoop],
 (*\:975e\:5e76\:884c\:60c5\:51b5\:ff1a\:5355\:6838\:987a\:5e8f\:6267\:884c*)
 Query[(*ccValue*)All,(*fitScheme*)All,
 (*octet*)All,(*contribution*)All,(*GEGM*)All,
 echoProgress[$counter][FunctionInterpolation[#,{Q2,0,1}]]&
-]@fullGEGM["v"]
+]@fullGEGM["v",keyTreeAndLoop]
 ];
