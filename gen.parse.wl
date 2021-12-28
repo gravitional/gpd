@@ -34,8 +34,8 @@ Begin["`Private`"]
 
 
 (*\:5b9a\:4e49\:4e00\:4e9b\:5e38\:7528\:7684\:51fd\:6570*)
-enList[x__]:=Replace[{x},{{y__}}:>{y},{0}](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5217\:8868\:7684\:51fd\:6570*)
-enString[x__]:=StringJoin[ToString/@enList[x]](*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570*)
+enList[x__]:=Replace[{x},{{y__}}:>{y},{0}](*\:786e\:4fdd\:5217\:8868\:7684\:51fd\:6570*)
+enString[x__]:=StringJoin[ToString/@enList[x]](*\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570*)
 
 
 If[$Notebooks,
@@ -93,34 +93,46 @@ GroupBy[Parser["ToRuleLst"]@plist,StringStartsQ[Keys@#,"-"]&]
 (*argument template*)
 
 
-(*\:89e3\:6790\:7528\:6237\:7ed9\:51fa\:7684 \:547d\:4ee4\:884c\:53c2\:6570 \:6a21\:677f, \:751f\:6210 option, position, \:4ee5\:53ca\:5e2e\:52a9\:4fe1\:606f*)
-Parser["parser-tmp"]:=If[Head@CmdParser["tmp"] =!= Association,
-(*\:5982\:679c\:8fd8\:672a\:5b9a\:4e49\:6a21\:677f\:ff0c\:5219\:63d0\:9192\:5b9a\:4e49\:6a21\:677f--------------------------*)
-Print["Input the cmdline argument template: "<>ToString[
-Unevaluated[CmdParser["tmp"]=<|
-"opt"-><|
-{"abs","a"}->{1,"the abs feature"},
-"l1"->"2"|>,
-"pos"->{
-{1,"the 1st position arguments"},
-2}|>
-],FormatType->InputForm
-]];Abort[],
-(* \:89e3\:6790\:6a21\:677f--------------------------*)
-Module[{optValue,optHelp,posValue,posHelp,pair},
+Parser::NeedTemplate="Please give the cmdline argument template, for example:\n
+CmdParser[\"tmp\"]=<|
+\"opt\"-><|
+{\"abs\",\"a\"}->{1,\"Argument description: the abs feature.\"},
+\"bar\"->{2, \"Description can leave out with blank.\"}
+|>,
+\"pos\"->{
+{1,\"The 1st position argument: file name\"},
+{2,\"The 2st position argument: file author\"}
+}
+|>";
+
+
+(*\:63d0\:53d6\:51fa \:9009\:9879\:53c2\:6570 key-value pair*)
 optValue[key_,val_]:=Rule[#,First@enList[val]]&/@enList[key];
+(*\:63d0\:53d6\:51fa\:4f4d\:7f6e\:53c2\:6570\:7684 value *)
 posValue[pos_]:=First@enList@pos;
+(*\:9009\:9879\:53c2\:6570 \:7684\:5e2e\:52a9\:6587\:6863, {longName,shortName}\[Rule]{Description} *)
 optHelp[key_,val_]:=enList@key->enList[val][[2;;]];
-posHelp[pos_]:=(pair=enList@pos;pair[[{1}]]->pair[[2;;]]);
+(*\:4f4d\:7f6e\:53c2\:6570 \:7684\:5e2e\:52a9\:6587\:6863, {order}\[Rule]{Description}*)
+posHelp[pos_]:=#[[{1}]]->#[[2;;]]&[ToString/@enList@pos];
+
+
+(*\:89e3\:6790\:7528\:6237\:7ed9\:51fa\:7684 \:547d\:4ee4\:884c\:53c2\:6570 \:6a21\:677f, \:751f\:6210 option, position, \:4ee5\:53ca\:5e2e\:52a9\:4fe1\:606f*)
+Parser["parser-tmp"]:=If[
+Head@CmdParser["tmp"] =!= Association,
+(*\:5982\:679c\:8fd8\:672a\:5b9a\:4e49\:6a21\:677f\:ff0c\:5219\:63d0\:9192\:5b9a\:4e49\:6a21\:677f--------------------------*)
+Message[Parser::NeedTemplate];Abort[],
 (*\:4ece\:6a21\:677f\:4e2d\:89e3\:6790\:51fa\:53c2\:6570\:548c\:9ed8\:8ba4\:503c---------------------------*)
 <|
 "opt"->Association@KeyValueMap[optValue]@CmdParser["tmp"]@"opt",
 "pos"->posValue/@CmdParser["tmp"]@"pos",
 "HelpAll"->Association@Join[
+(*\:89e3\:6790 option\:53c2\:6570 \:7684\:5e2e\:52a9*)
 KeyValueMap[optHelp]@CmdParser["tmp"]@"opt",
+(*\:89e3\:6790 position\:53c2\:6570 \:7684\:5e2e\:52a9*)
 posHelp/@CmdParser["tmp"]@"pos"
 ]
-|>]]
+|>
+]
 
 
 (* ::Section:: *)
@@ -128,19 +140,22 @@ posHelp/@CmdParser["tmp"]@"pos"
 
 
 (*\:6253\:5370\:5e2e\:52a9\:4fe1\:606f*)
-Parser["echo-help"][HelpMessage_]:=Print["Help Message:\n\n",
+Parser["echo-help"][HelpMessage_]:=Print[
+"\033[1;44m\033[1;37m"<>"Help Message:"<>"\033[0;0m\n",
 StringRiffle[
 KeyValueMap[{StringRiffle[#1,", "],StringRiffle[#2]}&]@
 HelpMessage
-,"\n",":\t"]]
+,"\n",":\t"]
+,"\n"]
 
 
 Parser["need-help?"]:=Module[{
-HelpNeed=enList@Parser["session"]["opt"]["help"]//EchoFunction["HelpNeed: ",FullForm],
-HelpAll=Parser["session"]["HelpAll"]//EchoFunction["HelpAll: ",FullForm],
+(*\:547d\:4ee4\:884c\:67e5\:8be2\:7684\:5177\:4f53\:5e2e\:52a9 {optName} \:6216\:8005 {order}, \:4f4d\:7f6e\:53c2\:6570\:7684\:987a\:5e8f *)
+HelpNeed=enList@Parser["session"]["opt"]["help"],
+HelpAll=Parser["session"]["HelpAll"],
 helpSearch
 },
-helpSearch=KeySelect[ContainsAny[#,HelpNeed]&]@HelpAll//EchoFunction["search: ",FullForm];
+helpSearch=KeySelect[ContainsAny[#,HelpNeed]&]@HelpAll;
 
 Switch[HelpNeed,
 (*\:5982\:679c\:662f help->True, \:8f93\:51fa\:6240\:6709\:5e2e\:52a9*)
@@ -160,8 +175,8 @@ Parser["echo-help"]@helpSearch
 
 CmdParser["init"]:=(
 Parser["session"]=Merge[Join@@#&]@{
-Parser["parser-tmp"]//EchoFunction["parser-tmp: ",FullForm],
-Parser["ToAssoc"]@$inputCml//EchoFunction["cmd->Assoc: ",InputForm]
+Parser["parser-tmp"],
+Parser["ToAssoc"]@$inputCml
 };
 Parser["need-help?"];
 Parser["session"]
