@@ -71,13 +71,12 @@ echo[fittingsDir=FileNameJoin[{$srcRoot,"fittings"}]];enDir[fittingsDir];
 
 
 (*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)
-numCCRelation={cc["c4"]->cc["c1"]/Sqrt[3],cc["cT"]->(3cc["c2"]+1)/2};
+magCCRelation={cc["c4"]->cc["c1"]/Sqrt[3],cc["cT"]->(3cc["c2"]+1)/2};
 (*\:62df\:5408\:ff0c\:8fd9\:91cc\:4e0d\:6307\:5b9a c1,c2,C \:7684\:503c*)
-fittedParas=numCCRelation;
 
 
 (* \:975e\:62df\:5408\:7684\:60c5\:51b5\:ff0c\:7ed9\:51fa c1,c2, C \:7684\:5177\:4f53\:6570\:503c
-Join[ccfitted,numCCRelation/.ccfitted,{cc["C"]->$parC}]
+Join[ccfitted,magCCRelation/.ccfitted,{cc["C"]->$parC}]
 *)
 
 

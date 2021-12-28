@@ -23,7 +23,7 @@ cc["f"]->0.093`30,cc["D"]->0.76`30, cc["F"]->0.50`30,
 cc["b9"]->1.36`30,cc["b10"]->1.24`30,cc["b11"]->0.46`30,
 Sequence@@fyCoesRule,
 (* c1,c2, C \:7684\:503c*)
-Sequence@@fittedParas
+Sequence@@magCCRelation
 };
 
 

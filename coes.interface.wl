@@ -192,8 +192,7 @@ $fittingScheme=<|
 "charged"->{ff["p"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"],ff["\[CapitalXi]-"]},
 "many"->{ff["p"],ff["n"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"],ff["\[CapitalXi]0"],ff["\[CapitalXi]-"]},
 "most"->{ff["p"],ff["n"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"],ff["\[CapitalXi]0"],ff["\[CapitalXi]-"],ff["\[CapitalLambda]"]},
-"all"->{ff["p"],ff["n"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]0"],ff["\[CapitalSigma]-"],
-ff["\[CapitalXi]0"],ff["\[CapitalXi]-"],ff["\[CapitalLambda]"]}
+"all"->{ff["p"],ff["n"],ff["\[CapitalSigma]+"],ff["\[CapitalSigma]0"],ff["\[CapitalSigma]-"],ff["\[CapitalXi]0"],ff["\[CapitalXi]-"],ff["\[CapitalLambda]"]}
 |>;
 
 

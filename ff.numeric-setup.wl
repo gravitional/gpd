@@ -30,13 +30,17 @@ $LambdaNumStr=enString@NumberForm[$LambdaNum,{3,2}];
 (*$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]-p","\[CapitalSigma]N","\[CapitalSigma]-\[CapitalXi]-","N","p\[CapitalXi]-","\[CapitalXi]","charged","many","most","all"};*)
 $fitScheme=Switch[$inputCml@"fit-scheme",
 Automatic,{"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all"},
-_,$inputCml@"fit-scheme"
+1,{"\[CapitalSigma]+-","N","charged","most"},
+2,{"\[CapitalSigma]+-","N","most"},
+3,{"N","most"},
+_,{"N","most"}
 ];
 (*\:5f15\:7528\:7684 fit \:7ed3\:679c\:57fa\:4e8e\:7684 Lambda, \:800c\:4e0d\:662f\:6570\:503c\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 Lambda *)
 $LambdaFit=Switch[$inputCml@"lbd-fit",
 Undefined,$LambdaNum,
 _,$inputCml@"lbd-fit"
 ];
+(*\:76f8\:5e94\:7684\:5b57\:7b26\:5f62\:5f0f*)
 $LambdaFitStr=enString@NumberForm[$LambdaFit,{3,2}];
 
 
@@ -91,18 +95,19 @@ resultsDir=FileNameJoin[{$srcRoot,"results"}];enDir[resultsDir];
 (*<<fittings*)
 
 
-(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
+(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55---------------*)
 echo[fittingsDir=FileNameJoin[{$srcRoot,"fittings"}]];enDir[fittingsDir];
-(*\:8bfb\:53d6 c1,c2 \:7684\:62df\:5408\:503c*)
-ccfitted$Err=Query[Key@cc["\[CapitalLambda]",$LambdaNumStr],All,$fitScheme
+(*\:8bfb\:53d6 c1,c2 \:7684\:62df\:5408\:503c, \:6839\:636e $LambdaFitStr \:7684\:503c\:6765\:9009\:53d6 ---------------*)
+ccfitted$Err=Query[
+(*\[CapitalLambda] value*)Key@cc["\[CapitalLambda]",$LambdaFitStr],
+(*C value*)All,(*fit-scheme*)$fitScheme
 ]@Import@FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}];
 
 
 (*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)
-numCCRelation={cc["c4"]->cc["c1"]/Sqrt[3],cc["cT"]->(3cc["c2"]+1)/2};
+magCCRelation={cc["c4"]->cc["c1"]/Sqrt[3],cc["cT"]->(3cc["c2"]+1)/2};
 (* \:4e3a\:4e86\:91cd\:590d\:5229\:7528\:7ed3\:6784\:ff0c\:8fd9\:91cc\:4e0d\:6307\:5b9a c1,c2, C \:7684\:5177\:4f53\:6570\:503c*)
-fittedParas=numCCRelation;
-recordLocationInMessage@numCCRelation;
+recordLocationInMessage@magCCRelation;
 
 
 (*\:58f0\:660e\:4e00\:4e9b\:8fd0\:52a8\:5b66\:53d8\:91cf,\:4f7f\:7528 atom \:8868\:8fbe\:5f0f\:ff0cpackage-X \:7684 loopIntegrate \:9700\:8981\:79ef\:5206\:52a8\:91cf\:4e3a\:539f\:5b50\:8868\:8fbe\:5f0f*)
@@ -141,7 +146,7 @@ recordLocationInMessage@apply$cc$numeric;
 apply$cc$numeric::usage="apply$cc$numeric[$parC_][ccfitted_]
 $parC \:662f C\:53c2\:6570 \:7684\:503c, ccfitted \:662f fit \:7684\:7ed3\:679c, {c1,c2}\:7684\:6570\:503c\:5217\:8868";
 apply$cc$numeric[$parC_][ccfitted_]:=Join[
-ccfitted,numCCRelation/.ccfitted,{cc["C"]->$parC}];
+ccfitted,magCCRelation/.ccfitted,{cc["C"]->$parC}];
 
 
 (* ::Section:: *)
