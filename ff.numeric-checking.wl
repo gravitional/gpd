@@ -47,13 +47,13 @@ $parallel$couplsQ=False;
 $parallel$interpoQ=True;
 (*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
 $parOrdStr=$ordFull;
-$parLambda=0.90;
-$parLambdaStr=enString@NumberForm[$parLambda,{3,2}];
+$LambdaNum=0.90;
+$LambdaNumStr=enString@NumberForm[$LambdaNum,{3,2}];
 (* fitScheme \:5b9a\:4e49\:89c1: $fittingScheme*)
 (*$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]-p","\[CapitalSigma]N","\[CapitalSigma]-\[CapitalXi]-","N","p\[CapitalXi]-","\[CapitalXi]","charged","many","most","all"};*)
 (*$fitScheme={"\[CapitalSigma]N","most"};*)
 $fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all"};
-$erroBar="notbar";
+$LambdaFit="notbar";
 
 
 (*\:5bfc\:5165\:6b64\:8ba1\:7b97\:7a0b\:5e8f\:7684\:53c2\:6570----------------------------------------------------------*)

@@ -18,7 +18,7 @@ fyCoesRule={fyCoe->Times,vtxCoe->Identity};
 
 (*------------------- \:5c06\:8026\:5408\:5e38\:6570\:7684\:5177\:4f53\:6570\:503c\:4ee3\:5165 -------------------*)
 numCoupLst={
-\[CapitalLambda]->$parLambda,(*\:6b63\:89c4\:5b50\:80fd\:6807\:53c2\:6570*)
+\[CapitalLambda]->$LambdaNum,(*\:6b63\:89c4\:5b50\:80fd\:6807\:53c2\:6570*)
 cc["f"]->0.093`30,cc["D"]->0.76`30, cc["F"]->0.50`30,
 cc["b9"]->1.36`30,cc["b10"]->1.24`30,cc["b11"]->0.46`30,
 Sequence@@fyCoesRule,
@@ -49,7 +49,7 @@ If[$parallel$couplsQ,
 ParallelEvaluate[ReleaseHold@paraInitial];
 DistributeDefinitions[
 $srcRoot,$fileName,echo,enList,enString,$inNBook,
-$parOrdStr,$parLambdaStr,$parCStr,$fitScheme,$erroBar,
+$parOrdStr,$LambdaNumStr,$parCStr,$fitScheme,$LambdaFit,
 coesDir,mfilesDir,fyAmpPart,
 massV,numMass,numCoupLst,numPaVe,otherCoes,
 quaCharge,medRule,toGEGM,

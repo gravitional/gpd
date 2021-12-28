@@ -13,57 +13,39 @@ $Q2Cut=0.0001;
 (*cmd arguments*)
 
 
-(*\:5904\:7406\:547d\:4ee4\:884c\:53c2\:6570\:7684\:5305*)
-Get["/home/tom/gpd/gen.parse.wl"];
+(*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged -------------------*)
+$renew$ffsMergedQ=$inputCml@"update";
+(*\:8ba1\:7b97\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838*)
+$parallel$couplsQ=$inputCml@"para-coupl";
+(*\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f --------------------*)
+$interpolateQ=$inputCml@"interp";
+(*\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
+$parallel$interpoQ=$inputCml@"para-interp";
+(*\:5708\:56fe\:5c55\:5f00\:7684\:9636\:6570-------------------*)
+$parOrdStr=$inputCml@"ord";
+(*\:6570\:503c\:8ba1\:7b97\:4f7f\:7528\:7684 Lambda value ----------------*)
+$LambdaNum=$inputCml@"lbd-num";
+$LambdaNumStr=enString@NumberForm[$LambdaNum,{3,2}];
+(* fitScheme \:5b9a\:4e49\:89c1: $fittingScheme*)
+(*$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]-p","\[CapitalSigma]N","\[CapitalSigma]-\[CapitalXi]-","N","p\[CapitalXi]-","\[CapitalXi]","charged","many","most","all"};*)
+$fitScheme=Switch[$inputCml@"fit-scheme",
+Automatic,{"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all"},
+_,$inputCml@"fit-scheme"
+];
+(*\:5f15\:7528\:7684 fit \:7ed3\:679c\:57fa\:4e8e\:7684 Lambda, \:800c\:4e0d\:662f\:6570\:503c\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 Lambda *)
+$LambdaFit=Switch[$inputCml@"lbd-fit",
+Undefined,$LambdaNum,
+_,$inputCml@"lbd-fit"
+];
+$LambdaFitStr=enString@NumberForm[$LambdaFit,{3,2}];
 
 
-(*\:547d\:4ee4\:884c\:53c2\:6570\:6a21\:677f*)
-CmdParser["template"]=<|
-"opt"-><|
-{"$renew$ffsMergedQ"}->{"True","\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged,\:8d39\:66fc\:56fe\:90e8\:5206\:6570\:503c\:7684\:7ed3\:679c"},
-"$parallel$couplsQ"->{"False","\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838."},
-"$interpolateQ"->{"True","\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f."},
-"$parallel$interpoQ"->{"True","\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838"},
-"$parOrdStr"->{"$ordFull","\:5708\:79ef\:5206\:7684\:7ea7\:6570 order: \:6709 ord0, ord1, ordFull"},
-"$parLambda"->{"0.90","\:8ba1\:7b97\:4e2d Lambda \:7684\:53d6\:503c: 0.80,0.90,1.00"},
-"$fitScheme"->{"{\"\[CapitalSigma]+-\",\"\[CapitalSigma]\",\"\[CapitalSigma]N\",\"N\",\"p\[CapitalXi]-\",\"charged\",\"many\",\"most\",\"all\"}",
-"\:62df\:5408\:65b9\:6848\:7684\:8bbe\:7f6e"},
-"$LambdaBase"->{"0.90","fitting \:57fa\:4e8e\:7684 \[CapitalLambda], \:800c\:4e0d\:662f\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 \[CapitalLambda]: 0.80,0.90,1.00"}
-|>,
-"pos"->{}
-|>;
+(* ::Section:: *)
+(*arguments check*)
 
 
-CmdParser["pseudo"]={"--bbq","1","--help","fuck","ss"};
-
-
-Print@CmdParser["init"]
-
-
-(* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
-If[!$inNBook,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
-$inputCml=$ScriptCommandLine,
-(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
-$inputCml={$fileName,
-(*\:5728\:8fd9\:91cc\:63d0\:4f9b\:5176\:4ed6\:53c2\:6570, \:4f7f\:7528 mathematica \:8bed\:6cd5\:4e0b\:7684\:5f62\:5f0f\:ff0c\:5916\:9762\:7684 enString \:4f1a\:81ea\:52a8\:8f6c\:6362\:6210\:5b57\:7b26\:4e32, \:5c3d\:91cf\:591a\:4f7f\:7528Association\:7ed3\:6784*)
-$ordFull,0.90`30,1.50`30,"Baryons","notbar"
-}];
-echo["the input parameter is:\n",$inputCml];
-
-
-If[!$inNBook && Length@$inputCml>=2,
-Switch[$inputCml[[2]],
-1,
-$parLambda=0.80,
-2,
-$parLambda=0.90,
-3,$parLambda=1.00,
-_,$parLambda=0.90
-];]
-
-
-$parLambdaStr=enString@NumberForm[$parLambda,{3,2}];
-echo["The configur is: ",$parLambda];
+(* ::Input:: *)
+(*echo["The configur is: ",$LambdaNum];*)
 
 
 (* ::Section:: *)
@@ -112,7 +94,7 @@ resultsDir=FileNameJoin[{$srcRoot,"results"}];enDir[resultsDir];
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
 echo[fittingsDir=FileNameJoin[{$srcRoot,"fittings"}]];enDir[fittingsDir];
 (*\:8bfb\:53d6 c1,c2 \:7684\:62df\:5408\:503c*)
-ccfitted$Err=Query[Key@cc["\[CapitalLambda]",$parLambdaStr],All,$fitScheme
+ccfitted$Err=Query[Key@cc["\[CapitalLambda]",$LambdaNumStr],All,$fitScheme
 ]@Import@FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}];
 
 
@@ -134,9 +116,13 @@ Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
 
 (*--------------------------\:6682\:5b58\:7ed3\:679c--------------------------*)
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
-echo["save in directory: ",resultsDir=FileNameJoin[{$srcRoot,"results"}]];enDir[resultsDir];
+echo["result will be saved in: ",resultsDir=FileNameJoin[{$srcRoot,"results"}]];enDir[resultsDir];
 (*\:7ed9\:51fa\:672c\:5730\:7f13\:5b58\:6587\:4ef6\:7684\:8def\:5f84*)
-localCachePath[filename_String]:=FileNameJoin[{resultsDir,StringRiffle[{filename,$parOrdStr,"Lambda",$parLambdaStr,$erroBar},"-"]<>".wdx"}];
+localCachePath[filename_String]:=FileNameJoin[{resultsDir,StringRiffle[{
+filename,$parOrdStr,
+"LbdNum",$LambdaNumStr,
+"LbdFit",$LambdaFitStr
+},"-"]<>".wdx"}];
 (*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
 serialize[filename_String,result_]:=With[{path=localCachePath[filename]},
 Export[path,result];echo["Exporting finished: ", path];]

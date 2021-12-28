@@ -58,7 +58,7 @@ DistributeDefinitions[
 (*\:516c\:5171\:73af\:5883\:53d8\:91cf*)
 $srcRoot,$fileName,echo,enList,enString,$inNBook,
 (*\:5c40\:90e8\:73af\:5883\:53d8\:91cf*)
-$parOrdStr,$parLambdaStr,$fitScheme,$erroBar,
+$parOrdStr,$LambdaNumStr,$fitScheme,$LambdaFit,
 $chopLimit,chop,$precision,
 (*\:81ea\:5b9a\:4e49\:51fd\:6570*)
 numPaVe

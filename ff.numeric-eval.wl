@@ -34,26 +34,37 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
 (* ::Section:: *)
-(*parameters*)
+(*cmd arguments*)
 
 
-(*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged -------------------*)
-$renew$ffsMergedQ=True;
-(*\:8ba1\:7b97\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838*)
-$parallel$couplsQ=False;
-(*\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f --------------------*)
-$interpolateQ=True;
-(*\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
-$parallel$interpoQ=True;
-(*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
-$parOrdStr=$ordFull;
-$parLambda=0.90;
-$parLambdaStr=enString@NumberForm[$parLambda,{3,2}];
-(* fitScheme \:5b9a\:4e49\:89c1: $fittingScheme*)
-(*$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]-p","\[CapitalSigma]N","\[CapitalSigma]-\[CapitalXi]-","N","p\[CapitalXi]-","\[CapitalXi]","charged","many","most","all"};*)
-(*$fitScheme={"\[CapitalSigma]N","most"};*)
-$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all"};
-$LambdaBase="notbar";
+(*\:5904\:7406\:547d\:4ee4\:884c\:53c2\:6570\:7684\:5305*)
+Get["gen.parse.wl"];
+(*\:547d\:4ee4\:884c\:53c2\:6570\:6a21\:677f*)
+CmdParser["template"]=<|
+"opt"-><|
+{"update"}->{"False","\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged,\:8d39\:66fc\:56fe\:90e8\:5206\:6570\:503c\:7684\:7ed3\:679c"},
+{"para-coupl"}->{"False","\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838."},
+{"interp"}->{"False","\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f."},
+{"para-interp"}->{"True","\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838"},
+{"ord"}->{"$ordFull","\:5708\:79ef\:5206\:7684\:7ea7\:6570 order: \:6709 ord0, ord1, ordFull"},
+{"lbd-num"}->{"0.90","\:6570\:503c\:8ba1\:7b97\:4e2d Lambda \:7684\:53d6\:503c: 0.80,0.90,1.00"},
+{"fit-scheme"}->{"Automatic",
+"\:62df\:5408\:65b9\:6848\:7684\:8bbe\:7f6e"},
+{"lbd-fit"}->{"Undefined","\:5f15\:7528\:7684 fitting \:57fa\:4e8e\:7684 Lambda, \:800c\:4e0d\:662f\:6570\:503c\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 Lambda: 0.80,0.90,1.00"}
+|>,
+"pos"->{}
+|>;
+
+
+(*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
+CmdParser["pseudo"]={
+"--update","True",
+"--ord","$ordFull",
+"--lbd-num","0.90"
+};
+
+
+$inputCml=Query[All,All,ToExpression[#,InputForm]&][CmdParser["get"]]["opt"]
 
 
 (* ::Section:: *)
@@ -76,16 +87,16 @@ Get["ff.numeric-setup.wl"];
 
 If[!$renew$ffsMergedQ&&
 FileExistsQ@FindFile@localCachePath["loop-result"]&&
-FileExistsQ@FindFile@localCachePath["ffsMerged-With-Renorm"],
+FileExistsQ@FindFile@localCachePath["ffsMerged"],
 (*\:5982\:679c\:6709\:4e4b\:524d\:7f13\:5b58\:7684\:7ed3\:679c\:ff0c\:5c31\:76f4\:63a5\:8bfb\:5165*)
 loopResults["v"]=Import@localCachePath["loop-result"];
-ffsMerged["WithRen",keyTreeAndLoop]=Import@localCachePath["ffsMerged-With-Renorm"];,
+ffsMerged["WithRen",keyTreeAndLoop]=Import@localCachePath["ffsMerged"];,
 (*\:5982\:679c\:9700\:8981\:91cd\:65b0\:8ba1\:7b97,\:5c31\:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
 (*order full, Intel i7-6700 (8): \:4ee3\:5165\:6240\:6709\:6570\:503c, ~ 4m30s ; \:4ee3\:5165\:90e8\:5206\:6570\:503c, ~3m50s *)
 Get["ff.numeric-worker.wl"];//AbsoluteTiming//echo;
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6\:ff1a\:5708\:56fe\:7684\:8ba1\:7b97\:7ed3\:679c*)
 serialize["loop-result",loopResults["v"]];
-serialize["ffsMerged-With-Renorm",ffsMerged["WithRen",keyTreeAndLoop]];
+serialize["ffsMerged",ffsMerged["WithRen",keyTreeAndLoop]];
 ]
 
 

@@ -54,20 +54,20 @@ $inputCml:=$ScriptCommandLine;
 Parser["ToRuleLst"][plist_List]:=Which[
 (*\:957f\:5ea6\[GreaterEqual]1, -- val.., \:540e\:9762\:7684\:90fd\:5f53\:6210\:4f4d\:7f6e\:53c2\:6570 ----------------*)
 Length@plist>=1&&StringMatchQ[First@plist,"--"],
-Rule[#,True]&/@Rest@plist,
+Rule[#,"True"]&/@Rest@plist,
 (*\:957f\:5ea6\[GreaterEqual]2, -o val, \:6216\:8005 --opt, val \:7684\:6a21\:5f0f----------------*)
 Length@plist>=2&&StringStartsQ[First@plist,"-"]&&!StringStartsQ[plist[[2]],"-"]&&StringLength[First@plist]==2||
 Length@plist>=2&&StringStartsQ[First@plist,"--"]&&!StringStartsQ[plist[[2]],"-"]&&StringLength[First@plist]>=4,
 {plist[[1]]->plist[[2]]}~Join~Parser["ToRuleLst"][plist[[3;;]]],
 (*\:957f\:5ea6\[GreaterEqual]1, -abc, \:77ed\:9009\:9879\:7684\:805a\:5408 ----------*)
 Length@plist>=1&&StringStartsQ[First@plist,"-"~~Except["-"]]&&StringLength[First@plist]>2,
-(Rule["-"<>#,True]&/@Characters@StringTrim[plist[[1]],StartOfString~~"-"])~Join~Parser["ToRuleLst"][Rest@plist],
+(Rule["-"<>#,"True"]&/@Characters@StringTrim[plist[[1]],StartOfString~~"-"])~Join~Parser["ToRuleLst"][Rest@plist],
 (*\:957f\:5ea6\[GreaterEqual]1, --opt \:6216\:8005 -o, \:5f00\:5173 ---------*)
 Length@plist>=1&&StringStartsQ[First@plist,"--"|"-"],
-{plist[[1]]->True}~Join~Parser["ToRuleLst"][Rest@plist],
+{plist[[1]]->"True"}~Join~Parser["ToRuleLst"][Rest@plist],
 (*\:5176\:4ed6\:60c5\:51b5, \:90fd\:5f53\:6210\:4f4d\:7f6e\:53c2\:6570----------------*)
 Length@plist>=1,
-{First@plist->True}~Join~Parser["ToRuleLst"][Rest@plist],
+{First@plist->"True"}~Join~Parser["ToRuleLst"][Rest@plist],
 (*\:5982\:679c\:4f20\:5165\:7a7a\:5217\:8868--------------*)
 True,{}
 ]
@@ -77,7 +77,7 @@ True,{}
 Parser["ToAssoc"][plist_List]:=Module[{
 (*\:52a0\:4e0a\:9ed8\:8ba4\:9009\:9879 help*)
 assoc=Merge[Join@@#&]@{
-<|True->{"--help"->False},False->{}|>,
+<|True->{"--help"->"False"},False->{}|>,
 GroupBy[Parser["ToRuleLst"]@plist,StringStartsQ[Keys@#,"-"]&]
 }},
 <|
@@ -157,10 +157,10 @@ helpSearch
 helpSearch=KeySelect[ContainsAny[#,HelpNeed]&]@HelpAll;
 
 Switch[HelpNeed,
-(*\:5982\:679c\:662f help->True, \:8f93\:51fa\:6240\:6709\:5e2e\:52a9*)
-{True},Parser["echo-help"]@HelpAll,
-(*\:5982\:679c\:662f help\[Rule]False, \:4e0d\:8fdb\:884c\:64cd\:4f5c*)
-{False},Null,
+(*\:5982\:679c\:662f help\[Rule]"True", \:8f93\:51fa\:6240\:6709\:5e2e\:52a9*)
+{"True"},Parser["echo-help"]@HelpAll,
+(*\:5982\:679c\:662f help\[Rule]"False", \:4e0d\:8fdb\:884c\:64cd\:4f5c*)
+{"False"},Null,
 (*\:5982\:679c\:662f help\[Rule]HelpNeed, \:8f93\:51fa\:7279\:5b9a\:6761\:76ee*)
 _,If[helpSearch===<||>,
 Print["I can't find this term in help document"];Abort[],
@@ -172,13 +172,13 @@ Parser["echo-help"]@helpSearch
 (*parser initiate*)
 
 
-CmdParser["init"]:=(
+CmdParser["get"]:=(
 Parser["session"]=Merge[Join@@#&]@{
 Parser["parser-template"],
 Parser["ToAssoc"]@$inputCml
 };
 Parser["need-help?"];
-Parser["session"]
+Parser["session"][[{"opt","pos"}]]
 )
 
 
@@ -192,7 +192,7 @@ End[]
 EndPackage[]
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*Other*)
 
 
