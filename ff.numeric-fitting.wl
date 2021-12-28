@@ -56,8 +56,8 @@ Once@Get["coes.interface.wl"];
 $chopLimit=10^-10;(*cut\:7cbe\:5ea6*)$precision=MachinePrecision;(*\:7cbe\:786e\:5ea6*)
 
 
-(*-------------\:662f\:5426\:5f00\:59cb\:5e76\:884c\:5185\:6838--------------------*)
-$parallelQ=False;
+(*\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
+$parallel$couplsQ=False;
 (*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
 $parOrdStr=$ord0;
 $erroBar="notbar";
@@ -125,11 +125,11 @@ Nothing
 
 
 (*\:5bf9\:672a\:5b9a\:53c2\:6570\:8fdb\:884c\:62df\:5408*)
-Module[{testMagMerged,testFit,$par\[CapitalLambda]Str,ccNumStr},
+Module[{testMagMerged,testFit,$parLambdaStr,ccNumStr},
 (*\:6700\:540e\:7684\:7ed3\:679c\:4fdd\:5b58\:5728\:5173\:8054\:4e2d*)
 ccFittings=Association@Table[
 (*\:521d\:59cb\:5316 \[CapitalLambda] \:5b57\:7b26\:5f62\:5f0f *)
-$par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
+$parLambdaStr=enString@NumberForm[$parLambda,{3,2}];
 (* \:5bf9\:7279\:5b9a \[CapitalLambda], \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
 Get["ff.numeric-worker.wl"];
 (*\:5bf9\:7279\:5b9a \[CapitalLambda], \:8ba1\:7b97: \:6570\:503c\:7ed3\:679c - \:5b9e\:9a8c\:7ed3\:679c, numFFs \:5728 worker \:4e2d\:8ba1\:7b97 *)
@@ -145,16 +145,16 @@ Query[(Key/@testList)/*ReplaceAll[cc["C"]->ccNum]/*Total,Power[#,2]&]@testMagMer
 {cc["c1"],cc["c2"]},
 WorkingPrecision->$precision];(*\:7ed9\:5b9a\:6b64\:5904\:62df\:5408\:7684\:7cbe\:5ea6*)
 (* \:6b21\:7ea7\:5173\:8054, \[CapitalLambda] \:6307\:5411\:5404\:79cd C fitting \:51fa\:7684\:7ed3\:679c*)
-cc["\[CapitalLambda]",$par\[CapitalLambda]Str]->Association@Table[
+cc["\[CapitalLambda]",$parLambdaStr]->Association@Table[
 (*\:521d\:59cb\:5316 C \:5b57\:7b26\:5f62\:5f0f*)
 ccNumStr=enString@NumberForm[ccNum,{3,2}];
 (*\:5faa\:73af\:8fdb\:5ea6\:63d0\:793a*)
-echo["Lambda: ",$par\[CapitalLambda]Str,", C: ",ccNumStr];
+echo["Lambda: ",$parLambdaStr,", C: ",ccNumStr];
 (* \:6b21\:7ea7\:5173\:8054, C \:6307\:5411\:5404\:79cd \:62df\:5408\:5b50\:96c6\:7684\:7ed3\:679c, \:5982 \[CapitalSigma]+0-, pN, All,*)
 cc["C",ccNumStr]->Association@KeyValueMap[#1->testFit[ccNum,#2]&,$fittingScheme]
 ,{ccNum,{1.0`30,1.1`30,1.2`30,1.3`30,1.4`30,1.5`30}}
 ]
-,{$par\[CapitalLambda],{0.80`30,0.85`30,0.90`30,0.95`30,1.00`30}}];
+,{$parLambda,{0.80`30,0.85`30,0.90`30,0.95`30,1.00`30}}];
 ];
 
 

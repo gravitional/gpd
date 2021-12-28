@@ -5,7 +5,7 @@
 
 
 (*++++++++++++++++++++++++++++++++++++++++ \:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406 ++++++++++++++++++++++++++++++++++++++++*)
-{$parOrdStr,$par\[CapitalLambda]Str,$parCStr,$fitScheme,$erroBar}={
+{$parOrdStr,$parLambdaStr,$parCStr,$fitScheme,$erroBar}={
 enString@$inputCml[[2]],
 enString@NumberForm[$inputCml[[3]],{3,2}],
 enString@NumberForm[$inputCml[[4]],{3,2}],
@@ -21,7 +21,7 @@ echo["Please check the input parameters"];Abort[]
 ]
 (* \:5904\:7406\:6570\:5b57 *)
 $parC=SetPrecision[ToExpression@$parCStr,20]
-$par\[CapitalLambda]=SetPrecision[ToExpression@$par\[CapitalLambda]Str,20]
+$parLambda=SetPrecision[ToExpression@$parLambdaStr,20]
 
 
 (*++++++++++++++++++++++++++++++++ \:8bfb\:53d6c1,c2\:7684\:53d6\:503c ++++++++++++++++++++++++++++++++*)
@@ -29,7 +29,7 @@ $par\[CapitalLambda]=SetPrecision[ToExpression@$par\[CapitalLambda]Str,20]
 echo["c1,c2 configuration"]
 If[$erroBar==="notbar",
 (*++++++++++++++++++++++++++++++++ \:5982\:679c\:4e0d\:662f\:4e3a\:4e86\:8ba1\:7b97Error\:ff0c\:5c31\:4f7f\:7528\:5339\:914d\:7684c1c2\:8fdb\:884c\:8ba1\:7b97 ++++++++++++++++++++++++++++++++*)
-echo[$fitSchemePath=FileNameJoin[{fittingsDir,"c1c2-magfit.L-"<>$par\[CapitalLambda]Str<>".ci-"<>$parCStr<>".wdx"}]];
+echo[$fitSchemePath=FileNameJoin[{fittingsDir,"c1c2-magfit.L-"<>$parLambdaStr<>".ci-"<>$parCStr<>".wdx"}]];
 (*++++++++++++++++++++++++++++++++ \:4f7f\:7528\:7b2c\:4e8c\:79cd\:91cd\:6574\:5316\:65b9\:6848,Z*tree+loop ++++++++++++++++++++++++++++++++*)
 echo[numCCC=Import[$fitSchemePath][$fitScheme][[2,2]]];,
 (*++++++++++++++++++++++++++++++++ \:5982\:679c\:662f\:4e3a\:4e86\:8ba1\:7b97Error\:ff0c\:5c31\:4f7f\:7528\:6307\:5b9a \[CapitalLambda],ci \:5bf9\:5e94\:7684c1c2\:8fdb\:884c\:8ba1\:7b97 ++++++++++++++++++++++++++++++++*)

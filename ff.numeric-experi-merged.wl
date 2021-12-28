@@ -39,8 +39,8 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 (*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
 $parOrdStr=$ordFull;
-$par\[CapitalLambda]=1.00;
-$par\[CapitalLambda]Str=enString@NumberForm[$par\[CapitalLambda],{3,2}];
+$parLambda=1.00;
+$parLambdaStr=enString@NumberForm[$parLambda,{3,2}];
 $erroBar="notbar";
 
 

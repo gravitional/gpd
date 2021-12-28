@@ -18,7 +18,7 @@ fyCoesRule={fyCoe->Times,vtxCoe->Identity};
 
 (*------------------- \:5c06\:8026\:5408\:5e38\:6570\:7684\:5177\:4f53\:6570\:503c\:4ee3\:5165 -------------------*)
 numCoupLst={
-\[CapitalLambda]->$par\[CapitalLambda],(*\:6b63\:89c4\:5b50\:80fd\:6807\:53c2\:6570*)
+\[CapitalLambda]->$parLambda,(*\:6b63\:89c4\:5b50\:80fd\:6807\:53c2\:6570*)
 cc["f"]->0.093`30,cc["D"]->0.76`30, cc["F"]->0.50`30,
 cc["b9"]->1.36`30,cc["b10"]->1.24`30,cc["b11"]->0.46`30,
 Sequence@@fyCoesRule,
@@ -45,11 +45,11 @@ ReleaseHold@paraInitial
 
 
 (*\:5e76\:884c\:8ba1\:7b97\:521d\:59cb\:5316*)
-If[$parallelQ,
+If[$parallel$couplsQ,
 ParallelEvaluate[ReleaseHold@paraInitial];
 DistributeDefinitions[
 $srcRoot,$fileName,echo,enList,enString,$inNBook,
-$parOrdStr,$par\[CapitalLambda]Str,$parCStr,$fitScheme,$erroBar,
+$parOrdStr,$parLambdaStr,$parCStr,$fitScheme,$erroBar,
 coesDir,mfilesDir,fyAmpPart,
 massV,numMass,numCoupLst,numPaVe,otherCoes,
 quaCharge,medRule,toGEGM,
@@ -150,7 +150,7 @@ Simplify[Merge[Values@#,Total]]&
 
 (*\:6839\:636e\:662f\:5426\:9700\:8981\:5e76\:884c,\:8c03\:7528\:4e0a\:9762\:7684\:51fd\:6570,\:4ee3\:5165\:8026\:5408\:5e38\:6570,\:8ba1\:7b97\:5708\:79ef\:5206\:548c\:7cfb\:6570*)
 loopResults[$parOrdStr_]:=Module[{numAssoc},
-numAssoc=If[$parallelQ,
+numAssoc=If[$parallel$couplsQ,
 (* HoldAll \:6240\:6709\:8868\:8fbe\:5f0f,\:4f20\:7ed9\:5b50\:6838\:8ba1\:7b97*)
 SetAttributes[paraEnvIO,HoldAll];
 paraEnvIO[tag_]:=ParallelSubmit[import$Eva[tag,$parOrdStr]];

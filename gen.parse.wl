@@ -9,9 +9,8 @@ BeginPackage["CmdParser`"]
 
 
 (*\:4ecb\:7ecd\:6253\:7b97\:8981\:5bfc\:51fa\:7684\:5bf9\:8c61, \:4e0d\:5305\:62ec\:5176\:4ed6\:5bf9\:8c61, \:51fd\:6570\:540d\:5728\:8fd9\:91cc\:5efa\:7acb\:540e, \:5b83\:7684\:4e0a\:4e0b\:6587\:4f1a\:662fPackage`, \:53ef\:4ee5\:88ab\:5916\:90e8\:4f7f\:7528*)
-CmdParser::usage="
-CmdParser[\"tmp\"] \:7ed9\:51fa\:547d\:4ee4\:884c\:53c2\:6570\:7684\:6a21\:677f. \:6307\:5b9a\:9009\:9879\:7684\:957f\:540d\:79f0\:ff0c\:77ed\:540d\:79f0; \:4f4d\:7f6e\:53c2\:6570; \:9ed8\:8ba4\:503c; Example:
-CmdParser[\"tmp\"]=<|
+CmdParser::usage="CmdParser[\"template\"] \:7ed9\:51fa\:547d\:4ee4\:884c\:53c2\:6570\:7684\:6a21\:677f. \:6307\:5b9a\:9009\:9879\:7684\:957f\:540d\:79f0\:ff0c\:77ed\:540d\:79f0; \:4f4d\:7f6e\:53c2\:6570; \:9ed8\:8ba4\:503c; Example:
+CmdParser[\"template\"]=<|
 \"opt\"\[Rule]<|
 {\"abs\",\"a\"}\[Rule]{1,\"the abs feature\"},
 \"l1\"\[Rule]\"2\"|>,
@@ -94,7 +93,7 @@ GroupBy[Parser["ToRuleLst"]@plist,StringStartsQ[Keys@#,"-"]&]
 
 
 Parser::NeedTemplate="Please give the cmdline argument template, for example:\n
-CmdParser[\"tmp\"]=<|
+CmdParser[\"template\"]=<|
 \"opt\"-><|
 {\"abs\",\"a\"}->{1,\"Argument description: the abs feature.\"},
 \"bar\"->{2, \"Description can leave out with blank.\"}
@@ -117,19 +116,19 @@ posHelp[pos_]:=#[[{1}]]->#[[2;;]]&[ToString/@enList@pos];
 
 
 (*\:89e3\:6790\:7528\:6237\:7ed9\:51fa\:7684 \:547d\:4ee4\:884c\:53c2\:6570 \:6a21\:677f, \:751f\:6210 option, position, \:4ee5\:53ca\:5e2e\:52a9\:4fe1\:606f*)
-Parser["parser-tmp"]:=If[
-Head@CmdParser["tmp"] =!= Association,
+Parser["parser-template"]:=If[
+Head@CmdParser["template"]=!=Association,
 (*\:5982\:679c\:8fd8\:672a\:5b9a\:4e49\:6a21\:677f\:ff0c\:5219\:63d0\:9192\:5b9a\:4e49\:6a21\:677f--------------------------*)
 Message[Parser::NeedTemplate];Abort[],
 (*\:4ece\:6a21\:677f\:4e2d\:89e3\:6790\:51fa\:53c2\:6570\:548c\:9ed8\:8ba4\:503c---------------------------*)
 <|
-"opt"->Association@KeyValueMap[optValue]@CmdParser["tmp"]@"opt",
-"pos"->posValue/@CmdParser["tmp"]@"pos",
+"opt"->Association@KeyValueMap[optValue]@CmdParser["template"]@"opt",
+"pos"->posValue/@CmdParser["template"]@"pos",
 "HelpAll"->Association@Join[
 (*\:89e3\:6790 option\:53c2\:6570 \:7684\:5e2e\:52a9*)
-KeyValueMap[optHelp]@CmdParser["tmp"]@"opt",
+KeyValueMap[optHelp]@CmdParser["template"]@"opt",
 (*\:89e3\:6790 position\:53c2\:6570 \:7684\:5e2e\:52a9*)
-posHelp/@CmdParser["tmp"]@"pos"
+posHelp/@CmdParser["template"]@"pos"
 ]
 |>
 ]
@@ -175,7 +174,7 @@ Parser["echo-help"]@helpSearch
 
 CmdParser["init"]:=(
 Parser["session"]=Merge[Join@@#&]@{
-Parser["parser-tmp"],
+Parser["parser-template"],
 Parser["ToAssoc"]@$inputCml
 };
 Parser["need-help?"];
