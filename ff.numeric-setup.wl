@@ -1,15 +1,6 @@
 (* ::Package:: *)
 
 (* ::Section:: *)
-(*num chop*)
-
-
-(*+++++++++++++++++++++++++++ \:6570\:503c\:7cbe\:5ea6\:7684\:76f8\:5173\:8bbe\:7f6e +++++++++++++++++++++++++++*)
-$chopLimit=10^-10;(*cut\:7cbe\:5ea6*)$precision=MachinePrecision;(*\:7cbe\:786e\:5ea6*)
-$Q2Cut=0.0001;
-
-
-(* ::Section:: *)
 (*cmd arguments*)
 
 
@@ -50,6 +41,15 @@ $LambdaFitStr=enString@NumberForm[$LambdaFit,{3,2}];
 
 (* ::Input:: *)
 (*echo["The configur is: ",$LambdaNum];*)
+
+
+(* ::Section:: *)
+(*num chop*)
+
+
+(*+++++++++++++++++++++++++++ \:6570\:503c\:7cbe\:5ea6\:7684\:76f8\:5173\:8bbe\:7f6e +++++++++++++++++++++++++++*)
+$chopLimit=10^-10;(*cut\:7cbe\:5ea6*)$precision=MachinePrecision;(*\:7cbe\:786e\:5ea6*)
+$Q2Cut=0.0001;
 
 
 (* ::Section:: *)

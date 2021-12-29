@@ -34,26 +34,41 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
 (* ::Section:: *)
-(*para & import module*)
+(*cmd arguments*)
 
 
-(*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged*)
-$renew$ffsMergedQ=False;
-(*\:662f\:5426\:8fd0\:884c\:5bf9\:7ed3\:679c\:7684 \:63d2\:503c \:7a0b\:5e8f*)
-$interpolateQ=False;
-(*\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
-$parallel$couplsQ=False;
-(*\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
-$parallel$interpoQ=True;
-(*------------------------\:5176\:4ed6\:53c2\:6570\:8bbe\:7f6e--------------------*)
-$parOrdStr=$ordFull;
-$LambdaNum=0.90;
-$LambdaNumStr=enString@NumberForm[$LambdaNum,{3,2}];
-(* fitScheme \:5b9a\:4e49\:89c1: $fittingScheme*)
-(*$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]-p","\[CapitalSigma]N","\[CapitalSigma]-\[CapitalXi]-","N","p\[CapitalXi]-","\[CapitalXi]","charged","many","most","all"};*)
-(*$fitScheme={"\[CapitalSigma]N","most"};*)
-$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all"};
-$LambdaFit="notbar";
+(*\:5904\:7406\:547d\:4ee4\:884c\:53c2\:6570\:7684\:5305*)
+Get["gen.parse.wl"];
+(*\:547d\:4ee4\:884c\:53c2\:6570\:6a21\:677f*)
+CmdParser["template"]=<|
+"opt"-><|
+{"update"}->{"True","\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged,\:8d39\:66fc\:56fe\:90e8\:5206\:6570\:503c\:7684\:7ed3\:679c"},
+{"para-coupl"}->{"False","\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838."},
+{"interp"}->{"True","\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f."},
+{"para-interp"}->{"True","\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838"},
+{"ord"}->{"$ordFull","\:5708\:79ef\:5206\:7684\:7ea7\:6570 order: \:6709 ord0, ord1, ordFull"},
+{"lbd-num"}->{"0.90","\:6570\:503c\:8ba1\:7b97\:4e2d Lambda \:7684\:53d6\:503c: 0.80,0.90,1.00"},
+{"lbd-fit"}->{"Undefined","\:5f15\:7528\:7684 fitting \:57fa\:4e8e\:7684 Lambda, \:800c\:4e0d\:662f\:6570\:503c\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 Lambda: 0.80,0.90,1.00"},
+{"fit-scheme"}->{"Automatic","\:62df\:5408\:65b9\:6848\:7684\:8bbe\:7f6e"}
+|>,
+"pos"->{}
+|>;
+
+
+(*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
+CmdParser["pseudo"]={
+"--update","False",
+"--para-coupl","False",
+"--ord","$ordFull",
+"--lbd-num","0.90"
+};
+
+
+$inputCml=Query[All,All,ToExpression[#,InputForm]&][CmdParser["get"]]["opt"]
+
+
+(* ::Section:: *)
+(*import module*)
 
 
 (*\:5bfc\:5165\:6b64\:8ba1\:7b97\:7a0b\:5e8f\:7684\:53c2\:6570----------------------------------------------------------*)
@@ -171,6 +186,8 @@ sectOct/*Total,
 ({Key@ffsF1F2}),All,
 chopQ2Val/*ReplaceAll[quaCharge["uds"]]
 ]@loopResults["v"]
+
+
 (* \:5c55\:793a\:6bcf\:4e2a\:56fe\:7684\:7ed3\:679c *)
 Query[$ord0,kLoopChanSum,
 (*\:9009\:62e9 octet *)
