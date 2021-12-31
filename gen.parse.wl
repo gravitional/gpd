@@ -32,9 +32,12 @@ Begin["`Private`"]
 (*auxlinary*)
 
 
-(*\:5b9a\:4e49\:4e00\:4e9b\:5e38\:7528\:7684\:51fd\:6570*)
-enList[x__]:=Replace[{x},{{y__}}:>{y},{0}](*\:786e\:4fdd\:5217\:8868\:7684\:51fd\:6570*)
-enString[x__]:=StringJoin[ToString/@enList[x]](*\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570*)
+(*\:5b9a\:4e49\:51fd\:6570,\:786e\:4fdd\:53c2\:6570\:88ab\:5217\:8868\:5316*)
+enList[x_List]:=x
+enList[x_]:={x}
+enList[x__]:={x}
+(*\:786e\:4fdd\:53c2\:6570\:6210\:4e3a\:5b57\:7b26\:4e32*)
+enString[x__]:=StringJoin[ToString/@enList[x]]
 
 
 If[$Notebooks,
