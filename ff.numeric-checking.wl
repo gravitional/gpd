@@ -219,6 +219,48 @@ ReplaceAll[quaCharge["uds"]]
 ]@loopResults["v"]
 
 
+(* ::Section:: *)
+(*diagram*)
+
+
+(*\:5173\:95ed\:4e22\:5931\:4f1a\:63d0\:9192\:ff0c\:5fd8\:5e26\:4f1a\:62a5\:8b66*)
+Off[CompiledFunction::cfn]
+
+
+(*\:5c06\:5173\:8054\:5217\:8868\:4e2d\:7684\:5143\:7d20\:ff0c\:8f6c\:6362\:6210\:5e26\:6ce8\:91ca\:7684 wrapper \:8868\:8fbe\:5f0f, \:4f20\:5165 plot \:4f5c\:56fe*)
+annotated[Legended_][assoc_Association]:=KeyValueMap[Legended,assoc]
+
+
+legend$function:=Legended[#2,Placed[#1,After]]&
+
+
+legend$function:=Callout[#2,#1/.chTag->StringRiffle,Before]&
+
+
+Plot[#,{Q2,0.001,0.6},ImageSize->800,PlotRange->Full,
+Axes->True,PlotRangePadding->{None,Scaled[.05]},
+PlotLegends->None
+,PlotTheme->{"Scientific","FrameGrid","MediumLines"}
+]&@
+annotated[legend$function]@
+Query[
+(*order*)Key@$ordFull,
+(*cc-values*)Key@cc["C","1.00"],
+(*fitting-scheme*)Key@"\[CapitalSigma]+-",
+(*octet*)Key@ff["n"],
+(*diagram*)(sectOct~Join~sectBub)/*SortBy[Abs@ReplaceAll[Q2->0.1]],
+(*loop-FFactors*)Key@tagNum["lo","uds"],
+(*numVal*)ReplaceAll[{numVal->Identity}],
+(*GEGM*)1
+]@numFFs["v",kLoopChanSum]
+
+
+Multicolumn[
+annotated[Legended[#2,Placed[#1/.chTag->StringRiffle,Below]]&]@diagIllus
+,4,Appearance->"Horizontal"
+]
+
+
 (* ::Chapter:: *)
 (*EOF*)
 

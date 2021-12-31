@@ -261,6 +261,17 @@ ffsF1F2->Last@time0Result
 (*\[LeftAngleBracket]\[ScriptU][p2,mE],Subscript[\[Gamma], \[Mu]],\[Gamma]5,\[Gamma] . (p1-k)+mo1 \[DoubleStruckOne],\[Gamma] . k,\[Gamma]5,\[ScriptU][p1,mE]\[RightAngleBracket]//FermionLineExpand*)
 
 
+(* ::Input:: *)
+(*Graphics[{*)
+(*Black,Line[{{0,0},{end,0}}],*)
+(*Arrowheads[{{Automatic,.53}}],*)
+(*Circle[{end/2,0},end/4,{0,\[Pi]}],*)
+(*Line[{{end/2,1/4end},{end/2,2/5end}}],*)
+(*FontSize->Small,*)
+(*Text["v1",{end/4,-4delta}],Text["v2",{end/2,end/4-4delta}],Text["v3",{3/4end,-4delta}]*)
+(*},ImageSize->Small]*)
+
+
 (* \:6309\:7167 package-X\:7684\:7ea6\:5b9a, \:4e0d\:5199 1/(2\[Pi])^4 *)
 fyTag={"RB","mes","oct"};
 fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
@@ -291,7 +302,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,left*)
 
 
