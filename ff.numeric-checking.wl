@@ -229,15 +229,10 @@ Off[CompiledFunction::cfn]
 
 (*\:5c06\:5173\:8054\:5217\:8868\:4e2d\:7684\:5143\:7d20\:ff0c\:8f6c\:6362\:6210\:5e26\:6ce8\:91ca\:7684 wrapper \:8868\:8fbe\:5f0f, \:4f20\:5165 plot \:4f5c\:56fe*)
 annotated[Legended_][assoc_Association]:=KeyValueMap[Legended,assoc]
-
-
-legend$function:=Legended[#2,Placed[#1,After]]&
-
-
 legend$function:=Callout[#2,#1/.chTag->StringRiffle,Before]&
 
 
-Plot[#,{Q2,0.001,0.6},ImageSize->800,PlotRange->Full,
+Plot[#,{Q2,$Q2Cut,0.6},ImageSize->800,PlotRange->Full,
 Axes->True,PlotRangePadding->{None,Scaled[.05]},
 PlotLegends->None
 ,PlotTheme->{"Scientific","FrameGrid","MediumLines"}
@@ -251,7 +246,7 @@ Query[
 (*diagram*)(sectOct~Join~sectBub)/*SortBy[Abs@ReplaceAll[Q2->0.1]],
 (*loop-FFactors*)Key@tagNum["lo","uds"],
 (*numVal*)ReplaceAll[{numVal->Identity}],
-(*GEGM*)1
+(*GEGM*)2
 ]@numFFs["v",kLoopChanSum]
 
 
