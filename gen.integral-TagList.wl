@@ -136,6 +136,9 @@ chTag@{"KR","mes","dec","add","left"}->fyCoe[2]
 (*diagram illustration*)
 
 
+recordLocationInMessage@diagIllus
+
+
 Block[{end=4,delta=end/80(*\:793a\:610f\:56fe\:7684\:5c3a\:5bf8\:521d\:59cb\:5316*)},
 diagIllus=<|
 

@@ -34,25 +34,11 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
 (* ::Section:: *)
-(*cmd arguments*)
+(*cmd args*)
 
 
-(*\:5904\:7406\:547d\:4ee4\:884c\:53c2\:6570\:7684\:5305*)
-Get["gen.parse.wl"];
-(*\:547d\:4ee4\:884c\:53c2\:6570\:6a21\:677f*)
-CmdParser["template"]=<|
-"opt"-><|
-{"update"}->{"True","\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged,\:8d39\:66fc\:56fe\:90e8\:5206\:6570\:503c\:7684\:7ed3\:679c"},
-{"para-coupl"}->{"False","\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838."},
-{"interp"}->{"True","\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f."},
-{"para-interp"}->{"True","\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838"},
-{"ord"}->{"$ordFull","\:5708\:79ef\:5206\:7684\:7ea7\:6570 order: \:6709 ord0, ord1, ordFull"},
-{"lbd-num"}->{"0.90","\:6570\:503c\:8ba1\:7b97\:4e2d Lambda \:7684\:53d6\:503c: 0.80,0.90,1.00"},
-{"lbd-fit"}->{"Undefined","\:5f15\:7528\:7684 fitting \:57fa\:4e8e\:7684 Lambda, \:800c\:4e0d\:662f\:6570\:503c\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 Lambda: 0.80,0.90,1.00"},
-{"fit-scheme"}->{"Automatic","\:62df\:5408\:65b9\:6848\:7684\:8bbe\:7f6e"}
-|>,
-"pos"->{}
-|>;
+(*\:5bfc\:5165\:6b64\:8ba1\:7b97\:7a0b\:5e8f\:7684\:53c2\:6570 --------------*)
+Get["ff.numeric-setup.wl"];
 
 
 (*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
@@ -64,15 +50,13 @@ CmdParser["pseudo"]={
 };
 
 
-$inputCml=Query[All,All,ToExpression[#,InputForm]&][CmdParser["get"]]["opt"]
+parseCml[]
 
 
 (* ::Section:: *)
 (*import module*)
 
 
-(*\:5bfc\:5165\:6b64\:8ba1\:7b97\:7a0b\:5e8f\:7684\:53c2\:6570----------------------------------------------------------*)
-Get["ff.numeric-setup.wl"];
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
 Once@Get["gen.integral-TagList.wl"];
 (*\:8981\:8ba1\:7b97\:7684\:8d39\:66fc\:56fe\:5217\:8868*)
@@ -220,6 +204,21 @@ ReplaceAll[quaCharge["uds"]]
 
 
 (* ::Section:: *)
+(*flatten Assoc Recursively*)
+
+
+(*\:9012\:5f52\:5c55\:5e73\:5d4c\:5957\:5173\:8054*)
+SetAttributes[flatAssocRec,Orderless];
+flatAssocRec[x___Rule,key_->flatAssocRec[rules__Rule]]:=flatAssocRec@@Join[{x},
+Normal@KeyMap[Join[enList@key,enList@#]&]@Association@rules]
+(*\:5982\:679c\:662f\:5d4c\:5957\:5173\:8054\:ff0c\:5c31\:6267\:884c\:66ff\:6362\:64cd\:4f5c*)
+flatAssoc[assoc_Association]:=If[AnyTrue[AssociationQ]@assoc,
+assoc/.Association->flatAssocRec/.flatAssocRec->Association,
+assoc
+]
+
+
+(* ::Section:: *)
 (*diagram*)
 
 
@@ -227,33 +226,82 @@ ReplaceAll[quaCharge["uds"]]
 Off[CompiledFunction::cfn]
 
 
+(*diagram tag \:683c\:5f0f\:5316\:ff0c\:573a\:5934\:90e8\:683c\:5f0f\:5316*)
+legendDisp[x_]:=x/.{chTag->StringRiffle,fd->fdDisp}
 (*\:5c06\:5173\:8054\:5217\:8868\:4e2d\:7684\:5143\:7d20\:ff0c\:8f6c\:6362\:6210\:5e26\:6ce8\:91ca\:7684 wrapper \:8868\:8fbe\:5f0f, \:4f20\:5165 plot \:4f5c\:56fe*)
 annotated[Legended_][assoc_Association]:=KeyValueMap[Legended,assoc]
-legend$function:=Callout[#2,#1/.chTag->StringRiffle,Before]&
 
 
-Plot[#,{Q2,$Q2Cut,0.6},ImageSize->800,PlotRange->Full,
-Axes->True,PlotRangePadding->{None,Scaled[.05]},
-PlotLegends->None
+dataPlot[Q2_][fnList_]:=Plot[fnList
+,{Q2,$Q2Cut,0.6}
+,ImageSize->800
+,PlotRange->Full
+,Axes->True,PlotRangePadding->{None,Scaled[.05]}
+,PlotLegends->None
 ,PlotTheme->{"Scientific","FrameGrid","MediumLines"}
-]&@
-annotated[legend$function]@
+]
+
+
+(*\:5c06 key\[Rule]val \:8f6c\:6362\:6210 Callout[f,label] \:7684\:683c\:5f0f*)
+legendFn[key_,val_]:=Callout[val,key//legendDisp,Before]
+(*\:4f5c\:56fe*)
+tea=dataPlot[Q2]@
+(*\:7ed9\:6570\:636e\:6dfb\:52a0\:6ce8\:91ca*)
+annotated[legendFn]@
+(*\:5c55\:5e73\:5d4c\:5957\:5173\:8054*)
+flatAssoc@
+(*\:67e5\:8be2\:6240\:9700\:6570\:636e*)
 Query[
 (*order*)Key@$ordFull,
 (*cc-values*)Key@cc["C","1.00"],
 (*fitting-scheme*)Key@"\[CapitalSigma]+-",
-(*octet*)Key@ff["n"],
+(*octet*)Key@ff["p"],
 (*diagram*)(sectOct~Join~sectBub)/*SortBy[Abs@ReplaceAll[Q2->0.1]],
 (*loop-FFactors*)Key@tagNum["lo","uds"],
 (*numVal*)ReplaceAll[{numVal->Identity}],
-(*GEGM*)2
+(*GEGM*)1
 ]@numFFs["v",kLoopChanSum]
 
 
+(*diagram tag \:7684\:542b\:4e49*)
 Multicolumn[
 annotated[Legended[#2,Placed[#1/.chTag->StringRiffle,Below]]&]@diagIllus
 ,4,Appearance->"Horizontal"
 ]
+
+
+(* ::Section:: *)
+(*<<interpoGEGM*)
+
+
+interpoGEGM["v"]=Import@localCachePath["interpo"];
+
+
+(*\:6311\:51fa\:8981\:5c55\:793a\:7684\:8d21\:732e, tree,loop,uds, sea,valence*)
+contribTag=Key/@{tagNum["lo","uds"]};
+
+
+(* \:5bf9 \:51fd\:6570\:7684\:5217\:8868 \:753b\:56fe *)
+plotList[Q2_][lst_]:=Plot[Evaluate@lst,{Q2,0,1},
+PlotTheme->{"Scientific"},
+PlotRange->{{0,1},Full},
+ImageSize->Large,
+PlotLegends->None];
+
+
+(*\:6807\:6ce8\:6570\:636e*)
+legendFn[key_,val_]:=Legended[val@Q2(*/#2[0]*),
+Placed[key/.{numKey->StringRiffle},{{1,0.58},{0.,0.}}]];
+(*Plot*)
+teb=Query[(*cc-value*)Key@cc["C","1.50"]
+,(*fit-scheme*)Key@"N"
+,(*octet*)Key@ff["n"]
+,(*loop-tree-uds*)contribTag/*annotated[legendFn]/*plotList[Q2]
+(*GEGM pair*),1
+]@interpoGEGM["v"]
+
+
+Show[tea,teb]
 
 
 (* ::Chapter:: *)
