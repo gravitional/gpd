@@ -4,7 +4,7 @@
 (*interfaces*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*query Dataset Skeleton*)
 
 
@@ -16,7 +16,7 @@ dataSkel[0][data_]:=Keys@data;
 dataStrut[data_]:=dataSkel[ArrayDepth[data,AllowedHeads->Association]-1]@data
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*static*)
 
 
@@ -38,7 +38,7 @@ keyTreeAndLoop="tree+loop";
 keyLoop="loop";
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*ff, fd, fdDisp*)
 
 
@@ -200,7 +200,7 @@ $fittingScheme=<|
 |>;
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*keys*)
 
 
@@ -321,7 +321,7 @@ chTag@{"RB","trans","left"}
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*mass charge*)
 
 
@@ -363,7 +363,7 @@ quaCharge["d"]={ch["u"]->0,ch["d"]->1,ch["s"]->0};
 quaCharge["s"]={ch["u"]->0,ch["d"]->0,ch["s"]->1};
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*experiment*)
 
 
@@ -427,7 +427,7 @@ ffsGEGM="Paper";
 |>];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Grid display*)
 
 
@@ -465,3 +465,22 @@ None,(* color horizontal: x1, x2, x3...*)
 LightCyan,{None,LightBlue}
 }(* color vertical: y1, y2, y3...*)
 };
+
+
+(* ::Section:: *)
+(*local cache directory*)
+
+
+(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
+(*\:7cfb\:6570\:6587\:4ef6\:7684\:6587\:4ef6\:5939*)
+coesDir=FileNameJoin[{$srcRoot,"coes"}];
+enDir[coesDir];
+(*\:79ef\:5206\:8868\:8fbe\:5f0f\:7684\:6587\:4ef6\:5939*)
+mfilesDir=FileNameJoin[{$srcRoot,"mfiles"}];
+enDir[mfilesDir];
+(*\:4fdd\:5b58\:8ba1\:7b97\:7ed3\:679c\:7684\:6587\:4ef6\:5939*)
+resultsDir=FileNameJoin[{$srcRoot,"results"}];
+enDir[resultsDir];
+(*fittings \:76ee\:5f55*)
+echo[fittingsDir=FileNameJoin[{$srcRoot,"fittings"}]];
+enDir[fittingsDir];

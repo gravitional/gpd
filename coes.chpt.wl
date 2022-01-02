@@ -78,6 +78,7 @@ mo1->"mo1",mo2->"mo2",
 mm1->"mm1",mm2->"mm2",
 md1->"md1",md2->"md2"
 }/.assocTemp->Association]
+(*\:67e5\:770b\:5217\:8868\:7684\:524d\:51e0\:9879*)
 testFmt[n_]:=EchoFunction[InputForm]@#[[n]]&
 
 
@@ -95,6 +96,7 @@ end=4;delta=0.05;
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
+(*end=4;delta=0.05;*)
 (*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)

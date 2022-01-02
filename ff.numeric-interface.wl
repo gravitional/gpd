@@ -41,25 +41,6 @@ numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
 
 
 (* ::Section:: *)
-(*local cache directory*)
-
-
-(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
-(*\:7cfb\:6570\:6587\:4ef6\:7684\:6587\:4ef6\:5939*)
-coesDir=FileNameJoin[{$srcRoot,"coes"}];
-enDir[coesDir];
-(*\:79ef\:5206\:8868\:8fbe\:5f0f\:7684\:6587\:4ef6\:5939*)
-mfilesDir=FileNameJoin[{$srcRoot,"mfiles"}];
-enDir[mfilesDir];
-(*\:4fdd\:5b58\:8ba1\:7b97\:7ed3\:679c\:7684\:6587\:4ef6\:5939*)
-resultsDir=FileNameJoin[{$srcRoot,"results"}];
-enDir[resultsDir];
-(*fittings \:76ee\:5f55*)
-echo[fittingsDir=FileNameJoin[{$srcRoot,"fittings"}]];
-enDir[fittingsDir];
-
-
-(* ::Section:: *)
 (*<< fittings*)
 
 

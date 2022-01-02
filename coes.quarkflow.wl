@@ -38,15 +38,24 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
 (*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
-Get[FileNameJoin[{$srcRoot,"gen.format.wl"}]];
+Get["gen.format.wl"];
+Get["gen.integral-TagList.wl"];
 (*\:7c92\:5b50\:7c7b\:578b\:63a5\:53e3 --------------------------*)
-Get[FileNameJoin[{$srcRoot,"coes.interface.wl"}]];
+Get["coes.interface.wl"];
 
 
 coesPath[fyTag_]:=FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[fyTag,"."]<>".wdx"}]
 
 
-s
+(coeJoin[#]=Import[coesPath@#])&/@fyAmpLoopLstAll;
+
+
+(* ::Section:: *)
+(*format*)
+
+
+(*\:67e5\:770b\:5217\:8868\:7684\:524d\:51e0\:9879*)
+testFmt[n_]:=EchoFunction[InputForm]@#[[n]]&
 
 
 (* ::Chapter:: *)
@@ -88,15 +97,7 @@ octbNeutRule={ff["\[CapitalSigma]0b"]->ff["\[CapitalSigma]0b\[CapitalLambda]b"],
 
 
 (* ::Input:: *)
-(*(* \:56fe\:5f62\:8868\:793a *)*)
-(*end=4;delta=0.05;*)
-(*Graphics[{*)
-(*Black,Line[{{0,0},{end,0}}],*)
-(*Arrowheads[{{Automatic,.53}}],*)
-(*Circle[{end/2,0},end/4,{0,\[Pi]}],*)
-(*Line[{{end/2,end/4},{end/2,end/4+end/8}}],*)
-(*Text["v1",{end/4,-4delta}],Text["v2",{end/2,end/4-4delta}],Text["v3",{3/4end,-4delta}]*)
-(*},ImageSize->Small]*)
+(*diagIllus@chTag@{"RB","mes","oct"}*)
 
 
 (*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
@@ -105,7 +106,7 @@ fyTag={"RB","mes","oct"};qchTp1="sea";qchTp2="qch";
 tmpoct=fyVtx1@fdTypeOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
 tmpmes=fyVtx2@fdTypeMes;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++++\:751f\:6210\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, sea+++++++++++++++++++++++++++*)
-coeJoin[fyTag,{qchTp1,"all"}]=Query[All,Append[#,
+coeJoin[fyTag,{qchTp1,"all"}]=Query[(*list*)All,Append[#,
 fqdKey[fyTag,qchTp1]-><|
 fqdpos[1,2,3]->fqdData[qchTp1,"oct"]@fqdKey[qchTp1,#@tmpoct](*oct\:6240\:6709\:7684\:5938\:514b\:7ec4\:5408*),
 fqdpos[4,5]->fqdData[qchTp1,"mes"]@fqdKey[qchTp1,#@tmpmes](*mes\:6240\:6709\:7684\:5938\:514b\:7ec4\:5408*)

@@ -146,7 +146,7 @@ Graphics[{
 Black,Line[{{0,0},{end,0}}],
 Arrowheads[{{Automatic,.53}}],
 Circle[{end/2,0},end/4,{0,\[Pi]}],
-Line[{{end/2,1/4end},{end/2,2/5end}}],
+Line[{{end/2,end/4},{end/2,end/4+end/8}}],
 FontSize->Small,
 Text["v1",{end/4,-4delta}],Text["v2",{end/2,end/4-4delta}],Text["v3",{3/4end,-4delta}]
 },ImageSize->Small]
