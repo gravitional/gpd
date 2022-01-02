@@ -232,11 +232,11 @@ legendDisp[x_]:=x/.{chTag->StringRiffle,fd->fdDisp}
 annotated[Legended_][assoc_Association]:=KeyValueMap[Legended,assoc]
 
 
-dataPlot[Q2_][fnList_]:=Plot[fnList
+plotData[Q2_][fnList_]:=Plot[fnList
 ,{Q2,$Q2Cut,0.6}
 ,ImageSize->800
-,PlotRange->Full
-,Axes->True,PlotRangePadding->{None,Scaled[.05]}
+,PlotRange->Full,PlotRangePadding->{None,Scaled[.05]}
+,Axes->True
 ,PlotLegends->None
 ,PlotTheme->{"Scientific","FrameGrid","MediumLines"}
 ]
@@ -245,7 +245,7 @@ dataPlot[Q2_][fnList_]:=Plot[fnList
 (*\:5c06 key\[Rule]val \:8f6c\:6362\:6210 Callout[f,label] \:7684\:683c\:5f0f*)
 legendFn[key_,val_]:=Callout[val,key//legendDisp,Before]
 (*\:4f5c\:56fe*)
-tea=dataPlot[Q2]@
+figGroup["diag"]=plotData[Q2]@
 (*\:7ed9\:6570\:636e\:6dfb\:52a0\:6ce8\:91ca*)
 annotated[legendFn]@
 (*\:5c55\:5e73\:5d4c\:5957\:5173\:8054*)
@@ -282,18 +282,19 @@ contribTag=Key/@{tagNum["lo","uds"]};
 
 
 (* \:5bf9 \:51fd\:6570\:7684\:5217\:8868 \:753b\:56fe *)
-plotList[Q2_][lst_]:=Plot[Evaluate@lst,{Q2,0,1},
-PlotTheme->{"Scientific"},
-PlotRange->{{0,1},Full},
-ImageSize->Large,
-PlotLegends->None];
+plotList[Q2_][lst_]:=Plot[Evaluate@lst,{Q2,0,1}
+,PlotTheme->{"Scientific"}
+,PlotStyle->{Red,Dashed}
+,PlotRange->{{0,1},Full}
+,ImageSize->Large
+,PlotLegends->None];
 
 
 (*\:6807\:6ce8\:6570\:636e*)
 legendFn[key_,val_]:=Legended[val@Q2(*/#2[0]*),
 Placed[key/.{numKey->StringRiffle},{{1,0.58},{0.,0.}}]];
 (*Plot*)
-teb=Query[(*cc-value*)Key@cc["C","1.50"]
+figGroup["total"]=Query[(*cc-value*)Key@cc["C","1.50"]
 ,(*fit-scheme*)Key@"N"
 ,(*octet*)Key@ff["n"]
 ,(*loop-tree-uds*)contribTag/*annotated[legendFn]/*plotList[Q2]
@@ -301,7 +302,7 @@ teb=Query[(*cc-value*)Key@cc["C","1.50"]
 ]@interpoGEGM["v"]
 
 
-Show[tea,teb]
+Show[figGroup["diag"],figGroup["total"]]
 
 
 (* ::Chapter:: *)
