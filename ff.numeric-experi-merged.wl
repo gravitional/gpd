@@ -63,9 +63,10 @@ Once@Get["gen.integral-TagList.wl"];
 fyAmpPart=fyAmpLoopLst;
 (*\:8bfb\:5165\:5404\:79cd\:8f93\:5165\:63a5\:53e3*)
 Get["coes.interface.wl"];
+Get["ff.numeric-interface.wl"];
 
 
-interpoGEGM["v"]=Import@localCachePath["interpo"];
+interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo"];
 
 
 (* \:5bf9 \:51fd\:6570\:7684\:5217\:8868 \:753b\:56fe *)

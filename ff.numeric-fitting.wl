@@ -33,19 +33,18 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
 (* ::Section:: *)
-(*import module*)
+(*<< module*)
 
 
-coesDir=FileNameJoin[{$srcRoot,"coes"}];
-mfilesDir=FileNameJoin[{$srcRoot,"mfiles"}];
 (* 1st \:5bfc\:5165\:6b21\:5e8f: \:8bfb\:5165\:6392\:7248 *)
 (*Once@Get["gen.format.wl"];*)
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
-Once@Get["gen.integral-TagList.wl"];
+Get["gen.integral-TagList.wl"];
 (*\:8981\:8ba1\:7b97\:7684\:8d39\:66fc\:56fe\:5217\:8868*)
 fyAmpPart=fyAmpLoopLst;
 (*\:8bfb\:5165\:5404\:79cd\:8f93\:5165\:63a5\:53e3*)
-Once@Get["coes.interface.wl"];
+Get["coes.interface.wl"];
+Get["ff.numeric-interface.wl"];
 
 
 (* ::Section:: *)
@@ -64,10 +63,6 @@ $LambdaFit="notbar";
 (*----------------- flag, \:662f\:5426\:8fdb\:884c\:62df\:5408---------------------*)
 $fittingQ=True;
 If[$fittingQ,$parOrdStr=$ord0];
-
-
-(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
-echo[fittingsDir=FileNameJoin[{$srcRoot,"fittings"}]];enDir[fittingsDir];
 
 
 (*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)
@@ -161,15 +156,8 @@ cc["C",ccNumStr]->Association@KeyValueMap[#1->testFit[ccNum,#2]&,$fittingScheme]
 (*export*)
 
 
-(*\:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
-serialize["ccFittings",result_]:=Block[{path},
-path=FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}];
-Export[path,result];
-echo["Exporting finished: ", path];]
-
-
 (* ::Input:: *)
-(*serialize["ccFittings",ccFittings]*)
+(*serializeResult[fittingsDir]["nums.ccFittings.wdx",ccFittings]*)
 
 
 (* ::Chapter:: *)

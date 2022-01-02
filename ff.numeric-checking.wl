@@ -63,6 +63,7 @@ Once@Get["gen.integral-TagList.wl"];
 fyAmpPart=fyAmpLoopLst;
 (*\:8bfb\:5165\:5404\:79cd\:8f93\:5165\:63a5\:53e3*)
 Get["coes.interface.wl"];
+Get["ff.numeric-interface.wl"];
 
 
 (* ::Chapter:: *)
@@ -75,14 +76,14 @@ Get["coes.interface.wl"];
 
 
 If[!$renew$ffsMergedQ&&
-FileExistsQ@FindFile@localCachePath["loop-result"],
+FileExistsQ@FindFile@localPathResult[resultsDir]["loop-result"],
 (*\:5982\:679c\:6709\:4e4b\:524d\:7f13\:5b58\:7684\:7ed3\:679c\:ff0c\:5c31\:76f4\:63a5\:8bfb\:5165*)
-loopResults["v"]=Import@localCachePath["loop-result"];,
+loopResults["v"]=Import@localPathResult[resultsDir]["loop-result"];,
 (*\:5982\:679c\:9700\:8981\:91cd\:65b0\:8ba1\:7b97,\:5c31\:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
 (*order full, Intel i7-6700 (8): \:4ee3\:5165\:6240\:6709\:6570\:503c, ~ 4m30s ; \:4ee3\:5165\:90e8\:5206\:6570\:503c, ~3m50s *)
 Get["ff.numeric-worker.wl"];//AbsoluteTiming//echo;
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6\:ff1a\:5708\:56fe\:7684\:8ba1\:7b97\:7ed3\:679c*)
-serialize["loop-result",loopResults["v"]];
+serializeResult[resultsDir]["loop-result",loopResults["v"]];
 ]
 
 
@@ -274,7 +275,7 @@ annotated[Legended[#2,Placed[#1/.chTag->StringRiffle,Below]]&]@diagIllus
 (*<<interpoGEGM*)
 
 
-interpoGEGM["v"]=Import@localCachePath["interpo"];
+interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo"];
 
 
 (*\:6311\:51fa\:8981\:5c55\:793a\:7684\:8d21\:732e, tree,loop,uds, sea,valence*)
