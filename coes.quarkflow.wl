@@ -54,6 +54,22 @@ coesPath[fyTag_]:=FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[fyTag,"."]<>".
 (*format*)
 
 
+(*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570,\:7528\:9017\:53f7\:9694\:5f00\:8f93\:5165*)
+enStrRiff[x__]:=StringRiffle[ToString/@enList[x],","]
+(*\:7528\:6765\:5c06 dataset \:4e2d\:7b2c\:4e8c\:5c42\:ff0c\:5373\:5173\:8054\:7684key\:5f3a\:5236\:6392\:7248\:4e3a\:5b57\:7b26\:4e32\:ff0c\:53ef\:4ee5\:8f83\:597d\:7684\:663e\:793a.*)
+dsetFmt[x_]:=Dataset[x/.Association->assocTemp/.{
+fdType->enStrRiff,vtxType->enStrRiff,
+chTagKey->enStrRiff,fyCoeKey->enStrRiff,
+fyVtx->enStrRiff,vtxCoe->Identity,fyCoe->Times,massV->Identity,
+fqdKey->enStrRiff,fqdpos->enStrRiff,
+inOct->"in",outOct->"out",MassIn->"m.In",MassOut->"m.out",
+medOct1->"medOct1",medOct2->"medOct2",
+medMes1->"medMes1",medMes2->"medMes2",
+medDec1->"medDec1",medDec2->"medDec2",
+mo1->"mo1",mo2->"mo2",
+mm1->"mm1",mm2->"mm2",
+md1->"md1",md2->"md2"
+}/.assocTemp->Association]
 (*\:67e5\:770b\:5217\:8868\:7684\:524d\:51e0\:9879*)
 testFmt[n_]:=EchoFunction[InputForm]@#[[n]]&
 
@@ -103,8 +119,8 @@ octbNeutRule={ff["\[CapitalSigma]0b"]->ff["\[CapitalSigma]0b\[CapitalLambda]b"],
 (*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
 fyTag={"RB","mes","oct"};qchTp1="sea";qchTp2="qch";
 (*+++++++++++++++++++++++++++ Key \:521d\:59cb\:5316+++++++++++++++++++++++++++*)
-tmpoct=fyVtx1@fdTypeOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
-tmpmes=fyVtx2@fdTypeMes;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
+tmpoct=inOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
+tmpmes=medMes1;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++++\:751f\:6210\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, sea+++++++++++++++++++++++++++*)
 coeJoin[fyTag,{qchTp1,"all"}]=Query[(*list*)All,Append[#,
 fqdKey[fyTag,qchTp1]-><|
@@ -119,9 +135,9 @@ connect[qchTp1][x_]:=Module[{qua123,qua45,qua123vld,chOct,chOctb,chMes,chMesMod,
 qua123=x[fqdKey[fyTag,qchTp1]][fqdpos[1,2,3]];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
 qua45=x[fqdKey[fyTag,qchTp1]][fqdpos[4,5]];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
-chOct=x@fyVtx1@fdTypeOct;(*\:5165\:5c04 oct *)
-chOctb=x@fyVtx1@fdTypeOctb;(*\:4e2d\:95f4 oct*)
-chMes=x@fyVtx2@fdTypeMes;(* \:4e2d\:95f4 mes *)
+chOct=x@inOct;(*\:5165\:5c04 oct*)
+chOctb=x@medOct1;(*\:4e2d\:95f4 octb*)
+chMes=x@medMes1;(* \:4e2d\:95f4 mes*)
 (* --------------- \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
 chMesMod=chMes/.mesNeutRule;
 chOctbMod=chOctb/.octbNeutRule;(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50*)
@@ -136,7 +152,7 @@ chTagKey[fyTag]->chTag[chOct,chMesMod,chOctbMod],(*chpt\:56fe\:7684tag\:ff0c\:65
 fqdpos[1,5]->quarkTag,(*\:4f4d\:7f6e1..5\:7684\:5938\:514b*)
 fyCoeKeycStr-><|fyCoeTag[chMes]->fyCoe[2][chOctb,x@fyCoeKeycStr]|>,(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:7cfb\:6570, chpt Tag \:4fdd\:7559\:4e0d\:540c\:4ecb\:5b50\:7684\:8d21\:732e,\:540c\:65f6\:65b9\:4fbf\:6392\:5e8f*)
 fqdpos[1,2,3]->fqdTag[qua123vld,qchTp1],(*\:4f4d\:7f6e123\:7684\:5938\:514b\:914d\:7f6e,\:65b9\:4fbf\:8054\:7acb sea \:56fe\:7684\:76f8\:7b49\:5173\:7cfb, \:4e0d\:9700\:8981 mes Tag*)
-fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.ToQuark(*\:5938\:514bbar\[Rule]\:5938\:514b*),qua123vld[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
+fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.quarkRule["bar->reg"](*\:5938\:514bbar\[Rule]\:5938\:514b*),qua123vld[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
 |>&/@qua45,(*Map \:4ecb\:5b50\:53ef\:80fd\:7684\:5938\:514b\:7ec4\:5408 *)
 KeyValuePattern[fqdpos[1,5]->fqdTag[qchTp1][ __,fqd["mis","mis","mis"] ]](*\:5220\:9664 Miss \:7c7b\:578b\:ff0c\:4e5f\:5c31\:662f123\:548c45\:4e0d\:5339\:914d\:7684\:60c5\:51b5*)
 ]/.fqdList->Sequence
@@ -148,7 +164,7 @@ coeJoin[fyTag,{qchTp1,"poss"}]=Query[Sort,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:
 
 (* ::Input:: *)
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
-(*fyTag={"RB","mes","oct"};qchTp1="sea";qchTp2="qch";*)
+(*fyTag={"RB","mes","oct"};qchTp1="sea";*)
 (*Query[Cases@KeyValuePattern[*)
 (*chTagKey["in"]->chTag@fd[2,1,0]*)
 (*]]@coeJoin[fyTag,{qchTp1,"poss"}]//dsetFmt*)
@@ -157,8 +173,8 @@ coeJoin[fyTag,{qchTp1,"poss"}]=Query[Sort,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:
 (*\:7ee7\:7eed\:6dfb\:52a0\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, quench\:56fe*)
 fyTag={"RB","mes","oct"};qchTp1="sea";qchTp2="qch";
 qchPoss={qchTp1,qchTp2,"poss"};
-tmpoct=fyVtx1@fdTypeOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
-tmpmes=fyVtx2@fdTypeMes;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
+tmpoct=inOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
+tmpmes=medMes1;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++++*)
 coeJoin[fyTag,{qchTp2,"all"}]=Query[All,Append[#,
 fqdKey[fyTag,qchTp2]-><|
@@ -175,9 +191,9 @@ connect[qchTp2][x_]:=Module[{qua123,qua45,qua123vld,chOct,chOctb,chMes,chOctbMod
 qua123=x[fqdKey[fyTag,qchTp2]]@fqdpos[1,2,3];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
 qua45=x[fqdKey[fyTag,qchTp2]]@fqdpos[4,5];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
-chOct=x@fyVtx1@fdTypeOct;
-chOctb=x@fyVtx1@fdTypeOctb;
-chMes=x@fyVtx2@fdTypeMes;
+chOct=x@inOct;(*\:5165\:5c04 oct*)
+chOctb=x@medOct1;(*\:4e2d\:95f4 octb*)
+chMes=x@medMes1;(* \:4e2d\:95f4 mes*)
 (* --------------- \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
 chMesMod=chMes/.mesNeutRule;
 chOctbMod=chOctb/.octbNeutRule;(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b \:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50*)
@@ -292,8 +308,8 @@ First@Solve[#/.eqList["qf"]->Sequence,DeleteDuplicates@Cases[#,Blank@fqdTag["sea
 (*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
 fyTag={"KR","mes","oct","left"};qchTp1="sea";qchTp2="qch";
 (*+++++++++++++++++++++++++++ Key \:521d\:59cb\:5316+++++++++++++++++++++++++++*)
-tmpoct=fyVtx1@fdTypeOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
-tmpmes=fyVtx2@fdTypeMes;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
+tmpoct=inOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
+tmpmes=medMes1;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++++\:751f\:6210\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, sea+++++++++++++++++++++++++++*)
 coeJoin[fyTag,{qchTp1,"all"}]=Query[All,Append[#,
 fqdKey[fyTag,qchTp1]-><|
@@ -308,9 +324,9 @@ connect[qchTp1][x_]:=Module[{qua123,qua45,qua123vld,chOct,chOctb,chMes,chMesMod,
 qua123=x[fqdKey[fyTag,qchTp1]][fqdpos[1,2,3]];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
 qua45=x[fqdKey[fyTag,qchTp1]][fqdpos[4,5]];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
-chOct=x@fyVtx1@fdTypeOct;(*\:5165\:5c04 oct *)
-chOctb=x@fyVtx1@fdTypeOctb;(*\:4e2d\:95f4 oct *)
-chMes=x@fyVtx2@fdTypeMes;(*\:4e2d\:95f4 mes *)
+chOct=x@inOct;(*\:5165\:5c04 oct *)
+chOctb=x@medOct1;(*\:4e2d\:95f4 octb *)
+chMes=x@medMes1;(*\:4e2d\:95f4 mes *)
 (* --------------- \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
 chMesMod=chMes/.mesNeutRule;
 chOctbMod=chOctb/.octbNeutRule;(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50*)
@@ -325,7 +341,7 @@ chTagKey[fyTag]->chTag[chOct,chMesMod,chOctbMod],(*chpt\:56fe\:7684tag\:ff0c\:65
 fqdpos[1,5]->quarkTag,(*\:4f4d\:7f6e1..5\:7684\:5938\:514b*)
 fyCoeKeycStr-><|fyCoeTag[chMes]->fyCoe[2][chOctb,x@fyCoeKeycStr]|>,(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:7cfb\:6570, chpt Tag \:4fdd\:7559\:4e0d\:540c\:4ecb\:5b50\:7684\:8d21\:732e,\:540c\:65f6\:65b9\:4fbf\:6392\:5e8f*)
 fqdpos[1,2,3]->fqdTag[qua123vld,qchTp1],(*\:4f4d\:7f6e123\:7684\:5938\:514b\:914d\:7f6e,\:65b9\:4fbf\:8054\:7acb sea \:56fe\:7684\:76f8\:7b49\:5173\:7cfb, \:4e0d\:9700\:8981 mes Tag*)
-fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.ToQuark(*\:5938\:514bbar\[Rule]\:5938\:514b*),qua123vld[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
+fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.quarkRule["bar->reg"](*\:5938\:514bbar\[Rule]\:5938\:514b*),qua123vld[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
 |>&/@qua45,(*Map \:4ecb\:5b50\:53ef\:80fd\:7684\:5938\:514b\:7ec4\:5408 *)
 KeyValuePattern[fqdpos[1,5]->fqdTag[qchTp1][ __,fqd["mis","mis","mis"] ]](*\:5220\:9664 Miss \:7c7b\:578b\:ff0c\:4e5f\:5c31\:662f123\:548c45\:4e0d\:5339\:914d\:7684\:60c5\:51b5*)
 ]/.fqdList->Sequence
@@ -337,7 +353,7 @@ coeJoin[fyTag,{qchTp1,"poss"}]=Query[Sort,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:
 
 (* ::Input:: *)
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
-(*fyTag={"KR","mes","oct","left"};qchTp1="sea";qchTp2="qch";*)
+(*fyTag={"KR","mes","oct","left"};qchTp1="sea";*)
 (*Query[Cases@KeyValuePattern[*)
 (*chTagKey["in"]->chTag@fd[2,1,0]*)
 (*]]@coeJoin[fyTag,{qchTp1,"poss"}]//dsetFmt*)
@@ -346,8 +362,8 @@ coeJoin[fyTag,{qchTp1,"poss"}]=Query[Sort,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:
 (*\:7ee7\:7eed\:6dfb\:52a0\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, quench\:56fe*)
 fyTag={"KR","mes","oct","left"};qchTp1="sea";qchTp2="qch";
 qchPoss={qchTp1,qchTp2,"poss"};
-tmpoct=fyVtx1@fdTypeOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
-tmpmes=fyVtx2@fdTypeMes;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
+tmpoct=inOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
+tmpmes=medMes1;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++++*)
 coeJoin[fyTag,{qchTp2,"all"}]=Query[All,Append[#,
 fqdKey[fyTag,qchTp2]-><|
@@ -364,9 +380,9 @@ connect[qchTp2][x_]:=Module[{qua123,qua45,qua123vld,chOct,chOctb,chMes,chOctbMod
 qua123=x[fqdKey[fyTag,qchTp2]]@fqdpos[1,2,3];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
 qua45=x[fqdKey[fyTag,qchTp2]]@fqdpos[4,5];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
-chOct=x@fyVtx1@fdTypeOct;(*\:5165\:5c04 oct *)
-chOctb=x@fyVtx1@fdTypeOctb;(*\:4e2d\:95f4 oct *)
-chMes=x@fyVtx2@fdTypeMes;(*\:4e2d\:95f4 mes *)
+chOct=x@inOct;(*\:5165\:5c04 oct *)
+chOctb=x@medOct1;(*\:4e2d\:95f4 octb *)
+chMes=x@medMes1;(*\:4e2d\:95f4 mes *)
 (* --------------- \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
 chMesMod=chMes/.mesNeutRule;
 chOctbMod=chOctb/.octbNeutRule;(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b \:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50*)
@@ -489,7 +505,7 @@ chTagKey[fyTag]->chTag[chOct,chMesMod,chOctbMod],(*chpt\:56fe\:7684tag\:ff0c\:65
 fqdpos[1,5]->quarkTag,(*\:4f4d\:7f6e1..5\:7684\:5938\:514b*)
 fyCoeKeycStr-><|fyCoeTag[chMes]->fyCoe[2][chOctb,x@fyCoeKeycStr]|>,(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:7cfb\:6570, chpt Tag \:4fdd\:7559\:4e0d\:540c\:4ecb\:5b50\:7684\:8d21\:732e,\:540c\:65f6\:65b9\:4fbf\:6392\:5e8f*)
 fqdpos[1,2,3]->fqdTag[qua123vld,qchTp1],(*\:4f4d\:7f6e123\:7684\:5938\:514b\:914d\:7f6e,\:65b9\:4fbf\:8054\:7acb sea \:56fe\:7684\:76f8\:7b49\:5173\:7cfb, \:4e0d\:9700\:8981 mes Tag*)
-fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.ToQuark(*\:5938\:514bbar\[Rule]\:5938\:514b*),qua123vld[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
+fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.quarkRule["bar->reg"](*\:5938\:514bbar\[Rule]\:5938\:514b*),qua123vld[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
 |>&/@qua45,(*Map \:4ecb\:5b50\:53ef\:80fd\:7684\:5938\:514b\:7ec4\:5408 *)
 KeyValuePattern[fqdpos[1,5]->fqdTag[qchTp1][ __,fqd["mis","mis","mis"] ]](*\:5220\:9664 Miss \:7c7b\:578b\:ff0c\:4e5f\:5c31\:662f123\:548c45\:4e0d\:5339\:914d\:7684\:60c5\:51b5*)
 ]/.fqdList->Sequence
@@ -655,7 +671,7 @@ fqdpos[1,5]->quarkTag,(*\:4f4d\:7f6e1..5\:7684\:5938\:514b*)
 fyCoeKeycStrF1-><|fyCoeTag[chMes]->fyCoe[2][chOctb,x@fyCoeKeycStrF1]|>,
 fyCoeKeycStrF2-><|fyCoeTag[chMes]->fyCoe[2][chOctb,x@fyCoeKeycStrF2]|>,
 fqdpos[1,2,3]->fqdTag[qua123vld,qchTp1],(*\:4f4d\:7f6e123\:7684\:5938\:514b\:914d\:7f6e,\:65b9\:4fbf\:8054\:7acb sea \:56fe\:7684\:76f8\:7b49\:5173\:7cfb, \:4e0d\:9700\:8981 mes Tag*)
-fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.ToQuark(*\:5938\:514bbar\[Rule]\:5938\:514b*),qua123vld[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
+fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.quarkRule["bar->reg"](*\:5938\:514bbar\[Rule]\:5938\:514b*),qua123vld[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
 |>&/@qua45,(*Map \:4ecb\:5b50\:53ef\:80fd\:7684\:5938\:514b\:7ec4\:5408 *)
 KeyValuePattern[fqdpos[1,5]->fqdTag[qchTp1][ __,fqd["mis","mis","mis"] ]](*\:5220\:9664 Miss \:7c7b\:578b\:ff0c\:4e5f\:5c31\:662f123\:548c45\:4e0d\:5339\:914d\:7684\:60c5\:51b5*)
 ]/.fqdList->Sequence
@@ -825,7 +841,7 @@ fqdpos[1,5]->quarkTag,(*\:4f4d\:7f6e1..5\:7684\:5938\:514b*)
 fyCoeKeycStrF1-><|fyCoeTag[chMes]->fyCoe[2][chOctb,x@fyCoeKeycStrF1]|>,
 fyCoeKeycStrF2-><|fyCoeTag[chMes]->fyCoe[2][chOctb,x@fyCoeKeycStrF2]|>,
 fqdpos[1,2,3]->fqdTag[qua123vld,qchTp1],(*\:4f4d\:7f6e123\:7684\:5938\:514b\:914d\:7f6e,\:65b9\:4fbf\:8054\:7acb sea \:56fe\:7684\:76f8\:7b49\:5173\:7cfb, \:4e0d\:9700\:8981 mes Tag*)
-fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.ToQuark(*\:5938\:514bbar\[Rule]\:5938\:514b*),qua123vld[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
+fqdpos[6,7,8]->fqdTag[fqd@@Flatten[{#[[2]]/.quarkRule["bar->reg"](*\:5938\:514bbar\[Rule]\:5938\:514b*),qua123vld[[2;;3]]},Infinity,fqd],qchTp1,chOct](*\:538b\:5e73\:5d4c\:5957\:7684fqd*)
 |>&/@qua45,(*Map \:4ecb\:5b50\:53ef\:80fd\:7684\:5938\:514b\:7ec4\:5408 *)
 KeyValuePattern[fqdpos[1,5]->fqdTag[qchTp1][ __,fqd["mis","mis","mis"] ]](*\:5220\:9664 Miss \:7c7b\:578b\:ff0c\:4e5f\:5c31\:662f123\:548c45\:4e0d\:5339\:914d\:7684\:60c5\:51b5*)
 ]/.fqdList->Sequence

@@ -42,10 +42,21 @@ recurFind[start];
 $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
+(* ::Section:: *)
+(*<< modules*)
+
+
 (*\:5bfc\:5165\:4e00\:4e9b\:683c\:5f0f\:5316\:7684\:8bbe\:7f6e\:ff0c\:663e\:793a\:573a\:7684\:5e38\:7528\:5f62\:5f0f*)
 Get[FileNameJoin[{$srcRoot,"gen.format.wl"}]];
 (*\:7c92\:5b50\:7c7b\:578b\:63a5\:53e3 --------------------------*)
 Get[FileNameJoin[{$srcRoot,"coes.interface.wl"}]];
+
+
+(* ::Section:: *)
+(*functions*)
+
+
+recordLocationInMessage[undefined]
 
 
 (* ---------------------------- \:4e00\:4e9b\:8f93\:5165\:63a5\:53e3\:ff0c\:65b9\:4fbf\:8f93\:5165\:548c\:540e\:7eed\:66f4\:6539 ---------------------------- *)
@@ -55,8 +66,8 @@ unq[fiels__]:=Association[fiels]
 coeIn::usage="coeIn[type,coes],\:7528\:4e8e\:8f93\:5165\:9876\:70b9\:7cfb\:6570";
 mesout::usage="\:533a\:522b\:4ecb\:5b50\:ff0cout\:8868\:793a\:51fa\:5c04";
 mesout[x_]:=mes[x,"out"]
-(*++++++++++++++++++++++++++++++ \:65e0\:6cd5\:786e\:5b9a\:5927\:5c0f\:7684\:91cf +++++++++++++++++++++++++++*)
-undefined;
+(*\:65e0\:6cd5\:786e\:5b9a\:5927\:5c0f\:7684\:91cf +++++++++++++++++++++++++++*)
+undefined::usage="\:65e0\:6cd5\:786e\:5b9a\:5927\:5c0f\:7684\:91cf";
 (*--------------------------------------*)
 vtxCoeAnti[x_]:=vtxCoe[-x]
 
@@ -241,7 +252,7 @@ coeIn[type_,x_]:=type->vtxCoe[cc["C"]/(Sqrt[2]cc["f"])*x](*\:7cfb\:6570\:7684\:7
 (* ------------- \:6dfb\:52a0\:53e6\:5916\:534a\:90e8\:5206\:9876\:70b9 -------------*)
 vtx[unq["type"->vtxtpFlip]]=Query[All,<|
 fdTypeOct ->(#@fdTypeOctb/.fd[a_,b_,1]:>fd[a,b,0]),
-fdTypeMesOut ->(#@fdTypeMes/.mesAntiRule),
+fdTypeMesOut ->(#@fdTypeMes/.mesRule["reverse"]),
 fdTypeDecb ->(#@fdTypeDec/.fd[a_,b_,0]:>fd[a,b,1]),
 vtxtpFlip->(#@vtxtp)
 |>&
@@ -523,7 +534,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],coeIn[vtxtp,0]](*\:6dfb\:52
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*F1,BB\[Phi]A, DF*)
 
 
@@ -669,7 +680,7 @@ vtxtpEMFlip=vtxType["F1","DF","mesOut","EM"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7
 vtx[unq["type"->vtxtpFlip]]=Query[All,<|
 fdTypeOct->(#@fdTypeOctb/.fd[a_,b_,1]:>fd[a,b,0]),
 fdTypeOctb->(#@fdTypeOct/.fd[a_,b_,0]:>fd[a,b,1]),
-fdTypeMesOut->(#@fdTypeMes/.mesAntiRule),
+fdTypeMesOut->(#@fdTypeMes/.mesRule["reverse"]),
 vtxtpFlip->(#@vtxtp),
 vtxtpStrFlip->(#@vtxtpStr),
 vtxtpEMFlip->(#@vtxtpEM)
@@ -785,7 +796,7 @@ vtx[unq["type"->vtxtpFlip]]=Query[All,
 <|
 fdTypeOct->(#@fdTypeOctb/.fd[a_,b_,1]:>fd[a,b,0]),
 fdTypeDecb->(#@fdTypeDec/.fd[a_,b_,0]:>fd[a,b,1]),
-fdTypeMesOut->(#@fdTypeMes/.mesAntiRule),
+fdTypeMesOut->(#@fdTypeMes/.mesRule["reverse"]),
 vtxtpFlip->(#@vtxtp),
 vtxtpStrFlip->(#@vtxtpStr),
 vtxtpEMFlip->(#@vtxtpEM)
@@ -1255,7 +1266,7 @@ KeyDrop[{vtxType1,vtxType2,massKey}]
 \[LeftAssociation]{"octb"}\[Rule]Overscript["p", _],{"oct"}\[Rule]"p",{"mes"}\[Rule]"\[Pi]+",{"mes","out"}\[Rule]"\[Pi]+",{"F1","oct","o2"}\[Rule]{("d")/2}\[RightAssociation],
 \[LeftAssociation]{"octb"}\[Rule]Overscript["p", _],{"oct"}\[Rule]"p",{"mes"}\[Rule]"\[Pi]-",{"mes","out"}\[Rule]"\[Pi]-",{"F1","oct","o2"}\[Rule]{("d")/2}\[RightAssociation]
 *)
-mesSym[vtx_]:=Union[vtx,vtx/.mesAntiRule];
+mesSym[vtx_]:=Union[vtx,vtx/.mesRule["reverse"]];
 (*++++++++++++++++++++++++++ \:8f93\:5165\:53c2\:91cf +++++++++++++++++++++*)
 vtxtp=vtxType["F1F2","oct","o2","nloc"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 vtxType1=vtxType["F1","oct","o2"];vtx1=vtx[unq["type"->vtxType1]];

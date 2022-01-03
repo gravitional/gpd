@@ -30,7 +30,11 @@ decuplet
 \[CapitalOmega]m::10
 quark
 u,d,s";
+
+
 ff::usage="human-readable \:5f62\:5f0f\:7684\:8f93\:5165\:63a5\:53e3\:ff0c\:589e\:52a0\:7a0b\:5e8f\:53ef\:8bfb\:6027";
+fdStr::usage="\:5404\:79cd\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a";
+fdDisp::usage="\:573a\:7684\:663e\:5f0f\:683c\:5f0f";
 
 
 lecs::usage="\:5404\:79cd\:8026\:5408\:5e38\:6570,
@@ -43,14 +47,14 @@ cc::usage="\:8026\:5408\:5e38\:6570\:7684\:7b80\:77ed\:540d\:5b57";
 ch::usage="\:7535\:8377\:77e9\:9635\:7684\:5934\:90e8";
 
 
-fdStr::usage="\:5404\:79cd\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a\:ff0chuman-readable";
 mes::usage="\:4ecb\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
-mesAntiRule::usage="\:663e\:5f0f\:66ff\:6362\:89c4\:5219, \:5c06\:4ecb\:5b50\:573a\:66ff\:6362\:6210\:5bf9\:5e94\:7684\:53cd\:7c92\:5b50";
 oct::usage="\:516b\:91cd\:6001\:91cd\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
 dec::usage="\:5341\:91cd\:6001\:91cd\:5b50\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
-ToQuarkBar::usage="\:5938\:514b\:53d8\:6210\:5938\:514bbar";
-ToQuark::usage="\:5938\:514bbar\:53d8\:6210\:5938\:514b";
-ToQuarkAnti::usage="\:4ea4\:6362\:6b63\:53cd\:5938\:514b";
+
+
+mesRule::usage="\:663e\:5f0f\:66ff\:6362\:89c4\:5219, \:5c06\:4ecb\:5b50\:573a\:66ff\:6362\:6210\:5bf9\:5e94\:7684\:53cd\:7c92\:5b50";
+octetRule::usage="\:516b\:91cd\:6001 <->\:516b\:91cd\:6001 bar \:76f8\:5173\:7684\:53d8\:6362\:89c4\:5219";
+decupletRule::usage="\:5341\:91cd\:6001 <->\:5341\:91cd\:6001 bar \:76f8\:5173\:7684\:53d8\:6362\:89c4\:5219";
 
 
 vfd::usage="\:77e2\:91cf\:573a";
@@ -78,6 +82,9 @@ fyVtx::usage="\:8d39\:66fc\:56fe\:67d0\:4e2a\:9876\:70b9\:7684\:5934\:90e8\:ff0c
 
 
 qua::usage="\:5938\:514b\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f";
+quarkRule::usage="\:4e0e \:5938\:514b<->\:5938\:514bbar \:76f8\:5173\:7684\:53d8\:6362\:89c4\:5219";
+
+
 qwData::usage="\:5404\:79cd\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:7684\:6570\:636e";
 qwKey::usage="\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Key\:5934\:90e8";
 qwave::usage="\:7c92\:5b50\:5938\:514b\:7ec4\:6210\:6570\:636e\:7684Value\:5934\:90e8";
@@ -124,112 +131,28 @@ fd[1,0,0],(*\[Eta]0*)
 fd[1,3,0],fd[1,2,0],fd[1,1,0],(*\[Pi]-,\[Pi]0,\[Pi]+*)
 fd[1,5,0],fd[1,4,0],fd[1,7,0],fd[1,6,0],(*K-,K+,K0b,K0*)
 fd[1,8,0](*\[Eta]8*)
-}
+};
 (*\:5c06\:4ecb\:5b50\:6620\:5c04\:5230\:53cd\:4ecb\:5b50\:7684\:66ff\:6362\:89c4\:5219*)
-mesAntiRule={
+mesRule["reverse"]={
 fd[1,3,0]->fd[1,1,0],fd[1,1,0]->fd[1,3,0],(*\[Pi]-,\[Pi]+*)
 fd[1,5,0]->fd[1,4,0],fd[1,4,0]->fd[1,5,0],(*K-,K+*)
 fd[1,7,0]->fd[1,6,0],fd[1,6,0]->fd[1,7,0](*K0b,K0*)
 };
 
 
-(*\:5404\:79cd\:573a\:7684 human-readable \:8f93\:5165\:5f62\:5f0f *)
+(* ::Section:: *)
+(*<< module*)
 
 
-(*\:516b\:91cd\:6001\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
-type="mes";
-fdStr[type]={(*\:4ecb\:5b50\:573a\:7684\:5b57\:7b26\:4e32\:8868\:793a*)
-"\[Eta]0",
-"\[Pi]+","\[Pi]0","\[Pi]-",
-"K+","K-","K0","K0b",
-"\[Eta]8"
-};
-(* ++++++++ \:5b9a\:4e49\:4ecb\:5b50\:8f93\:5165\:63a5\:53e3, ff["\[Pi]+"]=fd[1,1,0] ++++++++ *)
-Once@MapThread[Set,{ff/@fdStr[type],Array[fd[1,#,0]&,9,{0,8}]}];
-ff["\[Pi]\[Eta]"]=fd[1,{0,2,8},0];(*\[Eta]0,\[Pi]0,\[Eta]8,\:7684\:7b80\:5e76\:8868\:793a*)
-(* ----------- \:4ecb\:5b50Key-Value, \:4f8b\:5982 mes["\[Pi]+"]={"mes"}\[Rule]fd[1,1,0] ----------- *)
-Once@MapThread[Set,{mes/@fdStr[type],fdType[type]->#& /@ Array[fd[1,#,0]&,9,{0,8}] }];(*Array \:751f\:6210 \:4ecb\:5b50\:7684raw\:8868\:793a*)
-(*\:516b\:91cd\:6001\:4ecb\:5b50\:ff0c\:53cd\:7c92\:5b50\:51fa\:5c04, out\:8868\:793a\:51fa\:5c04 *)
-Once@MapThread[Set,{mes[#,"out"]&/@fdStr[type],fdType[type,"out"]->#& /@Array[fd[1,#,0]&,9,{0,8}]}];(*\:4ecb\:5b50\:53cd\:573a\:7684raw\:8868\:793a*)
-
-
-(* ++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++ *)
-type="oct";
-fdStr[type]={
-"p","n",
-"\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-",
-"\[CapitalXi]0","\[CapitalXi]-",
-"\[CapitalLambda]"};
-(* ----- \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3,  ff["p"]=fd[2,1,0] ----- *)
-Once@MapThread[Set,{ff/@fdStr[type],Array[fd[2,#,0]&,8]}];
-ff["\[CapitalSigma]0\[CapitalLambda]"]=fd[2,{4,8},0];(*\[CapitalSigma]0,\[CapitalLambda],\:7684\:7b80\:5e76\:8868\:793a*)
-(* ----- oct Key-Value, \:4f8b\:5982 oct["p"]={"oct"}\[Rule]fd[2,1,0] ----- *)
-Once@MapThread[Set,{oct/@fdStr[type],fdType[type]->#& /@ Array[fd[2,#,0]&,8]}];
-(* ++++++++++++++++++++++++ \:516b\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a ++++++++++++++++++++++++ *)
-type="octb";
-fdStr[type]={
-"pb","nb",
-"\[CapitalSigma]+b","\[CapitalSigma]0b","\[CapitalSigma]-b",
-"\[CapitalXi]0b","\[CapitalXi]-b",
-"\[CapitalLambda]b"};
-(* ------ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3,  ff["p"]=fd[2,1,0] ------ *)
-Once@MapThread[Set,{ff/@fdStr[type], Array[fd[2,#,1]&,8]}];
-ff["\[CapitalSigma]0b\[CapitalLambda]b"]=fd[2,{4,8},1];(*\[CapitalSigma]0b,\[CapitalLambda]b \:7684\:7b80\:5e76\:8868\:793a*)
-(* ------ oct Key-Value, \:4f8b\:5982 oct["p"]={"oct"}\[Rule]fd[2,1,0] ------ *)
-Once@MapThread[Set,{oct/@fdStr[type], fdType[type]->#& /@ Array[fd[2,#,1]&,8]}];
-
-
-(*\:5341\:91cd\:6001\:91cd\:5b50\:7684\:8f93\:5165\:63a5\:53e3*)
-type="dec";
-fdStr[type]={
-"\[CapitalDelta]++","\[CapitalDelta]+","\[CapitalDelta]0","\[CapitalDelta]-",
-"\[CapitalSigma]*+","\[CapitalSigma]*0","\[CapitalSigma]*-",
-"\[CapitalXi]*0","\[CapitalXi]*-",
-"\[CapitalOmega]-"
-};
-(* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, ff["\[CapitalDelta]++"]=fd[3,1,0] ++++++++ *)
-Once@MapThread[Set,{ff/@fdStr[type], Array[fd[3,#,0]&,10]}];
-(* ----------- dec Key-Value, \:4f8b\:5982 dec["\[CapitalDelta]++"]={"dec"}\[Rule]fd[4,1,0] ----------- *)
-Once@MapThread[Set,{dec/@fdStr[type], fdType[type]->#& /@ Array[fd[3,#,0]&,10]}];
-(*\:5341\:91cd\:6001\:91cd\:5b50 anti field, \:5e26 bar \:573a*)
-type="decb";
-fdStr[type]={
-"\[CapitalDelta]++b","\[CapitalDelta]+b","\[CapitalDelta]0b","\[CapitalDelta]-b",
-"\[CapitalSigma]*+b","\[CapitalSigma]*0b","\[CapitalSigma]*-b",
-"\[CapitalXi]*0b","\[CapitalXi]*-b",
-"\[CapitalOmega]-b"
-};
-Once@MapThread[Set,{ff/@fdStr[type], Array[fd[3,#,1]&,10]}];
-Once@MapThread[Set,{dec/@fdStr[type], fdType[type]->#& /@ Array[fd[3,#,1]&,10]}];
+Once@Get["gen.format-interface.wl"];
 
 
 (* ::Section:: *)
-(*quark*)
-
-
-(*\:66ff\:6362\:89c4\:5219:\:5938\:514b\[Rule]\:53cd\:5938\:514b*)
-ToQuarkBar={fd[4,1,0]->fd[4,1,1],fd[4,2,0]->fd[4,2,1],fd[4,3,0]->fd[4,3,1]};
-(*\:66ff\:6362\:89c4\:5219:\:53cd\:5938\:514b\[Rule]\:5938\:514b*)
-ToQuark={fd[4,1,1]->fd[4,1,0],fd[4,2,1]->fd[4,2,0],fd[4,3,1]->fd[4,3,0]};
-(*\:66ff\:6362\:89c4\:5219:\:6b63\:53cd\:5938\:514b\:4e92\:6362*)
-ToQuarkAnti=ToQuarkBar~Join~ToQuark;
-
-
-type="qua";
-fdStr[type]={"u","d","s"};
-(* ++++++++ \:5b9a\:4e49\:8f93\:5165\:63a5\:53e3, quark human-readable, ff["u"]=fd[4,1,0] ++++++++ *)
-Once@MapThread[Set,{ff/@fdStr[type], Array[fd[4,#,0]&,3]}];
-(* ----------- quark Key-Value, \:4f8b\:5982 qua["u"]={"qua"}\[Rule]fd[4,1,0] ----------- *)
-Once@MapThread[Set,{qua/@fdStr[type], fdType[type]->#& /@ Array[fd[4,#,0]&,3]}];
-(* -----------\:53cd\:5938\:514b\:7684\:8f93\:5165\:63a5\:53e3 ----------- *)
-type="quab";
-fdStr[type]={"ub","db","sb"};
-Once@MapThread[Set,{ff/@fdStr[type], Array[fd[4,#,1]&,3]}];
-Once@MapThread[Set,{qua/@fdStr[type], fdType[type]->#& /@ Array[fd[4,#,1]&,3]}];
+(*wave function in quark*)
 
 
 (* \:4ecb\:5b50\:7684\:5938\:514b\:7ec4\:6210\:ff0c\:5938\:514b\:662f\:7528\:7f16\:53f7\:8868\:793a\:7684, toqwave \:5c06\:7f16\:53f7\:8f6c\:6362\:6210\:5938\:514b\:573a *)
-toqwave["mes"][{x_,y_}]:=qwave[fd[4,x,0],fd[4,y,1]]
+toqwave["mes"][{x_,y_}]:=qwave[fd[4,x,0],fd[4,y,1]];
 qwaveIdx["mes"]=Map[toqwave["mes"],
 {
 {{1,1},{2,2},{3,3}},(*\[Eta]0*)
@@ -245,7 +168,7 @@ fqdList@@@qwaveIdx["mes"]
 
 
 (* oct\:7684\:5938\:514b\:7ec4\:6210 *)
-toqwave["oct"][{x_,y_,z_}]:=fqdList@@Permutations[qwave[fd[4,x,0],fd[4,y,0],fd[4,z,0]]]
+toqwave["oct"][{x_,y_,z_}]:=fqdList@@Permutations[qwave[fd[4,x,0],fd[4,y,0],fd[4,z,0]]];
 qwaveIdx["oct"]=toqwave["oct"]/@{
 {1,1,2},{1,2,2},
 {1,1,3},{1,2,3},{2,2,3},
@@ -259,8 +182,8 @@ qwaveIdx["oct"]
 
 
 (*\:5341\:91cd\:6001\:91cd\:6001\:91cd\:5b50\:7684\:5938\:514b\:7ec4\:6210*)
-type="dec";
-toqwave[type][{x_,y_,z_}]:=qwave[fd[4,x,0],fd[4,y,0],fd[4,z,0]]
+Block[{type="dec"},
+toqwave[type][{x_,y_,z_}]:=qwave[fd[4,x,0],fd[4,y,0],fd[4,z,0]];
 qwaveIdx[type]=toqwave[type]/@{
 {1,1,1},{1,1,2},{1,2,2},{2,2,2},
 {1,1,3},{1,2,3},{2,2,3},
@@ -268,10 +191,11 @@ qwaveIdx[type]=toqwave[type]/@{
 {3,3,3}
 };
 qwData[type]=AssociationThread[qwKey/@fdStr[type],qwaveIdx[type]];
+]
 
 
 (* ::Section:: *)
-(*fd format*)
+(*field format*)
 
 
 (*\:8fd9\:91cc\:7ed9\:51fa\:7684\:51fd\:6570\:53ea\:6709\:6392\:7248\:4f5c\:7528\:ff0c\:4e0d\:53c2\:52a0\:8fd0\:7b97, \:7ed9\:51fa\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:7684\:5934\:90e8,fieldScript,\:628a\:53c2\:6570\:6392\:7248\:6210\:7c92\:5b50\:573a\:7684\:5f62\:5f0f,\:4e00\:822c\:901a\:8fc7 SuperScript \:5b9e\:73b0*)
