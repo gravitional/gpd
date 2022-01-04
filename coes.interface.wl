@@ -5,6 +5,23 @@
 
 
 (* ::Section:: *)
+(*flatten Assoc Recursively*)
+
+
+(*\:9012\:5f52\:5c55\:5e73\:5d4c\:5957\:5173\:8054, \:5c06\:6d45\:5c42 key \:524d\:7f00\:5230\:6df1\:5c42 key \:4e0a*)
+SetAttributes[flatAssocRec,Orderless];
+flatAssocRec[x___Rule,key_->flatAssocRec[rules__Rule]]:=flatAssocRec@@Join[{x},
+Normal@KeyMap[Join[enList@key,enList@#]&]@Association@rules]
+(*\:5982\:679c\:662f\:5d4c\:5957\:5173\:8054\:ff0c\:5c31\:6267\:884c\:66ff\:6362\:64cd\:4f5c*)
+flatAssoc[assoc_Association]:=If[
+(*\:5224\:65ad\:662f\:5426\:6709\:5d4c\:5957\:7684 Association*)
+AnyTrue[AssociationQ]@assoc,
+assoc/.Association->flatAssocRec/.flatAssocRec->Association,
+assoc
+]
+
+
+(* ::Section:: *)
 (*query Dataset Skeleton*)
 
 
