@@ -289,6 +289,9 @@ First@Solve[#/.eqList["qf"]->Sequence,DeleteDuplicates@Cases[#,Blank@fqdTag["sea
 ]@coeJoin[fyTag,qfEqs];
 
 
+If[$inNBook,coeJoin[fyTag,quaFlow]//testFmt[1]]
+
+
 (* ::Section:: *)
 (*Kroll-Ruderman ,A-meson,octet,left*)
 
@@ -453,6 +456,9 @@ First@Solve[#/.eqList["qf"]->Sequence,DeleteDuplicates@Cases[#,Blank@fqdTag["sea
 ]@coeJoin[fyTag,qfEqs];
 
 
+If[$inNBook,coeJoin[fyTag,quaFlow]//testFmt[1]]
+
+
 (* ::Section:: *)
 (*Kroll-Ruderman ,A-meson,octet,right*)
 
@@ -472,8 +478,8 @@ First@Solve[#/.eqList["qf"]->Sequence,DeleteDuplicates@Cases[#,Blank@fqdTag["sea
 (*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
 fyTag={"KR","mes","oct","right"};qchTp1="sea";qchTp2="qch";
 (*+++++++++++++++++++++++++++ Key \:521d\:59cb\:5316+++++++++++++++++++++++++++*)
-tmpoct=fyVtx1@fdTypeOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
-tmpmes=fyVtx2@fdTypeMes;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
+tmpoct=inOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
+tmpmes=medMes1;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++++\:751f\:6210\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, sea+++++++++++++++++++++++++++*)
 coeJoin[fyTag,{qchTp1,"all"}]=Query[All,Append[#,
 fqdKey[fyTag,qchTp1]-><|
@@ -488,9 +494,9 @@ connect[qchTp1][x_]:=Module[{qua123,qua45,qua123vld,chOct,chOctb,chMes,chMesMod,
 qua123=x[fqdKey[fyTag,qchTp1]][fqdpos[1,2,3]];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
 qua45=x[fqdKey[fyTag,qchTp1]][fqdpos[4,5]];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
-chOct=x@fyVtx1@fdTypeOct;(*\:5165\:5c04 oct *)
-chOctb=x@fyVtx1@fdTypeOctb;(*\:4e2d\:95f4 oct *)
-chMes=x@fyVtx2@fdTypeMes;(*\:5165\:5c04 mes *)
+chOct=x@inOct;(*\:5165\:5c04 oct *)
+chOctb=x@medOct1;(*\:4e2d\:95f4 oct *)
+chMes=x@medMes1;(*\:5165\:5c04 mes *)
 (* --------------- \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
 chMesMod=chMes/.mesNeutRule;
 chOctbMod=chOctb/.octbNeutRule;(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50*)
@@ -526,8 +532,8 @@ coeJoin[fyTag,{qchTp1,"poss"}]=Query[Sort,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:
 (*\:7ee7\:7eed\:6dfb\:52a0\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, quench\:56fe*)
 fyTag={"KR","mes","oct","right"};qchTp1="sea";qchTp2="qch";
 qchPoss={qchTp1,qchTp2,"poss"};
-tmpoct=fyVtx1@fdTypeOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
-tmpmes=fyVtx2@fdTypeMes;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
+tmpoct=inOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
+tmpmes=medMes1;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++++*)
 coeJoin[fyTag,{qchTp2,"all"}]=Query[All,Append[#,
 fqdKey[fyTag,qchTp2]-><|
@@ -544,9 +550,9 @@ connect[qchTp2][x_]:=Module[{qua123,qua45,qua123vld,chOct,chOctb,chMes,chOctbMod
 qua123=x[fqdKey[fyTag,qchTp2]]@fqdpos[1,2,3];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
 qua45=x[fqdKey[fyTag,qchTp2]]@fqdpos[4,5];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
-chOct=x@fyVtx1@fdTypeOct;(*\:5165\:5c04 oct *)
-chOctb=x@fyVtx1@fdTypeOctb;(*\:4e2d\:95f4 oct *)
-chMes=x@fyVtx2@fdTypeMes;(*\:4e2d\:95f4 mes *)
+chOct=x@inOct;(*\:5165\:5c04 oct *)
+chOctb=x@medOct1;(*\:4e2d\:95f4 oct *)
+chMes=x@medMes1;(*\:4e2d\:95f4 mes *)
 (* --------------- \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
 chMesMod=chMes/.mesNeutRule;
 chOctbMod=chOctb/.octbNeutRule;(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b \:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50*)
@@ -617,6 +623,9 @@ First@Solve[#/.eqList["qf"]->Sequence,DeleteDuplicates@Cases[#,Blank@fqdTag["sea
 ]@coeJoin[fyTag,qfEqs];
 
 
+If[$inNBook,coeJoin[fyTag,quaFlow]//testFmt[1]]
+
+
 (* ::Section:: *)
 (*RainBow,A-octet,F1F2,nonlocal*)
 
@@ -636,8 +645,8 @@ First@Solve[#/.eqList["qf"]->Sequence,DeleteDuplicates@Cases[#,Blank@fqdTag["sea
 (*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
 fyTag={"RB","oct","F1F2"};qchTp1="sea";qchTp2="qch";
 (*+++++++++++++++++++++++++++ Key \:521d\:59cb\:5316+++++++++++++++++++++++++++*)
-tmpoct=fyVtx1@fdTypeOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
-tmpmes=fyVtx3@fdTypeMes;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
+tmpoct=inOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
+tmpmes=medMes1;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++++\:751f\:6210\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, sea+++++++++++++++++++++++++++*)
 coeJoin[fyTag,{qchTp1,"all"}]=Query[All,Append[#,
 fqdKey[fyTag,qchTp1]-><|
@@ -652,9 +661,9 @@ connect[qchTp1][x_]:=Module[{qua123,qua45,qua123vld,chOct,chOctb,chMes,chMesMod,
 qua123=x[fqdKey[fyTag,qchTp1]][fqdpos[1,2,3]];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
 qua45=x[fqdKey[fyTag,qchTp1]][fqdpos[4,5]];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
-chOct=x@fyVtx1@fdTypeOct;(*\:5165\:5c04 oct *)
-chOctb=x@fyVtx2@fdTypeOctb;(*\:4e2d\:95f4 oct *)
-chMes=x@fyVtx3@fdTypeMes;(*\:4e2d\:95f4 mes *)
+chOct=x@inOct;(*\:5165\:5c04 oct *)
+chOctb=x@medOct1;(*\:4e2d\:95f4 oct *)
+chMes=x@medMes1;(*\:4e2d\:95f4 mes *)
 (* --------------- \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
 chMesMod=chMes/.mesNeutRule;
 chOctbMod=chOctb/.octbNeutRule;(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50*)
@@ -692,8 +701,8 @@ coeJoin[fyTag,{qchTp1,"poss"}]=Query[Sort,KeyDrop[fqdpos[6,7,8]](*\:53bb\:6389\:
 (*\:7ee7\:7eed\:6dfb\:52a0\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, quench\:56fe*)
 fyTag={"RB","oct","F1F2"};qchTp1="sea";qchTp2="qch";
 qchPoss={qchTp1,qchTp2,"poss"};
-tmpoct=fyVtx1@fdTypeOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
-tmpmes=fyVtx3@fdTypeMes;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
+tmpoct=inOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
+tmpmes=medMes1;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++++*)
 coeJoin[fyTag,{qchTp2,"all"}]=Query[All,Append[#,
 fqdKey[fyTag,qchTp2]-><|
@@ -710,9 +719,9 @@ connect[qchTp2][x_]:=Module[{qua123,qua45,qua123vld,chOct,chOctb,chMes,chOctbMod
 qua123=x[fqdKey[fyTag,qchTp2]]@fqdpos[1,2,3];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
 qua45=x[fqdKey[fyTag,qchTp2]]@fqdpos[4,5];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
-chOct=x@fyVtx1@fdTypeOct;(* \:5165\:5c04 oct *)
-chOctb=x@fyVtx2@fdTypeOctb;(* \:4e2d\:95f4 oct *)
-chMes=x@fyVtx3@fdTypeMes;(* \:4e2d\:95f4 mes *)
+chOct=x@inOct;(* \:5165\:5c04 oct *)
+chOctb=x@medOct1;(* \:4e2d\:95f4 oct *)
+chMes=x@medMes1;(* \:4e2d\:95f4 mes *)
 (* --------------- \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
 chMesMod=chMes/.mesNeutRule;
 chOctbMod=chOctb/.octbNeutRule;(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b \:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50*)
@@ -726,8 +735,11 @@ quarkTag=fqdTag[qchTp2][#(*\:5938\:514b4,5*),qua123vld(*\:5938\:514b123*)];(*\:5
 chTagKey["in"]->chTag[chOct],(*chpt \:5165\:5c04\:7c92\:5b50,\:65b9\:4fbf\:5bf9quarkflow\:5206\:7ec4*)
 chTagKey[fyTag]->chTag[chOct,chMesMod,chOctbMod],(*chpt\:56fe\:7684tag\:ff0c\:65b9\:4fbf\:5bf9quarkflow\:5206\:7ec4,\:628a \[Pi]0,\[Eta]0,\[Eta]8 \:5206\:5230\:540c\:4e00\:7ec4, \[CapitalSigma]0b,\[CapitalLambda]b\:5206\:5230\:540c\:4e00\:7ec4*)
 fqdpos[1,5]->quarkTag,(*\:4f4d\:7f6e1..5\:7684\:5938\:514b*)
-fyCoeKeycStr-><|fyCoeTag[chMes]->fyCoe[2][chOctb,x@fyCoeKeycStr]|>,(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:7cfb\:6570, chpt Tag \:4fdd\:7559\:4e0d\:540c\:4ecb\:5b50\:7684\:8d21\:732e,\:540c\:65f6\:65b9\:4fbf\:6392\:5e8f*)
-fqdpos[1,2,3]->fqdTag[qua123vld,qchTp2],(*\:4f4d\:7f6e123\:7684\:5938\:514b\:914d\:7f6e*)
+(*\:5f3a\:76f8\:4e92\:4f5c\:7528\:7cfb\:6570, chpt Tag \:4fdd\:7559\:4e0d\:540c\:4ecb\:5b50\:7684\:8d21\:732e,\:540c\:65f6\:65b9\:4fbf\:6392\:5e8f*)
+fyCoeKeycStrF1-><|fyCoeTag[chMes]->fyCoe[2][chOctb,x@fyCoeKeycStrF1]|>,
+fyCoeKeycStrF2-><|fyCoeTag[chMes]->fyCoe[2][chOctb,x@fyCoeKeycStrF2]|>,
+(*\:4f4d\:7f6e123\:7684\:5938\:514b\:914d\:7f6e,\:65b9\:4fbf\:8054\:7acb sea \:56fe\:7684\:76f8\:7b49\:5173\:7cfb, \:4e0d\:9700\:8981 mes Tag*)
+fqdpos[1,2,3]->fqdTag[qua123vld,qchTp2],
 fqdpos[6,7,8]->fqdTag[qua123vld[[{2,2,3}]],qchTp2,chOct]
 |>&/@qua45,(*Map \:4ecb\:5b50\:53ef\:80fd\:7684\:5938\:514b\:7ec4\:5408 *)
 KeyValuePattern[fqdpos[1,5]->fqdTag[qchTp2][ __,fqd["mis","mis","mis"] ]](*\:5220\:9664 Miss \:7c7b\:578b\:ff0c\:4e5f\:5c31\:662f123\:548c45\:4e0d\:5339\:914d\:7684\:60c5\:51b5*)
@@ -785,6 +797,9 @@ First@Solve[#/.eqList["qf"]->Sequence,DeleteDuplicates@Cases[#,Blank@fqdTag["sea
 ]@coeJoin[fyTag,qfEqs];
 
 
+If[$inNBook,coeJoin[fyTag,quaFlow]//testFmt[1]]
+
+
 (* ::Section:: *)
 (*tadpole, A - octet, F1F2 - order2, nonlocal*)
 
@@ -806,8 +821,8 @@ First@Solve[#/.eqList["qf"]->Sequence,DeleteDuplicates@Cases[#,Blank@fqdTag["sea
 (*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
 fyTag={"RB","oct","F1F2"};qchTp1="sea";qchTp2="qch";
 (*+++++++++++++++++++++++++++ Key \:521d\:59cb\:5316+++++++++++++++++++++++++++*)
-tmpoct=fyVtx1@fdTypeOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
-tmpmes=fyVtx3@fdTypeMes;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
+tmpoct=inOct;(*\:9876\:70b91,oct,\:5165\:5c04\:573a*)
+tmpmes=medMes1;(*\:9876\:70b92,mes,\:5165\:5c04\:573a*)
 (*+++++++++++++++++++++++++++\:751f\:6210\:5938\:514b\:56fe\:4e2d\:6240\:6709\:53ef\:80fd\:7684\:5938\:514b\:914d\:7f6e, sea+++++++++++++++++++++++++++*)
 coeJoin[fyTag,{qchTp1,"all"}]=Query[All,Append[#,
 fqdKey[fyTag,qchTp1]-><|
@@ -822,9 +837,9 @@ connect[qchTp1][x_]:=Module[{qua123,qua45,qua123vld,chOct,chOctb,chMes,chMesMod,
 qua123=x[fqdKey[fyTag,qchTp1]][fqdpos[1,2,3]];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b, fqdList*)
 qua45=x[fqdKey[fyTag,qchTp1]][fqdpos[4,5]];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
-chOct=x@fyVtx1@fdTypeOct;(*\:5165\:5c04 oct *)
-chOctb=x@fyVtx2@fdTypeOctb;(*\:4e2d\:95f4 oct *)
-chMes=x@fyVtx3@fdTypeMes;(*\:4e2d\:95f4 mes *)
+chOct=x@inOct;(*\:5165\:5c04 oct *)
+chOctb=x@medOct1;(*\:4e2d\:95f4 oct *)
+chMes=x@medMes1;(*\:4e2d\:95f4 mes *)
 (* --------------- \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
 chMesMod=chMes/.mesNeutRule;
 chOctbMod=chOctb/.octbNeutRule;(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50*)
