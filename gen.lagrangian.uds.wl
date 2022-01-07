@@ -650,7 +650,7 @@ lecs["c2"]*Tr[mat["Bbar"] . cmt[Dot,crt[{"F\[Mu]\[Nu]",2},"\[Mu]","\[Nu]"],ltz[m
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["mag8"]/.{lecs["c3"]->lecs["c2"]-lecs["c1"]},
-ContainsAll,{fd[2,1,1],fd[2,1,0]}
+ContainsAll,{fd[2,8,1],fd[2,4,0]}
 ]
 
 
