@@ -50,11 +50,12 @@ recordLocationInMessage[localPathResult,serializeResult]
 (*\:7ed9\:51fa\:672c\:5730\:7f13\:5b58\:6587\:4ef6\:7684\:8def\:5f84*)
 localPathResult[resultsDir_][filename_String]:=FileNameJoin[{resultsDir,
 StringRiffle[{
-filename,$parOrdStr,
+$parOrdStr,
 "LbdNum",$LambdaNumStr,
 "LbdFit",$LambdaFitStr
+,filename
 },"-"]}];
-(*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
+(*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6-----------------------------*)
 serializeResult[resultsDir_][filename_String,result_]:=With[
 {path=localPathResult[resultsDir][filename]},
 Export[path,result];echo["Exporting finished: ", path];]
