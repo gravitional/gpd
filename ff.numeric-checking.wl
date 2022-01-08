@@ -47,7 +47,7 @@ CmdParser["pseudo"]={
 ,"--para-coupl","False"(*\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838*)
 ,"--interp","False"(*\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f*)
 ,"--ord","$ordFull"(*$ordFull","\:5708\:79ef\:5206\:7684\:7ea7\:6570 order: \:6709 ord0, ord1, ordFull*)
-,"--lbd-num","0.90"(*\:6570\:503c\:8ba1\:7b97\:4e2d Lambda \:7684\:53d6\:503c: 0.80,0.90,1.00*)
+,"--lbd-num","0.80"(*\:6570\:503c\:8ba1\:7b97\:4e2d Lambda \:7684\:53d6\:503c: 0.80,0.90,1.00*)
 ,"--lbd-fit","Undefined"(*\:5f15\:7528\:7684 fitting \:57fa\:4e8e\:7684 Lambda, \:800c\:4e0d\:662f\:6570\:503c\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 Lambda: 0.80,0.90,1.00*)
 };
 
@@ -57,7 +57,7 @@ parseCml[]
 
 
 (* ::Section:: *)
-(*import module*)
+(*<< module*)
 
 
 (*\:5bfc\:5165\:6240\:6709\:8d39\:66fc\:56fe tag \:7684\:5217\:8868: fyAmpLoopLst,fyAmpTreeLst*)
@@ -70,7 +70,7 @@ Get["ff.numeric-interface.wl"];
 
 
 (*\:5bfc\:5165\:4e4b\:524d\:603b\:8d21\:732e\:7684\:63d2\:503c\:51fd\:6570*)
-interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo"];
+interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo.wdx"];
 
 
 (* ::Chapter:: *)
@@ -83,14 +83,14 @@ interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo"];
 
 
 If[!$renew$ffsMergedQ&&
-FileExistsQ@FindFile@localPathResult[resultsDir]["loop-result"],
+FileExistsQ@FindFile@localPathResult[resultsDir]["loop-result.wdx"],
 (*\:5982\:679c\:6709\:4e4b\:524d\:7f13\:5b58\:7684\:7ed3\:679c\:ff0c\:5c31\:76f4\:63a5\:8bfb\:5165*)
-loopResults["v"]=Import@localPathResult[resultsDir]["loop-result"];,
+loopResults["v"]=Import@localPathResult[resultsDir]["loop-result.wdx"];,
 (*\:5982\:679c\:9700\:8981\:91cd\:65b0\:8ba1\:7b97,\:5c31\:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
 (*order full, Intel i7-6700 (8): \:4ee3\:5165\:6240\:6709\:6570\:503c, ~ 4m30s ; \:4ee3\:5165\:90e8\:5206\:6570\:503c, ~3m50s *)
 Get["ff.numeric-worker.wl"];//AbsoluteTiming//echo;
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6\:ff1a\:5708\:56fe\:7684\:8ba1\:7b97\:7ed3\:679c*)
-serializeResult[resultsDir]["loop-result",loopResults["v"]];
+serializeResult[resultsDir]["loop-result.wdx",loopResults["v"]];
 ]
 
 
@@ -156,7 +156,7 @@ Query[(*cc-values*)All,(*fitting-scheme*)All,
 ]];//AbsoluteTiming
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*checking*)
 
 
@@ -262,9 +262,9 @@ tmp`ord=Key@$ordFull;
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
 tmp`cc=Key@cc["C","1.50"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
-tmp`scheme=Key@"\[CapitalSigma]+-";
+tmp`scheme=Key@"most";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
-tmp`oct=Key@ff["p"];
+tmp`oct=Key@ff["n"];
 (*sectOct,sectBub,sectDec,sectMag*)
 tmp`diag=sectOct~Join~sectBub;(*\:6b64\:5904\:8003\:8651\:4e86 octet \:4e2d\:95f4\:6001\:548c bubble tadpole \:7684\:8d21\:732e\:ff0c\:6ca1\:6709\:8003\:8651 \:5341\:91cd\:6001\:7684\:8d21\:732e*)
 (*tagNum["lo","uds"],tagNum["lo","u"],tagNum["lo","d"],tagNum["lo","s"]*)
@@ -274,7 +274,7 @@ tagNum["tr","uds"],tagNum["tr","u"]..d,s,
 tagNum["tr+lo","uds"]*)
 tmp`confTot=Key/@{tagNum["lo","uds"]};
 (*1:GE,2:GM*)
-tmp`gegm=2;
+tmp`gegm=1;
 
 
 (*\:5355\:72ec\:8d39\:66fc\:56fe\:7684\:8d21\:732e--------------------------------*)
@@ -320,6 +320,48 @@ figGroup["total"],figGroup["diag"]
 ,PlotRange->Full
 ,PlotRangePadding->{{Scaled[.16],0},Scaled[.05]}
 ,ImageSize->800
+]
+
+
+(* ::Section:: *)
+(*Grid display*)
+
+
+(*\:80cc\:666f\:8272\:914d\:7f6e*)
+dataBackground={
+None,(* color horizontal: x1, x2, x3...*)
+{
+LightCyan,{None,LightBlue}
+}(* color vertical: y1, y2, y3...*)
+};
+
+
+(*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
+tmp`cc=Key@cc["C","1.00"];
+(*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
+tmp`scheme=Key@"most";
+(*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
+tmp`oct=Key@ff["p"];
+
+
+With[{
+(*\:5408\:5e76\:6570\:636e, \:5d4c\:5957\:5173\:8054\:ff0c\:9012\:5f52 Merge ++++++++++++++++++++++++++++++*)
+data=Nest[Merge,Identity,2]@{
+(*\:8ba1\:7b97\:503c*)
+Query[
+(*cc-values*)tmp`cc
+,(*fitting-scheme*)tmp`scheme
+,(*octet*)All
+,(*{contrib}*)All
+,(*{GEGM}*)All
+,(*InterpolatingFunction*)NumberForm[Chop[#@0],4]&
+]@interpoGEGM["v"],
+(*\:5b9e\:9a8c\:503c*)
+Query["exp."]@numExper/.{numAround->Around,$tempNone->0}
+}},
+(*\:5e94\:7528\:8868\:683c\:6392\:7248++++++++++++++++++++++++++++++++++++++++*)
+If[$inNBook,
+gridTable["GEGM",dataBackground]@data]
 ]
 
 

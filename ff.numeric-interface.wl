@@ -41,6 +41,38 @@ numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
 
 
 (* ::Section:: *)
+(*export*)
+
+
+recordLocationInMessage[localPathResult,serializeResult]
+
+
+(*\:7ed9\:51fa\:672c\:5730\:7f13\:5b58\:6587\:4ef6\:7684\:8def\:5f84*)
+localPathResult[resultsDir_][filename_String]:=FileNameJoin[{resultsDir,
+StringRiffle[{
+filename,$parOrdStr,
+"LbdNum",$LambdaNumStr,
+"LbdFit",$LambdaFitStr
+},"-"]}];
+(*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
+serializeResult[resultsDir_][filename_String,result_]:=With[
+{path=localPathResult[resultsDir][filename]},
+Export[path,result];echo["Exporting finished: ", path];]
+
+
+recordLocationInMessage[localPath,serialize]
+
+
+(*\:7ed9\:51fa\:672c\:5730\:7f13\:5b58\:6587\:4ef6\:7684\:8def\:5f84,\:7ed9\:51fa\:6587\:4ef6\:548c\:62d3\:5c55\:540d*)
+localPath[Directory_][filename_]:=FileNameJoin[{
+Directory,StringRiffle[enList@filename,"-"]}];
+(*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
+serialize[Directory_][filename_,result_]:=With[
+{path=localPath[Directory][filename]},
+Export[path,result];echo["Exporting finished: ", path];]
+
+
+(* ::Section:: *)
 (*<< fittings*)
 
 
@@ -66,31 +98,6 @@ mm1;mm2;(*\:4e2d\:95f4\:516b\:91cd\:6001\:4ecb\:5b50*)
 mo1;mo2;(*\:4e2d\:95f4\:516b\:91cd\:6001\:91cd\:5b50*)
 md1;md2;(*\:4e2d\:95f4\:5341\:91cd\:6001\:91cd\:5b50*)
 Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
-
-
-recordLocationInMessage[localPathResult,serializeResult]
-
-
-(*\:7ed9\:51fa\:672c\:5730\:7f13\:5b58\:6587\:4ef6\:7684\:8def\:5f84*)
-localPathResult[resultsDir_][filename_String]:=FileNameJoin[{resultsDir,
-StringRiffle[{
-filename,$parOrdStr,
-"LbdNum",$LambdaNumStr,
-"LbdFit",$LambdaFitStr
-},"-"]<>".wdx"}];
-(*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
-serializeResult[resultsDir_][filename_String,result_]:=With[
-{path=localPathResult[resultsDir][filename]},
-Export[path,result];echo["Exporting finished: ", path];]
-
-
-(*\:7ed9\:51fa\:672c\:5730\:7f13\:5b58\:6587\:4ef6\:7684\:8def\:5f84*)
-localPath[Directory_][filename_]:=FileNameJoin[{
-Directory,StringRiffle[enList@filename,"-"]<>".wdx"}];
-(*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
-serialize[Directory_][filename_,result_]:=With[
-{path=localPath[Directory][filename]},
-Export[path,result];echo["Exporting finished: ", path];]
 
 
 (* ::Section:: *)

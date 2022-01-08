@@ -105,13 +105,16 @@ fyCoeKeycAll=fyCoeKey["cAll"];
 fyCoeKeycEM=fyCoeKey["cEM"];
 fyCoeKeycStr=fyCoeKey["cStr"];
 (* --------- \:53cd\:5e38\:78c1\:77e9 --------- *)
-fyCoeKeycAllF1=fyCoeKey["cAll","F1"];(*\:8ddf\:53cd\:573a\:78c1\:77e9\:6709\:5173\:7684\:7c7b\:578b F1 *)
+(*\:6240\:6709\:8026\:5408\:7cfb\:6570\:4e58\:79ef, F1,F2*)
+fyCoeKeycAllF1=fyCoeKey["cAll","F1"];
 fyCoeKeycAllF2=fyCoeKey["cAll","F2"];
-fyCoeKeycStrF1=fyCoeKey["cStr","F1"];(*\:8ddf\:53cd\:573a\:78c1\:77e9\:6709\:5173\:7684\:7c7b\:578b F1 *)
+(*\:5f3a\:4e92\:4f5c\:7528\:7cfb\:6570\:4e58\:79ef,F1,F2*)
+fyCoeKeycStrF1=fyCoeKey["cStr","F1"];
 fyCoeKeycStrF2=fyCoeKey["cStr","F2"];
-fyCoeKeycEMF1=fyCoeKey["cEM","F1"];(* EM \:7cfb\:6570*)
+(*\:7535\:78c1\:76f8\:4e92\:4f5c\:7528\:7cfb\:6570\:4e58\:79ef,F1,F2*)
+fyCoeKeycEMF1=fyCoeKey["cEM","F1"];
 fyCoeKeycEMF2=fyCoeKey["cEM","F2"];
-(*----------- GE,GM tag -----------*)
+(*\:7535\:78c1\:4f5c\:7528\:7cfb\:6570 GEGM---------*)
 fyCoeKeyGE=fyCoeKey["cEM","GE"];
 fyCoeKeyGM=fyCoeKey["cEM","GM"];
 (* --------- \:6807\:8bb0\:5165\:5c04\:ff0c\:4e2d\:95f4\:6001\:4fe1\:606f --------- *)
@@ -126,11 +129,6 @@ MassIn=mE;MassOut;
 MassOct1=mo1;MassOct2=mo2;(*\:4e2d\:95f4 oct \:91cd\:5b50 1,2*)
 MassMes1=mm1;MassMes2=mm2;(*\:4e2d\:95f4 oct \:4ecb\:5b50 1,2*)
 MassDec1=md1;MassDec2=md2;(*\:4e2d\:95f4 dec \:91cd\:5b501,2*)
-
-
-(* ::Input:: *)
-(*ffsF1F2=formFactor["F1F2"];*)
-(*ffsGEGM=formFactor["GEGM"];*)
 
 
 (*++++++++++++++ \:5f62\:72b6\:56e0\:5b50\:540d\:79f0 Keys ++++++++++++++*)
@@ -248,6 +246,9 @@ quaCharge["s"]={ch["u"]->0,ch["d"]->0,ch["s"]->1};
 
 (* ::Section:: *)
 (*experiment*)
+
+
+recordLocationInMessage@{numOctMaget,numExper}
 
 
 numOctMaget=<|

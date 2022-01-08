@@ -71,17 +71,17 @@ Get["ff.numeric-interface.wl"];
 
 
 If[!$renew$ffsMergedQ&&
-FileExistsQ@FindFile@localPathResult[resultsDir]["loop-result"]&&
-FileExistsQ@FindFile@localPathResult[resultsDir]["ffsMerged"],
+FileExistsQ@FindFile@localPathResult[resultsDir]["loop-result.wdx"]&&
+FileExistsQ@FindFile@localPathResult[resultsDir]["ffsMerged.wdx"],
 (*\:5982\:679c\:6709\:4e4b\:524d\:7f13\:5b58\:7684\:7ed3\:679c\:ff0c\:5c31\:76f4\:63a5\:8bfb\:5165*)
-loopResults["v"]=Import@localPathResult[resultsDir]["loop-result"];
-ffsMerged["WithRen",keyTreeAndLoop]=Import@localPathResult[resultsDir]["ffsMerged"];,
+loopResults["v"]=Import@localPathResult[resultsDir]["loop-result.wdx"];
+ffsMerged["WithRen",keyTreeAndLoop]=Import@localPathResult[resultsDir]["ffsMerged.wdx"];,
 (*\:5982\:679c\:9700\:8981\:91cd\:65b0\:8ba1\:7b97,\:5c31\:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
 (*order full, Intel i7-6700 (8): \:4ee3\:5165\:6240\:6709\:6570\:503c, ~ 4m30s ; \:4ee3\:5165\:90e8\:5206\:6570\:503c, ~3m50s *)
 Get["ff.numeric-worker.wl"];//AbsoluteTiming//echo;
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6\:ff1a\:5708\:56fe\:7684\:8ba1\:7b97\:7ed3\:679c*)
-serializeResult[resultsDir]["loop-result",loopResults["v"]];
-serializeResult[resultsDir]["ffsMerged",ffsMerged["WithRen",keyTreeAndLoop]];
+serializeResult[resultsDir]["loop-result.wdx",loopResults["v"]];
+serializeResult[resultsDir]["ffsMerged.wdx",ffsMerged["WithRen",keyTreeAndLoop]];
 ]
 
 
@@ -96,7 +96,7 @@ ffsMerged["trimed",keyTreeAndLoop]=Query[(*order*)All,(*octet*)All,
 
 
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6\:ff1a\:5708\:56fe\:7684\:8ba1\:7b97\:7ed3\:679c*)
-(*serializeResult[resultsDir]["ffsMerged-trimed",ffsMerged["trimed",keyTreeAndLoop]];*)
+(*serializeResult[resultsDir]["ffsMerged-trimed.wdx",ffsMerged["trimed",keyTreeAndLoop]];*)
 
 
 (* \:62df\:5408\:51fa\:7684 c1,c2 \:503c\:88ab\:653e\:5728 ccfitted$Err \:4e2d, \:4f7f\:7528 Query \:67e5\:8be2; \:8003\:8651 \:53c2\:6570\:4e4b\:95f4\:7684\:9650\:5236\:ff0c\:7ed9\:51fa\:6240\:6709\:53c2\:6570\:7684\:6570\:503c*)
@@ -131,7 +131,7 @@ renormalConst["v"]=Query[(*cc-values*)All,(*fitting-scheme*)1,
 
 
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6\:ff1a\:5708\:56fe\:7684\:8ba1\:7b97\:7ed3\:679c*)
-serializeResult[resultsDir]["recons",renormalConst["v"]];
+serializeResult[resultsDir]["recons.wdx",renormalConst["v"]];
 
 
 (*\:6253\:5370\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570*)
@@ -161,7 +161,7 @@ tagNum["lo","d"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["d"]],
 tagNum["lo","s"]->chopQ2Val[#@ffsLoopGEGM/.quaCharge["s"]],
 (*total = tree +(Z-1)*tree+loop*)
 tagNum["tr+lo","uds"]->chopQ2Val[
-#@recon*#@ffsTreeGEGM+#@ffsLoopGEGM/.quaCharge["uds"]]
+(#@recon*#@ffsTreeGEGM+#@ffsLoopGEGM)/.quaCharge["uds"]]
 |>&
 
 
@@ -173,7 +173,8 @@ numFFs["v",keyTreeAndLoop]=With[
 Association@Table[ord->
 Query[(*cc-values*)All,(*fitting-scheme*)All,
 (*order*)Key@ord,(*octet*)All,
-(*tree-loop-FFactors,recons*)numFFs["fn"][<|"ord"->ord|>]@numFFs["fn"][keyTreeAndLoop]
+(*tree-loop-FFactors,recons*)
+numFFs["fn"][<|"ord"->ord|>]@numFFs["fn"][keyTreeAndLoop]
 ]@ffsMerged["configs",keyTreeAndLoop]
 ,{ord,orderLst}
 ]];//AbsoluteTiming
@@ -207,7 +208,7 @@ Get["ff.numeric-interpo.wl"];]
 
 
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6*)
-serializeResult[resultsDir]["interpo",interpoGEGM["v",keyTreeAndLoop]]
+serializeResult[resultsDir]["interpo.wdx",interpoGEGM["v",keyTreeAndLoop]]
 
 
 (* ::Chapter:: *)

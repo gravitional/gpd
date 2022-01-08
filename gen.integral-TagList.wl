@@ -256,9 +256,10 @@ Black,Line[{{0,0},{end,0}}],
 Arrowheads[{{Automatic,.53}}],
 Arrow@BezierCurve[{
 {end/2,0},{0,end/2},{end,end/2},{end/2,0}
-}],Line[{{end/2,3/8*end},{end/2,end/2}}],
-FontSize->Small,
-Text["v1",{end/2,-4delta}],Text["v2",{end/2,end/3-delta}]
+}]
+,Line[{{end/2,3/8*end},{end/2,end/2}}]
+,FontSize->Small
+,Text["v1",{end/2,-4delta}],Text["v2",{end/2,end/3-delta}]
 },
 ImageSize->Small]
 
@@ -268,9 +269,11 @@ Black,Line[{{0,0},{end,0}}],
 Arrowheads[{{Automatic,.53}}],
 Arrow@BezierCurve[{
 {end/2,0},{0,end/2},{end,end/2},{end/2,0}
-}],Line[{{end/2,3/8*end},{end/2,end/2}}],
-FontSize->Small,
-Text["v1",{end/2,-4delta}],Text["v2",{end/2,end/3-delta}]
+}]
+,Line[{{end/2,3/8*end},{end/2,end/2}}]
+,Rectangle[{1/2end-3/2delta,-3/2delta},{1/2end+3/2delta,+3/2delta}]
+,FontSize->Small
+,Text["v1",{end/2,-5delta}],Text["v2",{end/2,end/3-delta}]
 },
 ImageSize->Small]
 

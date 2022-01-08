@@ -25,7 +25,7 @@ enDir[dir_]:=If[!DirectoryQ[dir],CreateDirectory[dir];echo["Create a new directo
 
 
 (*\:8bb0\:5f55\:7b26\:53f7\:5b9a\:4e49\:6240\:5728\:7684\:6587\:4ef6*)
-Attributes[recordLocationInMessage]={HoldFirst};
+Attributes[recordLocationInMessage]={HoldAll};
 recordLocationInMessage[x_Symbol]:=(x::loc=$InputFileName;)
 recordLocationInMessage[xs:_Symbol..]:=(ReleaseHold[recordLocationInMessage/@HoldComplete@xs];)
 recordLocationInMessage[lst:{_Symbol..}]:=(ReleaseHold[recordLocationInMessage/@HoldComplete@@lst];)

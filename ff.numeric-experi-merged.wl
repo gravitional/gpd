@@ -46,7 +46,7 @@ CmdParser["pseudo"]={
 "--update","False",
 "--para-coupl","False",
 "--ord","$ordFull",
-"--lbd-num","0.90"
+"--lbd-num","0.80"
 };
 
 
@@ -66,7 +66,7 @@ Get["coes.interface.wl"];
 Get["ff.numeric-interface.wl"];
 
 
-interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo"];
+interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo.wdx"];
 
 
 (* \:5bf9 \:51fd\:6570\:7684\:5217\:8868 \:753b\:56fe *)
@@ -99,13 +99,24 @@ annotated["experi"][legPos_][assoc_Association]:=KeyValueMap[
 Legended[#2,Placed[#1,legPos]]&,assoc];
 
 
+(*\:516c\:5171\:8bbe\:7f6e,\:5168\:5c40\:53d8\:91cf*)
+(*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
+tmp`cc=Key@cc["C","1.50"];
+(*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
+tmp`scheme=Key@"most";
+(*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
+tmp`oct=Key@ff["n"];
+(*1:GE,2:GM*)
+tmp`gegm=1;
+
+
 (*\:6807\:6ce8\:6570\:636e*)
 legendFn[key_,val_]:=Legended[val,Placed[key,{{0.58,0.58},{0.,0.}}]];
 (* \:7ed8\:5236\:5b9e\:9a8c\:70b9\:6570\:636e*)
 teb=ListPlot[Query[
-(*octet*)Key@ff["n"],
-(*FFactors*)ffsGEGM,
-(*GEGM*)1/*annotated[legendFn]
+(*octet*)tmp`oct
+,(*FFactors*)ffsGEGM
+,(*GEGM*)tmp`gegm/*annotated[legendFn]
 ]@experiDataset,
 (*\:753b\:56fe\:9009\:9879*)
 PlotTheme->{"Scientific"},
@@ -121,7 +132,7 @@ IntervalMarkersStyle->Automatic
 ]
 
 
-(* ::Chapter:: *)
+(* ::Section:: *)
 (*merge*)
 
 
@@ -131,11 +142,12 @@ Placed[key/.{numKey->StringRiffle},{{1,0.58},{0.,0.}}]];
 (*\:901a\:8fc7 Query \:8bed\:6cd5\:ff0c\:8fdb\:884c\:7ed8\:56fe*)
 Show[teb
 (*\:8ba1\:7b97\:56fe*)
-,Query[(*cc-value*)Key@cc["C","1.50"]
-,(*fit-scheme*)Key@"N"
-,(*octet*)Key@ff["n"]
+,Query[
+(*cc-value*)tmp`cc
+,(*fit-scheme*)tmp`scheme
+,(*octet*)tmp`oct
 ,(*loop-tree-uds*)contribTag/*annotated[legendFn]/*plotList[Q2]
-(*GEGM pair*),1
+,(*GEGM pair*)tmp`gegm
 ]@interpoGEGM["v"],
 PlotRange->{{0,1},Automatic}
 ]
@@ -159,8 +171,12 @@ With[{
 data=Nest[Merge,Identity,2]@{
 (*\:8ba1\:7b97\:503c*)
 Query[
-Key@cc["C","1.50"],Key@"\[CapitalSigma]+-",
-All,All,All,NumberForm[Chop[#@0],4]&
+(*cc-values*)Key@cc["C","1.50"]
+,(*fitting-scheme*)Key@"most"
+,(*octet*)All
+,(*{contrib}*)All
+,(*{GEGM}*)All
+,(*InterpolatingFunction*)NumberForm[Chop[#@0],4]&
 ]@interpoGEGM["v"],
 (*\:5b9e\:9a8c\:503c*)
 Query["exp."]@numExper/.{numAround->Around,$tempNone->0}
