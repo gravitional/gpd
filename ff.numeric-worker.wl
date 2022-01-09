@@ -51,7 +51,7 @@ DistributeDefinitions[
 $srcRoot,$fileName,echo,enList,enString,$inNBook,
 $parOrdStr,$LambdaNumStr,$parCStr,$fitScheme,$LambdaFit,
 coesDir,mfilesDir,fyAmpPart,
-massV,numMass,numCoupLst,numPaVe,otherCoes,
+massV,numMass,numCoupLst,numPaVe,fyCoesOther,
 quaCharge,medRule,toGEGM,
 $chopLimit,chop,$precision
 ];]
@@ -76,6 +76,13 @@ treeSum=Association@Query[Select@sameOctQ,
 #@inOct->KeyTake[#,{inOct,ffsF1F2,ffsGEGM}]&]@treeFsGs;
 
 
+(* ::Section:: *)
+(*coes.chpt*)
+
+
+fyCoesAssoc=Import@localPath["coes"]["coes.chpt.wdx"];
+
+
 (* ::Chapter:: *)
 (*Loops numeric*)
 
@@ -86,7 +93,8 @@ treeSum=Association@Query[Select@sameOctQ,
 
 (*tag \:662f\:6307\:5b9a\:7684\:8d39\:66fc\:56fe,$parOrdStr \:662f\:5708\:79ef\:5206\:7684\:7ea7\:6570\:7684 order*)
 import$Eva[tag_,$parOrdStr_]:=Block[{coes,expr,assocLst},
-coes=Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[tag,"."]<>".wdx"}]];
+(*coes=Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[tag,"."]<>".wdx"}]];*)
+coes=fyCoesAssoc@tag;
 expr={Import[FileNameJoin[{mfilesDir,"analytic.strange."<>$parOrdStr<>"."<>StringRiffle[tag,"."]<>".wdx"}]]};
 If[$parOrdStr===$ordFull,echo[DateString[],": ",tag]];
 (* JoinAcross \:5229\:7528\:516c\:5171\:7684 chpt \:8d39\:66fc\:56fe tag,\:8fde\:63a5\:7cfb\:6570\:4e0e\:5708\:79ef\:5206\:8868\:8fbe\:5f0f *)
@@ -95,7 +103,7 @@ assocLst=JoinAcross[coes,expr,Key@chTagKey["chTag"]];
 Query[All,
 (*-------------- \:6dfb\:52a0\:4fee\:6b63\:8fc7\:7684\:7cfb\:6570 --------------*)
 (Append[#,fyCoeKeycAll->Times[
-#@fyCoeKeycAll,otherCoes[#@chTagKey["chTag"]],I/(16\[Pi]^2)
+#@fyCoeKeycAll,fyCoesOther[#@chTagKey["chTag"]],I/(16\[Pi]^2)
 ]]&)/*
 (*-------------- \:5708\:79ef\:5206*\:7cfb\:6570,\:5e76\:6570\:503c\:5316 --------------*)
 (Append[#,

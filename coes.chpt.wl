@@ -54,12 +54,21 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 Get["gen.chpt.coes.wl"];
 
 
+(*\:7ed9\:51fa\:672c\:5730\:7f13\:5b58\:6587\:4ef6\:7684\:8def\:5f84,\:7ed9\:51fa\:6587\:4ef6\:548c\:62d3\:5c55\:540d*)
+localPath[Directory_][filename_]:=FileNameJoin[{
+Directory,StringRiffle[enList@filename,"-"]}];
+(*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
+serialize[Directory_][filename_,result_]:=With[
+{path=localPath[Directory][filename]},
+Export[path,result];echo["Exporting finished: ", path];]
+
+
 (*\:4fdd\:5b58\:7cfb\:6570\:5230\:672c\:5730\:6587\:4ef6*)
-serializeCoe[fyTag_,coeJoin_]:=Block[{path},
+(*serializeCoe[fyTag_,coeJoin_]:=Block[{path},
 path=FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[fyTag,"."]<>".wdx"}];
 Export[path,coeJoin[fyTag]];
 echo["Exporting finished: ", path];
-]
+]*)
 
 
 (*\:5b9a\:4e49\:4e00\:4e2a\:786e\:4fdd\:5b57\:7b26\:4e32\:7684\:51fd\:6570,\:7528\:9017\:53f7\:9694\:5f00\:8f93\:5165*)
@@ -84,6 +93,8 @@ testFmt[n_]:=EchoFunction[InputForm]@#[[n]]&
 
 (* \:56fe\:5f62\:8868\:793a\:521d\:59cb\:5316 *)
 end=4;delta=0.05;
+(*\:521d\:59cb\:5316\:7cfb\:6570\:7684\:54c8\:5e0c*)
+coeJoin=<||>;
 
 
 (* ::Chapter:: *)
@@ -91,7 +102,7 @@ end=4;delta=0.05;
 
 
 (* ::Section:: *)
-(*RainBow,A-meson,octet,*)
+(*RainBow,A-meson,octet*)
 
 
 (* ::Input:: *)
@@ -187,7 +198,7 @@ MassIn->(#@inOct/.fd[a_,b_,0]:>massV@fd[a,b,2])(* \:5165\:5c04\:91cd\:5b50\:8d28
 ]@vtxJoin[fyTag]
 ,2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin]
+(*serializeCoe[fyTag,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -277,7 +288,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin]
+(*serializeCoe[fyTag,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -367,7 +378,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin]
+(*serializeCoe[fyTag,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -378,7 +389,7 @@ serializeCoe[fyTag,coeJoin]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman,A-meson,octet,addition,left*)
 
 
@@ -399,7 +410,7 @@ fyTag={"KR","mes","oct","left"};
 fyTagTmp={"KR","mes","oct","add","left"};
 coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin]
+(*serializeCoe[fyTagTmp,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -409,7 +420,7 @@ serializeCoe[fyTagTmp,coeJoin]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman, A-meson, octet,addition,right*)
 
 
@@ -430,7 +441,7 @@ fyTag={"KR","mes","oct","right"};
 fyTagTmp={"KR","mes","oct","add","right"};
 coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin]
+(*serializeCoe[fyTagTmp,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -440,7 +451,7 @@ serializeCoe[fyTagTmp,coeJoin]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-octet,F1F2,nonlocal*)
 
 
@@ -567,7 +578,7 @@ fyCoeKeycStrF1,fyCoeKeycStrF2,
 fyCoeKeycEMF1,fyCoeKeycEMF2
 }]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin];
+(*serializeCoe[fyTagTmp,coeJoin];*)
 (*---------------------------- \:751f\:6210 F2 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
 fyTagTmp={"RB","oct","F2"};
 coeJoin[fyTagTmp]=Query[All,
@@ -584,7 +595,7 @@ fyCoeKeycStrF1,fyCoeKeycStrF2,
 fyCoeKeycEMF1,fyCoeKeycEMF2
 }]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin];
+(*serializeCoe[fyTagTmp,coeJoin];*)
 
 
 (* ::Input:: *)
@@ -646,7 +657,7 @@ MassIn->(#@inOct/.fd[a_,b_,0]:>massV@fd[a,b,2])(* \:5165\:5c04\:91cd\:5b50\:8d28
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin];
+(*serializeCoe[fyTag,coeJoin];*)
 (*---------------------------- \:751f\:6210 F1 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
 fyTagTmp={"tree","oct","F1"};
 coeJoin[fyTagTmp]=Query[All,
@@ -659,7 +670,7 @@ fyCoeKeycAll->#@fyCoeKeycAllF1
 KeyDrop[{
 fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGM
 }]]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin];
+(*serializeCoe[fyTagTmp,coeJoin];*)
 (*---------------------------- \:751f\:6210 F2 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
 fyTagTmp={"tree","oct","F2"};
 coeJoin[fyTagTmp]=Query[All,
@@ -671,7 +682,7 @@ fyCoeKeycAll->#@fyCoeKeycAllF2
 KeyDrop[{
 fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGE
 }]]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin];
+(*serializeCoe[fyTagTmp,coeJoin];*)
 
 
 (* ::Input:: *)
@@ -766,7 +777,7 @@ fyCoeKeycStrF1,fyCoeKeycStrF2,
 fyCoeKeycEMF1,fyCoeKeycEMF2
 }]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin];
+(*serializeCoe[fyTagTmp,coeJoin];*)
 (*---------------------------- \:751f\:6210 F2 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
 fyTagTmp={"tad","oct","F2"};
 coeJoin[fyTagTmp]=Query[All,
@@ -783,7 +794,7 @@ fyCoeKeycStrF1,fyCoeKeycStrF2,
 fyCoeKeycEMF1,fyCoeKeycEMF2
 }]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin];
+(*serializeCoe[fyTagTmp,coeJoin];*)
 
 
 (* ::Input:: *)
@@ -817,7 +828,7 @@ fyTag={"tad","oct","F1"};
 fyTagTmp={"tad","oct","F1","add"};
 coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin]
+(*serializeCoe[fyTagTmp,coeJoin]*)
 
 
 (* ::Section:: *)
@@ -895,7 +906,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin]
+(*serializeCoe[fyTag,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -984,7 +995,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin]
+(*serializeCoe[fyTag,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -1088,7 +1099,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin]
+(*serializeCoe[fyTag,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -1224,7 +1235,7 @@ fyCoeKeycStrF1,fyCoeKeycStrF2,
 fyCoeKeycEMF1,fyCoeKeycEMF2
 }]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin];
+(*serializeCoe[fyTagTmp,coeJoin];*)
 (*---------------------------- \:751f\:6210 F2 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
 fyTagTmp={"RB","dec","F2"};
 coeJoin[fyTagTmp]=Query[All,
@@ -1241,7 +1252,7 @@ fyCoeKeycStrF1,fyCoeKeycStrF2,
 fyCoeKeycEMF1,fyCoeKeycEMF2
 }]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin];
+(*serializeCoe[fyTagTmp,coeJoin];*)
 
 
 (* ::Input:: *)
@@ -1352,7 +1363,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin]
+(*serializeCoe[fyTag,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -1463,7 +1474,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin]
+(*serializeCoe[fyTag,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -1555,7 +1566,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin]
+(*serializeCoe[fyTag,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -1647,7 +1658,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-serializeCoe[fyTag,coeJoin]
+(*serializeCoe[fyTag,coeJoin]*)
 
 
 (* ::Input:: *)
@@ -1667,7 +1678,7 @@ fyTagTmp={"KR","mes","dec","add","left"};
 fyTag={"KR","mes","dec","left"};
 coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin]
+(*serializeCoe[fyTagTmp,coeJoin]*)
 
 
 (* ::Section:: *)
@@ -1679,4 +1690,13 @@ fyTagTmp={"KR","mes","dec","add","right"};
 fyTag={"KR","mes","dec","right"};
 coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 ]@coeJoin[fyTag];
-serializeCoe[fyTagTmp,coeJoin]
+(*serializeCoe[fyTagTmp,coeJoin]*)
+
+
+(* ::Section:: *)
+(*export*)
+
+
+(*DumpSave[localPath["coes"]["coes.chpt.mx"],coeJoin];*)
+(*\:4fdd\:5b58\:6570\:636e*)
+serialize["coes"]["coes.chpt.wdx",coeJoin]

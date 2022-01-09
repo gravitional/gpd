@@ -260,11 +260,11 @@ plotData["tot"][Q2_][lst_]:=Plot[Evaluate@lst,{Q2,0,0.6}
 (* $ord0,$ordFull*)
 tmp`ord=Key@$ordFull;
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
-tmp`cc=Key@cc["C","1.50"];
+tmp`cc=Key@cc["C","1.00"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
 tmp`scheme=Key@"most";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
-tmp`oct=Key@ff["n"];
+tmp`oct=Key@ff["p"];
 (*sectOct,sectBub,sectDec,sectMag*)
 tmp`diag=sectOct~Join~sectBub;(*\:6b64\:5904\:8003\:8651\:4e86 octet \:4e2d\:95f4\:6001\:548c bubble tadpole \:7684\:8d21\:732e\:ff0c\:6ca1\:6709\:8003\:8651 \:5341\:91cd\:6001\:7684\:8d21\:732e*)
 (*tagNum["lo","uds"],tagNum["lo","u"],tagNum["lo","d"],tagNum["lo","s"]*)
@@ -274,7 +274,7 @@ tagNum["tr","uds"],tagNum["tr","u"]..d,s,
 tagNum["tr+lo","uds"]*)
 tmp`confTot=Key/@{tagNum["lo","uds"]};
 (*1:GE,2:GM*)
-tmp`gegm=1;
+tmp`gegm=2;
 
 
 (*\:5355\:72ec\:8d39\:66fc\:56fe\:7684\:8d21\:732e--------------------------------*)
@@ -342,10 +342,9 @@ tmp`cc=Key@cc["C","1.00"];
 tmp`scheme=Key@"most";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
 tmp`oct=Key@ff["p"];
-
-
+(*\:663e\:793a\:8868\:683c---------------------------------------------*)
 With[{
-(*\:5408\:5e76\:6570\:636e, \:5d4c\:5957\:5173\:8054\:ff0c\:9012\:5f52 Merge ++++++++++++++++++++++++++++++*)
+(*\:5408\:5e76\:6570\:636e, \:5d4c\:5957\:5173\:8054\:ff0c\:9012\:5f52 Merge*)
 data=Nest[Merge,Identity,2]@{
 (*\:8ba1\:7b97\:503c*)
 Query[
@@ -374,6 +373,16 @@ Multicolumn[
 annotated[Legended[#2,Placed[#1/.chTag->StringRiffle,Below]]&]@diagIllus
 ,4,Appearance->"Horizontal"
 ]
+
+
+(* ::Section:: *)
+(*scan fittings*)
+
+
+Query[Normal/*(Column[#,Frame->All]&)
+,Normal/*(Column[#,Frame->All]&)
+,Normal/*(TableForm[#,TableSpacing->{2,1}]&)
+]@Import@localPath[fittingsDir]@"nums.ccFittings.wdx"
 
 
 (* ::Chapter:: *)
