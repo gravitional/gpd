@@ -50,6 +50,15 @@ CmdParser["pseudo"]={$fileName
 };
 
 
+(*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
+CmdParser["pseudo"]={$fileName
+,"--update","True"
+,"--para-coupl","True"
+,"--ord","$ord0"
+,"--lbd-num","0.90"
+};
+
+
 parseCml[]
 
 
@@ -97,6 +106,14 @@ ffsMerged["trimed",keyTreeAndLoop]=Query[(*order*)All,(*octet*)All,
 
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6\:ff1a\:5708\:56fe\:7684\:8ba1\:7b97\:7ed3\:679c*)
 (*serializeResult[resultsDir]["ffsMerged-trimed.wdx",ffsMerged["trimed",keyTreeAndLoop]];*)
+
+
+(*\:8bfb\:53d6 c1,c2 \:7684\:62df\:5408\:503c, \:6839\:636e $LambdaFitStr \:7684\:503c\:6765\:9009\:53d6 ---------------*)
+ccfitted$Err=Query[
+(*\[CapitalLambda] value*)Key@cc["\[CapitalLambda]",$LambdaFitStr]
+,(*C value*)All
+,(*fit-scheme*)$fitScheme
+]@Import@FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}];
 
 
 (* \:62df\:5408\:51fa\:7684 c1,c2 \:503c\:88ab\:653e\:5728 ccfitted$Err \:4e2d, \:4f7f\:7528 Query \:67e5\:8be2; \:8003\:8651 \:53c2\:6570\:4e4b\:95f4\:7684\:9650\:5236,\:7ed9\:51fa\:6240\:6709\:53c2\:6570\:7684\:6570\:503c*)
