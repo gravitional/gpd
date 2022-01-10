@@ -267,8 +267,8 @@ numExper=<|
 (*experiment data*)
 "exp."->AssociationThread[tagOctfds,
 {
-<|ffsGEGM->{numAround[1,0],numAround[2.7928473446,tempNone]}|>,
-<|ffsGEGM->{numAround[0,0],numAround[\[Minus]1.9130427,tempNone]}|>,
+<|ffsGEGM->{numAround[1,0],numAround[2.7928473446,0.0000000008]}|>,
+<|ffsGEGM->{numAround[0,0],numAround[\[Minus]1.9130427,0.0000005]}|>,
 
 <|ffsGEGM->{numAround[1,0],numAround[2.458,0.010]}|>,
 <|ffsGEGM->{numAround[0,0],numAround[0.60,tempNone]}|>,
@@ -366,5 +366,8 @@ enDir[mfilesDir];
 resultsDir=FileNameJoin[{$srcRoot,"results"}];
 enDir[resultsDir];
 (*fittings \:76ee\:5f55*)
-echo[fittingsDir=FileNameJoin[{$srcRoot,"fittings"}]];
+fittingsDir=FileNameJoin[{$srcRoot,"fittings"}];
 enDir[fittingsDir];
+(*\:5b9e\:9a8c\:6570\:636e\:4fdd\:5b58\:76ee\:5f55*)
+experiDir=FileNameJoin[{$srcRoot,"experiment"}];
+enDir[experiDir];

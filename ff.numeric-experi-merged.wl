@@ -91,8 +91,7 @@ tagNum["tr+lo","uds"]};
 (*import experiment*)
 
 
-experiDir=FileNameJoin[{$srcRoot,"experiment"}];
-experiDataset=Get[FileNameJoin[{experiDir,"nucleon-data.auth-year.wl"}]];
+experiDataset=Import@localPath["experiment"]["nucleon-data.auth-year.non-normalized.wl"];
 
 
 annotated["experi"][legPos_][assoc_Association]:=KeyValueMap[
@@ -101,19 +100,25 @@ Legended[#2,Placed[#1,legPos]]&,assoc];
 
 (*\:516c\:5171\:8bbe\:7f6e,\:5168\:5c40\:53d8\:91cf*)
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
-tmp`cc=Key@cc["C","1.50"];
+tmp`cc=Key@cc["C","1.00"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
 tmp`scheme=Key@"most";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
-tmp`oct=Key@ff["n"];
+tmp`oct=Key@ff["p"];
 (*1:GE,2:GM*)
-tmp`gegm=1;
+tmp`gegm=2;
+(*\:53c2\:6570\:68c0\:67e5-----*)
+tmp`oct::OutRange="Only \"p\", \"n\" experiment data aquired for now";
+If[!MemberQ[Key/@{ff["p"],ff["n"]},tmp`oct],
+Message[tmp`oct::OutRange];Abort[];
+]
 
 
 (*\:6807\:6ce8\:6570\:636e*)
-legendFn[key_,val_]:=Legended[val,Placed[key,{{0.58,0.58},{0.,0.}}]];
+(*{{0.58,0.58},{0.,0.}}*)
+legendFn[key_,val_]:=Legended[val,Placed[key,After]];
 (* \:7ed8\:5236\:5b9e\:9a8c\:70b9\:6570\:636e*)
-teb=ListPlot[Query[
+figGroup["exper"]=ListPlot[Query[
 (*octet*)tmp`oct
 ,(*FFactors*)ffsGEGM
 ,(*GEGM*)tmp`gegm/*annotated[legendFn]
@@ -137,10 +142,11 @@ IntervalMarkersStyle->Automatic
 
 
 (*\:6807\:6ce8\:6570\:636e*)
-legendFn[key_,val_]:=Legended[val@Q2(*/#2[0]*),
-Placed[key/.{numKey->StringRiffle},{{1,0.58},{0.,0.}}]];
+(*{{1,0.58},{0.,0.}}*)
+legendFn[key_,val_]:=Legended[val@Q2,
+Placed[key/.{numKey->StringRiffle},After]];
 (*\:901a\:8fc7 Query \:8bed\:6cd5\:ff0c\:8fdb\:884c\:7ed8\:56fe*)
-Show[teb
+Show[figGroup["exper"]
 (*\:8ba1\:7b97\:56fe*)
 ,Query[
 (*cc-value*)tmp`cc
