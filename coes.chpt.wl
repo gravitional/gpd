@@ -120,9 +120,9 @@ coeJoin=<||>;
 (* \:8d39\:66fc\:56fe\:7684chpt Tag\:ff0c\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9 v1,v2,v3, \:4ece\:5de6\:5230\:53f3\:6392\:5217 *)
 fyTag={"RB","mes","oct"};
 (*\:7ed9\:9876\:70b9\:6253\:4e0atag,\:9632\:6b62 JoinAcross \:64cd\:4f5c\:65f6 Key \:51b2\:7a81*)
-vtxType1=vtxType["stro","DF","mesOut"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["str","DF","mesOut"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F1","\[Phi]\[Phi]A"];            vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
-vtxType3=vtxType["stro","DF","mesIn"];   vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
+vtxType3=vtxType["str","DF","mesIn"];   vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -228,8 +228,8 @@ MassIn->(#@inOct/.fd[a_,b_,0]:>massV@fd[a,b,2])(* \:5165\:5c04\:91cd\:5b50\:8d28
 fyTag={"KR","mes","oct","left"};
 (*\:7ed9\:9876\:70b9\:6253\:4e0atag,\:9632\:6b62 JoinAcross \:64cd\:4f5c\:65f6 Key \:51b2\:7a81*)
 vtxType1=vtxType["F1","DF","mesOut"];   vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
-vtxType1Str=vtxType["F1","DF","mesOut","stro"]; vtxType1EM=vtxType["F1","DF","mesOut","EM"];
-vtxType2=vtxType["stro","DF","mesIn"];  vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
+vtxType1Str=vtxType["F1","DF","mesOut","str"]; vtxType1EM=vtxType["F1","DF","mesOut","EM"];
+vtxType2=vtxType["str","DF","mesIn"];  vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -317,9 +317,9 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (* \:8d39\:66fc\:56fe\:7684chpt Tag\:ff0c\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9 v1,v2 \:4ece\:5de6\:5230\:53f3\:6392\:5217 *)
 fyTag={"KR","mes","oct","right"};
 (*\:7ed9\:9876\:70b9\:6253\:4e0atag,\:9632\:6b62 JoinAcross \:64cd\:4f5c\:65f6 Key \:51b2\:7a81*)
-vtxType1=vtxType["stro","DF","mesOut"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["str","DF","mesOut"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F1","DF","mesIn"];     vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
-vtxType2Str=vtxType["F1","DF","mesIn","stro"]; vtxType2EM=vtxType["F1","DF","mesIn","EM"];
+vtxType2Str=vtxType["F1","DF","mesIn","str"]; vtxType2EM=vtxType["F1","DF","mesIn","EM"];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -468,9 +468,9 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag\:ff0c\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2,v3, \:8fd9\:91cc\:987a\:4fbf\:8ba1\:7b97\:4e86 F2 *)
 fyTag={"RB","oct","F1F2"};
-vtxType1=vtxType["stro","DF","mesOut"];       vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["str","DF","mesOut"];       vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F1F2","oct","nloc"];        vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
-vtxType3=vtxType["stro","DF","mesIn"];        vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
+vtxType3=vtxType["str","DF","mesIn"];        vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
 vtxF1=vtxType["F1","oct","nloc"];             vtxF2=vtxType["F2","oct","nloc"];
 (*++++++++++++++++++++++\:8fde\:63a5\:5404\:4e2a\:9876\:70b9++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
@@ -850,7 +850,7 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2*)
 fyTag={"bub","mes","o2"};
-vtxType1=vtxType["stro","BB\[Phi]\[Phi]"];   vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["str","BB\[Phi]\[Phi]"];   vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 (*BB\[Phi]\[Phi]\:9876\:70b9\:4e2d\:6ca1\:6709\:4e0d\:540c\:7684\:4e24\:4e2a\:91cd\:5b50\:8026\:5408\:7684*)
 vtxType2=vtxType["F1","\[Phi]\[Phi]A"];      vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
 (* \:68c0\:9a8c\:9876\:70b9\:53d1\:51fa\:7684\:4e24\:4e2a\:4ecb\:5b50\:662f\:5426\:4e92\:4e3a\:6b63\:53cd\:7c92\:5b50, && \:521d\:672b\:6001\:91cd\:5b50\:662f\:5426\:76f8\:540c *)
@@ -937,7 +937,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2*)
 fyTag={"bub","mes","ten","o2"};
-vtxType1=vtxType["stro","ten"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["str","ten"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 (*BB\[Phi]\[Phi]\:9876\:70b9\:4e2d\:6ca1\:6709\:4e0d\:540c\:7684\:4e24\:4e2a\:91cd\:5b50\:8026\:5408\:7684*)
 vtxType2=vtxType["F1","\[Phi]\[Phi]A"];    vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
 (* \:68c0\:9a8c\:9876\:70b9\:53d1\:51fa\:7684\:4e24\:4e2a\:4ecb\:5b50\:662f\:5426\:4e92\:4e3a\:6b63\:53cd\:7c92\:5b50, && \:521d\:672b\:6001\:91cd\:5b50\:662f\:5426\:76f8\:540c *)
@@ -1024,9 +1024,9 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 
 (* \:8d39\:66fc\:56fe\:7684chpt Tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9 v1,v2,v3, \:4ece\:5de6\:5230\:53f3\:6392\:5217 *)
 fyTag={"RB","mes","dec"};
-vtxType1=vtxType["stro","C","mesOut"];    vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["str","C","mesOut"];    vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F1","\[Phi]\[Phi]A"];             vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
-vtxType3=vtxType["stro","C","mesIn"];     vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
+vtxType3=vtxType["str","C","mesIn"];     vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -1128,9 +1128,9 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2,v3*)
 fyTag={"RB","dec","F1F2"};
-vtxType1=vtxType["stro","C","mesOut"];   vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["str","C","mesOut"];   vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F1F2","dec","nloc"];   vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];(*\:53cd\:5e38\:78c1\:77e9*)
-vtxType3=vtxType["stro","C","mesIn"];    vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
+vtxType3=vtxType["str","C","mesIn"];    vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
 vtxF1=vtxType["F1","dec","nloc"];        vtxF2=vtxType["F2","dec","nloc"];
 (*++++++++++++++++++++++\:8fde\:63a5\:5404\:4e2a\:9876\:70b9++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
@@ -1281,9 +1281,9 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2,v3*)
 fyTag={"RB","trans","left"};
-vtxType1=vtxType["stro","C","mesOut"];   vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["str","C","mesOut"];   vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F2","tran","octOut"];   vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];(*\:8f6c\:79fb\:78c1\:77e9*)
-vtxType3=vtxType["stro","DF","mesIn"];   vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
+vtxType3=vtxType["str","DF","mesIn"];   vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
 (*++++++++++++++++++++++\:8fde\:63a5\:5404\:4e2a\:9876\:70b9++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -1392,9 +1392,9 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2,v3*)
 fyTag={"RB","trans","right"};
-vtxType1=vtxType["stro","DF","mesOut"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["str","DF","mesOut"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F2","tran","octIn"];   vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];(*\:8f6c\:79fb\:78c1\:77e9*)
-vtxType3=vtxType["stro","C","mesIn"];    vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
+vtxType3=vtxType["str","C","mesIn"];    vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
 (*++++++++++++++++++++++\:8fde\:63a5\:5404\:4e2a\:9876\:70b9++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -1505,8 +1505,8 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 fyTag={"KR","mes","dec","left"};
 (*\:7ed9\:9876\:70b9\:6253\:4e0atag,\:9632\:6b62 JoinAcross \:64cd\:4f5c\:65f6 Key \:51b2\:7a81*)
 vtxType1=vtxType["F1","C","mesOut"];    vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
-vtxType1Str=vtxType["F1","C","mesOut","stro"]; vtxType1EM=vtxType["F1","C","mesOut","EM"];
-vtxType2=vtxType["stro","C","mesIn"];   vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
+vtxType1Str=vtxType["F1","C","mesOut","str"]; vtxType1EM=vtxType["F1","C","mesOut","EM"];
+vtxType2=vtxType["str","C","mesIn"];   vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -1596,9 +1596,9 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (* \:8d39\:66fc\:56fe\:7684chpt Tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9 v1,v2,v3, \:4ece\:5de6\:5230\:53f3\:6392\:5217 *)
 fyTag={"KR","mes","dec","right"};
 (*\:7ed9\:9876\:70b9\:6253\:4e0atag,\:9632\:6b62 JoinAcross \:64cd\:4f5c\:65f6 Key \:51b2\:7a81*)
-vtxType1=vtxType["stro","C","mesOut"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
+vtxType1=vtxType["str","C","mesOut"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxType2=vtxType["F1","C","mesIn"];     vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
-vtxType2Str=vtxType["F1","C","mesIn","stro"]; vtxType2EM=vtxType["F1","C","mesIn","EM"];
+vtxType2Str=vtxType["F1","C","mesIn","str"]; vtxType2EM=vtxType["F1","C","mesIn","EM"];
 (*++++++++++++++++++++++++++++++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{

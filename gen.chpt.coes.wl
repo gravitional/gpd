@@ -77,13 +77,13 @@ vtxCoeAnti[x_]:=vtxCoe[-x]
 (*strong interaction*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong,BB\[Phi],DF*)
 
 
 (*Overscript[1, _].\[Gamma]^\[Mu].\[Gamma]^5.p.0+Overscript[p, _].\[Gamma]^\[Mu].\[Gamma]^5.1.0\[Rule](D-F)/(2 Subscript[f, \[Phi]])*)
 (*++++++++++++++++++++++++++\:5f3a\:76f8\:4e92\:4f5c\:7528\:7684 BBM, \:8f74\:77e2\:9879 DF+++++++++++++++++++++*)
-vtxtp=vtxType["stro","DF","mesIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtxtp=vtxType["str","DF","mesIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 coeIn[x_]:=vtxtp->vtxCoe[x/cc["f"]](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (* ----------------  ---------------- *)
 vtx[unq["type"->vtxtp]]={
@@ -158,8 +158,8 @@ unq[oct["\[CapitalLambda]b"],oct["n"],mes["K0b"],coeIn[-((cc["D"]+3cc["F"])/(2Sq
 };
 
 
-vtxtp=vtxType["stro","DF","mesIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
-vtxtpFlip=vtxType["stro","DF","mesOut"];(* \:53e6\:4e00\:534a\:9876\:70b9 *)
+vtxtp=vtxType["str","DF","mesIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtxtpFlip=vtxType["str","DF","mesOut"];(* \:53e6\:4e00\:534a\:9876\:70b9 *)
 (* ------------- \:6dfb\:52a0\:53e6\:5916\:534a\:90e8\:5206\:9876\:70b9\:ff0c\:6539\:53d8\:5404\:4e2a\:7c92\:5b50\:7684\:65b9\:5411 -------------*)
 vtx[unq["type"->vtxtpFlip]]=Query[All,<|
 fdTypeOct->(#@fdTypeOctb/.fd[a_,b_,1]:>fd[a,b,0]),
@@ -170,7 +170,7 @@ vtxtpFlip->(#@vtxtp)
 ]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong, BT\[Phi], C*)
 
 
@@ -180,7 +180,7 @@ vtxtpFlip->(#@vtxtp)
 \*SubscriptBox[\(\[PartialD]\), \(\[Mu]\)]
 \*SuperscriptBox[\(\[Pi]\), \(-\)]\)\[Rule]\[ScriptCapitalC]/(Sqrt[2] Subscript[f, \[Phi]])*)
 (*++++++++++++++++++++++++++\:5f3a\:76f8\:4e92\:4f5c\:7528\:7684 BMT \:8f74\:77e2\:9879 C+++++++++++++++++++++*)
-vtxtp=vtxType["stro","C","mesIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b,oct bar\:7c7b\:578b\:7684\:ff0cdecuplet bar \:7c7b\:578b\:7684\:8026\:5408\:5e38\:6570\:5dee\:8d1f\:53f7*)
+vtxtp=vtxType["str","C","mesIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b,oct bar\:7c7b\:578b\:7684\:ff0cdecuplet bar \:7c7b\:578b\:7684\:8026\:5408\:5e38\:6570\:5dee\:8d1f\:53f7*)
 coeIn[x_]:=vtxtp->vtxCoe[cc["C"]/(Sqrt[2]cc["f"])*x](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (* ----------------  ---------------- *)
 vtx[unq["type"->vtxtp]]={
@@ -246,8 +246,8 @@ unq[oct["\[CapitalLambda]b"],mes["K0"],dec["\[CapitalXi]*0"],coeIn[-(1/Sqrt[2])]
 };
 
 
-vtxtp=vtxType["stro","C","mesIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b,oct bar\:7c7b\:578b\:7684\:ff0cdecuplet bar \:7c7b\:578b\:7684\:8026\:5408\:5e38\:6570\:5dee\:8d1f\:53f7*)
-vtxtpFlip=vtxType["stro","C","mesOut"];
+vtxtp=vtxType["str","C","mesIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b,oct bar\:7c7b\:578b\:7684\:ff0cdecuplet bar \:7c7b\:578b\:7684\:8026\:5408\:5e38\:6570\:5dee\:8d1f\:53f7*)
+vtxtpFlip=vtxType["str","C","mesOut"];
 (* ------------- \:6dfb\:52a0\:53e6\:5916\:534a\:90e8\:5206\:9876\:70b9 -------------*)
 vtx[unq["type"->vtxtpFlip]]=Query[All,<|
 fdTypeOct ->(#@fdTypeOctb/.fd[a_,b_,1]:>fd[a,b,0]),
@@ -258,7 +258,7 @@ vtxtpFlip->(#@vtxtp)
 ]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong, TT\[Phi], H*)
 
 
@@ -270,7 +270,7 @@ OverscriptBox[\(T\), \(_\)], \(\[Mu]\), \(ijk\)] .
 \*SuperscriptBox[\(\[Gamma]\), \(\[Mu]\[Nu]\[Alpha]\)] . 
 \*SuperscriptBox[\(\[Gamma]\), \(5\)]\)*)
 (*++++++++++++++++++++++++++\:5f3a\:76f8\:4e92\:4f5c\:7528\:7684 BMT \:8f74\:77e2\:9879 C+++++++++++++++++++++*)
-vtxtp=vtxType["stro","H"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtxtp=vtxType["str","H"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 coeIn[x_]:=vtxtp->vtxCoe[cc["H"]/cc["f"] x](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (* ----------------  ---------------- *)
 vtx[unq["type"->vtxtp]]={
@@ -351,7 +351,7 @@ unq[dec["\[CapitalOmega]-b"],dec["\[CapitalXi]*-"],mes["K0b"],coeIn[-1/Sqrt[6]]]
 
 (* Overscript[p, _].\[Gamma]^\[Mu].p.(-\[Pi]^-.0+\[Pi]^+.0)\[Rule]\[ImaginaryI]/(4 Subsuperscript[f, \[Phi], 2]) *)
 (*++++++++++++++++++++++++++\:5f3a\:76f8\:4e92\:4f5c\:7528\:7684 BB\[Phi]\[Phi] \:9876\:70b9 +++++++++++++++++++++*)
-vtxtp=vtxType["stro","BB\[Phi]\[Phi]"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtxtp=vtxType["str","BB\[Phi]\[Phi]"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 coeIn[x_]:=vtxtp->vtxCoe[x/cc["f"]^2](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (* ----------------  ---------------- *)
 vtx[unq["type"->vtxtp]]={
@@ -390,7 +390,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mesout["K0b"],coe
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Strong,BB\[Phi]\[Phi],tensor coupling*)
 
 
@@ -404,7 +404,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0"],mesout["K0b"],coe
 \*SubscriptBox[\(\[PartialD]\), \(\[Nu]\)]
 \*SuperscriptBox[\(\[Pi]\), \(+\)]\))\[Rule]I/Subsuperscript[f, \[Phi], 2](Subscript[b, 10]+Subscript[b, 11]*)
 (*++++++++++++++++++++++++++\:5f3a\:76f8\:4e92\:4f5c\:7528\:7684BBMM,\:5f20\:91cf\:8026\:5408\:9879 +++++++++++++++++++++*)
-vtxtp=vtxType["stro","ten"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
+vtxtp=vtxType["str","ten"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 coeIn[x_]:=vtxtp->vtxCoe[x/cc["f"]^2](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (* ----------------  ---------------- *)
 vtx[unq["type"->vtxtp]]={
@@ -533,7 +533,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],coeIn[0]](*\:6dfb\:52a0\:76
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*F1,BB\[Phi]A, DF*)
 
 
@@ -543,7 +543,7 @@ unq[oct["\[CapitalLambda]b"],oct["\[CapitalSigma]0"],coeIn[0]](*\:6dfb\:52a0\:76
 vtxtp=vtxType["F1","DF","mesIn"];
 coeIn[x_]:=vtxtp->vtxCoe[x/cc["f"]](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570----------*) 
-vtxtpStr=vtxType["F1","DF","mesIn","stro"];
+vtxtpStr=vtxType["F1","DF","mesIn","str"];
 coeInStr[x_]:=vtxtpStr->vtxCoe[x/cc["f"]](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (* ----------------  ---------------- *)
 vtx[unq["type"->vtxtp]]={
@@ -722,7 +722,7 @@ coeInStr[(cc["D"]-3cc["F"])/(-2 Sqrt[3])]]
 
 
 vtxtp=vtxType["F1","DF","mesIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
-vtxtpStr=vtxType["F1","DF","mesIn","stro"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
+vtxtpStr=vtxType["F1","DF","mesIn","str"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
 vtxtpEM=vtxType["F1","DF","mesIn","EM"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
 (* ------------- \:6dfb\:52a0 \:7535\:78c1\:6d41\:7cfb\:6570 -------------*)
 vtx[unq["type"->vtxtp]]=Query[All,Append[#,
@@ -731,7 +731,7 @@ vtxtpEM->vtxCoe[Identity@@#@vtxtp/Identity@@#@vtxtpStr]
 ]@vtx[unq["type"->vtxtp]];
 (* ------------- \:6dfb\:52a0\:53e6\:5916\:534a\:90e8\:5206\:9876\:70b9\:ff0c\:6539\:53d8\:5404\:4e2a\:7c92\:5b50\:7684\:65b9\:5411 -------------*)
 vtxtpFlip=vtxType["F1","DF","mesOut"];(* \:53e6\:4e00\:534a\:9876\:70b9 *)
-vtxtpStrFlip=vtxType["F1","DF","mesOut","stro"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
+vtxtpStrFlip=vtxType["F1","DF","mesOut","str"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
 vtxtpEMFlip=vtxType["F1","DF","mesOut","EM"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
 (*--------------------------------------*)
 vtx[unq["type"->vtxtpFlip]]=Query[All,<|
@@ -745,7 +745,7 @@ vtxtpEMFlip->(#@vtxtpEM)
 ]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*F1,BT\[Phi]A, C*)
 
 
@@ -755,7 +755,7 @@ vtxtpEMFlip->(#@vtxtpEM)
 vtxtp=vtxType["F1","C","mesIn"];
 coeIn[x_]:=vtxtp->vtxCoe[cc["C"]/(Sqrt[2]cc["f"])*x](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
-vtxtpStr=vtxType["F1","C","mesIn","stro"];
+vtxtpStr=vtxType["F1","C","mesIn","str"];
 coeInStr[x_]:=vtxtpStr->vtxCoe[cc["C"]/(Sqrt[2]cc["f"])*x](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (* ----------------  ---------------- *)
 vtx[unq["type"->vtxtp]]={
@@ -843,7 +843,7 @@ coeInStr[-(1/Sqrt[2])]]
 
 
 vtxtp=vtxType["F1","C","mesIn"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
-vtxtpStr=vtxType["F1","C","mesIn","stro"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
+vtxtpStr=vtxType["F1","C","mesIn","str"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
 vtxtpEM=vtxType["F1","C","mesIn","EM"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
 (* ------------- \:6dfb\:52a0 \:7535\:78c1\:6d41\:7cfb\:6570 -------------*)
 vtx[unq["type"->vtxtp]]=Query[All,Append[#,
@@ -852,7 +852,7 @@ vtxtpEM->vtxCoe[Identity@@#@vtxtp/Identity@@#@vtxtpStr]
 ]@vtx[unq["type"->vtxtp]];
 (* ------------- \:6dfb\:52a0\:53e6\:5916\:534a\:90e8\:5206\:9876\:70b9,\:6539\:53d8\:5404\:4e2a\:7c92\:5b50\:7684\:65b9\:5411 -------------*)
 vtxtpFlip=vtxType["F1","C","mesOut"];(* \:53e6\:4e00\:534a\:9876\:70b9 *)
-vtxtpStrFlip=vtxType["F1","C","mesOut","stro"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*) 
+vtxtpStrFlip=vtxType["F1","C","mesOut","str"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*) 
 vtxtpEMFlip=vtxType["F1","C","mesOut","EM"];(*\:5206\:79bb\:51fa\:5f3a\:4f5c\:7528\:90e8\:5206\:7cfb\:6570*)
 (*----------------------------------------------*)
 vtx[unq["type"->vtxtpFlip]]=Query[All,
@@ -877,7 +877,7 @@ vtxtpEMFlip->(#@vtxtpEM)
 vtxtp=vtxType["F1","oct","o2"];
 coeIn[x_]:=vtxtp->vtxCoe[x/(2cc["f"]^2)](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (*\:5206\:79bb\:51fa \:5f3a\:4f5c\:7528 \:90e8\:5206\:7cfb\:6570*)
-vtxtpStr=vtxType["F1","oct","o2","stro"];
+vtxtpStr=vtxType["F1","oct","o2","str"];
 coeInStr[x_]:=vtxtpStr->vtxCoe[x/(2cc["f"]^2)](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (* ----------------  ---------------- *)
 vtx[unq["type"->vtxtp]]={
@@ -945,7 +945,7 @@ coeIn[(ch["u"]-ch["s"])*2],coeInStr[-2]]
 (*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 vtxtp=vtxType["F1","oct","o2"];
 (*\:5206\:79bb\:51fa \:5f3a\:4f5c\:7528 \:90e8\:5206\:7cfb\:6570*)
-vtxtpStr=vtxType["F1","oct","o2","stro"];
+vtxtpStr=vtxType["F1","oct","o2","str"];
 (*\:5206\:79bb\:51fa \:7535\:78c1 \:90e8\:5206\:7cfb\:6570*)
 vtxtpEM=vtxType["F1","oct","o2","EM"];
 (* ------------- \:6dfb\:52a0 \:7535\:78c1\:6d41\:7cfb\:6570 ------------------*)
@@ -1164,7 +1164,7 @@ unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[(cc["c1"](ch["u"]-ch[
 };
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*octet,order2,BB\[Phi]\[Phi]A*)
 
 
@@ -1173,7 +1173,7 @@ unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[(cc["c1"](ch["u"]-ch[
 vtxtp=vtxType["F2","oct","o2"];(*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 coeIn[x_]:=vtxtp->vtxCoe[x/(2cc["f"]^2)](*\:7cfb\:6570\:7684\:7c7b\:578b,\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (*\:5206\:79bb\:51fa \:5f3a\:4f5c\:7528 \:90e8\:5206\:7cfb\:6570*)
-vtxtpStr=vtxType["F2","oct","o2","stro"];
+vtxtpStr=vtxType["F2","oct","o2","str"];
 coeInStr[x_]:=vtxtpStr->vtxCoe[x/(2cc["f"]^2)](*\:7cfb\:6570\:7684\:7c7b\:578b\:ff0c\:4ee5\:53ca\:5e38\:6570\:56e0\:5b50*)
 (* ----------------  ---------------- *)
 vtx[unq["type"->vtxtp]]={
@@ -1310,7 +1310,7 @@ coeIn[(ch["s"]-ch["u"])cc["c1"]/Sqrt[3]],coeInStr[1]]
 (*\:66f4\:65b0\:6b64\:9876\:70b9\:7684\:7c7b\:578b*)
 vtxtp=vtxType["F2","oct","o2"];
 (*\:5206\:79bb\:51fa \:5f3a\:4f5c\:7528 \:90e8\:5206\:7cfb\:6570*)
-vtxtpStr=vtxType["F2","oct","o2","stro"];
+vtxtpStr=vtxType["F2","oct","o2","str"];
 (*\:5206\:79bb\:51fa \:7535\:78c1 \:90e8\:5206\:7cfb\:6570*)
 vtxtpEM=vtxType["F2","oct","o2","EM"];
 (* ------------- \:6dfb\:52a0 \:7535\:78c1\:6d41\:7cfb\:6570 ------------------*)
