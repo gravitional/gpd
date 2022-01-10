@@ -29,8 +29,8 @@ CmdParser["template"]=<|
 parseCml[]:=Module[{$options},
 (*\:8ba1\:7b97 cmd \:8f93\:5165, \:6216\:7b14\:8bb0\:672c\:6a21\:62df\:8f93\:5165*)
 echo[
-$options=Query[(*whole*)All,(*opt,pos*)All,
-(*opt.val*)ToExpression[#,InputForm]&
+$options=Query[(*<|opt->val|>*)All,
+(*val*)ToExpression[#,InputForm]&
 ]@CmdParser["get"]@"opt"
 ];
 (*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged -------------------*)
