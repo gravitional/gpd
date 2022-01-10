@@ -42,8 +42,8 @@ Get["ff.numeric-setup.wl"];
 
 
 (*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
-CmdParser["pseudo"]={
-"--update","False"(*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged,\:8d39\:66fc\:56fe\:90e8\:5206\:6570\:503c\:7684\:7ed3\:679c*)
+CmdParser["pseudo"]={$fileName
+,"--update","False"(*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged,\:8d39\:66fc\:56fe\:90e8\:5206\:6570\:503c\:7684\:7ed3\:679c*)
 ,"--para-coupl","False"(*\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838*)
 ,"--interp","False"(*\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f*)
 ,"--para-interp","False"(*\:63d2\:503c\:7a0b\:5e8f\:662f\:5426\:5e76\:884c*)
@@ -51,10 +51,17 @@ CmdParser["pseudo"]={
 ,"--lbd-num","0.80"(*\:6570\:503c\:8ba1\:7b97\:4e2d Lambda \:7684\:53d6\:503c: 0.80,0.90,1.00*)
 ,"--lbd-fit","Undefined"(*\:5f15\:7528\:7684 fitting \:57fa\:4e8e\:7684 Lambda, \:800c\:4e0d\:662f\:6570\:503c\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 Lambda: 0.80,0.90,1.00*)
 };
+(*\:5f3a\:5236\:6307\:5b9a\:547d\:4ee4\:884c\:53c2\:6570*)
+$inputCml=CmdParser["pseudo"];
 
 
 (*\:89e3\:6790\:547d\:4ee4\:884c\:53c2\:6570\:ff0c\:6216\:8005\:7b14\:8bb0\:672c\:4f2a\:53c2\:6570*)
 parseCml[]
+
+
+(*----------------- flag, \:662f\:5426\:8fdb\:884c\:62df\:5408---------------------*)
+$fittingQ=True;
+If[$fittingQ,$parOrdStr=$ord0];
 
 
 (* ::Section:: *)
@@ -78,11 +85,6 @@ Get["ff.numeric-interface.wl"];
 
 (*+++++++++++++++++++++++++++ \:6570\:503c\:7cbe\:5ea6\:7684\:76f8\:5173\:8bbe\:7f6e +++++++++++++++++++++++++++*)
 $chopLimit=10^-10;(*cut\:7cbe\:5ea6*)$precision=MachinePrecision;(*\:7cbe\:786e\:5ea6*)
-
-
-(*----------------- flag, \:662f\:5426\:8fdb\:884c\:62df\:5408---------------------*)
-$fittingQ=True;
-If[$fittingQ,$parOrdStr=$ord0];
 
 
 (*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)

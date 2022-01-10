@@ -26,27 +26,29 @@ CmdParser["template"]=<|
 (*read arguments*)
 
 
-parseCml[]:=Block[{$inputCml},
+parseCml[]:=Module[{$options},
 (*\:8ba1\:7b97 cmd \:8f93\:5165, \:6216\:7b14\:8bb0\:672c\:6a21\:62df\:8f93\:5165*)
-echo[$inputCml=Query[(*whole*)All,(*opt,pos*)All,
+echo[
+$options=Query[(*whole*)All,(*opt,pos*)All,
 (*opt.val*)ToExpression[#,InputForm]&
-][CmdParser["get"]]@"opt"];
+]@CmdParser["get"]@"opt"
+];
 (*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged -------------------*)
-$renew$ffsMergedQ=$inputCml@"update";
+$renew$ffsMergedQ=$options@"update";
 (*\:8ba1\:7b97\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838*)
-$parallel$couplsQ=$inputCml@"para-coupl";
+$parallel$couplsQ=$options@"para-coupl";
 (*\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f --------------------*)
-$interpolateQ=$inputCml@"interp";
+$interpolateQ=$options@"interp";
 (*\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838-------------*)
-$parallel$interpoQ=$inputCml@"para-interp";
+$parallel$interpoQ=$options@"para-interp";
 (*\:5708\:56fe\:5c55\:5f00\:7684\:9636\:6570-------------------*)
-$parOrdStr=$inputCml@"ord";
+$parOrdStr=$options@"ord";
 (*\:6570\:503c\:8ba1\:7b97\:4f7f\:7528\:7684 Lambda value ----------------*)
-$LambdaNum=$inputCml@"lbd-num";
+$LambdaNum=$options@"lbd-num";
 $LambdaNumStr=enString@NumberForm[$LambdaNum,{3,2}];
 (* fitScheme \:5b9a\:4e49\:89c1: $fittingScheme*)
 (*$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]-p","\[CapitalSigma]N","\[CapitalSigma]-\[CapitalXi]-","N","p\[CapitalXi]-","\[CapitalXi]","charged","many","most","all"};*)
-$fitScheme=Switch[$inputCml@"fit-scheme",
+$fitScheme=Switch[$options@"fit-scheme",
 Automatic,{"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all"},
 1,{"\[CapitalSigma]+-","N","charged","most"},
 2,{"\[CapitalSigma]+-","N","most"},
@@ -54,9 +56,9 @@ Automatic,{"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[Capi
 _,{"N","most"}
 ];
 (*\:5f15\:7528\:7684 fit \:7ed3\:679c\:57fa\:4e8e\:7684 Lambda, \:800c\:4e0d\:662f\:6570\:503c\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 Lambda *)
-$LambdaFit=Switch[$inputCml@"lbd-fit",
+$LambdaFit=Switch[$options@"lbd-fit",
 Undefined,$LambdaNum,
-_,$inputCml@"lbd-fit"
+_,$options@"lbd-fit"
 ];
 (*\:76f8\:5e94\:7684\:5b57\:7b26\:5f62\:5f0f*)
 $LambdaFitStr=enString@NumberForm[$LambdaFit,{3,2}];

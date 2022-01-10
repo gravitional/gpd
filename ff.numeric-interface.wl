@@ -77,13 +77,14 @@ Export[path,result];echo["Exporting finished: ", path];]
 (*<< fittings*)
 
 
-(*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55---------------*)
-echo[fittingsDir=FileNameJoin[{$srcRoot,"fittings"}]];enDir[fittingsDir];
 (*\:8bfb\:53d6 c1,c2 \:7684\:62df\:5408\:503c, \:6839\:636e $LambdaFitStr \:7684\:503c\:6765\:9009\:53d6 ---------------*)
+If[!$fittingQ,
 ccfitted$Err=Query[
 (*\[CapitalLambda] value*)Key@cc["\[CapitalLambda]",$LambdaFitStr],
-(*C value*)All,(*fit-scheme*)$fitScheme
+(*C value*)All,
+(*fit-scheme*)$fitScheme
 ]@Import@FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}];
+]
 
 
 (*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)

@@ -608,7 +608,7 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 (*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tree-level,A-octet,F1F2,nonlocal*)
 
 
@@ -672,7 +672,7 @@ fyCoeKeycAll->#@fyCoeKeycAllF1
 KeyDrop[{
 fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGM
 }]]@coeJoin[fyTag];
-(*serializeCoe[fyTagTmp,coeJoin];*)
+(*serialize["coes"][coeJoin[fyTagTmp]<>".wdx",coeJoin[fyTagTmp]]*)
 (*---------------------------- \:751f\:6210 F2 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
 fyTagTmp={"tree","oct","F2"};
 coeJoin[fyTagTmp]=Query[All,
@@ -684,7 +684,7 @@ fyCoeKeycAll->#@fyCoeKeycAllF2
 KeyDrop[{
 fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGE
 }]]@coeJoin[fyTag];
-(*serializeCoe[fyTagTmp,coeJoin];*)
+(*serialize["coes"][coeJoin[fyTagTmp]<>".wdx",coeJoin[fyTagTmp]]*)
 
 
 (* ::Input:: *)
@@ -802,12 +802,13 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 (*serializeCoe[fyTagTmp,coeJoin];*)
 
 
-(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-If[$inNBook,
-fyTag={"tad","oct","F1"};
-Query[Cases@KeyValuePattern[
-inOct->fd[2,1,0]
-]]@coeJoin[fyTag]//dsetFmt]
+(* ::Input:: *)
+(*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
+(*If[$inNBook,*)
+(*fyTag={"tad","oct","F1"};*)
+(*Query[Cases@KeyValuePattern[*)
+(*inOct->fd[2,1,0]*)
+(*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
 (* ::Section:: *)
@@ -1003,12 +1004,13 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*serializeCoe[fyTag,coeJoin]*)
 
 
-(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-If[$inNBook,
-fyTag={"bub","mes","ten","o2"};
-Query[Cases@KeyValuePattern[
-inOct->fd[2,4,0]
-]]@coeJoin[fyTag]//dsetFmt]
+(* ::Input:: *)
+(*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
+(*If[$inNBook,*)
+(*fyTag={"bub","mes","ten","o2"};*)
+(*Query[Cases@KeyValuePattern[*)
+(*inOct->fd[2,4,0]*)
+(*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
 (* ::Section:: *)
@@ -1107,12 +1109,13 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*serializeCoe[fyTag,coeJoin]*)
 
 
-(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-If[$inNBook,
-fyTag={"RB","mes","dec"};
-Query[Cases@KeyValuePattern[
-inOct->fd[2,1,0]
-]]@coeJoin[fyTag]//dsetFmt]
+(* ::Input:: *)
+(*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
+(*If[$inNBook,*)
+(*fyTag={"RB","mes","dec"};*)
+(*Query[Cases@KeyValuePattern[*)
+(*inOct->fd[2,1,0]*)
+(*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
 (* ::Section:: *)

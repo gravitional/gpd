@@ -42,11 +42,11 @@ Get["ff.numeric-setup.wl"];
 
 
 (*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
-CmdParser["pseudo"]={
-"--update","False",
-"--para-coupl","False",
-"--ord","$ordFull",
-"--lbd-num","0.80"
+CmdParser["pseudo"]={$fileName
+,"--update","False"
+,"--para-coupl","False"
+,"--ord","$ordFull"
+,"--lbd-num","0.80"
 };
 
 

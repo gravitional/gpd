@@ -58,15 +58,23 @@ $chopLimit,chop,$precision
 
 
 (* ::Section:: *)
+(*coes.chpt*)
+
+
+fyCoesAssoc=Import@localPath["coes"]["coes.chpt.wdx"];
+
+
+(* ::Section:: *)
 (*tree level contributions*)
 
 
-treeFsGs=Query[All,
+treeFsGs=Query[Key@fyAmpTree
+,(*{octet}*)All
 (*\:6dfb\:52a0 \:5f62\:72b6\:56e0\:5b50 F1F2*)
-(Append[#,ffsF1F2->Simplify[chop[{#@fyCoeKeycAllF1,#@fyCoeKeycAllF2}/.medRule[#]]]]&)/*
+,(Append[#,ffsF1F2->Simplify[chop[{#@fyCoeKeycAllF1,#@fyCoeKeycAllF2}/.medRule[#]]]]&)/*
 (*\:6dfb\:52a0 \:5f62\:72b6\:56e0\:5b50 GEGM *)
 (Append[#,ffsGEGM->Simplify[chop[{#@fyCoeKeyGE,#@fyCoeKeyGM}/.medRule[#]]]]&)
-]@Import[FileNameJoin[{coesDir,"coe.chpt."<>StringRiffle[#,"."]<>".wdx"}]]&@fyAmpTree;
+]@fyCoesAssoc;
 
 
 (*\:53ea\:9009\:51fa\:521d\:672b\:6001\:4e3a\:76f8\:540c\:91cd\:5b50\:7684\:8bb0\:5f55*)
@@ -74,13 +82,6 @@ sameOctQ[assoc_]:=SameQ[assoc@inOct,assoc@outOct/.conjOct];
 (*\:63d0\:53d6\:51fa\:6811\:56fe\:9636\:7684\:6570\:503c\:7ed3\:679c  +++++++++++++++++++++++++++++++++++*)
 treeSum=Association@Query[Select@sameOctQ,
 #@inOct->KeyTake[#,{inOct,ffsF1F2,ffsGEGM}]&]@treeFsGs;
-
-
-(* ::Section:: *)
-(*coes.chpt*)
-
-
-fyCoesAssoc=Import@localPath["coes"]["coes.chpt.wdx"];
 
 
 (* ::Chapter:: *)

@@ -22,6 +22,7 @@ CmdParser[\"template\"]=<|
 CmdParser[\"init\"] CmdParser[\"init\"] \:5f15\:7528\:547d\:4ee4\:884c\:53c2\:6570 $ScriptCommandLine, \:7ed3\:5408\:53c2\:6570\:6a21\:677f\:ff0c\:5b8c\:6210\:89e3\:6790;
 
 CmdParser[\"pseudo\"] Mock \:547d\:4ee4\:884c\:8f93\:5165, \:5728\:7b14\:8bb0\:672c\:754c\:9762\:8c03\:8bd5\:4f7f\:7528;";
+$inputCml::usage="\:5f3a\:5236\:6307\:5b9a\:547d\:4ee4\:884c\:8f93\:5165";
 
 
 (*\:8bbe\:7f6e\:5f53\:524d\:4e0a\:4e0b\:6587\:4e3a  Package`Private`*)
