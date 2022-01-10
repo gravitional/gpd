@@ -122,7 +122,7 @@ mm1,mo1,mo2,md1,md2,"time",fyCoeKey["cStr"],fyCoeKey["cEM"]
 
 (*+++++++++ \:7b5b\:9009\:51fa\:7279\:5b9a\:7684\:4fe1\:606f,\:4fbf\:4e8e\:67e5\:770b\:6bcf\:4e2a\:8d39\:66fc\:56fe,\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:8d21\:732e +++++++++*)
 pickGroup[x_]:=Query[All,<|
-Lookup[#,{medMes1,medOct1,medDec1},Nothing]->#[[{
+Lookup[#,{medMes1,medOct1,medDec1},Nothing(*default*)]->#[[{
 Key@ffsF1F2,Key@ffsGEGM,Key@fyCoeKeycAll
 }]]|>&]@x;
 (* GroupBy \:8fed\:4ee3\:5206\:7ec4\:7684\:7ed3\:679c\:662f\:4e00\:4e2a\:4e2a\:7684\:5c0f\:7ec4,\:5143\:7d20\:88ab\:653e\:5165\:62ec\:53f7\:4e2d, \:518d\:6b21\:5f62\:6210 {assoc,...} \:7684\:7ed3\:6784,
@@ -176,8 +176,10 @@ loopResults["v"]=If[$parOrdStr===$ord0,
 (*\:5982\:679c\:8ba1\:7b97 ord0 \:7684\:7ed3\:679c,\:53ea\:7528\:8ba1\:7b97 ord0\:672c\:8eab*)
 <|$ord0->loopResults[$ord0]|>,
 (*\:5982\:679c\:8ba1\:7b97 ord1,ordFull \:7684\:7ed3\:679c,\:9700\:8981\:989d\:5916\:8ba1\:7b97 ord0 *)
-<|$ord0->loopResults[$ord0],
-$parOrdStr->loopResults[$parOrdStr]|>];
+<|
+$ord0->loopResults[$ord0],
+$parOrdStr->loopResults[$parOrdStr]
+|>];
 
 
 (* ::Chapter:: *)
@@ -185,7 +187,8 @@ $parOrdStr->loopResults[$parOrdStr]|>];
 
 
 (* \:5c06 \:6811\:56fe\:548c\:5708\:56fe\:7684\:7ed3\:679c\:653e\:5728\:4e00\:8d77,\:5e76\:5c55\:5e73\:5d4c\:5957\:7ed3\:6784*)
-ffsMerged["fn"][treeSum_Association,loopAmpSum_Association]:=Merge[{treeSum,loopAmpSum},<|
+ffsMerged["fn"][treeSum_Association,loopAmpSum_Association]:=Merge[{treeSum,loopAmpSum},
+<|
 (*Lookup[{assoc1,assoc_2,\[Ellipsis]},key], \:5206\:522b\:7ed9\:51fa\:6bcf\:4e2a\:5173\:8054\:4e2d\:5bf9\:5e94 key \:7684\:503c*)
 AssociationThread[{ffsTreeF1F2,ffsLoopF1F2},Lookup[#,ffsF1F2]],
 AssociationThread[{ffsTreeGEGM,ffsLoopGEGM},Lookup[#,ffsGEGM]],
@@ -195,15 +198,19 @@ KeyTake[First@#,{inOct}](*First@# \:4e3a treeSum *)
 
 (*\:540c\:6837,\:6839\:636e $parOrdStr \:7684\:503c,\:5224\:65ad\:662f\:5426\:989d\:5916\:8ba1\:7b97 ord0 *)
 ffsMerged["v",keyTreeAndLoop]=If[$parOrdStr===$ord0,
-<|$ord0->ffsMerged["fn"][treeSum,
+<|
+$ord0->ffsMerged["fn"][
+treeSum,
 Query[$ord0,kLoopAmpSum]@loopResults["v"]
 ]|>,
-<|$ord0->ffsMerged["fn"][treeSum,
+<|
+$ord0->ffsMerged["fn"][treeSum,
 Query[$ord0,kLoopAmpSum]@loopResults["v"]
 ],
 $parOrdStr->ffsMerged["fn"][treeSum,
 Query[$parOrdStr,kLoopAmpSum]@loopResults["v"]
-]|>];
+]
+|>];
 
 
 (* ::Section:: *)

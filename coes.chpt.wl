@@ -203,13 +203,14 @@ MassIn->(#@inOct/.fd[a_,b_,0]:>massV@fd[a,b,2])(* \:5165\:5c04\:91cd\:5b50\:8d28
 
 (* ::Input:: *)
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
+(*If[$inNBook,*)
 (*fyTag={"RB","mes","oct"};*)
 (*Query[Cases@KeyValuePattern[*)
 (*inOct->fd[2,1,0]*)
-(*]]@coeJoin[fyTag]//dsetFmt*)
+(*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman,A-meson,octet,left*)
 
 
@@ -299,7 +300,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman,A-meson,octet,right*)
 
 
@@ -389,7 +390,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman,A-meson,octet,addition,left*)
 
 
@@ -420,7 +421,7 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman, A-meson, octet,addition,right*)
 
 
@@ -444,14 +445,14 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 (*serializeCoe[fyTagTmp,coeJoin]*)
 
 
-(* ::Input:: *)
-(*fyTag={"KR","mes","oct","right"};*)
-(*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,1,0]*)
-(*]]@coeJoin[fyTag]//dsetFmt*)
+fyTag={"KR","mes","oct","right"};
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+inOct->fd[2,1,0]
+]]@coeJoin[fyTag]//dsetFmt]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RainBow,A-octet,F1F2,nonlocal*)
 
 
@@ -469,9 +470,9 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag\:ff0c\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2,v3, \:8fd9\:91cc\:987a\:4fbf\:8ba1\:7b97\:4e86 F2 *)
 fyTag={"RB","oct","F1F2"};
 vtxType1=vtxType["str","DF","mesOut"];       vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
-vtxType2=vtxType["F1F2","oct","nloc"];        vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
+vtxType2=vtxType["F1F2","oct","nloc"];       vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
 vtxType3=vtxType["str","DF","mesIn"];        vtx3=Query[All,KeyMap@fyVtx3]@vtx[unq["type"->vtxType3]];
-vtxF1=vtxType["F1","oct","nloc"];             vtxF2=vtxType["F2","oct","nloc"];
+vtxF1=vtxType["F1","oct","nloc"];            vtxF2=vtxType["F2","oct","nloc"];
 (*++++++++++++++++++++++\:8fde\:63a5\:5404\:4e2a\:9876\:70b9++++++++++++++++++++++*)
 vtxJoin1[fyTag]=Query[All,(*\:4fee\:9970\:9876\:70b91*)
 Append[#,{
@@ -600,13 +601,14 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 
 (* ::Input:: *)
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
+(*If[$inNBook,*)
 (*fyTag={"RB","oct","F1F2"};*)
 (*Query[Cases@KeyValuePattern[*)
 (*inOct->fd[2,4,0]*)
-(*]]@coeJoin[fyTag]//dsetFmt*)
+(*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tree-level,A-octet,F1F2,nonlocal*)
 
 
@@ -687,8 +689,9 @@ fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGE
 
 (* ::Input:: *)
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
+(*If[$inNBook,*)
 (*fyTag={"tree","oct","F1F2"};*)
-(*coeJoin[fyTag]//dsetFmt*)
+(*coeJoin[fyTag]//dsetFmt]*)
 
 
 (* ::Section:: *)
@@ -697,7 +700,7 @@ fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGE
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(*Graphics[{*)
+(*If[$inNBook,Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)
 (*Arrow@BezierCurve[{*)
@@ -705,13 +708,15 @@ fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGE
 (*}],*)
 (*Line[{{end/2,-end/6},{end/2,0}}],*)
 (*Text["v1",{end/2,+5delta}]*)
-(*},ImageSize->Small]*)
+(*},ImageSize->Small]]*)
 
 
 (*\:8d39\:66fc\:56fe\:7684chpt tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9*)
 fyTag={"tad","oct","F1F2"};
 vtxType1=vtxType["F1F2","oct","o2","nloc"];  vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 vtxF1=vtxType["F1","oct","o2","nloc"];       vtxF2=vtxType["F2","oct","o2","nloc"];
+vtxF1Str=vtxType["F1","oct","o2","str"];     vtxF2Str=vtxType["F2","oct","o2","str"];
+vtxF1EM=vtxType["F1","oct","o2","EM"];       vtxF2EM=vtxType["F2","oct","o2","EM"];
 (* \:68c0\:9a8c\:9876\:70b9\:53d1\:51fa\:7684\:4e24\:4e2a\:4ecb\:5b50\:662f\:5426\:4e92\:4e3a\:6b63\:53cd\:7c92\:5b50, && \:521d\:672b\:6001\:91cd\:5b50\:662f\:5426\:76f8\:540c *)
 sameLinesQ[rec_]:=SameQ[{rec@fyVtx1@fdTypeOct,rec@fyVtx1@fdTypeMes},
 {rec@fyVtx1@fdTypeOctb/.fd[2,b_,1]:>fd[2,b,0],rec@fyVtx1@fdTypeMesOut/.mesRule["reverse"]}];
@@ -726,21 +731,21 @@ medMes2->#@fyVtx1@fdTypeMesOut,
 (*+++++++++++++++++++++++++++++ \:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef +++++++++++++++++++++++++++++*)
 fyCoeKeycAllF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
-],
-fyCoeKeycAllF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+]
+,fyCoeKeycAllF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
-],
-fyCoeKeycStrF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
-#@fyVtx1@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
-],
-fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
-#@fyVtx1@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
-],
-fyCoeKeycEMF1->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
-#@fyVtx1@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
-],
-fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
-#@fyVtx1@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
+]
+,fyCoeKeycStrF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+#@fyVtx1@vtxF1Str(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
+]
+,fyCoeKeycStrF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
+#@fyVtx1@vtxF2Str(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
+]
+,fyCoeKeycEMF1->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx1@vtxF1/#@fyVtx1@vtxF1Str(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
+]
+,fyCoeKeycEMF2->fyCoe[(* \:7535\:78c1\:6d41\:7684\:8026\:5408\:7cfb\:6570*)
+#@fyVtx1@vtxF2/#@fyVtx1@vtxF2Str(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
 ]
 |>&
 ]@vtx1;
@@ -760,7 +765,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 ]@vtxJoin[fyTag],
 2(*\:8fde\:63a5\:7b2c2\:5c42*)
 ];
-(*---------------------------- \:751f\:6210 F1 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
+(* \:751f\:6210 F1 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
 fyTagTmp={"tad","oct","F1"};
 coeJoin[fyTagTmp]=Query[All,
 (*\:6dfb\:52a0 F1 chpt Tag *)
@@ -778,7 +783,7 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 }]
 ]@coeJoin[fyTag];
 (*serializeCoe[fyTagTmp,coeJoin];*)
-(*---------------------------- \:751f\:6210 F2 \:5bf9\:5e94\:7684\:7cfb\:6570 ----------------------------*)
+(* \:751f\:6210 F2 \:5bf9\:5e94\:7684\:7cfb\:6570 -------------------------------*)
 fyTagTmp={"tad","oct","F2"};
 coeJoin[fyTagTmp]=Query[All,
 (Append[#,{
@@ -797,30 +802,30 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 (*serializeCoe[fyTagTmp,coeJoin];*)
 
 
-(* ::Input:: *)
-(*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
-(*fyTag={"tad","oct","F1F2"};*)
-(*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,4,0]*)
-(*]]@coeJoin[fyTag]//dsetFmt*)
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+fyTag={"tad","oct","F1"};
+Query[Cases@KeyValuePattern[
+inOct->fd[2,1,0]
+]]@coeJoin[fyTag]//dsetFmt]
 
 
 (* ::Section:: *)
 (*tadpole,A-octet,addition,o2,nonlocal*)
 
 
-(* ::Input:: *)
-(*(* \:56fe\:5f62\:8868\:793a *)*)
-(*Graphics[{*)
-(*Black,Line[{{0,0},{end,0}}],*)
-(*Arrowheads[{{Automatic,.53}}],*)
-(*Arrow@BezierCurve[{*)
-(*{end/2,0},{0,end/2},{end,end/2},{end/2,0}*)
-(*}],*)
-(*Line[{{end/2,-end/6},{end/2,0}}],*)
-(*Disk[{end/2,0},0.1],*)
-(*Text["v1",{end/2,+5delta}]*)
-(*},ImageSize->Small]*)
+(* \:56fe\:5f62\:8868\:793a *)
+If[$inNBook,
+Graphics[{
+Black,Line[{{0,0},{end,0}}],
+Arrowheads[{{Automatic,.53}}],
+Arrow@BezierCurve[{
+{end/2,0},{0,end/2},{end,end/2},{end/2,0}
+}],
+Line[{{end/2,-end/6},{end/2,0}}],
+Disk[{end/2,0},0.1],
+Text["v1",{end/2,+5delta}]
+},ImageSize->Small]]
 
 
 (* \:989d\:5916 tadpole \:56fe\:7684\:7cfb\:6570\:548c \:666e\:901a tadpole \:56fe\:7684\:7cfb\:6570\:76f8\:540c*)
@@ -835,17 +840,17 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 (*bubble, A-meson,order2*)
 
 
-(* ::Input:: *)
-(*(* \:56fe\:5f62\:8868\:793a *)*)
-(*Graphics[{*)
-(*Black,Line[{{0,0},{end,0}}],*)
-(*Arrowheads[{{Automatic,.53}}],*)
-(*Arrow@BezierCurve[{*)
-(*{end/2,0},{0,end/2},{end,end/2},{end/2,0}*)
-(*}],Line[{{end/2,3/8*end},{end/2,end/2}}],*)
-(*Text["v1",{end/2,-4delta}],Text["v2",{end/2,end/3-delta}]*)
-(*},*)
-(*ImageSize->Small]*)
+(* \:56fe\:5f62\:8868\:793a *)
+If[$inNBook,
+Graphics[{
+Black,Line[{{0,0},{end,0}}],
+Arrowheads[{{Automatic,.53}}],
+Arrow@BezierCurve[{
+{end/2,0},{0,end/2},{end,end/2},{end/2,0}
+}],Line[{{end/2,3/8*end},{end/2,end/2}}],
+Text["v1",{end/2,-4delta}],Text["v2",{end/2,end/3-delta}]
+},
+ImageSize->Small]]
 
 
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2*)
@@ -853,7 +858,7 @@ fyTag={"bub","mes","o2"};
 vtxType1=vtxType["str","BB\[Phi]\[Phi]"];   vtx1=Query[All,KeyMap@fyVtx1]@vtx[unq["type"->vtxType1]];
 (*BB\[Phi]\[Phi]\:9876\:70b9\:4e2d\:6ca1\:6709\:4e0d\:540c\:7684\:4e24\:4e2a\:91cd\:5b50\:8026\:5408\:7684*)
 vtxType2=vtxType["F1","\[Phi]\[Phi]A"];      vtx2=Query[All,KeyMap@fyVtx2]@vtx[unq["type"->vtxType2]];
-(* \:68c0\:9a8c\:9876\:70b9\:53d1\:51fa\:7684\:4e24\:4e2a\:4ecb\:5b50\:662f\:5426\:4e92\:4e3a\:6b63\:53cd\:7c92\:5b50, && \:521d\:672b\:6001\:91cd\:5b50\:662f\:5426\:76f8\:540c *)
+(* \:68c0\:9a8c\:9876\:70b9\:53d1\:51fa\:7684\:4e24\:4e2a\:4ecb\:5b50\:662f\:5426\:4e92\:4e3a\:6b63\:53cd\:7c92\:5b50, && \:521d\:672b\:6001\:91cd\:5b50\:662f\:5426\:76f8\:540c--------------------*)
 sameLinesQ[rec_]:=SameQ[{rec@fyVtx1@fdTypeOct,rec@fyVtx1@fdTypeMes},
 {rec@fyVtx1@fdTypeOctb/.fd[2,b_,1]:>fd[2,b,0],rec@fyVtx1@fdTypeMesOut/.mesRule["reverse"]}];
 (*++++++++++++++++++++++\:8fde\:63a5\:5404\:4e2a\:9876\:70b9++++++++++++++++++++++*)
@@ -909,30 +914,30 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*serializeCoe[fyTag,coeJoin]*)
 
 
-(* ::Input:: *)
-(*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
-(*fyTag={"bub","mes","o2"};*)
-(*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,1,0]]*)
-(*]@coeJoin[fyTag]//dsetFmt*)
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+fyTag={"bub","mes","o2"};
+Query[Cases@KeyValuePattern[
+inOct->fd[2,4,0]]
+]@coeJoin[fyTag]//dsetFmt]
 
 
 (* ::Section:: *)
 (*bubble,A-meson,tensor,order 2*)
 
 
-(* ::Input:: *)
-(*(* \:56fe\:5f62\:8868\:793a *)*)
-(*Graphics[{*)
-(*Black,Line[{{0,0},{end,0}}],*)
-(*Arrowheads[{{Automatic,.53}}],*)
-(*Arrow@BezierCurve[{*)
-(*{end/2,0},{0,end/2},{end,end/2},{end/2,0}*)
-(*}],Line[{{end/2,3/8*end},{end/2,end/2}}],*)
-(*Rectangle[{end/2-1.5delta,-1.5delta},{end/2+1.5delta,1.5delta}],*)
-(*Text["v1",{end/2,-4delta}],Text["v2",{end/2,end/3-delta}]*)
-(*},*)
-(*ImageSize->Small]*)
+(* \:56fe\:5f62\:8868\:793a *)
+If[$inNBook,
+Graphics[{
+Black,Line[{{0,0},{end,0}}],
+Arrowheads[{{Automatic,.53}}],
+Arrow@BezierCurve[{
+{end/2,0},{0,end/2},{end,end/2},{end/2,0}
+}],Line[{{end/2,3/8*end},{end/2,end/2}}],
+Rectangle[{end/2-1.5delta,-1.5delta},{end/2+1.5delta,1.5delta}],
+Text["v1",{end/2,-4delta}],Text["v2",{end/2,end/3-delta}]
+},
+ImageSize->Small]]
 
 
 (*\:8d39\:66fc\:56fe\:7684 chpt Tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9v1,v2*)
@@ -998,12 +1003,12 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*serializeCoe[fyTag,coeJoin]*)
 
 
-(* ::Input:: *)
-(*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
-(*fyTag={"bub","mes","ten","o2"};*)
-(*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,4,0]*)
-(*]]@coeJoin[fyTag]//dsetFmt*)
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+fyTag={"bub","mes","ten","o2"};
+Query[Cases@KeyValuePattern[
+inOct->fd[2,4,0]
+]]@coeJoin[fyTag]//dsetFmt]
 
 
 (* ::Section:: *)
@@ -1102,12 +1107,12 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*serializeCoe[fyTag,coeJoin]*)
 
 
-(* ::Input:: *)
-(*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
-(*fyTag={"RB","mes","dec"};*)
-(*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,1,0]*)
-(*]]@coeJoin[fyTag]//dsetFmt*)
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+fyTag={"RB","mes","dec"};
+Query[Cases@KeyValuePattern[
+inOct->fd[2,1,0]
+]]@coeJoin[fyTag]//dsetFmt]
 
 
 (* ::Section:: *)
@@ -1669,7 +1674,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman, A-meson,decuplet,addition,left*)
 
 
@@ -1681,7 +1686,7 @@ coeJoin[fyTagTmp]=Query[All,Append[chTagKey["chTag"]->chTag[fyTagTmp]]
 (*serializeCoe[fyTagTmp,coeJoin]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman, A-meson,decuplet,addition,right*)
 
 
