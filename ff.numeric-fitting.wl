@@ -41,27 +41,35 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 Get["ff.numeric-setup.wl"];
 
 
-(*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
-CmdParser["pseudo"]={$fileName
-,"--update","False"(*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged,\:8d39\:66fc\:56fe\:90e8\:5206\:6570\:503c\:7684\:7ed3\:679c*)
-,"--para-coupl","False"(*\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838*)
-,"--interp","False"(*\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f*)
-,"--para-interp","False"(*\:63d2\:503c\:7a0b\:5e8f\:662f\:5426\:5e76\:884c*)
-,"--ord","$ord0"(*$ordFull","\:5708\:79ef\:5206\:7684\:7ea7\:6570 order: \:6709 ord0, ord1, ordFull*)
-,"--lbd-num","0.80"(*\:6570\:503c\:8ba1\:7b97\:4e2d Lambda \:7684\:53d6\:503c: 0.80,0.90,1.00*)
-,"--lbd-fit","Undefined"(*\:5f15\:7528\:7684 fitting \:57fa\:4e8e\:7684 Lambda, \:800c\:4e0d\:662f\:6570\:503c\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 Lambda: 0.80,0.90,1.00*)
+(* ::Input:: *)
+(*(*\:5f3a\:5236\:6307\:5b9a\:547d\:4ee4\:884c\:53c2\:6570*)*)
+(*$inputCml=CmdParser["pseudo"];*)
+
+
+(*\:547d\:4ee4\:884c\:53c2\:6570\:6a21\:677f*)
+CmdParser["template"]=<|
+"opt"-><|
+{"fit"}->{"True","\:662f\:5426\:5904\:4e8e fitting \:53c2\:6570\:6a21\:5f0f"}
+,{"update"}->{"True","\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged,\:8d39\:66fc\:56fe\:90e8\:5206\:6570\:503c\:7684\:7ed3\:679c"}
+,{"para-coupl"}->{"True","\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838."}
+,{"interp"}->{"False","\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f."}
+,{"para-interp"}->{"False","\:8ba1\:7b97 order full \:63d2\:503c\:51fd\:6570\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838"}
+,{"ord"}->{"$ord0","\:5708\:79ef\:5206\:7684\:7ea7\:6570 order: \:6709 ord0, ord1, ordFull"}
+|>
+,"pos"->{}
+|>;
+
+
+CmdParser["pseudo"]={$fileName,
+"--fit","True"(*\:662f\:5426\:5904\:4e8e fitting \:6a21\:5f0f*)
+,"--update","True"(*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged,\:8d39\:66fc\:56fe\:90e8\:5206\:6570\:503c\:7684\:7ed3\:679c*)
+,"--para-coupl","True"(*\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838*)
+,"--ord","$ord0"(*$ordFull","\:5708\:79ef\:5206\:7684\:7ea7\:6570 order:\:6709 ord0,ord1,ordFull*)
 };
-(*\:5f3a\:5236\:6307\:5b9a\:547d\:4ee4\:884c\:53c2\:6570*)
-$inputCml=CmdParser["pseudo"];
 
 
 (*\:89e3\:6790\:547d\:4ee4\:884c\:53c2\:6570\:ff0c\:6216\:8005\:7b14\:8bb0\:672c\:4f2a\:53c2\:6570*)
 parseCml[]
-
-
-(*----------------- flag, \:662f\:5426\:8fdb\:884c\:62df\:5408---------------------*)
-$fittingQ=True;
-If[$fittingQ,$parOrdStr=$ord0];
 
 
 (* ::Section:: *)

@@ -43,6 +43,7 @@ Get["ff.numeric-setup.wl"];
 
 (*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
 CmdParser["pseudo"]={$fileName
+,"--fit","False"(*\:662f\:5426\:5904\:4e8e fitting \:6a21\:5f0f*)
 ,"--update","False"
 ,"--para-coupl","False"
 ,"--ord","$ordFull"

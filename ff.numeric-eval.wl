@@ -43,10 +43,12 @@ Get["ff.numeric-setup.wl"];
 
 (*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
 CmdParser["pseudo"]={$fileName
+,"--fit","False"(*\:662f\:5426\:5904\:4e8e fitting \:6a21\:5f0f*)
 ,"--update","True"
 ,"--para-coupl","True"
 ,"--ord","$ordFull"
-,"--lbd-num","0.90"
+,"--lbd-num","0.80"
+,"--interp","False"
 };
 
 
@@ -70,7 +72,7 @@ Get["ff.numeric-interface.wl"];
 (*import loop result*)
 
 
-If[!$renew$ffsMergedQ&&
+If[!$updateFFsMergedQ&&
 FileExistsQ@FindFile@localPathResult[resultsDir]["loop-result.wdx"]&&
 FileExistsQ@FindFile@localPathResult[resultsDir]["ffsMerged.wdx"],
 (*\:5982\:679c\:6709\:4e4b\:524d\:7f13\:5b58\:7684\:7ed3\:679c\:ff0c\:5c31\:76f4\:63a5\:8bfb\:5165*)

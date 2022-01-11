@@ -16,13 +16,12 @@ CmdParser[\"template\"]=<|
 \"l1\"\[Rule]\"2\"|>,
 \"pos\"\[Rule]{
 {1,\"the 1st position arguments\"},
-2}|>
-],FormatType\[Rule]InputForm];
+2}|>;
 
 CmdParser[\"init\"] CmdParser[\"init\"] \:5f15\:7528\:547d\:4ee4\:884c\:53c2\:6570 $ScriptCommandLine, \:7ed3\:5408\:53c2\:6570\:6a21\:677f\:ff0c\:5b8c\:6210\:89e3\:6790;
 
 CmdParser[\"pseudo\"] Mock \:547d\:4ee4\:884c\:8f93\:5165, \:5728\:7b14\:8bb0\:672c\:754c\:9762\:8c03\:8bd5\:4f7f\:7528;";
-$inputCml::usage="\:5f3a\:5236\:6307\:5b9a\:547d\:4ee4\:884c\:8f93\:5165";
+$inputCml::usage="\:6700\:7ec8\:89e3\:6790\:4f7f\:7528\:7684\:53d8\:91cf, \:82e5\:5728\:7b14\:8bb0\:672c\:4e2d\:7ed9\:5b9a\:ff0c\:5373\:4f7f\:5728\:547d\:4ee4\:884c\:8fd0\:884c\:811a\:672c\:ff0c\:4e5f\:5f3a\:5236\:4f7f\:7528\:6b64\:503c";
 
 
 (*\:8bbe\:7f6e\:5f53\:524d\:4e0a\:4e0b\:6587\:4e3a  Package`Private`*)
@@ -72,7 +71,7 @@ Length@plist>=1&&StringStartsQ[First@plist,"--"|"-"],
 (*\:5176\:4ed6\:60c5\:51b5, \:90fd\:5f53\:6210\:4f4d\:7f6e\:53c2\:6570----------------*)
 Length@plist>=1,
 {First@plist->"True"}~Join~Parser["ToRuleLst"][Rest@plist],
-(*\:5982\:679c\:4f20\:5165\:7a7a\:5217\:8868--------------*)
+(*\:5224\:7a7a\:503c:\:5982\:679c\:4f20\:5165\:7a7a\:5217\:8868 ------------*)
 True,{}
 ]
 
@@ -81,6 +80,7 @@ True,{}
 Parser["ToAssoc"][plist_List]:=Module[{
 (*\:52a0\:4e0a\:9ed8\:8ba4\:9009\:9879 help*)
 assoc=Merge[Join@@#&]@{
+(*\:5224\:7a7a\:503c*)
 <|True->{"--help"->"False"},False->{}|>,
 GroupBy[Parser["ToRuleLst"]@plist,StringStartsQ[Keys@#,"-"]&]
 }},
@@ -114,7 +114,7 @@ optValue[key_,val_]:=Rule[#,First@enList[val]]&/@enList[key];
 (*\:63d0\:53d6\:51fa\:4f4d\:7f6e\:53c2\:6570\:7684 value *)
 posValue[pos_]:=First@enList@pos;
 (*\:9009\:9879\:53c2\:6570 \:7684\:5e2e\:52a9\:6587\:6863, {longName,shortName}\[Rule]{Description} *)
-optHelp[key_,val_]:=enList@key->enList[val][[2;;]];
+optHelp[key_,val_]:=enList@key->enList[val](*[[2;;]]*);
 (*\:4f4d\:7f6e\:53c2\:6570 \:7684\:5e2e\:52a9\:6587\:6863, {order}\[Rule]{Description}*)
 posHelp[pos_]:=#[[{1}]]->#[[2;;]]&[ToString/@enList@pos];
 
@@ -144,11 +144,19 @@ posHelp/@CmdParser["template"]@"pos"
 
 (*\:6253\:5370\:5e2e\:52a9\:4fe1\:606f*)
 Parser["echo-help"][HelpMessage_]:=Print[
-"\033[1;44m\033[1;37m"<>"Help Message:"<>"\033[0;0m\n",
+(*Header \:6587\:5b57*)
+"\033[1;44m\033[1;37m"<>"Help Message:
+Name\t Default\t Description"<>"\033[0;0m\n",
+(*\:5e2e\:52a9\:4fe1\:606f*)
 StringRiffle[
-KeyValueMap[{StringRiffle[#1,", "],StringRiffle[#2]}&]@
-HelpMessage
+KeyValueMap[{
+(*\:9009\:9879\:957f\:540d\:79f0\:ff0c\:77ed\:540d\:79f0*)
+StringRiffle[#1,", "],
+(*\:9009\:9879\:7684\:9ed8\:8ba4\:503c\:548c\:6587\:6863*)
+StringRiffle[#2,", "]
+}&]@HelpMessage
 ,"\n",":\t"]
+(*\:5e2e\:52a9\:7ed3\:5c3e\:7684\:8f93\:51fa*)
 ,"\n"]
 
 

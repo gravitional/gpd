@@ -43,6 +43,7 @@ Get["ff.numeric-setup.wl"];
 
 (*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
 CmdParser["pseudo"]={$fileName
+,"--fit","False"(*\:662f\:5426\:5904\:4e8e fitting \:6a21\:5f0f*)
 ,"--update","False"(*\:662f\:5426\:91cd\:65b0\:8ba1\:7b97 ffsMerged,\:8d39\:66fc\:56fe\:90e8\:5206\:6570\:503c\:7684\:7ed3\:679c*)
 ,"--para-coupl","False"(*\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838*)
 ,"--interp","False"(*\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f*)
@@ -82,7 +83,7 @@ interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo.wdx"];
 (*(*order full, Intel i7-6700 (8): \:4ee3\:5165\:6240\:6709\:6570\:503c, ~ 4m30s ; \:4ee3\:5165\:90e8\:5206\:6570\:503c, ~3m50s *)*)
 
 
-If[!$renew$ffsMergedQ&&
+If[!$updateFFsMergedQ&&
 FileExistsQ@FindFile@localPathResult[resultsDir]["loop-result.wdx"],
 (*\:5982\:679c\:6709\:4e4b\:524d\:7f13\:5b58\:7684\:7ed3\:679c\:ff0c\:5c31\:76f4\:63a5\:8bfb\:5165*)
 loopResults["v"]=Import@localPathResult[resultsDir]["loop-result.wdx"];,

@@ -78,8 +78,8 @@ Export[path,result];echo["Exporting finished: ", path];]
 
 
 (*\:8bfb\:53d6 c1,c2 \:7684\:62df\:5408\:503c, \:6839\:636e $LambdaFitStr \:7684\:503c\:6765\:9009\:53d6 ---------------*)
-(*\:53ea\:5728\:975e\:62df\:5408\:60c5\:5f62\:8ba1\:7b97*)
-If[!ValueQ@$fittingQ||!$fittingQ,
+(*\:53ea\:5728\:975e\:62df\:5408\:60c5\:5f62,\:5bfc\:5165\:62df\:5408\:597d\:7684\:53c2\:6570*)
+If[!$fittingQ,
 ccfitted$Err=Query[
 (*\[CapitalLambda] value*)Key@cc["\[CapitalLambda]",$LambdaFitStr]
 ,(*C value*)All
