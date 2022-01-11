@@ -77,6 +77,17 @@ Export[path,result];echo["Exporting finished: ", path];]
 (*<< coupling relations*)
 
 
+(*\:8bfb\:53d6 c1,c2 \:7684\:62df\:5408\:503c, \:6839\:636e $LambdaFitStr \:7684\:503c\:6765\:9009\:53d6 ---------------*)
+(*\:53ea\:5728\:975e\:62df\:5408\:60c5\:5f62\:8ba1\:7b97*)
+If[!ValueQ@$fittingQ||!$fittingQ,
+ccfitted$Err=Query[
+(*\[CapitalLambda] value*)Key@cc["\[CapitalLambda]",$LambdaFitStr]
+,(*C value*)All
+,(*fit-scheme*)$fitScheme
+]@Import@FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}];
+]
+
+
 (*c1\[TildeTilde]3/2 \[Mu]u, c2\[TildeTilde]2/3c1-1, c3->c2-c1, cT=3/2c2+1/2,*)
 magCCRelation={cc["c4"]->cc["c1"]/Sqrt[3],cc["cT"]->(3cc["c2"]+1)/2};
 (* \:4e3a\:4e86\:91cd\:590d\:5229\:7528\:7ed3\:6784\:ff0c\:8fd9\:91cc\:4e0d\:6307\:5b9a c1,c2, C \:7684\:5177\:4f53\:6570\:503c*)
