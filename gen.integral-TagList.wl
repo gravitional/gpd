@@ -1,5 +1,9 @@
 (* ::Package:: *)
 
+(* ::Section:: *)
+(*Feynman diagram tags*)
+
+
 (*+++++++++++++++++++++++++++++++ \:8d39\:66fc\:56fe\:7684\:5708\:56fe tag \:5217\:8868,\:6240\:6709\:7684\:56fe +++++++++++++++++++++++++++++++*)
 fyAmpLoopLstAll={
 (* \:516b\:91cd\:6001 *)
@@ -98,7 +102,8 @@ fyAmpTreeLst={
 (*|>;*)
 
 
-(*\:6765\:81ea\:9876\:70b9\:4e4b\:5916\:7684\:7cfb\:6570\:ff0c\:5982\:4f20\:64ad\:5b50\:5e26\:6765\:7684 I\:ff0c\:8003\:8651\:65f6\:95f4\:53cd\:6f14\:5bf9\:79f0\:6027\:ff0c\:5c06 left \:56fe\:7684\:7ed3\:679c*2 *)
+(*\:6765\:81ea\:9876\:70b9\:4e4b\:5916\:7684\:7cfb\:6570\:ff0c\:5982\:4f20\:64ad\:5b50\:5e26\:6765\:7684 I\:ff0c\:5fae\:6270\:5c55\:5f00\:4e2d\:7684 I,
+\:5e76\:8003\:8651\:65f6\:95f4\:53cd\:6f14\:5bf9\:79f0\:6027\:ff0c\:5c06 left \:56fe\:7684\:7ed3\:679c*2 *)
 fyCoesOther=<|
 (* \:516b\:91cd\:6001\:4e2d\:95f4\:6001 *)
 chTag@{"RB","mes","oct"}->fyCoe[1],
@@ -131,7 +136,63 @@ chTag@{"KR","mes","dec","add","left"}->fyCoe[2]
 |>;
 
 
-(* ::Section:: *)
+(*\:65b9\:6848\:540d\:79f0--------------------------*)
+CoesAdBubble="bub";
+CoesAdBubbleNo="nobub";
+(*\:624b\:52a8\:7ed9\:51fa \:6c42\:548c \:6240\:5305\:62ec\:7684\:56fe---------------------------*)
+fyCoesAdjust=<|
+(*\:8003\:8651 bubble tadpole \:7684\:8d21\:732e*)
+CoesAdBubble-><|
+(* \:516b\:91cd\:6001\:4e2d\:95f4\:6001 *)
+chTag@{"RB","mes","oct"}->fyCoe[1]
+,chTag@{"KR","mes","oct","left"}->fyCoe[1]
+,chTag@{"KR","mes","oct","add","left"}->fyCoe[1]
+,chTag@{"RB","oct","F1"}->fyCoe[1]
+,chTag@{"RB","oct","F2"}->fyCoe[1]
+,chTag@{"tree","oct","F1F2"}->fyCoe[1]
+
+,chTag@{"tad","oct","F1"}->fyCoe[1]
+,chTag@{"tad","oct","F1","add"}->fyCoe[1]
+,chTag@{"tad","oct","F2"}->fyCoe[1]
+,chTag@{"bub","mes","o2"}->fyCoe[1]
+,chTag@{"bub","mes","ten","o2"}->fyCoe[1]
+
+(* \:5341\:91cd\:6001\:4e2d\:95f4\:6001 *)
+,chTag@{"RB","mes","dec"}->fyCoe[1]
+,chTag@{"RB","dec","F1"}->fyCoe[1]
+,chTag@{"RB","dec","F2"}->fyCoe[1]
+,chTag@{"RB","trans","left"}->fyCoe[1]
+,chTag@{"KR","mes","dec","left"}->fyCoe[1]
+,chTag@{"KR","mes","dec","add","left"}->fyCoe[1]
+|>
+(*\:4e0d\:8003\:8651 bubble tadpole \:7684\:8d21\:732e*)
+,CoesAdBubbleNo-><|
+(* \:516b\:91cd\:6001\:4e2d\:95f4\:6001 *)
+chTag@{"RB","mes","oct"}->fyCoe[1]
+,chTag@{"KR","mes","oct","left"}->fyCoe[1]
+,chTag@{"KR","mes","oct","add","left"}->fyCoe[1]
+,chTag@{"RB","oct","F1"}->fyCoe[1]
+,chTag@{"RB","oct","F2"}->fyCoe[1]
+,chTag@{"tree","oct","F1F2"}->fyCoe[1]
+
+,chTag@{"tad","oct","F1"}->fyCoe[0]
+,chTag@{"tad","oct","F1","add"}->fyCoe[0]
+,chTag@{"tad","oct","F2"}->fyCoe[0]
+,chTag@{"bub","mes","o2"}->fyCoe[0]
+,chTag@{"bub","mes","ten","o2"}->fyCoe[0]
+
+(* \:5341\:91cd\:6001\:4e2d\:95f4\:6001 *)
+,chTag@{"RB","mes","dec"}->fyCoe[1]
+,chTag@{"RB","dec","F1"}->fyCoe[1]
+,chTag@{"RB","dec","F2"}->fyCoe[1]
+,chTag@{"RB","trans","left"}->fyCoe[1]
+,chTag@{"KR","mes","dec","left"}->fyCoe[1]
+,chTag@{"KR","mes","dec","add","left"}->fyCoe[1]
+|>
+|>;
+
+
+(* ::Section::Closed:: *)
 (*diagram illustration*)
 
 

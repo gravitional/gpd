@@ -100,11 +100,16 @@ expr={Import[FileNameJoin[{mfilesDir,"analytic.strange."<>$parOrdStr<>"."<>Strin
 If[$parOrdStr===$ordFull,echo[DateString[],": ",tag]];
 (* JoinAcross \:5229\:7528\:516c\:5171\:7684 chpt \:8d39\:66fc\:56fe tag,\:8fde\:63a5\:7cfb\:6570\:4e0e\:5708\:79ef\:5206\:8868\:8fbe\:5f0f *)
 assocLst=JoinAcross[coes,expr,Key@chTagKey["chTag"]];
+Association@Table[
 (*++++++++++++++++++++++++ \:6dfb\:52a0\:5404\:79cd\:5b57\:6bb5 ++++++++++++++++++++++++*)
-Query[All,
+adjust->Query[
+(*{channels}*)All
 (*-------------- \:6dfb\:52a0\:4fee\:6b63\:8fc7\:7684\:7cfb\:6570 --------------*)
-(Append[#,fyCoeKeycAll->Times[
-#@fyCoeKeycAll,fyCoesOther[#@chTagKey["chTag"]],I/(16\[Pi]^2)
+,(Append[#,fyCoeKeycAll->Times[
+(*\:8d39\:66fc\:9876\:70b9\:4e58\:79ef*)#@fyCoeKeycAll
+,(*\:4f20\:64ad\:5b50\:989d\:5916\:76f8\:4f4d*)fyCoesOther[#@chTagKey["chTag"]]
+,(*\:6307\:5b9a\:8981\:6c42\:548c\:7684\:56fe*)fyCoesAdjust[adjust,#@chTagKey["chTag"]]
+,(*PackageX \:7ea6\:5b9a*)I/(16\[Pi]^2)
 ]]&)/*
 (*-------------- \:5708\:79ef\:5206*\:7cfb\:6570,\:5e76\:6570\:503c\:5316 --------------*)
 (Append[#,
@@ -118,48 +123,18 @@ Normal[#@ffsF1F2]/.numPaVe,#@fyCoeKeycAll
 KeyDrop[{
 mm1,mo1,mo2,md1,md2,"time",fyCoeKey["cStr"],fyCoeKey["cEM"]
 }]
-]@assocLst]
+]@assocLst
+(*\:624b\:52a8\:6c42\:548c\:65b9\:6848\:7684 Range*)
+,{adjust,Keys@fyCoesAdjust}]
+]
 
 
-(*+++++++++ \:7b5b\:9009\:51fa\:7279\:5b9a\:7684\:4fe1\:606f,\:4fbf\:4e8e\:67e5\:770b\:6bcf\:4e2a\:8d39\:66fc\:56fe,\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:8d21\:732e +++++++++*)
-pickGroup[x_]:=Query[All,<|
-Lookup[#,{medMes1,medOct1,medDec1},Nothing(*default*)]->#[[{
-Key@ffsF1F2,Key@ffsGEGM,Key@fyCoeKeycAll
-}]]|>&]@x;
-(* GroupBy \:8fed\:4ee3\:5206\:7ec4\:7684\:7ed3\:679c\:662f\:4e00\:4e2a\:4e2a\:7684\:5c0f\:7ec4,\:5143\:7d20\:88ab\:653e\:5165\:62ec\:53f7\:4e2d, \:518d\:6b21\:5f62\:6210 {assoc,...} \:7684\:7ed3\:6784,
-\:4f7f\:7528 Reduce \:51fd\:6570\:5904\:7406\:8fd9\:4e9b\:7ed3\:679c: \:5148\:901a\:8fc7 Query \:5728\:5c0f\:7ec4\:4e2d\:53d6\:51fa\:7279\:5b9a\:7684\:952e,\:5728\:8fd9\:91cc\:662f F1F2,GEGM \:7684\:6570\:503c\:7ed3\:679c,
-\:53d6\:51fa\:7684\:7ed3\:679c\:4ecd\:662f {assoc,...} \:7684\:7ed3\:6784,\:518d\:4f7f\:7528 Merge \:51fd\:6570\:5408\:5e76\:5c0f\:7ec4\:7684\:7ed3\:679c,\:4f20\:5165 Total \:51fd\:6570\:6267\:884c\:6c42\:548c. 
-\:8fd9\:91cc\:7684\:6c42\:548c,\:5c06\:5355\:4e2a\:8d39\:66fc\:56fe\:4e2d\:4e0d\:540c\:7684\:53cd\:5e94\:9053\:76f8\:52a0.
-*)
-sumGroup[x_?ListQ]:=Merge[Query[All,{Key@ffsF1F2,Key@ffsGEGM}]@x,Total];
-(*GroupBy \:6309\:7167\:5217\:8868\:4e2d\:7684\:5206\:7c7b\:51fd\:6570,\:751f\:6210\:4e00\:4e2a\:5d4c\:5957\:5173\:8054,\:8fd9\:91cc\:662f\:6309{\:5165\:5c04\:7c92\:5b50,\:8d39\:66fc\:56fe}, 
-\:7136\:540e\:5c06 sumGroup \:4f5c\:4e3a Reduce \:51fd\:6570\:4f5c\:7528\:5230\:6700\:7ec8\:5c42\:7684\:5c0f\:7ec4\:4e0a,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 F1F2,GEGM*)
-
-
-(* \:751f\:6210\:4e00\:4e2a\:5173\:8054: <|loopChan,loopChanSum,loopAmpSum|>*)
-loopResuGather[numAssoc_]:=Module[{loopChanSum},
-<|
-(*\:7c92\:5ea6\:4e3a,\:6bcf\:4e2a\:8d39\:66fc\:56fe\:7684\:6bcf\:4e2a\:53cd\:5e94\:9053*)
-kLoopChannel->Query[
-GroupBy[#,{Key@inOct,Key@chTagKey["chTag"]},pickGroup]&
-]@Catenate@numAssoc,
-(*\:7c92\:5ea6\:4e3a,\:5c06\:540c\:4e00\:8d39\:66fc\:56fe\:4e0b\:7684\:53cd\:5e94\:9053\:6c42\:548c*)
-kLoopChanSum->(loopChanSum=Query[
-GroupBy[#,{Key@inOct,Key@chTagKey["chTag"]},sumGroup]&
-]@Catenate@numAssoc),
-(*\:7c92\:5ea6\:4e3a,\:5c06\:540c\:4e00\:4e2a\:5165\:5c04\:7c92\:5b50\:4e0b\:7684\:6240\:6709\:8d39\:66fc\:56fe\:7ed3\:679c\:76f8\:52a0*)
-kLoopAmpSum->Query[All,
-Simplify[Merge[Values@#,Total]]&
-]@loopChanSum
-|>]
-(* loopAmpSum \:7684\:5927\:81f4\:7ed3\:6784\:5982\:4e0b\:ff1a
-\[LeftAssociation]fd[2,1,0]\[Rule]\[LeftAssociation]Total"\[Rule]\[LeftAssociation]ffsF1F2\[Rule]{F1,F2},ffsGEGM\[Rule]{GE,GM}\[RightAssociation]\[RightAssociation],
-(\:5176\:4ed6\:7c92\:5b50\:7684\:7ed3\:679c,\:7ed3\:6784\:7c7b\:4f3c)\[RightAssociation]*)
+(* ::Section:: *)
+(*generate data Association*)
 
 
 (*\:6839\:636e\:662f\:5426\:9700\:8981\:5e76\:884c,\:8c03\:7528\:4e0a\:9762\:7684\:51fd\:6570,\:4ee3\:5165\:8026\:5408\:5e38\:6570,\:8ba1\:7b97\:5708\:79ef\:5206\:548c\:7cfb\:6570*)
-loopResults[$parOrdStr_]:=Module[{numAssoc},
-numAssoc=If[$parallel$couplsQ,
+numAssocTemp=If[$parallel$couplsQ,
 (* HoldAll \:6240\:6709\:8868\:8fbe\:5f0f,\:4f20\:7ed9\:5b50\:6838\:8ba1\:7b97*)
 SetAttributes[paraEnvIO,HoldAll];
 paraEnvIO[tag_]:=ParallelSubmit[import$Eva[tag,$parOrdStr]];
@@ -168,18 +143,84 @@ WaitAll[paraEnvIO/@fyAmpPart],
 (*\:975e\:5e76\:884c\:60c5\:51b5*)
 paraEnvIO[tag_]:=import$Eva[tag,$parOrdStr];
 paraEnvIO/@fyAmpPart];
-(*\:8fd4\:56de\:5708\:56fe\:7ed3\:679c\:7684\:5173\:8054,<|loopChans,loopChansSum,loopAmpSum,loopAssoc|>*)
-Append[loopResuGather[numAssoc],
-kLoopAssoc->numAssoc]]
+(*\:6574\:7406 numAssocTemp \:7684\:6b21\:5e8f, \:628a\:4eba\:4e3a\:6c42\:548c\:9009\:62e9\:653e\:5728\:6700\:5916\:5c42 -------------*)
+numAssoc=Association@Table[
+(*\:5c06\:4e0d\:540c\:8d39\:66fc\:56fe\:7684\:53cd\:5e94\:9053\:653e\:8fdb\:540c\:4e00\:5217\:8868\:4e2d*)
+adjust->Catenate@Query[
+(*{diagram}*)All
+,(*<|bub,nobub|>*)adjust
+]@numAssocTemp
+,{adjust,Keys@fyCoesAdjust}];
+
+
+(* ::Section:: *)
+(*refine data structure*)
+
+
+(*+++++++++ \:7b5b\:9009\:51fa\:7279\:5b9a\:7684\:4fe1\:606f,\:4fbf\:4e8e\:67e5\:770b\:6bcf\:4e2a\:8d39\:66fc\:56fe,\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:8d21\:732e +++++++++*)
+pickGroup[assocLst_]:=Query[(*{assoc}*)All,
+(*<|k\[Rule]v|>*)
+<|Lookup[#,{medMes1,medOct1,medDec1},Nothing(*default*)]->
+#[[{Key@ffsF1F2,Key@ffsGEGM,Key@fyCoeKeycAll}]]
+|>&
+]@assocLst;
+(* GroupBy \:8fed\:4ee3\:5206\:7ec4\:7684\:7ed3\:679c\:662f\:4e00\:4e2a\:4e2a\:7684\:5c0f\:7ec4,\:5143\:7d20\:88ab\:653e\:5165\:62ec\:53f7\:4e2d, \:518d\:6b21\:5f62\:6210 {assoc,...} \:7684\:7ed3\:6784,
+\:4f7f\:7528 Reduce \:51fd\:6570\:5904\:7406\:8fd9\:4e9b\:7ed3\:679c: \:5148\:901a\:8fc7 Query \:5728\:5c0f\:7ec4\:4e2d\:53d6\:51fa\:7279\:5b9a\:7684\:952e,\:5728\:8fd9\:91cc\:662f F1F2,GEGM \:7684\:6570\:503c\:7ed3\:679c,
+\:53d6\:51fa\:7684\:7ed3\:679c\:4ecd\:662f {assoc,...} \:7684\:7ed3\:6784,\:518d\:4f7f\:7528 Merge \:51fd\:6570\:5408\:5e76\:5c0f\:7ec4\:7684\:7ed3\:679c,\:4f20\:5165 Total \:51fd\:6570\:6267\:884c\:6c42\:548c. 
+\:8fd9\:91cc\:7684\:6c42\:548c,\:5c06\:5355\:4e2a\:8d39\:66fc\:56fe\:4e2d\:4e0d\:540c\:7684\:53cd\:5e94\:9053\:76f8\:52a0.
+*)
+sumGroup[assocLst_?ListQ]:=Merge[
+Query[(*{assoc}*)All,(*<|k\[Rule]v|>*){Key@ffsF1F2,Key@ffsGEGM}]@assocLst,
+Total];
+(*GroupBy \:6309\:7167\:5217\:8868\:4e2d\:7684\:5206\:7c7b\:51fd\:6570,\:751f\:6210\:4e00\:4e2a\:5d4c\:5957\:5173\:8054,\:8fd9\:91cc\:662f\:6309{\:5165\:5c04\:7c92\:5b50,\:8d39\:66fc\:56fe}, 
+\:7136\:540e\:5c06 sumGroup \:4f5c\:4e3a Reduce \:51fd\:6570\:4f5c\:7528\:5230\:6700\:7ec8\:5c42\:7684\:5c0f\:7ec4\:4e0a,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 F1F2,GEGM*)
+
+
+(*\:5904\:7406\:4ee3\:6570\:5b57\:7ed3\:679c, *)
+(* \:751f\:6210\:4e00\:4e2a\:5173\:8054: <|loopChan,loopChanSum,loopAmpSum|>*)
+loopResuGather[numAssoc_]:=Module[{loopChanSum},
+(*\:5c06\:540c\:4e00\:8d39\:66fc\:56fe\:4e0b\:7684\:53cd\:5e94\:9053\:6c42\:548c-------------*)
+loopChanSum=Query[
+(*<|bub,nobub|>*)All,
+(*{<|All digram channel|>..}*)
+GroupBy[#,{Key@inOct,Key@chTagKey["chTag"]},sumGroup]&
+]@numAssoc;
+(*\:751f\:6210\:5173\:8054\:6570\:7ec4---------------*)
+<|
+(*\:7c92\:5ea6\:4e3a,\:6bcf\:4e2a\:8d39\:66fc\:56fe\:7684\:6bcf\:4e2a\:53cd\:5e94\:9053---------------*)
+kLoopChannel->Query[
+(*<|bub,nobub|>*)All,
+(*{<|All digram channel|>..}*)
+GroupBy[#,{Key@inOct,Key@chTagKey["chTag"]},pickGroup]&
+]@numAssoc,
+(*\:7c92\:5ea6\:4e3a,\:5c06\:540c\:4e00\:8d39\:66fc\:56fe\:4e0b\:7684\:53cd\:5e94\:9053\:6c42\:548c-------------*)
+kLoopChanSum->loopChanSum,
+(*\:7c92\:5ea6\:4e3a,\:5c06\:540c\:4e00\:4e2a\:5165\:5c04\:7c92\:5b50\:4e0b\:7684\:6240\:6709\:8d39\:66fc\:56fe\:7ed3\:679c\:76f8\:52a0----------*)
+kLoopAmpSum->Query[
+(*<|bub,nobub|>*)All,
+(*<|octet|>*)All,
+(*<|diagrams|>*)
+Simplify[Merge[Values@#,Total]]&
+]@loopChanSum
+|>]
+(* loopAmpSum \:7684\:5927\:81f4\:7ed3\:6784\:5982\:4e0b\:ff1a
+\[LeftAssociation]fd[2,1,0]\[Rule]\[LeftAssociation]Total"\[Rule]\[LeftAssociation]ffsF1F2\[Rule]{F1,F2},ffsGEGM\[Rule]{GE,GM}\[RightAssociation]\[RightAssociation],
+(\:5176\:4ed6\:7c92\:5b50\:7684\:7ed3\:679c,\:7ed3\:6784\:7c7b\:4f3c)\[RightAssociation]*)
+
+
+(*\:5bf9\:7ed3\:679c\:8fdb\:884c\:6574\:7406,
+\:8fd4\:56de\:5708\:56fe\:7ed3\:679c\:7684\:5173\:8054,<|loopChans,loopChansSum,loopAmpSum,loopAssoc|>*)
+loopResults[$parOrdStr_][numAssoc_]:=Append[
+loopResuGather[numAssoc],kLoopAssoc->numAssoc]
 
 
 loopResults["v"]=If[$parOrdStr===$ord0,
 (*\:5982\:679c\:8ba1\:7b97 ord0 \:7684\:7ed3\:679c,\:53ea\:7528\:8ba1\:7b97 ord0\:672c\:8eab*)
-<|$ord0->loopResults[$ord0]|>,
+<|$ord0->loopResults[$ord0][numAssoc]|>,
 (*\:5982\:679c\:8ba1\:7b97 ord1,ordFull \:7684\:7ed3\:679c,\:9700\:8981\:989d\:5916\:8ba1\:7b97 ord0 *)
 <|
-$ord0->loopResults[$ord0],
-$parOrdStr->loopResults[$parOrdStr]
+$ord0->loopResults[$ord0][numAssoc],
+$parOrdStr->loopResults[$parOrdStr][numAssoc]
 |>];
 
 
