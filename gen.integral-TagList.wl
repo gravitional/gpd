@@ -136,13 +136,17 @@ chTag@{"KR","mes","dec","add","left"}->fyCoe[2]
 |>;
 
 
+(* ::Section:: *)
+(*bubble and no bubble*)
+
+
 (*\:65b9\:6848\:540d\:79f0--------------------------*)
-CoesAdBubble="bub";
-CoesAdBubbleNo="nobub";
+coesAdjBub="bub";
+coesAdjNoBub="nobub";
 (*\:624b\:52a8\:7ed9\:51fa \:6c42\:548c \:6240\:5305\:62ec\:7684\:56fe---------------------------*)
 fyCoesAdjust=<|
 (*\:8003\:8651 bubble tadpole \:7684\:8d21\:732e*)
-CoesAdBubble-><|
+coesAdjBub-><|
 (* \:516b\:91cd\:6001\:4e2d\:95f4\:6001 *)
 chTag@{"RB","mes","oct"}->fyCoe[1]
 ,chTag@{"KR","mes","oct","left"}->fyCoe[1]
@@ -166,7 +170,7 @@ chTag@{"RB","mes","oct"}->fyCoe[1]
 ,chTag@{"KR","mes","dec","add","left"}->fyCoe[1]
 |>
 (*\:4e0d\:8003\:8651 bubble tadpole \:7684\:8d21\:732e*)
-,CoesAdBubbleNo-><|
+,coesAdjNoBub-><|
 (* \:516b\:91cd\:6001\:4e2d\:95f4\:6001 *)
 chTag@{"RB","mes","oct"}->fyCoe[1]
 ,chTag@{"KR","mes","oct","left"}->fyCoe[1]

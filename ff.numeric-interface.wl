@@ -81,8 +81,9 @@ Export[path,result];echo["Exporting finished: ", path];]
 (*\:53ea\:5728\:975e\:62df\:5408\:60c5\:5f62,\:5bfc\:5165\:62df\:5408\:597d\:7684\:53c2\:6570*)
 If[!$fittingQ,
 ccfitted$Err=Query[
-(*\[CapitalLambda] value*)Key@cc["\[CapitalLambda]",$LambdaFitStr]
-,(*C value*)All
+(*<\[CapitalLambda] value>*)Key@cc["\[CapitalLambda]",$LambdaFitStr]
+,(*<bub>*)All
+,(*<C value>*)All
 ,(*fit-scheme*)$fitScheme
 ]@Import@FileNameJoin[{fittingsDir,"nums.ccFittings.wdx"}];
 ]

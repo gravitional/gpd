@@ -45,19 +45,8 @@ Get["ff.numeric-setup.wl"];
 CmdParser["pseudo"]={$fileName
 ,"--fit","False"(*\:662f\:5426\:5904\:4e8e fitting \:6a21\:5f0f*)
 ,"--update","True"
-,"--para-coupl","True"
+,"--para-coupl","False"
 ,"--ord","$ordFull"
-,"--lbd-num","0.80"
-,"--interp","False"
-};
-
-
-(*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
-CmdParser["pseudo"]={$fileName
-,"--fit","False"(*\:662f\:5426\:5904\:4e8e fitting \:6a21\:5f0f*)
-,"--update","True"
-,"--para-coupl","True"
-,"--ord","$ord0"
 ,"--lbd-num","0.80"
 ,"--interp","False"
 };
@@ -103,7 +92,9 @@ serializeResult[resultsDir]["ffsMerged.wdx",ffsMerged["WithRen",keyTreeAndLoop]]
 
 
 (*\:63d0\:53d6\:51fa ffsMerged \:8ba1\:7b97\:7ed3\:679c\:4e2d, \:5173\:5fc3\:7684\:90e8\:5206, TreeGEGM,LoopGEGM,\:91cd\:6b63\:5316\:5e38\:6570*)
-ffsMerged["trimed",keyTreeAndLoop]=Query[(*order*)All,(*octet*)All,
+ffsMerged["trimed",keyTreeAndLoop]=Query[
+(*<bub,nobub>*)All,
+(*order*)All,(*octet*)All,
 (*FFactors,recon,etc.*)Key/@{ffsTreeGEGM,ffsLoopGEGM,recon}
 ]@ffsMerged["WithRen",keyTreeAndLoop];
 
@@ -116,30 +107,42 @@ ffsMerged["trimed",keyTreeAndLoop]=Query[(*order*)All,(*octet*)All,
 (*\:5404\:79cd C,c1,c2 \:914d\:7f6e\:4e0b,\:8ba1\:7b97\:51fa\:7684\:6570\:503c\:7ed3\:679c,\:5938\:514b\:7535\:8377\:548c Q2 \:672a\:4ee3\:5165\:5177\:4f53\:6570\:503c*)
 Module[{ccNumStr},
 ffsMerged["configs",keyTreeAndLoop]=Association@Table[
+adjust->Association@Table[
 (*\:521d\:59cb\:5316 C \:5b57\:7b26\:5f62\:5f0f*)
 ccNumStr=enString@NumberForm[ccNum,{3,2}];
-(*\:4ee3\:5165\:62df\:5408\:786e\:5b9a\:7684\:6570\:503c*)
-Query[(*cc-values*){Key@cc["C",ccNumStr]},(*fitting-scheme*)All,
+(*\:4ee3\:5165\:62df\:5408\:786e\:5b9a\:7684\:6570\:503c------------*)
+cc["C",ccNumStr]->Query[
+(*<bub,nobub>*)Key@adjust
+,(*cc-values*)Key@cc["C",ccNumStr]
+,(*fitting-scheme*)All
 (*ccfitted$Err \:6570\:636e\:5c42, ccfitted \:7684\:9996\:5143\:7d20\:662f\:8bef\:5dee,\:672b\:5143\:7d20\:662f c \:7684\:66ff\:6362\:89c4\:5219, \:5982:
 {-5.551115123125783`*^-17,{cc["c1"]\[Rule]1.9165025864434668`,cc["c2"]\[Rule]0.5439905713541093`}}
 \:5c06\:751f\:6210\:7684 ccc \:66ff\:6362\:89c4\:5219\:5e94\:7528\:5230 \:5f62\:72b6\:56e0\:5b50\:7684\:8868\:8fbe\:5f0f\:4e0a*)
-Query[(*order*)All,(*octet*)All,(*tree-loop-FFactors,recons*)All,
-(*FFactors pair*)ReplaceAll[apply$cc$numeric[ccNum][Last@#]]
+,Query[
+(*<bub,nobub>*)Key@adjust
+,(*<order>*)All,(*<octet>*)All
+,(*<tree-loop-FFactors,recons>*)All
+,(*{FFactors pair}*)ReplaceAll[apply$cc$numeric[ccNum][Last@#]]
 ]@ffsMerged["trimed",keyTreeAndLoop]&
 (*Query on \:62df\:5408\:7684\:6570\:636e\:5217\:8868*)
 ]@ccfitted$Err
 (*C\:7684\:8fed\:4ee3\:5217\:8868*)
-,{ccNum,{1.0,1.1,1.2,1.3,1.4,1.5}} 
-]];//AbsoluteTiming
+,{ccNum,{1.0,1.1,1.2,1.3,1.4,1.5}}]
+,{adjust,Keys@fyCoesAdjust}]
+];//AbsoluteTiming
 
 
 (* ::Section:: *)
 (*renormalization constant*)
 
 
-renormalConst["v"]=Query[(*cc-values*)All,(*fitting-scheme*)1,
-(*order*)Key@$ord0,(*octet*)All,(*tree-loop-FFactors,recons*)Key@recon,
-(*FFactors pair*)All
+renormalConst["v"]=Query[
+(*<bub,nobub>*)All
+,(*<cc-values>*)All
+,(*<fitting-scheme>*)1
+,(*<order>*)Key@$ord0
+,(*<octet>*)All
+,(*<tree-loop-FFactors,recons>*)Key@recon
 ]@ffsMerged["configs",keyTreeAndLoop];
 
 
@@ -150,9 +153,12 @@ serializeResult[resultsDir]["recons.wdx",renormalConst["v"]];
 (*\:6253\:5370\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570*)
 If[$inNBook,
 gridTable["recons",dataBackground]@
-Query[(*cc-values*)All,
-(*octet*)All,
-(*FFactors pair*)NumberForm[#,{4,3}]&]@renormalConst["v"]
+Query[
+(*<bub,nobub>:coesAdjBub,coesAdjNoBub*)
+Key@coesAdjBub
+,(*<cc-values>*)All
+,(*<octet>*)All
+,(*{FFactors pair}*)NumberForm[#,{4,3}]&]@renormalConst["v"]
 ]
 
 
@@ -179,33 +185,47 @@ tagNum["tr+lo","uds"]->chopQ2Val[
 
 
 (*\:751f\:6210\:6700\:7ec8\:7684\:6570\:503c\:8868\:793a, \:8003\:8651\:5173\:8054\:4e2d\:4e0d\:540c\:7684\:5c55\:5f00 order*)
-numFFs["v",keyTreeAndLoop]=With[
-(*\:8ba1\:7b97\:51fa order \:7684\:679a\:4e3e\:8303\:56f4*)
-{orderLst=Query[1,1,Keys]@ffsMerged["configs",keyTreeAndLoop]},
+numFFs["v",keyTreeAndLoop,"tmp"]=With[
+(*\:8ba1\:7b97\:51fa order \:7684\:679a\:4e3e\:8303\:56f4------------------------------*)
+{orderLst=Query[1,1,1,Keys]@ffsMerged["configs",keyTreeAndLoop]},
 (*\:904d\:5386 order \:7684\:96c6\:5408 ordLst, \:9009\:62e9\:76f8\:5e94\:7684 numFFs["fn"]*)
 Association@Table[ord->
-Query[(*cc-values*)All,(*fitting-scheme*)All,
-(*order*)Key@ord,(*octet*)All,
-(*tree-loop-FFactors,recons*)
+Query[(*<bub,nobub>*)All
+,(*<cc-values>*)All
+,(*<fitting-scheme>*)All
+,(*<order>*)Key@ord
+,(*<octet>*)All
+,(*<tree-loop-FFactors,recons>*)
 numFFs["fn"][<|"ord"->ord|>]@numFFs["fn"][keyTreeAndLoop]
 ]@ffsMerged["configs",keyTreeAndLoop]
 ,{ord,orderLst}
 ]];//AbsoluteTiming
 
 
+numFFs["v",keyTreeAndLoop]=Association@Table[
+(*\:6574\:7406 ffsMerged \:7684\:5d4c\:5957\:6b21\:5e8f, \:628a\:4eba\:4e3a\:6c42\:548c\:9009\:62e9\:653e\:5728\:6700\:5916\:5c42 -------------*)
+adjust->Query[
+(*<order>*)All
+,(*<bub,nobub>*)Key@adjust
+]@numFFs["v",keyTreeAndLoop,"tmp"]
+,{adjust,Keys@fyCoesAdjust}];
+
+
 (* ::Section:: *)
-(*Grid display *)
+(*Grid display*)
 
 
 (*\:5e94\:7528\:8868\:683c\:6392\:7248*)
 If[$inNBook,
 gridTable["GEGM",dataBackground]@Query[
-(*order*)$ord0,
-(*cc-values*)Key@cc["C","1.50"],
-(*fitting-scheme*)Key@"\[CapitalSigma]+-",
-(*octet*)All,
-(*tree-loop-uds-contribution*)All,
-NumberForm[#,{4,3}]&
+(*<bub,nobub>:coesAdjBub,coesAdjNoBub*)
+Key@coesAdjBub
+,(*<order>*)$ord0
+,(*<cc-values>*)Key@cc["C","1.50"]
+,(*<fitting-scheme>*)Key@"\[CapitalSigma]+-"
+,(*<octet>*)All
+,(*<tree-loop-uds>*)All
+,(*{pair}*)NumberForm[#,{4,3}]&
 ]@numFFs["v",keyTreeAndLoop]
 ]
 
@@ -216,12 +236,11 @@ NumberForm[#,{4,3}]&
 
 (*\:5bf9 Q2 \:7684 full \:9636\:8868\:8fbe\:5f0f\:505a\:63d2\:503c, \:65b9\:4fbf\:753b\:56fe\:548c\:7ec4\:5408*)
 If[$parOrdStr===$ordFull&&$interpolateQ,
-Get["ff.numeric-interpo.wl"];]
-(*$total:864, time: 20 min;*)
-
-
+Get["ff.numeric-interpo.wl"];
 (*\:4fdd\:5b58\:5230\:78c1\:76d8\:6587\:4ef6*)
 serializeResult[resultsDir]["interpo.wdx",interpoGEGM["v",keyTreeAndLoop]]
+]
+(*$total:864, time: 20 min;*)
 
 
 (* ::Chapter:: *)

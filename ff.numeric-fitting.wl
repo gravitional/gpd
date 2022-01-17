@@ -135,13 +135,14 @@ numFFs["fit"]["fit"->$fittingQ][chopQ2Val]
 ];
 
 
-(*\:751f\:6210\:6700\:7ec8\:7684\:6570\:503c\:8868\:793a,order 0 \:7684\:8ba1\:7b97\:7ed3\:679c*)
-numFFs["fit","val"][ffsMerged_]:=<|
-$ord0->Query[Key@$ord0,
-All,
-numFFs["fit"]["ord"->$ord0]
-]@ffsMerged
-|>;
+(*\:751f\:6210\:6700\:7ec8\:7684\:6570\:503c\:8868\:793a,order 0 \:7684\:8ba1\:7b97\:7ed3\:679c,
+\:6b64\:7ed3\:679c\:9700\:8981\:5148\:8fd0\:884c ff.numeric-worker.wl, \:56e0\:6b64\:9700\:8981\:5ef6\:8fdf\:8ba1\:7b97*)
+numFFs["fit","val"][ffsMerged_]:=Query[
+(*<bub,nobub>*)All
+,(*<order>*){Key@$ord0}
+,(*<octet>*)All
+,(*<tree-loop-uds>*)numFFs["fit"]["ord"->$ord0]
+]@ffsMerged;
 
 
 (* ::Chapter:: *)
@@ -152,16 +153,24 @@ numFFs["fit"]["ord"->$ord0]
 Module[{testMagMerged,testFit,$LambdaNumStr,ccNumStr},
 (*\:6700\:540e\:7684\:7ed3\:679c\:4fdd\:5b58\:5728\:5173\:8054\:4e2d*)
 ccFittings=Association@Table[
-(*\:521d\:59cb\:5316 \[CapitalLambda] \:5b57\:7b26\:5f62\:5f0f *)
+(*\:5bf9 \[CapitalLambda] \:7684\:53d6\:503c\:8fed\:4ee3 ---------------------------------*)
+(*\:8ba1\:7b97 \[CapitalLambda] \:7684\:5b57\:7b26\:5f62\:5f0f*)
 $LambdaNumStr=enString@NumberForm[$LambdaNum,{3,2}];
-(* \:5bf9\:7279\:5b9a \[CapitalLambda], \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe\:ff0c\:5708\:56fe\:ff0c\:91cd\:6b63\:5316\:5e38\:6570 *)
+(* \:5bf9\:7279\:5b9a \[CapitalLambda], \:5bfc\:5165\:5177\:4f53\:8ba1\:7b97\:7684\:7a0b\:5e8f,\:6811\:56fe,\:5708\:56fe,\:91cd\:6b63\:5316\:5e38\:6570 *)
 Get["ff.numeric-worker.wl"];
 (*\:5bf9\:7279\:5b9a \[CapitalLambda], \:8ba1\:7b97: \:6570\:503c\:7ed3\:679c - \:5b9e\:9a8c\:7ed3\:679c, numFFs \:5728 worker \:4e2d\:8ba1\:7b97 *)
+(*<\[CapitalLambda]\[Rule]v>, \[CapitalLambda] \:6307\:5411 bub,nobub -------------------------*)
+cc["\[CapitalLambda]",$LambdaNumStr]->Association@Table[
+(*<bub\[Rule]v,nobub\[Rule]v>, \:6307\:5411\:5404\:79cd C fitting \:51fa\:7684\:7ed3\:679c -------------*)
+adjust->Association@Table[
+(*\:5b9e\:9a8c\:503c\:4e0e\:8ba1\:7b97\:503c\:7684 \[Chi]^2 ---*)
 testMagMerged=Merge[{
-Query[(*<|order|>*)Key@$ord0
-,(*<|octet|>}*)All
+Query[
+(*<bub,nobub>*)Key@adjust
+,(*<order>*)Key@$ord0
+,(*<octet>}*)All
 ,(Key@tagNum["tr+lo","uds"])/*ReplaceAll[numVal->Identity]/*Last
-]@numFFs["fit","val"]@ffsMerged["WithRen",keyTreeAndLoop],
+]@numFFs["fit","val"][ffsMerged["WithRen",keyTreeAndLoop]],
 numOctMaget
 },(First[#]-Last[#])/Last[#]&];(* (clac-expr)/expr*)
 (* fitting \:51fd\:6570: \:5bf9\:4e8e\:7ed9\:5b9a\:7684 C \:503c, \:8fdb\:884c\:62df\:5408; \:5bf9\:5404\:79cd\:53ef\:80fd\:7684 fitting \:5e8f\:5217,\:6c42\:89e3c1,c2 \:7684fitting \:503c*)
@@ -170,17 +179,18 @@ Query[(Key/@testList)/*ReplaceAll[cc["C"]->ccNum]/*Total,Power[#,2]&]@testMagMer
 {cc["c1"],cc["c2"]}\[Element]Reals},
 {cc["c1"],cc["c2"]},
 WorkingPrecision->$precision];(*\:7ed9\:5b9a\:6b64\:5904\:62df\:5408\:7684\:7cbe\:5ea6*)
-(* \:6b21\:7ea7\:5173\:8054, \[CapitalLambda] \:6307\:5411\:5404\:79cd C fitting \:51fa\:7684\:7ed3\:679c*)
-cc["\[CapitalLambda]",$LambdaNumStr]->Association@Table[
-(*\:521d\:59cb\:5316 C \:5b57\:7b26\:5f62\:5f0f*)
+(*\:521d\:59cb\:5316 C \:7684\:5b57\:7b26\:5f62\:5f0f-----*)
 ccNumStr=enString@NumberForm[ccNum,{3,2}];
 (*\:5faa\:73af\:8fdb\:5ea6\:63d0\:793a*)
 echo["Lambda: ",$LambdaNumStr,", C: ",ccNumStr];
-(* \:6b21\:7ea7\:5173\:8054, C \:6307\:5411\:5404\:79cd \:62df\:5408\:5b50\:96c6\:7684\:7ed3\:679c, \:5982 \[CapitalSigma]+0-, pN, All,*)
+(*\:5173\:8054<cc["C",1.00]\[Rule]v>, \:6307\:5411\:5404\:79cd\:62df\:5408\:65b9\:6848\:7684\:7ed3\:679c, \:5982 \[CapitalSigma]+0-, pN, All,----------------*)
 cc["C",ccNumStr]->Association@KeyValueMap[#1->testFit[ccNum,#2]&,$fittingScheme]
-,{ccNum,{1.0`30,1.1`30,1.2`30,1.3`30,1.4`30,1.5`30}}
-]
-,{$LambdaNum,{0.80`30,0.85`30,0.90`30,0.95`30,1.00`30}}];
+(*\:5bf9 C \:7684\:53d6\:503c\:8fed\:4ee3---------------------*)
+,{ccNum,{1.0`30,1.1`30,1.2`30,1.3`30,1.4`30,1.5`30}}]
+(*\:5bf9\:624b\:52a8\:6c42\:548c\:65b9\:6848 {bub,nobub} \:8fed\:4ee3---------------------*)
+,{adjust,Keys@fyCoesAdjust}]
+(*\:5bf9 \[CapitalLambda] \:7684\:53d6\:503c\:8303\:56f4\:8fed\:4ee3---------------------*)
+,{$LambdaNum,{0.70,0.80`30,0.90`30,1.00`30}}];
 ];
 
 
@@ -197,10 +207,12 @@ serialize[fittingsDir]["nums.ccFittings.wdx",ccFittings]
 
 
 (* ::Input:: *)
-(*Query[Normal/*(Column[#,Frame->All]&)*)
-(*,Normal/*(Column[#,Frame->All]&)*)
+(*Query[(*<\[CapitalLambda] value>*)Normal/*(Column[#,Frame->All]&)*)
+(*,(*<bub>*)coesAdjBub/*Normal/*(Column[#,Frame->All]&)*)
+(*,(*<C value>*)Normal/*(Column[#,Frame->All]&)*)
+(*,(*<scheme>*)Normal/*(Column[#,Frame->All]&)*)
 (*,Normal/*(TableForm[#,TableSpacing->{2,1}]&)*)
-(*]@Import@localPath[fittingsDir][temp`fitName]*)
+(*]@Import@localPath[fittingsDir]["nums.ccFittings.wdx"]*)
 
 
 (* ::Chapter:: *)

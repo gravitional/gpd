@@ -157,7 +157,8 @@ adjust->Catenate@Query[
 (*refine data structure*)
 
 
-(*+++++++++ \:7b5b\:9009\:51fa\:7279\:5b9a\:7684\:4fe1\:606f,\:4fbf\:4e8e\:67e5\:770b\:6bcf\:4e2a\:8d39\:66fc\:56fe,\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:8d21\:732e +++++++++*)
+(*\:7b5b\:9009\:51fa\:7279\:5b9a\:7684\:4fe1\:606f,\:4fbf\:4e8e\:67e5\:770b\:6bcf\:4e2a\:8d39\:66fc\:56fe,\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:8d21\:732e*)
+(*\:4f5c\:7528\:5728\:5173\:8054\:7684\:5217\:8868\:4e0a*)
 pickGroup[assocLst_]:=Query[(*{assoc}*)All,
 (*<|k\[Rule]v|>*)
 <|Lookup[#,{medMes1,medOct1,medDec1},Nothing(*default*)]->
@@ -176,60 +177,58 @@ Total];
 \:7136\:540e\:5c06 sumGroup \:4f5c\:4e3a Reduce \:51fd\:6570\:4f5c\:7528\:5230\:6700\:7ec8\:5c42\:7684\:5c0f\:7ec4\:4e0a,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 F1F2,GEGM*)
 
 
-(*\:5904\:7406\:4ee3\:6570\:5b57\:7ed3\:679c, *)
-(* \:751f\:6210\:4e00\:4e2a\:5173\:8054: <|loopChan,loopChanSum,loopAmpSum|>*)
-loopResuGather[numAssoc_]:=Module[{loopChanSum},
+(* ::Section:: *)
+(*GroupBy*)
+
+
+(*\:5904\:7406\:4ee3\:5165\:8026\:5408\:5e38\:6570\:7684\:7ed3\:679c, *)
+(* \:751f\:6210\:5173\:8054: <|loopChan\[Rule]v,loopChanSum\[Rule]v,loopAmpSum\[Rule]v|>*)
+(*{channAssoc:= <|\:4efb\:4f55\:8d39\:66fc\:56fe\:53cd\:5e94\:9053|>..}*)
+loopResultGroup[channAssoc_]:=Module[{loopChanSum},
 (*\:5c06\:540c\:4e00\:8d39\:66fc\:56fe\:4e0b\:7684\:53cd\:5e94\:9053\:6c42\:548c-------------*)
-loopChanSum=Query[
-(*<|bub,nobub|>*)All,
-(*{<|All digram channel|>..}*)
-GroupBy[#,{Key@inOct,Key@chTagKey["chTag"]},sumGroup]&
-]@numAssoc;
+loopChanSum=GroupBy[channAssoc,{Key@inOct,Key@chTagKey["chTag"]},sumGroup];
 (*\:751f\:6210\:5173\:8054\:6570\:7ec4---------------*)
 <|
 (*\:7c92\:5ea6\:4e3a,\:6bcf\:4e2a\:8d39\:66fc\:56fe\:7684\:6bcf\:4e2a\:53cd\:5e94\:9053---------------*)
-kLoopChannel->Query[
-(*<|bub,nobub|>*)All,
-(*{<|All digram channel|>..}*)
-GroupBy[#,{Key@inOct,Key@chTagKey["chTag"]},pickGroup]&
-]@numAssoc,
+kLoopChannel->GroupBy[channAssoc,{Key@inOct,Key@chTagKey["chTag"]},pickGroup],
 (*\:7c92\:5ea6\:4e3a,\:5c06\:540c\:4e00\:8d39\:66fc\:56fe\:4e0b\:7684\:53cd\:5e94\:9053\:6c42\:548c-------------*)
 kLoopChanSum->loopChanSum,
 (*\:7c92\:5ea6\:4e3a,\:5c06\:540c\:4e00\:4e2a\:5165\:5c04\:7c92\:5b50\:4e0b\:7684\:6240\:6709\:8d39\:66fc\:56fe\:7ed3\:679c\:76f8\:52a0----------*)
 kLoopAmpSum->Query[
-(*<|bub,nobub|>*)All,
 (*<|octet|>*)All,
-(*<|diagrams|>*)
-Simplify[Merge[Values@#,Total]]&
-]@loopChanSum
-|>]
+(*<|diagrams|>*)Simplify[Merge[Values@#,Total]]&]@loopChanSum
+|>
+]
 (* loopAmpSum \:7684\:5927\:81f4\:7ed3\:6784\:5982\:4e0b\:ff1a
 \[LeftAssociation]fd[2,1,0]\[Rule]\[LeftAssociation]Total"\[Rule]\[LeftAssociation]ffsF1F2\[Rule]{F1,F2},ffsGEGM\[Rule]{GE,GM}\[RightAssociation]\[RightAssociation],
 (\:5176\:4ed6\:7c92\:5b50\:7684\:7ed3\:679c,\:7ed3\:6784\:7c7b\:4f3c)\[RightAssociation]*)
 
 
-(*\:5bf9\:7ed3\:679c\:8fdb\:884c\:6574\:7406,
-\:8fd4\:56de\:5708\:56fe\:7ed3\:679c\:7684\:5173\:8054,<|loopChans,loopChansSum,loopAmpSum,loopAssoc|>*)
-loopResults[$parOrdStr_][numAssoc_]:=Append[
-loopResuGather[numAssoc],kLoopAssoc->numAssoc]
+(*\:5bf9\:7ed3\:679c\:8fdb\:884c\:6574\:7406,\:8fd4\:56de\:5708\:56fe\:7ed3\:679c\:7684\:5173\:8054,<|loopChans,loopChansSum,loopAmpSum,loopAssoc|>*)
+loopResults[$parOrdStr_][channAssoc_]:=Append[
+loopResultGroup[channAssoc],kLoopAssoc->channAssoc]
 
 
-loopResults["v"]=If[$parOrdStr===$ord0,
+loopResults["v"]=Query[
+(*<|bub,nobub|>*)All,
+If[$parOrdStr===$ord0,
 (*\:5982\:679c\:8ba1\:7b97 ord0 \:7684\:7ed3\:679c,\:53ea\:7528\:8ba1\:7b97 ord0\:672c\:8eab*)
-<|$ord0->loopResults[$ord0][numAssoc]|>,
+<|$ord0->loopResults[$ord0][#]|>,
 (*\:5982\:679c\:8ba1\:7b97 ord1,ordFull \:7684\:7ed3\:679c,\:9700\:8981\:989d\:5916\:8ba1\:7b97 ord0 *)
 <|
-$ord0->loopResults[$ord0][numAssoc],
-$parOrdStr->loopResults[$parOrdStr][numAssoc]
-|>];
+$ord0->loopResults[$ord0][#],
+$parOrdStr->loopResults[$parOrdStr][#]
+|>]&
+]@numAssoc;
 
 
 (* ::Chapter:: *)
 (*merge tree & loop*)
 
 
-(* \:5c06 \:6811\:56fe\:548c\:5708\:56fe\:7684\:7ed3\:679c\:653e\:5728\:4e00\:8d77,\:5e76\:5c55\:5e73\:5d4c\:5957\:7ed3\:6784*)
-ffsMerged["fn"][treeSum_Association,loopAmpSum_Association]:=Merge[{treeSum,loopAmpSum},
+(* \:5c06\:6811\:56fe\:548c\:5708\:56fe\:7684\:7ed3\:679c\:653e\:5728\:4e00\:8d77,\:5e76\:5c55\:5e73\:5d4c\:5957\:7ed3\:6784,\:8f93\:5165 loopAmpSum *)
+ffsMerged["fn"][treeSum_Association,loopAmpSum_Association]:=Merge[
+{treeSum,loopAmpSum},
 <|
 (*Lookup[{assoc1,assoc_2,\[Ellipsis]},key], \:5206\:522b\:7ed9\:51fa\:6bcf\:4e2a\:5173\:8054\:4e2d\:5bf9\:5e94 key \:7684\:503c*)
 AssociationThread[{ffsTreeF1F2,ffsLoopF1F2},Lookup[#,ffsF1F2]],
@@ -239,20 +238,25 @@ KeyTake[First@#,{inOct}](*First@# \:4e3a treeSum *)
 
 
 (*\:540c\:6837,\:6839\:636e $parOrdStr \:7684\:503c,\:5224\:65ad\:662f\:5426\:989d\:5916\:8ba1\:7b97 ord0 *)
-ffsMerged["v",keyTreeAndLoop]=If[$parOrdStr===$ord0,
+ffsMerged["v",keyTreeAndLoop]=Query[
+(*<|bub,nobub|>*)All,
+If[$parOrdStr===$ord0,
+(*\:5982\:679c\:8ba1\:7b97 ord0 \:7684\:7ed3\:679c,\:53ea\:7528\:8ba1\:7b97 ord0\:672c\:8eab*)
 <|
 $ord0->ffsMerged["fn"][
 treeSum,
-Query[$ord0,kLoopAmpSum]@loopResults["v"]
+Query[$ord0,kLoopAmpSum]@#
 ]|>,
+(*\:5982\:679c\:8ba1\:7b97 ord1,ordFull \:7684\:7ed3\:679c,\:9700\:8981\:989d\:5916\:8ba1\:7b97 ord0 *)
 <|
 $ord0->ffsMerged["fn"][treeSum,
-Query[$ord0,kLoopAmpSum]@loopResults["v"]
+Query[$ord0,kLoopAmpSum]@#
 ],
 $parOrdStr->ffsMerged["fn"][treeSum,
-Query[$parOrdStr,kLoopAmpSum]@loopResults["v"]
+Query[$parOrdStr,kLoopAmpSum]@#
 ]
-|>];
+|>]&
+]@loopResults["v"];
 
 
 (* ::Section:: *)
@@ -260,27 +264,54 @@ Query[$parOrdStr,kLoopAmpSum]@loopResults["v"]
 
 
 (*\:6311\:9009\:51fa tree,loop f1 \:7684\:8d21\:732e,\:8ba1\:7b97\:91cd\:6b63\:5316\:5e38\:6570*)
-fnRenorm[fd_,quarkQ_]:=Abs@chopQ2[
-ffsMerged["v",keyTreeAndLoop][[Key@$ord0,Key@fd,Key@ffsTreeF1F2,1]]-
-ffsMerged["v",keyTreeAndLoop][[Key@$ord0,Key@fd,Key@ffsLoopF1F2,1]]/.quarkQ];
-(*\:5bf9\:4e8e\:5e26\:7535\:91cd\:5b50,\:4f7f\:7528\:81ea\:5df1\:7684 F1 \:8ba1\:7b97\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570 *)
-fnRenormSelf[fd_]:=fd->fnRenorm[fd,quaCharge["uds"]];
-(*+++++++++++++++++++++ \:8bb0\:5f55\:91cd\:6b63\:5316\:5e38\:6570 +++++++++++++++++++++*)
-renormRule=KeySort@<|
-(*----------- \:5e26\:7535 oct \:91cd\:5b50 -----------*)
-fnRenormSelf@fd[2,1,0],
-fnRenormSelf@fd[2,3,0],
-fnRenormSelf@fd[2,5,0],
-fnRenormSelf@fd[2,7,0],
-(*----------- \:4e2d\:6027 oct \:91cd\:5b50 -----------*)
-fd[2,2,0]->fnRenorm[fd[2,1,0],quaCharge["uds"]],
-fd[2,4,0]->fnRenorm[fd[2,3,0],quaCharge["uds"]],
-fd[2,6,0]->fnRenorm[fd[2,7,0],quaCharge["uds"]],
-fd[2,8,0]->fnRenorm[fd[2,8,0],quaCharge["u"]](*\:4f7f\:7528 u flavor EM\:6d41\:8ba1\:7b97*)
-|>;
+(*\:8fd4\:56de\:51fd\:6570\:ff0c# \:7684\:5d4c\:5957\:7ed3\:6784\:662f {order}\[Rule]{octet}\[Rule]{FFs}\[Rule]{pair}*)
+(*\:5bf9\:4e8e\:4e2d\:6027\:91cd\:5b50\:ff0c\:9700\:8981\:6307\:5b9a\:540c\:4f4d\:65cb brother--------------------*)
+fnRenormBy[fd_,quarkQ_]:=Function[{ffsMerged},
+Abs[chopQ2[
+(*\:6811\:56fe*)Query[Key@$ord0,Key@fd,Key@ffsTreeF1F2,1
+]@ffsMerged-
+(*\:5708\:56fe*)Query[Key@$ord0,Key@fd,Key@ffsLoopF1F2,1
+]@ffsMerged/.quarkQ]]
+];
+(*\:5bf9\:4e8e\:5e26\:7535\:91cd\:5b50,\:4f7f\:7528\:81ea\:5df1\:7684 F1 \:8ba1\:7b97\:573a\:5f3a\:91cd\:6b63\:5316\:5e38\:6570-----------------*)
+fnRenorm[fd_]:=fnRenormBy[fd,quaCharge["uds"]]
+
+
+(*\:8bb0\:5f55\:91cd\:6b63\:5316\:5e38\:6570 ++++++++++++++++++++++++++++++*)
+renormRule[ffsMerged_]:=KeySort@AssociationThread[
+(*\:5e26\:7535*)
+{fd[2,1,0],fd[2,3,0],fd[2,5,0],fd[2,7,0]
+(*\:4e2d\:6027*)
+,fd[2,2,0],fd[2,4,0],fd[2,6,0],fd[2,8,0]
+}
+,Through[{
+(*\:5e26\:7535 oct \:91cd\:5b50 -----------*)
+fnRenorm[fd[2,1,0]]
+,fnRenorm[fd[2,3,0]]
+,fnRenorm[fd[2,5,0]]
+,fnRenorm[fd[2,7,0]]
+(*\:4e2d\:6027 oct \:91cd\:5b50 -----------*)
+,fnRenormBy[fd[2,1,0],quaCharge["uds"]]
+,fnRenormBy[fd[2,3,0],quaCharge["uds"]]
+,fnRenormBy[fd[2,7,0],quaCharge["uds"]]
+(*\:4f7f\:7528 u flavor EM\:6d41\:8ba1\:7b97*)
+,fnRenormBy[fd[2,8,0],quaCharge["u"]]
+}@ffsMerged]
+];
+
+
+appendRenorm[ffsMerged_]:=With[{renormVal=renormRule@ffsMerged},
+Query[
+(*<order>*)All,
+(*<octet>*)All,
+(*<FFs>*)
+Append[#,recon->renormVal@#@inOct]&
+]@ffsMerged
+]
 
 
 (*+++++++++++++++++ \:52a0\:4e0a\:91cd\:6b63\:5316\:5e38\:6570 *+++++++++++++++++*)
-ffsMerged["WithRen",keyTreeAndLoop]=Query[All,All,
-Append[#,recon->renormRule@#@inOct]&
+ffsMerged["WithRen",keyTreeAndLoop]=Query[
+(*<bub,nobub>*)All,
+(*<order>*)appendRenorm
 ]@ffsMerged["v",keyTreeAndLoop];
