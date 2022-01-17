@@ -5,6 +5,17 @@
 
 
 (* ::Section:: *)
+(*Association Table*)
+
+
+recordLocationInMessage[Association];
+(*\:7c7b\:4f3c Table \:5faa\:73af\:ff0c\:751f\:6210\:5173\:8054\:7684\:5d4c\:5957\:5217\:8868*)
+AssocTable[expr_,{a_,aList_List},other:{_,_List}..
+]:=Association@Table[a->AssocTable[expr,other],{a,aList}];
+AssocTable[expr_,{a_,aList_List}]:=Association@Table[a->expr,{a,aList}]
+
+
+(* ::Section:: *)
 (*flatten Assoc Recursively*)
 
 

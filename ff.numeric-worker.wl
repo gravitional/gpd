@@ -130,35 +130,11 @@ mm1,mo1,mo2,md1,md2,"time",fyCoeKey["cStr"],fyCoeKey["cEM"]
 
 
 (* ::Section:: *)
-(*generate data Association*)
+(*Refine data structure*)
 
 
-(*\:6839\:636e\:662f\:5426\:9700\:8981\:5e76\:884c,\:8c03\:7528\:4e0a\:9762\:7684\:51fd\:6570,\:4ee3\:5165\:8026\:5408\:5e38\:6570,\:8ba1\:7b97\:5708\:79ef\:5206\:548c\:7cfb\:6570*)
-numAssocTemp=If[$parallel$couplsQ,
-(* HoldAll \:6240\:6709\:8868\:8fbe\:5f0f,\:4f20\:7ed9\:5b50\:6838\:8ba1\:7b97*)
-SetAttributes[paraEnvIO,HoldAll];
-paraEnvIO[tag_]:=ParallelSubmit[import$Eva[tag,$parOrdStr]];
-(*\:5e76\:884c\:60c5\:51b5,\:9700\:8981 WaitAll \:4efb\:52a1*)
-WaitAll[paraEnvIO/@fyAmpPart],
-(*\:975e\:5e76\:884c\:60c5\:51b5*)
-paraEnvIO[tag_]:=import$Eva[tag,$parOrdStr];
-paraEnvIO/@fyAmpPart];
-(*\:6574\:7406 numAssocTemp \:7684\:6b21\:5e8f, \:628a\:4eba\:4e3a\:6c42\:548c\:9009\:62e9\:653e\:5728\:6700\:5916\:5c42 -------------*)
-numAssoc=Association@Table[
-(*\:5c06\:4e0d\:540c\:8d39\:66fc\:56fe\:7684\:53cd\:5e94\:9053\:653e\:8fdb\:540c\:4e00\:5217\:8868\:4e2d*)
-adjust->Catenate@Query[
-(*{diagram}*)All
-,(*<|bub,nobub|>*)adjust
-]@numAssocTemp
-,{adjust,Keys@fyCoesAdjust}];
-
-
-(* ::Section:: *)
-(*refine data structure*)
-
-
-(*\:7b5b\:9009\:51fa\:7279\:5b9a\:7684\:4fe1\:606f,\:4fbf\:4e8e\:67e5\:770b\:6bcf\:4e2a\:8d39\:66fc\:56fe,\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:8d21\:732e*)
-(*\:4f5c\:7528\:5728\:5173\:8054\:7684\:5217\:8868\:4e0a*)
+(*\:4ee3\:5165\:8026\:5408\:5e38\:6570\:4e4b\:540e\:ff0c\:8fdb\:884c\:6570\:636e\:7ed3\:6784\:6574\:7406\:9700\:8981\:7684\:51fd\:6570\:ff0c\:8f93\:5165\:4e3a {<>,<>..}\:ff0c\:5373\:5173\:8054\:7684\:5217\:8868
+\:7b5b\:9009\:51fa\:7279\:5b9a\:7684\:4fe1\:606f,\:4fbf\:4e8e\:67e5\:770b\:6bcf\:4e2a\:8d39\:66fc\:56fe,\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:8d21\:732e*)
 pickGroup[assocLst_]:=Query[(*{assoc}*)All,
 (*<|k\[Rule]v|>*)
 <|Lookup[#,{medMes1,medOct1,medDec1},Nothing(*default*)]->
@@ -177,11 +153,11 @@ Total];
 \:7136\:540e\:5c06 sumGroup \:4f5c\:4e3a Reduce \:51fd\:6570\:4f5c\:7528\:5230\:6700\:7ec8\:5c42\:7684\:5c0f\:7ec4\:4e0a,\:8fd9\:91cc\:53ea\:63d0\:53d6\:4e86 F1F2,GEGM*)
 
 
-(* ::Section:: *)
-(*GroupBy*)
+(* ::Subsection:: *)
+(*Groupy*)
 
 
-(*\:5904\:7406\:4ee3\:5165\:8026\:5408\:5e38\:6570\:7684\:7ed3\:679c, *)
+(*\:5904\:7406\:4ee3\:5165\:8026\:5408\:5e38\:6570\:7684\:7ed3\:679c, \:6309\:7167\:7279\:5f81\:5982octet \:6807\:7b7e, \:8fdb\:884c\:5206\:7ec4*)
 (* \:751f\:6210\:5173\:8054: <|loopChan\[Rule]v,loopChanSum\[Rule]v,loopAmpSum\[Rule]v|>*)
 (*{channAssoc:= <|\:4efb\:4f55\:8d39\:66fc\:56fe\:53cd\:5e94\:9053|>..}*)
 loopResultGroup[channAssoc_]:=Module[{loopChanSum},
@@ -204,22 +180,59 @@ kLoopAmpSum->Query[
 (\:5176\:4ed6\:7c92\:5b50\:7684\:7ed3\:679c,\:7ed3\:6784\:7c7b\:4f3c)\[RightAssociation]*)
 
 
-(*\:5bf9\:7ed3\:679c\:8fdb\:884c\:6574\:7406,\:8fd4\:56de\:5708\:56fe\:7ed3\:679c\:7684\:5173\:8054,<|loopChans,loopChansSum,loopAmpSum,loopAssoc|>*)
-loopResults[$parOrdStr_][channAssoc_]:=Append[
-loopResultGroup[channAssoc],kLoopAssoc->channAssoc]
+(* ::Section:: *)
+(*Generate*)
 
 
-loopResults["v"]=Query[
-(*<|bub,nobub|>*)All,
-If[$parOrdStr===$ord0,
+(*\:6b64\:51fd\:6570\:8d1f\:8d23\:8fdb\:884c\:5b9e\:9645\:8ba1\:7b97\:ff0c\:4ee5\:53ca\:6839\:636e\:6807\:7b7e\:5206\:7ec4
+\:53e6\:5916\:ff0c\:6839\:636e $parOrdStr \:53c2\:6570\:51b3\:5b9a\:662f\:5426\:987a\:4fbf\:8ba1\:7b97 order0 \:7684\:7ed3\:679c*)
+loopResults[$parOrdStr_]:=Block[{channAssocTemp,channAssoc},
+
+(*\:6839\:636e\:662f\:5426\:9700\:8981\:5e76\:884c,\:8c03\:7528\:4e0a\:9762\:7684\:51fd\:6570,\:4ee3\:5165\:8026\:5408\:5e38\:6570,\:8ba1\:7b97\:5708\:79ef\:5206\:548c\:7cfb\:6570-----------------*)
+channAssocTemp=If[$parallel$couplsQ,
+(* HoldAll \:6240\:6709\:8868\:8fbe\:5f0f,\:4f20\:7ed9\:5b50\:6838\:8ba1\:7b97*)
+SetAttributes[paraEnvIO,HoldAll];
+paraEnvIO[tag_]:=ParallelSubmit[import$Eva[tag,$parOrdStr]];
+(*\:5e76\:884c\:60c5\:51b5,\:9700\:8981 WaitAll \:4efb\:52a1*)
+WaitAll[paraEnvIO/@fyAmpPart],
+(*\:975e\:5e76\:884c\:60c5\:51b5*)
+paraEnvIO[tag_]:=import$Eva[tag,$parOrdStr];
+paraEnvIO/@fyAmpPart];
+
+(*\:6574\:7406 channAssocTemp \:7684\:6b21\:5e8f, \:628a\:4eba\:4e3a\:6c42\:548c\:9009\:62e9\:653e\:5728\:6700\:5916\:5c42 -------------*)
+channAssoc=Association@Table[
+(*\:5c06\:4e0d\:540c\:8d39\:66fc\:56fe\:7684\:53cd\:5e94\:9053\:653e\:8fdb\:540c\:4e00\:5217\:8868\:4e2d*)
+adjust->Catenate@Query[
+(*{diagram}*)All
+,(*<|bub,nobub|>*)adjust
+]@channAssocTemp
+,{adjust,Keys@fyCoesAdjust}];
+
+(*\:5bf9\:7ed3\:679c\:8fdb\:884c\:6574\:7406,\:8fd4\:56de\:5708\:56fe\:7ed3\:679c\:7684\:5173\:8054,------------------------
+<|loopChans,loopChansSum,loopAmpSum,loopAssoc|>*)
+Query[(*<bub>*)All
+,(*{<channel>..},\:6dfb\:52a0 kLoopAssoc \:7b49 k\[Rule]v *)
+Append[loopResultGroup[#],kLoopAssoc->#]&
+]@channAssoc
+
+]
+
+
+loopResults["v","tmp"]=If[$parOrdStr===$ord0,
 (*\:5982\:679c\:8ba1\:7b97 ord0 \:7684\:7ed3\:679c,\:53ea\:7528\:8ba1\:7b97 ord0\:672c\:8eab*)
-<|$ord0->loopResults[$ord0][#]|>,
-(*\:5982\:679c\:8ba1\:7b97 ord1,ordFull \:7684\:7ed3\:679c,\:9700\:8981\:989d\:5916\:8ba1\:7b97 ord0 *)
-<|
-$ord0->loopResults[$ord0][#],
-$parOrdStr->loopResults[$parOrdStr][#]
-|>]&
-]@numAssoc;
+<|$ord0->loopResults[$ord0]|>,
+(*\:5982\:679c\:8ba1\:7b97 ord1,ordFull \:7684\:7ed3\:679c,\:9700\:8981\:989d\:5916\:8ba1\:7b97 ord0*)
+<|$ord0->loopResults[$ord0],
+$parOrdStr->loopResults[$parOrdStr]|>];
+
+
+(*\:6574\:7406\:5d4c\:5957\:5c42\:6b21\:7684\:987a\:5e8f*)
+loopResults["v"]=Association@Table[
+adjust->Query[
+(*<order>*)All
+,(*<|bub,nobub|>*)adjust
+]@loopResults["v","tmp"]
+,{adjust,Keys@fyCoesAdjust}];
 
 
 (* ::Chapter:: *)

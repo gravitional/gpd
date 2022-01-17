@@ -190,7 +190,10 @@ cc["C",ccNumStr]->Association@KeyValueMap[#1->testFit[ccNum,#2]&,$fittingScheme]
 (*\:5bf9\:624b\:52a8\:6c42\:548c\:65b9\:6848 {bub,nobub} \:8fed\:4ee3---------------------*)
 ,{adjust,Keys@fyCoesAdjust}]
 (*\:5bf9 \[CapitalLambda] \:7684\:53d6\:503c\:8303\:56f4\:8fed\:4ee3---------------------*)
-,{$LambdaNum,{0.70,0.80`30,0.90`30,1.00`30}}];
+,{$LambdaNum,{
+0.70`30,0.75`30,
+0.80`30,0.90`30,0.95`30,1.00`30
+}}];
 ];
 
 
