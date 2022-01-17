@@ -40,7 +40,7 @@ Query[$ordFull]@#
 (*setup parallel environment*)
 
 
-If[$parallel$interpoQ,
+If[$parallel$interpQ,
 (*\:65b0\:542f\:52a8\:7684\:5185\:6838\:ff0c\:4f1a\:81ea\:52a8\:52a0\:8f7d X`*)
 Needs["X`"];ParallelNeeds["X`"];
 CloseKernels[];(*\:5173\:95ed\:539f\:5148\:7684\:5e76\:884c\:5185\:6838*)
@@ -52,7 +52,7 @@ Needs["X`"];]
 
 
 (*\:5e76\:884c\:8ba1\:7b97\:521d\:59cb\:5316*)
-If[$parallel$interpoQ,
+If[$parallel$interpQ,
 (*\:4fee\:6539\:5e76\:884c\:73af\:5883\:ff1b\:526f\:4f5c\:7528*)
 ParallelEvaluate[ReleaseHold@paraInitial];
 (*\:5206\:914d\:5b9a\:4e49\:5230\:5e76\:884c\:5185\:6838\:4e2d*)
@@ -113,7 +113,7 @@ echo[DateString[],": $start interpolation on curves"]
 
 (* \:5bf9\:5f97\:5230\:7684\:5206\:6bb5\:51fd\:6570\:8fdb\:884c \:63d2\:503c *)
 (*\:6839\:636e\:5e76\:884c\:8bbe\:7f6e\:ff0cevaluation*)
-interpoGEGM["v",keyTreeAndLoop]=If[$parallel$interpoQ,
+interpoGEGM["v",keyTreeAndLoop]=If[$parallel$interpQ,
 (*\:5e76\:884c\:60c5\:51b5\:ff0c\:5206\:53d1\:5230\:5b50\:6838\:8ba1\:7b97------------------------------*)
 waitAssoc@Query[
 (*<bub,nobub>*)All
