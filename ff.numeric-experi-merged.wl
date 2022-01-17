@@ -46,6 +46,7 @@ CmdParser["pseudo"]={$fileName
 ,"--fit","False"(*\:662f\:5426\:5904\:4e8e fitting \:6a21\:5f0f*)
 ,"--update","False"
 ,"--parallel-Lbd","False"
+,"--interp","False"
 ,"--ord","$ordFull"
 ,"--Lbd-num","0.80"
 };
@@ -100,6 +101,7 @@ Legended[#2,Placed[#1,legPos]]&,assoc];
 
 
 (*\:516c\:5171\:8bbe\:7f6e,\:5168\:5c40\:53d8\:91cf*)
+tmp`bub=coesAdjBub;
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
 tmp`cc=Key@cc["C","1.00"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
@@ -150,7 +152,8 @@ Placed[key/.{numKey->StringRiffle},After]];
 Show[figGroup["exper"]
 (*\:8ba1\:7b97\:56fe*)
 ,Query[
-(*cc-value*)tmp`cc
+(*<bub>*)tmp`bub
+,(*cc-value*)tmp`cc
 ,(*fit-scheme*)tmp`scheme
 ,(*octet*)tmp`oct
 ,(*loop-tree-uds*)contribTag/*annotated[legendFn]/*plotList[Q2]

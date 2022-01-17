@@ -380,10 +380,12 @@ annotated[Legended[#2,Placed[#1/.chTag->StringRiffle,Below]]&]@diagIllus
 (*scan fittings*)
 
 
-Query[Normal/*(Column[#,Frame->All]&)
-,Normal/*(Column[#,Frame->All]&)
-,Normal/*(TableForm[#,TableSpacing->{2,1}]&)
-]@Import@localPath[fittingsDir]@"nums.ccFittings.wdx"
+Query[Normal/*(TableForm[#,TableSpacing->{2,1}]&)
+]@flatAssoc@Query[
+(*<\[CapitalLambda] value>*)All
+,(*<bub>*)All,(*<C value>*)All
+,(*<scheme>*){"most"}
+]@Import@localPath[fittingsDir]["nums.ccFittings.wdx"]
 
 
 (* ::Chapter:: *)
