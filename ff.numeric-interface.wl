@@ -41,39 +41,6 @@ numPaVe={DiscB->DiscBChop,ScalarC0->ScalarC0Chop};
 
 
 (* ::Section:: *)
-(*export*)
-
-
-recordLocationInMessage[localPathResult,serializeResult]
-
-
-(*\:7ed9\:51fa\:672c\:5730\:7f13\:5b58\:6587\:4ef6\:7684\:8def\:5f84*)
-localPathResult[resultsDir_][filename_String]:=FileNameJoin[{resultsDir,
-StringRiffle[{
-$parOrdStr,
-"LbdNum",$LambdaNumStr,
-"LbdFit",$LambdaFitStr
-,filename
-},"-"]}];
-(*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6-----------------------------*)
-serializeResult[resultsDir_][filename_String,result_]:=With[
-{path=localPathResult[resultsDir][filename]},
-Export[path,result];echo["Exporting finished: ", path];]
-
-
-recordLocationInMessage[localPath,serialize]
-
-
-(*\:7ed9\:51fa\:672c\:5730\:7f13\:5b58\:6587\:4ef6\:7684\:8def\:5f84,\:7ed9\:51fa\:6587\:4ef6\:548c\:62d3\:5c55\:540d*)
-localPath[Directory_][filename_]:=FileNameJoin[{
-Directory,StringRiffle[enList@filename,"-"]}];
-(*io \:51fd\:6570, \:4fdd\:5b58\:7ed3\:679c\:5230\:672c\:5730\:6587\:4ef6*)
-serialize[Directory_][filename_,result_]:=With[
-{path=localPath[Directory][filename]},
-Export[path,result];echo["Exporting finished: ", path];]
-
-
-(* ::Section:: *)
 (*<< coupling relations*)
 
 

@@ -51,7 +51,7 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
 (*\:8bfb\:5165\:50a8\:5b58\:9876\:70b9\:7cfb\:6570\:7684\:6587\:4ef6*)
-Get["gen.chpt.coes.wl"];
+Enclose@Confirm@Get["gen.chpt.coes.wl"];
 
 
 (*\:7ed9\:51fa\:672c\:5730\:7f13\:5b58\:6587\:4ef6\:7684\:8def\:5f84,\:7ed9\:51fa\:6587\:4ef6\:548c\:62d3\:5c55\:540d*)
@@ -206,7 +206,7 @@ MassIn->(#@inOct/.fd[a_,b_,0]:>massV@fd[a,b,2])(* \:5165\:5c04\:91cd\:5b50\:8d28
 (*If[$inNBook,*)
 (*fyTag={"RB","mes","oct"};*)
 (*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,1,0]*)
+(*inOct->fd[2,4,0]*)
 (*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
@@ -608,7 +608,7 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 (*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tree-level,A-octet,F1F2,nonlocal*)
 
 
@@ -802,13 +802,12 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 (*serializeCoe[fyTagTmp,coeJoin];*)
 
 
-(* ::Input:: *)
-(*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
-(*If[$inNBook,*)
-(*fyTag={"tad","oct","F1"};*)
-(*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,1,0]*)
-(*]]@coeJoin[fyTag]//dsetFmt]*)
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+fyTag={"tad","oct","F1"};
+Query[Cases@KeyValuePattern[
+inOct->fd[2,1,0]
+]]@coeJoin[fyTag]//dsetFmt]
 
 
 (* ::Section:: *)
