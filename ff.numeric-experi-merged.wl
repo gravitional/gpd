@@ -105,11 +105,11 @@ tmp`bub=coesAdjBub;
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
 tmp`cc=Key@cc["C","1.00"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
-tmp`scheme=Key@"most";
+tmp`scheme=Key@"many";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
-tmp`oct=Key@ff["p"];
+tmp`oct=Key@ff["n"];
 (*1:GE,2:GM*)
-tmp`gegm=2;
+tmp`gegm=1;
 (*\:53c2\:6570\:68c0\:67e5-----*)
 tmp`oct::OutRange="Only \"p\", \"n\" experiment data aquired for now";
 If[!MemberQ[Key/@{ff["p"],ff["n"]},tmp`oct],
@@ -181,7 +181,8 @@ With[{
 data=Nest[Merge,Identity,2]@{
 (*\:8ba1\:7b97\:503c*)
 Query[
-(*cc-values*)Key@cc["C","1.50"]
+(*<bub,nobub>*)Key@coesAdjNoBub
+,(*cc-values*)Key@cc["C","1.50"]
 ,(*fitting-scheme*)Key@"most"
 ,(*octet*)All
 ,(*{contrib}*)All

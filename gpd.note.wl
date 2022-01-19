@@ -4,6 +4,30 @@
 (*gpd_notation.nb*)
 
 
+(* ::Chapter:: *)
+(*note 3accbe8*)
+
+
+(*\:4f55\:65b9\:6210 nucleon strange quark magnetic moment \:7684\:7ed3\:679c*)
+TableForm[
+{
+{"\[CapitalLambda]==0.9","1 a","2 b","3 c","4 d+e","5 f+g","6 h","7 i" ,"8 j","9 k+l","10 m+n","11 o+p"},
+{"fch",\[Minus]0.017,0.005,\[Minus]0.008,\[Minus]0.016,\[Minus]0.030,0.009,\[Minus]0.0004,0.009,\[Minus]0.012,0.001,0.018}
+}
+]
+
+
+(* ::Text:: *)
+(*\:4e4b\:524d\:8ba1\:7b97\:7684 Nucleon strange quark magnetic \:7684\:7ed3\:679c, \:6570\:503c\:7684\:5dee\:5f02\:53ef\:80fd\:6765\:81ea\:4e8e \:6b63\:89c4\:5b50\:51fd\:6570\:5f62\:5f0f\:7684\:9009\:62e9 \:548c \:8d28\:91cf*)
+
+
+-0.002200491130978127+0.02252016282410953-0.016483728333618483//Simplify
+
+
+(* ::Chapter:: *)
+(*notation*)
+
+
 (* ::Text:: *)
 (*\:4fdd\:7559\:4e00\:4e9b\:8bb0\:53f7\:ff0c\:4ee5\:53ca\:52a8\:91cf\:53c2\:6570\:5316*)
 

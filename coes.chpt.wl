@@ -206,11 +206,11 @@ MassIn->(#@inOct/.fd[a_,b_,0]:>massV@fd[a,b,2])(* \:5165\:5c04\:91cd\:5b50\:8d28
 (*If[$inNBook,*)
 (*fyTag={"RB","mes","oct"};*)
 (*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,4,0]*)
+(*inOct->fd[2,1,0]*)
 (*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman,A-meson,octet,left*)
 
 

@@ -190,7 +190,8 @@ numFFs["v",keyTreeAndLoop,"tmp"]=With[
 {orderLst=Query[1,1,1,Keys]@ffsMerged["configs",keyTreeAndLoop]},
 (*\:904d\:5386 order \:7684\:96c6\:5408 ordLst, \:9009\:62e9\:76f8\:5e94\:7684 numFFs["fn"]*)
 Association@Table[ord->
-Query[(*<bub,nobub>*)All
+Query[
+(*<bub,nobub>*)All
 ,(*<cc-values>*)All
 ,(*<fitting-scheme>*)All
 ,(*<order>*)Key@ord
