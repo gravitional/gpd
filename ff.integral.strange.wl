@@ -38,7 +38,23 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
 (* ::Section:: *)
-(*cmd arguments*)
+(*<<modules*)
+
+
+(* ::Input:: *)
+(*SetOptions[EvaluationNotebook[],CommonDefaultFormatTypes->{"Output"->StandardForm}](*\:8bbe\:7f6e\:663e\:5f0f\:683c\:5f0f\:4e3a\:6807\:51c6\:683c\:5f0f*)*)
+
+
+If[NameQ["\[Sigma]"],echo["please remove the definitions of \[Sigma], \[Sigma] will be used in package-X"];Remove["Global`\[Sigma]"]];(* \[Sigma] \:662f package-X \:7684\:4fdd\:7559\:6807\:8bc6\:7b26,\:9700\:8981\:6e05\:9664*)
+echo["launch parallel kernels"];
+(* \:5e76\:884c\:8fd0\:7b97\:51c6\:5907*)
+Needs["X`"];ParallelNeeds["X`"];
+(*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
+CloseKernels[];
+Switch[{$MachineName,$System},
+{"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
+_,LaunchKernels[]
+];
 
 
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
@@ -50,27 +66,57 @@ Get["coes.interface.wl"];
 Get["ff.numeric-interface.wl"];
 
 
-(* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
-If[!$Notebooks,
-inputCml=$ScriptCommandLine,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
-(*++++++++++++++++++++++++++++++++++++++++*)
-inputCml={$fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:4ee4\:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:6b64\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
-(* \:5728\:8fd9\:91cc\:63d0\:4f9b\:5176\:4ed6\:53c2\:6570, \:4f7f\:7528 mathematica \:8bed\:6cd5\:4e0b\:7684\:5f62\:5f0f\:ff0c\:5916\:9762\:7684 enString \:4f1a\:81ea\:52a8\:8f6c\:6362\:6210\:5b57\:7b26\:4e32, \:5c3d\:91cf\:591a\:4f7f\:7528Association\:7ed3\:6784*)
-"{16}"
-}
-];
-echo["the input parameter is:\n",inputCml];
+(* ::Section:: *)
+(*cmd args*)
 
 
-(*\:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406*)
-(*+++++++++++++++++++++++++++++++++++++ \:9ed8\:8ba4\:503c +++++++++++++++++++++++++++++++++++++*)
-fyAmpTagPart=fyAmpLoopLst;(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
-(*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 2 +++++++++++++++++++++++++++++++++++++*)
-If[Length@inputCml>=2,
+(*\:5904\:7406\:547d\:4ee4\:884c\:53c2\:6570\:7684\:5305*)
+Get["gen.parse.wl"];
+
+
+(*\:547d\:4ee4\:884c\:53c2\:6570\:6a21\:677f*)
+CmdParser["template"]=<|
+"opt"-><|
+{"part"}->{"All","\:8ba1\:7b97\:5217\:8868\:4e2d\:7684\:54ea\:4e9b\:79ef\:5206,\:53c2\:6570\:5c06\:4f20\:5165 fyAmpLoopLst[[]]"}
+|>,
+"pos"->{}
+|>;
+
+
+(*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
+CmdParser["pseudo"]={$fileName
+,"--part","All"(*\:8981\:8ba1\:7b97\:7684\:79ef\:5206\:5217\:8868\:ff0c\:53c2\:6570\:53d6\:503c\:8303\:56f4\:67e5\:770b Part \:51fd\:6570\:5e2e\:52a9\:9875*)
+};
+
+
+(*\:89e3\:6790\:53c2\:6570*)
+parseCml[]:=Module[{paras,options},
+(*\:8ba1\:7b97 cmd \:8f93\:5165, \:6216\:7b14\:8bb0\:672c\:6a21\:62df\:8f93\:5165-----------*)
+paras=Query[
+(*<|opt,pos|>*)All,
+(*<|opt1->val1|>*)All,
+(*val*)If[SyntaxQ@#,ToExpression@#,#]&
+]@CmdParser["get"];
+(*\:63d0\:53d6\:51fa\:9009\:9879\:90e8\:5206--------*)
+options=paras@"opt"//EchoFunction[InputForm];
+(*\:6839\:636e\:53c2\:6570\:ff0c\:8fdb\:884c\:76f8\:5e94\:7684\:8bbe\:7f6e------------------------------*)
+(*\:5982\:679c\:53ea\:662f\:6253\:5370\:5e2e\:52a9\:4fe1\:606f\:ff0c\:5219\:505c\:6b62\:8ba1\:7b97*)
+Switch[options@"help",
+False,Null,
+_,Abort[]];
+(*---------------------------------------------------*)
+$fyAmpTagPartSpec=options@"part";
 Check[
-echo[fyAmpTagPart=fyAmpLoopLst[[ToExpression@inputCml[[2]]]]],
+fyAmpTagPart=fyAmpLoopLst[[$fyAmpTagPartSpec]],
 echo["para 2: Part speciation is not valid"];Abort[]
 ]]
+
+
+parseCml[]
+
+
+(* ::Section::Closed:: *)
+(*note*)
 
 
 (*
@@ -104,23 +150,7 @@ LoopIntegrate[delayedNumerator, k, {k - p2, m}, {k - p1, m}, {k, 0}] /. {p1.p1 -
 
 
 (* ::Section:: *)
-(*Package-X*)
-
-
-(* ::Input:: *)
-(*SetOptions[EvaluationNotebook[],CommonDefaultFormatTypes->{"Output"->StandardForm}](*\:8bbe\:7f6e\:663e\:5f0f\:683c\:5f0f\:4e3a\:6807\:51c6\:683c\:5f0f*)*)
-
-
-If[NameQ["\[Sigma]"],echo["please remove the definitions of \[Sigma], \[Sigma] will be used in package-X"];Remove["Global`\[Sigma]"]];(* \[Sigma] \:662f package-X \:7684\:4fdd\:7559\:6807\:8bc6\:7b26,\:9700\:8981\:6e05\:9664*)
-echo["launch parallel kernels"];
-(* \:5e76\:884c\:8fd0\:7b97\:51c6\:5907*)
-Needs["X`"];ParallelNeeds["X`"];
-(*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
-CloseKernels[];
-Switch[{$MachineName,$System},
-{"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
-_,LaunchKernels[]
-];
+(*regulator, propagator*)
 
 
 reg::usage="\:6b63\:89c4\:5b50 F[k]=(\[CapitalLambda]^2-m\[Phi]^2)^2/(k^2-\[CapitalLambda]^2+I*\[CurlyEpsilon])^2, \:5176\:4e2d m\[Phi] \:662f\:4ecb\:5b50\:8d28\:91cf\:ff0c\:5bf9\:4e8e\:5149\:5b50,\:6b64\:8d28\:91cf\:4e3a\:96f6\:3002\:6b63\:89c4\:5b50\:5f52\:4e00\:5316\:5230 F[m\[Phi]]=1. \:751f\:6210\:5217\:8868\:ff0c\:7b2c\:4e00\:9879\:662f\:5206\:5b50\:ff0c\:7b2c\:4e8c\:9879\:662f\:5206\:6bcd";
