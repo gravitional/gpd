@@ -1488,7 +1488,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
 (*fyTag={"RB","trans","right"};*)
 (*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,1,0]*)
+(*inOct->fd[2,3,0]*)
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
@@ -1672,7 +1672,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
 (*fyTag={"KR","mes","dec","right"};*)
 (*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,1,0]*)
+(*inOct->fd[2,5,0]*)
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 

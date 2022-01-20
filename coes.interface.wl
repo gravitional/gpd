@@ -182,6 +182,7 @@ conjOct=conjToOctBar~Join~conjToOct;
 
 
 (*+++++++++++++++ \:8d39\:66fc\:56fe\:7684\:5206\:7c7b\:ff1a\:5728\:6bcf\:4e2a\:7c7b\:522b\:4e2d\:ff0c\:5206\:522b\:68c0\:67e5\:662f\:5426\:6ee1\:8db3 \:4e2d\:6027\:7c92\:5b50 \:7535\:8377\:5b88\:6052 +++++++++++++++*)
+(*\:516b\:91cd\:6001\:56fe*)
 sectOct=Key/@{
 chTag@{"RB","mes","oct"},
 chTag@{"KR","mes","oct","left"},
@@ -189,6 +190,25 @@ chTag@{"KR","mes","oct","add","left"},
 chTag@{"RB","oct","F1"},
 chTag@{"RB","oct","F2"}
 };
+(*\:516b\:91cd\:6001\:666e\:901a\:56fe*)
+sectOctNorm=Key/@{
+chTag@{"RB","mes","oct"},
+chTag@{"KR","mes","oct","left"},
+chTag@{"RB","oct","F1"},
+chTag@{"RB","oct","F2"}
+};
+(*\:516b\:91cd\:6001\:989d\:5916\:56fe*)
+sectOctAdd=Key/@{
+chTag@{"KR","mes","oct","add","left"}
+};
+
+(*\:516b\:91cd\:6001\:989d\:5916\:56fe*)
+sectOctTe1=Key/@{
+chTag@{"RB","mes","oct"},
+chTag@{"RB","oct","F2"}
+};
+
+(*\:5341\:91cd\:6001\:56fe*)
 sectDec=Key/@{
 chTag@{"RB","mes","dec"},
 chTag@{"RB","dec","F1"},
@@ -197,6 +217,20 @@ chTag@{"RB","trans","left"},
 chTag@{"KR","mes","dec","left"},
 chTag@{"KR","mes","dec","add","left"}
 };
+(*\:5341\:91cd\:6001\:666e\:901a\:56fe*)
+sectDecNorm=Key/@{
+chTag@{"RB","mes","dec"},
+chTag@{"RB","dec","F1"},
+chTag@{"RB","dec","F2"},
+chTag@{"RB","trans","left"},
+chTag@{"KR","mes","dec","left"}
+};
+(*\:5341\:91cd\:6001\:989d\:5916\:56fe*)
+sectDecAdd=Key/@{
+chTag@{"KR","mes","dec","add","left"}
+};
+
+(*\:771f\:7a7a\:56fe\:548c\:6ce1\:6ce1\:56fe*)
 sectBub=Key/@{
 chTag@{"tad","oct","F1"},
 chTag@{"tad","oct","F1","add"},
@@ -204,6 +238,8 @@ chTag@{"tad","oct","F2"},
 chTag@{"bub","mes","o2"},
 chTag@{"bub","mes","ten","o2"}
 };
+
+(*\:78c1\:77e9\:76f8\:5173\:56fe*)
 sectMag=Key/@{
 chTag@{"RB","oct","F2"},
 chTag@{"tad","oct","F2"},

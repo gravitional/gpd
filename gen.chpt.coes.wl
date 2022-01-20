@@ -1421,7 +1421,7 @@ vtxtpFlip->(#@vtxtp/.vtxCoe->vtxCoeAnti)
 (*anomalous magnetic, to nonlocal*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*octet,order 1*)
 
 
@@ -1460,7 +1460,7 @@ KeyDrop[{vtxType1,vtxType2,massKey}]
 );
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*octet,order 2*)
 
 
@@ -1506,7 +1506,7 @@ KeyDrop[{vtxType1,vtxType2,massKey}]
 );
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*decuplet, order 1*)
 
 

@@ -152,7 +152,7 @@ numFFs["fit","val"][ffsMerged_]:=Query[
 (*\:5bf9\:672a\:5b9a\:53c2\:6570\:8fdb\:884c\:62df\:5408*)
 Module[{testMagMerged,testFit,$LambdaNumStr,ccNumStr},
 (*\:6700\:540e\:7684\:7ed3\:679c\:4fdd\:5b58\:5728\:5173\:8054\:4e2d*)
-ccFittings=Association@Table[
+ccFittings["tmp"]=Association@Table[
 (*\:5bf9 \[CapitalLambda] \:7684\:53d6\:503c\:8fed\:4ee3 ---------------------------------*)
 (*\:8ba1\:7b97 \[CapitalLambda] \:7684\:5b57\:7b26\:5f62\:5f0f*)
 $LambdaNumStr=enString@NumberForm[$LambdaNum,{3,2}];
@@ -198,11 +198,25 @@ cc["C",ccNumStr]->Association@KeyValueMap[#1->testFit[ccNum,#2]&,$fittingScheme]
 
 
 (* ::Section:: *)
+(*add manual configur*)
+
+
+ccFittings["v"]=Query[(*<cc[\[CapitalLambda],0.70]>*)All
+,(*<bub>*)All
+,(*<cc["C","1.00"]>*)All
+,(*<scheme>*)Append[{
+"he1"->{1,{cc["c1"]->2.081,cc["c2"]->0.788}},
+"he2"->{1,{cc["c1"]->3.077,cc["c2"]->1.05133}}
+}]
+]@ccFittings["tmp"];
+
+
+(* ::Section:: *)
 (*export*)
 
 
 temp`fitName="nums.ccFittings.wdx";
-serialize[fittingsDir]["nums.ccFittings.wdx",ccFittings]
+serialize[fittingsDir]["nums.ccFittings.wdx",ccFittings["v"]]
 
 
 (* ::Section:: *)
