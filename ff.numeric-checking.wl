@@ -79,6 +79,71 @@ legendDisp[x_]:=x/.{chTag->StringRiffle,fd->fdDisp}
 
 
 (* ::Chapter:: *)
+(*checking*)
+
+
+chopQ2Val[x_]:=numVal[chopQ2[x]]
+
+
+(* ::Input:: *)
+(*(*\:5c55\:793a\:7c92\:5b50\:7684\:603b\:7ed3\:679c*)*)
+(*Query[(*<bub>*)coesAdjNoBub,(*<order>*)$ord0,(*<sum>*)kLoopAmpSum*)
+(*,(*<octet>*)KeySort/*Normal/*(TableForm[#,TableSpacing->{3.5,1}]&)*)
+(*,(*<FFactors>*)Normal/*(TableForm[#,TableSpacing->{1.5,1}]&)*)
+(*,(*{F1F2 pairs}*)ReplaceAll[quaCharge["s"]]/*chopQ2Val*)
+(*]@loopResults["v"]*)
+
+
+(* ::Input:: *)
+(*(* \:5bf9\:67d0\:4e9b\:56fe\:7684\:7ed3\:679c\:6c42\:548c\:ff0c*)*)
+(*Query[coesAdjBub,$ord0,kLoopChanSum,*)
+(*{Key@fd[2,1,0]},*)
+(*sectOct/*Total,*)
+(*({Key@ffsF1F2}),All,*)
+(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
+(*]@loopResults["v"]*)
+
+
+(* ::Input:: *)
+(*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:7684\:7ed3\:679c *)*)
+(*Query[(*<bub>*)coesAdjBub*)
+(*,(*<order>*)$ord0*)
+(*,(*<loopChannels>*)kLoopChanSum*)
+(*,(*<octet>*)*)
+(*{Key@ff["p"]}/*Normal/*(Column[#,Spacings->2]&)*)
+(*,(*<diagram>*)*)
+(*All/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&)*)
+(*,(*<FormFactors>*)*)
+(*{Key@ffsGEGM}/*Normal/*(TableForm[#,TableSpacing->{2, 1}]&)*)
+(*,(*<F1F2 pairs>*)*)
+(*chopQ2Val/*ReplaceAll[quaCharge["s"]]*)
+(*]@loopResults["v"]*)
+
+
+(* ::Input:: *)
+(*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:7ed3\:679c *)*)
+(*Query[(*<bub>*)coesAdjBub*)
+(*,(*<order>*)$ord0*)
+(*,(*<loopChannels>*)kLoopChannel*)
+(*,(*<octet>*)(Key/@{ff["p"],ff["n"]})/*Normal/*(Column[#,Spacings->2]&)*)
+(*,(*<diagram>*)({3})/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]",Frame->All]&)*)
+(*,(*<channels>*)Normal/*(TableForm[legendDisp@#,TableSpacing->{1,1}]&)*)
+(*,(*key\[Rule]<channel>*)All,(*<FormFactors>*)All*)
+(*,(*<F1F2 pairs>*)chopQ2Val/*ReplaceAll[quaCharge["s"]]*)
+(*]@loopResults["v"]*)
+
+
+(* ::Input:: *)
+(*(*\:67e5\:770b\:7279\:5b9a\:7c92\:5b50\:ff0c\:7279\:5b9a\:56fe\:7684 GEGM*)*)
+(*Query[coesAdjNoBub,$ordFull,kLoopChanSum,*)
+(*{Key@ff["p"]},*)
+(*Key@chTag@{"RB","oct","F1"},*)
+(*Key@ffsGEGM,*)
+(*ReplaceAll[quaCharge["uds"]]*)
+(*]@loopResults["v"]*)
+
+
+(* ::Chapter:: *)
 (*numeric Form Factors Merged; all series*)
 
 
@@ -188,71 +253,6 @@ adjust->Query[
 
 
 (* ::Chapter:: *)
-(*checking*)
-
-
-chopQ2Val[x_]:=numVal[chopQ2[x]]
-
-
-(* ::Input:: *)
-(*(*\:5c55\:793a\:7c92\:5b50\:7684\:603b\:7ed3\:679c*)*)
-(*Query[(*<bub>*)coesAdjNoBub,(*<order>*)$ord0,(*<sum>*)kLoopAmpSum*)
-(*,(*<octet>*)KeySort/*Normal/*(TableForm[#,TableSpacing->{3.5,1}]&)*)
-(*,(*<FFactors>*)Normal/*(TableForm[#,TableSpacing->{1.5,1}]&)*)
-(*,(*{F1F2 pairs}*)ReplaceAll[quaCharge["s"]]/*chopQ2Val*)
-(*]@loopResults["v"]*)
-
-
-(* ::Input:: *)
-(*(* \:5bf9\:67d0\:4e9b\:56fe\:7684\:7ed3\:679c\:6c42\:548c\:ff0c*)*)
-(*Query[coesAdjBub,$ord0,kLoopChanSum,*)
-(*{Key@fd[2,1,0]},*)
-(*sectOct/*Total,*)
-(*({Key@ffsF1F2}),All,*)
-(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
-(*]@loopResults["v"]*)
-
-
-(* ::Input:: *)
-(*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:7684\:7ed3\:679c *)*)
-(*Query[(*<bub>*)coesAdjBub*)
-(*,(*<order>*)$ord0*)
-(*,(*<loopChannels>*)kLoopChanSum*)
-(*,(*<octet>*)*)
-(*{Key@ff["p"]}/*Normal/*(Column[#,Spacings->2]&)*)
-(*,(*<diagram>*)*)
-(*All/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&)*)
-(*,(*<FormFactors>*)*)
-(*{Key@ffsGEGM}/*Normal/*(TableForm[#,TableSpacing->{2, 1}]&)*)
-(*,(*<F1F2 pairs>*)*)
-(*chopQ2Val/*ReplaceAll[quaCharge["s"]]*)
-(*]@loopResults["v"]*)
-
-
-(* ::Input:: *)
-(*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:7ed3\:679c *)*)
-(*Query[(*<bub>*)coesAdjBub*)
-(*,(*<order>*)$ord0*)
-(*,(*<loopChannels>*)kLoopChannel*)
-(*,(*<octet>*)(Key/@{ff["p"],ff["n"]})/*Normal/*(Column[#,Spacings->2]&)*)
-(*,(*<diagram>*)({9})/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]",Frame->All]&)*)
-(*,(*<channels>*)Normal/*(TableForm[legendDisp@#,TableSpacing->{1,1}]&)*)
-(*,(*key\[Rule]<channel>*)All,(*<FormFactors>*)All*)
-(*,(*<F1F2 pairs>*)chopQ2Val/*ReplaceAll[quaCharge["s"]]*)
-(*]@loopResults["v"]*)
-
-
-(* ::Input:: *)
-(*(*\:67e5\:770b\:7279\:5b9a\:7c92\:5b50\:ff0c\:7279\:5b9a\:56fe\:7684 GEGM*)*)
-(*Query[coesAdjBub,$ord0,kLoopChanSum,*)
-(*{Key@fd[2,1,0]},*)
-(*Key@chTag@{"RB","oct","F1"},*)
-(*Key@ffsGEGM,*)
-(*ReplaceAll[quaCharge["uds"]]*)
-(*]@loopResults["v"]*)
-
-
-(* ::Chapter:: *)
 (*diagram curves*)
 
 
@@ -269,7 +269,7 @@ annotated[Legended_][assoc_Association]:=KeyValueMap[Legended,assoc]
 
 
 (*\:5bf9 \:5355\:72ec\:8d39\:66fc\:56fe\:8d21\:732e\:4f5c\:56fe*)
-plotData["sub"][Q2_][fnList_]:=Plot[fnList,{Q2,$Q2Cut,0.6}
+plotData["sub"][Q2_][fnList_]:=Plot[fnList,{Q2,0.01,0.6}
 ,ImageSize->800
 ,PlotTheme->{"Scientific","FrameGrid","MediumLines"}
 ,PlotRange->Full
@@ -277,7 +277,7 @@ plotData["sub"][Q2_][fnList_]:=Plot[fnList,{Q2,$Q2Cut,0.6}
 ,PlotLegends->None
 ];
 (* \:5bf9 \:5708\:56fe\:603b\:8d21\:732e\:4f5c\:56fe*)
-plotData["tot"][Q2_][lst_]:=Plot[Evaluate@lst,{Q2,$Q2Cut,0.6}
+plotData["tot"][Q2_][lst_]:=Plot[Evaluate@lst,{Q2,0.01,0.6}
 ,ImageSize->Large
 ,PlotTheme->{"Scientific","FrameGrid","MediumLines"}
 ,PlotRange->Full
@@ -300,24 +300,24 @@ tmp`cc=Key@cc["C","1.00"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
 tmp`scheme=Key@"N";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
-tmp`oct=Key@ff["p"];
+tmp`oct=Key@ff["n"];
 (*\:516b\:91cd\:6001, bub+tadu, \:5341\:91cd\:6001\:ff0c\:78c1\:77e9\:76f8\:5173\:56fe\:5206\:522b\:662f\:ff1asectOct,sectBub,sectDec,sectMag*)
 tmp`diag=sectOct~Join~sectBub~Join~sectDec;
 (*tagNum["lo","uds"],tagNum["lo","u"],tagNum["lo","d"],tagNum["lo","s"]*)
-tmp`conf=Key@tagNum["lo","s"];
+tmp`conf=Key@tagNum["lo","uds"];
 (*tagNum["lo","uds"],tagNum["lo","u"]..d,s,
 tagNum["tr","uds"],tagNum["tr","u"]..d,s,
 tagNum["tr+lo","uds"]*)
-tmp`confTot=Key/@{tagNum["lo","s"]};
+tmp`confTot=Key/@{tagNum["lo","uds"]};
 (*1:GE,2:GM*)
 tmp`gegm=1;
 
 
-(*\:5355\:72ec\:8d39\:66fc\:56fe\:7684\:8d21\:732e--------------------------------*)
 (*\:5c06 key\[Rule]val \:8f6c\:6362\:6210 Callout[f,label] \:7684\:683c\:5f0f*)
 legendFn[key_,val_]:=Callout[val,key//legendDisp,Before]
 (*\:4f5c\:56fe*)
 {
+(*\:5355\:72ec\:8d39\:66fc\:56fe\:7684\:8d21\:732e--------------------------------*)
 figGroup["diag"]=plotData["sub"][Q2]@
 (*\:7ed9\:6570\:636e\:6dfb\:52a0\:6ce8\:91ca*)
 annotated[legendFn]@
@@ -383,12 +383,12 @@ chTag@{"RB","mes","oct"}->1
 ,chTag@{"bub","mes","ten","o2"}->1
 
 (* \:5341\:91cd\:6001\:4e2d\:95f4\:6001 *)
-,chTag@{"RB","mes","dec"}->-1
-,chTag@{"RB","dec","F1"}->-1
-,chTag@{"RB","dec","F2"}->-1
-,chTag@{"RB","trans","left"}->-1
-,chTag@{"KR","mes","dec","left"}->-1
-,chTag@{"KR","mes","dec","add","left"}->-1
+,chTag@{"RB","mes","dec"}->1
+,chTag@{"RB","dec","F1"}->1
+,chTag@{"RB","dec","F2"}->1
+,chTag@{"RB","trans","left"}->1
+,chTag@{"KR","mes","dec","left"}->1
+,chTag@{"KR","mes","dec","add","left"}->1
 |>;
 
 

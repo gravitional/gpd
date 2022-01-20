@@ -180,8 +180,8 @@ LoopIntegrate[1,k,{-p1+p2,\[CapitalLambda],2},{k,\[CapitalLambda],2},{-k,\[Capit
 cltcom::usage="\:6b63\:89c4\:5b50\:7684\:7ec4\:5408";
 cltcom[{-k_,q_},{m\[Phi]_,\[CapitalLambda]_}]:=cltcom[{k,-q},{m\[Phi],\[CapitalLambda]}];
 cltcom[{k_,q_},{m\[Phi]_,\[CapitalLambda]_}]:=intgd[
-num[(\[CapitalLambda]^2-m\[Phi]^2)^2*(LDot[k,k]+LDot[k+q,k+q]-2 \[CapitalLambda]^2)(-1)],(*(2k+q)^\[Mu] \:653e\:5728\:65cb\:91cf\:90e8\:5206\:8003\:8651 *)
-prp[{k,\[CapitalLambda],2}],prp[{k+q,\[CapitalLambda],2}]
+num[-\[CapitalLambda]^4*(LDot[k,k]+LDot[k+q,k+q]-2m\[Phi]^2-2\[CapitalLambda]^2)],(*(2k+q)^\[Mu] \:653e\:5728\:65cb\:91cf\:90e8\:5206\:8003\:8651 *)
+prp[{k,Sqrt[\[CapitalLambda]^2+m\[Phi]^2],2}],prp[{k+q,Sqrt[\[CapitalLambda]^2+m\[Phi]^2],2}]
 ] 
 (*(Overscript[\[CapitalLambda], _]^4(k.k+(k+q).(k+q)-2\[CapitalLambda]^2))/((k.k-\[CapitalLambda]^2)^2((k+q).(k+q)-\[CapitalLambda]^2)^2)(-1)(2k+q)^\[Mu], \:989d\:5916\:9876\:70b9\:7684\:6b63\:89c4\:5b50\:7ec4\:5408.*)
 
