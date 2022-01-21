@@ -5,6 +5,25 @@
 
 
 (* ::Chapter:: *)
+(*note 566a2c6*)
+
+
+(* ::Text:: *)
+(*RB.oct .F1/RB.oct .F2 \:4e2d\:95f4\:7684\:91cd\:5b50\:4f20\:64ad\:5b50\:ff0c\:5728  \[CapitalSigma]0-\[CapitalLambda] \:56fe\:4e2d\:4e24\:4f20\:64ad\:5b50\:7684\:8d28\:91cf\:4e0d\:540c\:ff0c\:4f46\:76f8\:5dee\:6bd4\:8f83\:5c0f\:ff0c\:8ba1\:7b97\:4e2d\:6309\:7167 (mo2-mo1)\:4f5c\:4e86\:5c55\:5f00\:ff0c\:7531\:6b64\:5e26\:6765\:7684\:8bef\:5dee\:5e94\:8be5\:662f\:5f88\:5c0f\:7684\:3002*)
+
+
+(* ::Text:: *)
+(*RB.oct .F2 \:5708\:79ef\:5206\:89e3\:6790\:8868\:8fbe\:5f0f\:548c\:7ed3\:679c\:548c\:4e4b\:524d\:4e0d\:540c\:ff0c\:662f\:7531\:4e8e\:8f93\:5165\:7684\:79ef\:5206\:5f62\:5f0f\:5dee 1/2mE \:5e38\:6570\:ff0c\:5e94\:8be5\:4e0d\:662f\:7531  (mo2-mo1) \:5c55\:5f00\:5e26\:6765\:7684\:3002*)
+
+
+(* ::Text:: *)
+(*\:5220\:9664\:4e86 F1\:ff0cF2 nonlocal \:9876\:70b9\:4e2d\:ff0c\:591a\:4f59\:7684 \[CapitalLambda]^4/(Q^2+\[CapitalLambda]^2)^2*)
+
+
+mass\[CapitalSigma]->1.193`30,mass\[CapitalLambda]->1.116`30
+
+
+(* ::Chapter:: *)
 (*note 3accbe8*)
 
 
