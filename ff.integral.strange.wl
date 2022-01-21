@@ -295,7 +295,7 @@ ffsF1F2->Last@time0Result
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,mes,oct*)
 
 
@@ -344,7 +344,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,left*)
 
 
@@ -388,7 +388,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,right*)
 
 
@@ -432,7 +432,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,add,left*)
 
 
@@ -478,7 +478,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,add,right*)
 
 
@@ -524,7 +524,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,oct,F1,*)
 
 
@@ -570,7 +570,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,oct,F2,*)
 
 

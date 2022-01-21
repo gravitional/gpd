@@ -330,7 +330,7 @@ Query[
 ,(*cc-values*)tmp`cc
 ,(*fitting-scheme*)tmp`scheme
 ,(*octet*)tmp`oct
-,(*diagram*)({4})/*SortBy[Abs@ReplaceAll[Q2->0.1]]
+,(*diagram*)(sectDec)/*SortBy[Abs@ReplaceAll[Q2->0.1]]
 ,(*loop-FFactors*)tmp`conf
 ,(*numVal*)ReplaceAll[{numVal->Identity}]
 ,(*GEGM*)tmp`gegm
@@ -395,9 +395,9 @@ chTag@{"RB","mes","oct"}->1
 
 plotData["tot"][Q2]@Total@Values@Query[
 (*<bub>*)Key@coesAdjNoBub,(*<order>*)tmp`ord
-,(*<cc-values>*)tmp`cc,(*<fitting-scheme>*)Key@"he1"
+,(*<cc-values>*)tmp`cc,(*<fitting-scheme>*)Key@"N"
 ,(*<octet>*)Key@ff["n"]
-,(*<diagram>*)sectOctNorm/*(Association@KeyValueMap[#1->(Identity@@fyCoesTune[#1]*#2)&,#]&)
+,(*<diagram>*)All/*(Association@KeyValueMap[#1->(Identity@@fyCoesTune[#1]*#2)&,#]&)
 ,(*<loop-FFactors>*)Key@tagNum["lo","s"]
 ,(*<numVal>*)ReplaceAll[{numVal->Identity}]
 ,(*{GeGm pair}*)1
