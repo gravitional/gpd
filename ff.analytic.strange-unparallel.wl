@@ -187,19 +187,19 @@ If[$inNBook,anaExpr]]
 paraLRefine[tag_]:=Switch[{$magExpand,$parOrder,tag},
 (*+++++++++++++++++++ order0,RB F1,F2 +++++++++++++++++++*)
 {True,"ord0",{"RB","oct","F1"}|{"RB","oct","F2"}},
-paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,2},{Q2,0,0},Organization->Function]&],
+paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,0},Organization->Function]&],
 (*+++++++++++++++++++ order0,others +++++++++++++++++++*)
 {_,"ord0",_},
 paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,0},Organization->Function]&],
 (* +++++++++++++++++++ order1,RB F1,F2 ++++++++++++++++++ *)
 {True,"ord1",{"RB","oct","F1"}|{"RB","oct","F2"}},
-paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,2},{Q2,0,1},Organization->Function]&],
+paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,1},Organization->Function]&],
 (*+++++++++++++++++++ order1,others +++++++++++++++++++*)
 {_,"ord1",_},
 paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,1},Organization->Function]&],
 (*+++++++++++++++++++ full,RB F1,F2 +++++++++++++++++++*)
 {True,"full",{"RB","oct","F1"}|{"RB","oct","F2"}},
-paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,2},Organization->Function]&],
+paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},Organization->Function]&],
 (*+++++++++++++++++++ full,others +++++++++++++++++++*)
 {_,"full",_},
 paraEnvIO[tag,LoopRefine[#,Organization->Function]&]
