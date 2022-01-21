@@ -1442,8 +1442,8 @@ vtx[unq["type"->vtxtp]]=(Query[All,
 ]&)/*
 (*------------------------- \:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f, \:6dfb\:52a0 GE GMtag -------------------------*)
 (Append[#,{
-vtxGE->#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
-vtxGM->\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)
+vtxGE->(#@vtxType1)(*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2*)
+,vtxGM->(#@vtxType1 + #@vtxType2)(*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2*)
 }]&)/*
 (*------------------------- \:7528\:65b9\:7a0b\:53cd\:89e3\:51fa\:975e\:5b9a\:57df F1(Q2),F2(Q2), \:6dfb\:52a0 F1,F2 tag -------------------------*)
 (Append[#,First@Solve[{(* Solve \:8fd4\:56de Rules *)
@@ -1487,8 +1487,8 @@ vtx[unq["type"->vtxtp]]=(Query[All,
 ]&)/*
 (*\:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f,\:7528\:65b9\:7a0b\:53cd\:89e3\:51fa F1(Q2),F2(Q2) *)
 (Append[#,{
-vtxGE->#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
-vtxGM->\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)
+vtxGE->(#@vtxType1)(*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2*)
+,vtxGM->(#@vtxType1 + #@vtxType2)(*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2*)
 }]&)/*
 (*------------------------- \:7528\:65b9\:7a0b\:53cd\:89e3\:51fa\:975e\:5b9a\:57df F1(Q2),F2(Q2), \:6dfb\:52a0 F1,F2 tag -------------------------*)
 (Append[#,First@Solve[{(* Solve \:8fd4\:56de Rules *)
@@ -1526,8 +1526,8 @@ vtx[unq["type"->vtxtp]]=(Query[All,
 ]&)/*
 (*------------------------- \:7ed9\:51faGE,GM\:7684\:975e\:5b9a\:57df\:5316\:5f62\:5f0f, \:6dfb\:52a0 GE GMtag -------------------------*)
 (Append[#,{
-vtxGE->#@vtxType1*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2,
-vtxGM->\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2 (#@vtxType1 + #@vtxType2)
+vtxGE->(#@vtxType1)(*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2*)
+,vtxGM->(#@vtxType1 + #@vtxType2)(*\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2*)
 }]&)/*
 (*------------------------- \:7528\:65b9\:7a0b\:53cd\:89e3\:51fa\:975e\:5b9a\:57df F1(Q2),F2(Q2), \:6dfb\:52a0 F1,F2 tag -------------------------*)
 (Append[#,First@Solve[{(* Solve \:8fd4\:56de Rules *)
