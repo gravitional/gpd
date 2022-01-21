@@ -275,6 +275,10 @@ If[$inNBook,fyAmp]]
 ]
 
 
+(* ::Subsection:: *)
+(*for test*)
+
+
 (* \:53ef\:4ee5\:7528\:6765\:6d4b\:8bd5\:67d0\:4e2a\:7ed3\:679c, paraLintConst->paraLintTest *)
 paraLintTest[spin_,scalar_,fyTag_]:=Block[{numer,denom,fyAmp,time0Result,path},
 (* \:5408\:6210\:5708\:79ef\:5206\:7684\:5206\:5b50\:548c\:5206\:6bcd *)
@@ -428,7 +432,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,add,left*)
 
 
@@ -474,7 +478,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,add,right*)
 
 
@@ -879,7 +883,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,dec,F1*)
 
 
