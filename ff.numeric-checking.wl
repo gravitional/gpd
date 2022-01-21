@@ -232,7 +232,7 @@ chopQ2Val[x_]:=numVal[chopQ2[x]]
 (* ::Input:: *)
 (*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:6bcf\:4e2a\:53cd\:5e94\:9053\:7684\:7ed3\:679c *)*)
 (*Query[(*<bub>*)coesAdjBub*)
-(*,(*<order>*)$ordFull*)
+(*,(*<order>*)$ord0*)
 (*,(*<loopChannels>*)kLoopChannel*)
 (*,(*<octet>*)(Key/@{ff["p"],ff["n"]})/*Normal/*(Column[#,Spacings->2]&)*)
 (*,(*<diagram>*)({4})/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]",Frame->All]&)*)
@@ -330,7 +330,7 @@ Query[
 ,(*cc-values*)tmp`cc
 ,(*fitting-scheme*)tmp`scheme
 ,(*octet*)tmp`oct
-,(*diagram*)(sectOct)/*SortBy[Abs@ReplaceAll[Q2->0.1]]
+,(*diagram*)({4})/*SortBy[Abs@ReplaceAll[Q2->0.1]]
 ,(*loop-FFactors*)tmp`conf
 ,(*numVal*)ReplaceAll[{numVal->Identity}]
 ,(*GEGM*)tmp`gegm
