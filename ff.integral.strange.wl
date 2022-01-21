@@ -155,10 +155,8 @@ LoopIntegrate[delayedNumerator, k, {k - p2, m}, {k - p1, m}, {k, 0}] /. {p1.p1 -
 
 reg::usage="\:6b63\:89c4\:5b50 F[k]=(\[CapitalLambda]^2-m\[Phi]^2)^2/(k^2-\[CapitalLambda]^2+I*\[CurlyEpsilon])^2, \:5176\:4e2d m\[Phi] \:662f\:4ecb\:5b50\:8d28\:91cf\:ff0c\:5bf9\:4e8e\:5149\:5b50,\:6b64\:8d28\:91cf\:4e3a\:96f6\:3002\:6b63\:89c4\:5b50\:5f52\:4e00\:5316\:5230 F[m\[Phi]]=1. \:751f\:6210\:5217\:8868\:ff0c\:7b2c\:4e00\:9879\:662f\:5206\:5b50\:ff0c\:7b2c\:4e8c\:9879\:662f\:5206\:6bcd";
 prp::usage="prp[{k,\[CapitalLambda],2}],\:591a\:4e2a\:4f20\:64ad\:5b50\:53ef\:4ee5\:4f9d\:6b21\:63d0\:4f9b,prp[]...";
-(*\:5bf9\:4e8e\:5149\:5b50\:ff0c\:8d28\:91cf\:4e3a\:96f6*)
-reg[q_,\[CapitalLambda]_]:=intgd[num[\[CapitalLambda]^4],prp[{q,\[CapitalLambda],2}]];
-(*\:5bf9\:4e8e\:4ecb\:5b50\:ff0c\:9700\:8981\:63d0\:4f9b\:8d28\:91cf*)
-reg[k_,m\[Phi]_,\[CapitalLambda]_]:=intgd[num[\[CapitalLambda]^4],prp[{k,Sqrt[\[CapitalLambda]^2+m\[Phi]^2],2}]];
+reg[q_,\[CapitalLambda]_]:=intgd[num[\[CapitalLambda]^4],prp[{q,\[CapitalLambda],2}]](* \:5bf9\:4e8e\:5149\:5b50\:ff0c\:8d28\:91cf\:4e3a\:96f6 *)
+reg[k_,m\[Phi]_,\[CapitalLambda]_]:=intgd[num[(\[CapitalLambda]^2-m\[Phi]^2)^2],prp[{k,\[CapitalLambda],2}]] (*\:5bf9\:4e8e\:4ecb\:5b50\:ff0c\:9700\:8981\:63d0\:4f9b\:8d28\:91cf*)
 (* +++++++++++++++++++++++++++++++++++ *)
 prp1::usage="\:5206\:5b50\:4e3a1\:7684\:666e\:901a\:4f20\:64ad\:5b50";
 prp1[k_,m_]:=intgd[num[1],prp[{k,m}]]
@@ -180,8 +178,8 @@ LoopIntegrate[1,k,{-p1+p2,\[CapitalLambda],2},{k,\[CapitalLambda],2},{-k,\[Capit
 cltcom::usage="\:6b63\:89c4\:5b50\:7684\:7ec4\:5408";
 cltcom[{-k_,q_},{m\[Phi]_,\[CapitalLambda]_}]:=cltcom[{k,-q},{m\[Phi],\[CapitalLambda]}];
 cltcom[{k_,q_},{m\[Phi]_,\[CapitalLambda]_}]:=intgd[
-num[-\[CapitalLambda]^4*(LDot[k,k]+LDot[k+q,k+q]-2m\[Phi]^2-2\[CapitalLambda]^2)],(*(2k+q)^\[Mu] \:653e\:5728\:65cb\:91cf\:90e8\:5206\:8003\:8651 *)
-prp[{k,Sqrt[\[CapitalLambda]^2+m\[Phi]^2],2}],prp[{k+q,Sqrt[\[CapitalLambda]^2+m\[Phi]^2],2}]
+num[(\[CapitalLambda]^2-m\[Phi]^2)^2*(LDot[k,k]+LDot[k+q,k+q]-2 \[CapitalLambda]^2)(-1)],(*(2k+q)^\[Mu] \:653e\:5728\:65cb\:91cf\:90e8\:5206\:8003\:8651 *)
+prp[{k,\[CapitalLambda],2}],prp[{k+q,\[CapitalLambda],2}]
 ] 
 (*(Overscript[\[CapitalLambda], _]^4(k.k+(k+q).(k+q)-2\[CapitalLambda]^2))/((k.k-\[CapitalLambda]^2)^2((k+q).(k+q)-\[CapitalLambda]^2)^2)(-1)(2k+q)^\[Mu], \:989d\:5916\:9876\:70b9\:7684\:6b63\:89c4\:5b50\:7ec4\:5408.*)
 
@@ -273,10 +271,6 @@ Export[path,fyAmp];echo[DateString[],": Exporting finished: ",path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:4e2d\:ff0c\:8fd4\:56de\:8ba1\:7b97\:7684\:7ed3\:679c*)
 If[$inNBook,fyAmp]]
 ]
-
-
-(* ::Subsection:: *)
-(*for test*)
 
 
 (* \:53ef\:4ee5\:7528\:6765\:6d4b\:8bd5\:67d0\:4e2a\:7ed3\:679c, paraLintConst->paraLintTest *)
@@ -388,7 +382,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,right*)
 
 
@@ -432,7 +426,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,add,left*)
 
 
@@ -478,7 +472,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,add,right*)
 
 
@@ -524,7 +518,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,oct,F1,*)
 
 
@@ -883,7 +877,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RB,dec,F1*)
 
 
