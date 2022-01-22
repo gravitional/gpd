@@ -4,7 +4,8 @@
 *.#lyx#
 
 ## mathematica,默认忽略所有.nb，使用!a.nb 不忽略
-analytic.strange.ord*
+mfiles/analytic.strange.ord*
+results/ord*
 coes/
 fittings/
 *.nb
