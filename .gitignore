@@ -4,13 +4,10 @@
 *.#lyx#
 
 ## mathematica,默认忽略所有.nb，使用!a.nb 不忽略
-coes/
-fittings/
-mfiles/analytic.strange.ord*
 *.nb
 *.m
 *.mx 
-.wdx
+*.wdx
 *.wxf
 
 ## axodraw2
