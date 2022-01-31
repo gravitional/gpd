@@ -69,7 +69,7 @@ CmdParser["template"]=<|
 "opt"-><|
 {"part"}->{"All","\:8ba1\:7b97\:5217\:8868\:4e2d\:7684\:54ea\:4e9b\:79ef\:5206,\:53c2\:6570\:5c06\:4f20\:5165 fyAmpLoopLst[[]]"}
 ,{"ord"}->{"full","\:5708\:79ef\:5206\:5c55\:5f00\:7684\:9636\:6570, {ord0,ord1,full}"}
-,{"mag-expand"}->{"True","\:662f\:5426\:5bf9\:8f6c\:79fb\:78c1\:77e9\:56fe,\:6309\:8d28\:91cf\:7ea7\:6570\:5c55\:5f00"}
+,{"F1F2-expand"}->{"False","\:662f\:5426\:5bf9\:8f6c\:79fb\:78c1\:77e9\:56fe,\:6309\:8d28\:91cf\:7ea7\:6570\:5c55\:5f00"}
 |>,
 "pos"->{}
 |>;
@@ -79,7 +79,7 @@ CmdParser["template"]=<|
 CmdParser["pseudo"]={$fileName
 ,"--part","All"(*\:8981\:8ba1\:7b97\:7684\:79ef\:5206\:5217\:8868\:ff0c\:53c2\:6570\:53d6\:503c\:8303\:56f4\:67e5\:770b Part \:51fd\:6570\:5e2e\:52a9\:9875*)
 ,"--ord","full"
-,"--mag-expand","True"
+,"--F1F2-expand","False"
 };
 
 
@@ -112,7 +112,7 @@ If[Not@StringMatchQ[$parOrder,{"ord0","ord1","full"}],
 echo["para 2: specify Refine orders, must be one of 'ord0', 'ord1', 'full'"];
 Abort[]];
 (*\:5728\:8f6c\:79fb\:78c1\:77e9\:56fe\:ff0c\:662f\:5426\:6309 (mo2-mo1) \:7684\:7ea7\:6570\:5c55\:5f00*)
-$magExpand=ToExpression@options@"mag-expand";
+$F1F2Expand=ToExpression@options@"F1F2-expand";
 (*\:53c2\:6570\:5904\:7406\:7ed3\:675f*)]
 
 
@@ -184,7 +184,7 @@ If[$inNBook,anaExpr]]
 
 
 (*\:6839\:636e\:811a\:672c\:53c2\:6570\:ff0c\:7ed9\:51fa\:5e76\:884c\:8ba1\:7b97\:65f6 paraLRefine \:7684\:5177\:4f53\:5b9a\:4e49, \:8fdb\:884c\:7ea7\:6570\:5c55\:5f00\:ff0c\:6216\:8005\:8ba1\:7b97\:5b8c\:6574\:8868\:8fbe\:5f0f *)
-paraLRefine[tag_]:=Switch[{$magExpand,$parOrder,tag},
+paraLRefine[tag_]:=Switch[{$F1F2Expand,$parOrder,tag},
 (*+++++++++++++++++++ order0,RB F1,F2 +++++++++++++++++++*)
 {True,"ord0",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,0},Organization->Function]&],
