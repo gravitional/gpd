@@ -58,7 +58,7 @@ dsetFmt[x_]:=Dataset[x/.Association->assocTemp/.{
 fdType->enStrRiff,vtxType->enStrRiff,
 chTagKey->enStrRiff,fyCoeKey->enStrRiff,
 fyVtx->enStrRiff,vtxCoe->Identity,fyCoe->Times,massV->Identity,
-fqdKey->enStrRiff,fqdpos->enStrRiff,
+fqdKey->enStrRiff,fqdpos->enStrRiff,fqdChpt->enStrRiff,
 inOct->"in",outOct->"out",MassIn->"m.In",MassOut->"m.out",
 medOct1->"medOct1",medOct2->"medOct2",
 medMes1->"medMes1",medMes2->"medMes2",
@@ -136,7 +136,7 @@ chTagKey["in"]->chTag@fd[2,1,0]
 If[$inNBook,coeJoin[{fyTag,quaFlow}]//testFmt[1]]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman ,A-meson,octet,left*)
 
 
@@ -181,7 +181,7 @@ chTagKey["in"]->chTag@fd[2,1,0]
 If[$inNBook,coeJoin[{fyTag,quaFlow}]//testFmt[1]]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman ,A-meson,octet,right*)
 
 
@@ -255,7 +255,7 @@ Get["coes.quarkflow-oct-f1f2.wl"];
 fyTag={"RB","oct","F1F2"};qchTp1="sea";qchTp2="qch";
 If[$inNBook,
 Query[Cases@KeyValuePattern[
-chTagKey["in"]->chTag@ff["\[CapitalSigma]0"]
+chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
 
 
@@ -263,7 +263,7 @@ chTagKey["in"]->chTag@ff["\[CapitalSigma]0"]
 fyTag={"RB","oct","F1F2"};qchTp1="sea";qchTp2="qch";
 If[$inNBook,
 Query[Cases@KeyValuePattern[
-chTagKey["in"]->chTag@fd[2,1,0]
+chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 

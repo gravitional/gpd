@@ -30,10 +30,11 @@ qua45=x[fqdKey[fyTag,qchTp1]][fqdpos[4,5]];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4
 chOct=x@inOct;(*\:5165\:5c04 oct*)
 chOctb=x@medOct1;(*\:4e2d\:95f4 octb*)
 chMes=x@medMes1;(* \:4e2d\:95f4 mes*)
-(* --------------- \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
+(*\:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 ----------------- *)
 chMesMod=chMes/.mesNeutRule;
-chOctbMod=chOctb/.octbNeutRule;(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50*)
-(*----------- \:4ea7\:751f\:5408\:9002\:7684\:6570\:636e\:96c6 --------------------*)
+(*\:5c06\[CapitalSigma]0b,\[CapitalLambda]b,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 -------------------*)
+chOctbMod=chOctb/.octbNeutRule;
+(*\:4ea7\:751f\:5408\:9002\:7684\:6570\:636e\:96c6 ----------------------*)
 DeleteCases[
 <|
 (*\:8fd9\:91cc, \:67d0\:79cd\:4ecb\:5b50\:5bf9\:5e94\:7684quarkflow\:56fe,\:5938\:514b4\:662f\:786e\:5b9a\:7684\:ff0c\:53ea\:5bf9\:5e94\:4e00\:79cd\:5938\:514b123\:ff0c\:56e0\:6b64\:4fdd\:8bc1\:4e86\:7a0b\:5e8f\:4e0d\:51fa\:9519*)
