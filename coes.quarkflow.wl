@@ -133,7 +133,9 @@ chTagKey["in"]->chTag@fd[2,1,0]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,coeJoin[{fyTag,quaFlow}]//testFmt[1]]
+If[$inNBook,
+coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
 
 
 (* ::Section::Closed:: *)
@@ -267,7 +269,9 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,coeJoin[{fyTag,quaFlow}]//testFmt[1]]
+If[$inNBook,
+coeJoin[{fyTag,quaFlow}]//testFmt[4]
+]
 
 
 (* ::Section:: *)
