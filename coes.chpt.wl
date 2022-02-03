@@ -101,7 +101,7 @@ coeJoin=<||>;
 (*channels*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RainBow,A-meson,octet*)
 
 
@@ -210,7 +210,7 @@ MassIn->(#@inOct/.fd[a_,b_,0]:>massV@fd[a,b,2])(* \:5165\:5c04\:91cd\:5b50\:8d28
 (*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman,A-meson,octet,left*)
 
 
@@ -700,7 +700,7 @@ fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGE
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(*If[$inNBook,Graphics[{*)
+(*Graphics[{*)
 (*Black,Line[{{0,0},{end,0}}],*)
 (*Arrowheads[{{Automatic,.53}}],*)
 (*Arrow@BezierCurve[{*)
@@ -708,7 +708,7 @@ fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGE
 (*}],*)
 (*Line[{{end/2,-end/6},{end/2,0}}],*)
 (*Text["v1",{end/2,+5delta}]*)
-(*},ImageSize->Small]]*)
+(*},ImageSize->Small]*)
 
 
 (*\:8d39\:66fc\:56fe\:7684chpt tag,\:4ee5\:53ca\:7528\:5230\:7684\:9876\:70b9*)
@@ -727,7 +727,7 @@ vtxJoin[fyTag]=Query[Select@sameLinesQ,(*\:9009\:51fa\:76f8\:540c\:590d\:5408\:6
 inOct->#@fyVtx1@fdTypeOct,(*\:9876\:70b91 oct \:5165\:5c04\:573a*)
 outOct->#@fyVtx1@fdTypeOctb,(*\:9876\:70b91 oct \:51fa\:5c04\:573a*)
 medMes1->#@fyVtx1@fdTypeMes,(*\:9876\:70b91,mes,\:5165\:5c04\:573a*)
-medMes2->#@fyVtx1@fdTypeMesOut,
+(*medMes2->#@fyVtx1@fdTypeMesOut,*)
 (*+++++++++++++++++++++++++++++ \:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef +++++++++++++++++++++++++++++*)
 fyCoeKeycAllF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
 #@fyVtx1@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
