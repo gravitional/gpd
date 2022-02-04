@@ -34,7 +34,17 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
 (* ::Section:: *)
-(*cmd arguments*)
+(*<<module*)
+
+
+(* ::Input:: *)
+(*SetOptions[EvaluationNotebook[],CommonDefaultFormatTypes->{"Output"->StandardForm}](*\:8bbe\:7f6e\:663e\:5f0f\:683c\:5f0f\:4e3a\:6807\:51c6\:683c\:5f0f*)*)
+
+
+If[NameQ["\[Sigma]"],echo["please remove the definitions of \[Sigma], \[Sigma] will be used in package-X"];Remove["Global`\[Sigma]"]];(* \[Sigma] \:662f package-X \:7684\:4fdd\:7559\:6807\:8bc6\:7b26,\:9700\:8981\:6e05\:9664*)
+echo["Initial local evaluation"]
+(* \:5e76\:884c\:8fd0\:7b97\:51c6\:5907*)
+Needs["X`"];
 
 
 (*\:5982\:679c\:8fd8\:4e0d\:5b58\:5728\:ff0c\:5219\:521b\:5efa\:76ee\:5f55*)
@@ -46,67 +56,68 @@ Get["coes.interface.wl"];
 Get["ff.numeric-interface.wl"];
 
 
-(* \:5904\:7406\:811a\:672c\:53c2\:6570,\:6a21\:62df\:547d\:4ee4\:884c\:8f93\:5165\:53c2\:6570\:7684\:60c5\:5f62 *)
-If[!$Notebooks,
-inputCml=$ScriptCommandLine,(*\:5982\:679c\:5728\:547d\:4ee4\:884c\:6267\:884c*)
-(*++++++++++++++++++++++++++++++++++++++++*)
-inputCml={
-$fileName,(*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c, \:6a21\:4eff\:547d\:4ee4\:884c, \:4ee4\:7b2c\:4e00\:4e2a\:53c2\:6570\:662f\:6b64\:811a\:672c\:7684\:7edd\:5bf9\:8def\:5f84*)
-(* \:5728\:8fd9\:91cc\:63d0\:4f9b\:5176\:4ed6\:53c2\:6570, \:4f7f\:7528 mathematica \:8bed\:6cd5\:4e0b\:7684\:5f62\:5f0f\:ff0c\:5916\:9762\:7684 enString \:4f1a\:81ea\:52a8\:8f6c\:6362\:6210\:5b57\:7b26\:4e32, \:5c3d\:91cf\:591a\:4f7f\:7528Association\:7ed3\:6784*)
-"full",
-"{16}",
-"coarse"
-}
-];
-echo["the input parameter is:\n",inputCml];
-
-
-(*\:63a5\:6536\:53c2\:6570, \:4fdd\:5b58\:5230\:53d8\:91cf, \:6216\:8005\:8fdb\:884c\:8fdb\:4e00\:6b65\:5904\:7406*)
-(*+++++++++++++++++++++++++++++++++++++ \:9ed8\:8ba4\:503c +++++++++++++++++++++++++++++++++++++*)
-$fineSubmit=False;
-fyAmpTagPart=fyAmpLoopLst;(*\:79ef\:5206\:90e8\:5206\:6307\:5b9a\:7684\:9ed8\:8ba4\:503c\:ff1aAll*)
-parOrder="ord0";
-(*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 4 +++++++++++++++++++++++++++++++++++++*)
-If[Length@inputCml>=4,
-Switch[inputCml[[4]],
-"coarse",$fineSubmit=False,
-"fine",$fineSubmit=True,
-_,echo["para 4: Parallel scheme, one of: 'coarse', 'fine'"];Abort[]
-]]
-(*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 3 +++++++++++++++++++++++++++++++++++++*)
-If[Length@inputCml>=3,
-Check[
-fyAmpTagPart=fyAmpLoopLst[[ToExpression@inputCml[[3]]]],
-echo["para 3: Part speciation is not valid"];Abort[]
-]]
-(*+++++++++++++++++++++++++++++++++++++ \:53c2\:6570 2 +++++++++++++++++++++++++++++++++++++*)
-If[
-Length@inputCml>=2,
-parOrder=inputCml[[2]];
-(*\:68c0\:67e5\:8f93\:5165\:7684\:53c2\:6570\:662f\:5426\:5408\:6cd5,*)
-If[Not@StringMatchQ[parOrder,{"ord0","ord1","full"}],
-echo["para 2: specify Refine orders, must be one of 'ord0', 'ord1', 'full'"];
-Abort[]
-]]
-
-
 (* ::Section:: *)
-(*Package-X*)
+(*cmd args*)
 
 
-(* ::Input:: *)
-(*SetOptions[EvaluationNotebook[],CommonDefaultFormatTypes->{"Output"->StandardForm}](*\:8bbe\:7f6e\:663e\:5f0f\:683c\:5f0f\:4e3a\:6807\:51c6\:683c\:5f0f*)*)
+(*\:5904\:7406\:547d\:4ee4\:884c\:53c2\:6570\:7684\:5305*)
+Get["gen.parse.wl"];
 
 
-If[NameQ["\[Sigma]"],echo["please remove the definitions of \[Sigma], \[Sigma] will be used in package-X"];Remove["Global`\[Sigma]"]];(* \[Sigma] \:662f package-X \:7684\:4fdd\:7559\:6807\:8bc6\:7b26,\:9700\:8981\:6e05\:9664*)
-(* \:5e76\:884c\:8fd0\:7b97\:51c6\:5907*)
-Needs["X`"];ParallelNeeds["X`"];
-(*\:542f\:52a8\:5e76\:884c\:5185\:6838*)
-CloseKernels[];
-Switch[{$MachineName,$System},
-{"OP7050","Linux x86 (64-bit)"},LaunchKernels[6],
-_,LaunchKernels[]
+(*\:547d\:4ee4\:884c\:53c2\:6570\:6a21\:677f*)
+CmdParser["template"]=<|
+"opt"-><|
+{"part"}->{"All","\:8ba1\:7b97\:5217\:8868\:4e2d\:7684\:54ea\:4e9b\:79ef\:5206,\:53c2\:6570\:5c06\:4f20\:5165 fyAmpLoopLst[[]]"}
+,{"ord"}->{"full","\:5708\:79ef\:5206\:5c55\:5f00\:7684\:9636\:6570, {ord0,ord1,full}"}
+,{"F1F2-expand"}->{"False","\:662f\:5426\:5bf9\:8f6c\:79fb\:78c1\:77e9\:56fe,\:6309\:8d28\:91cf\:7ea7\:6570\:5c55\:5f00"}
+,{"fine-submit"}->{"False","\:5bf9\:5708\:79ef\:5206\:7684\:5b50\:9879\:8fdb\:884c\:5e76\:884c\:7684\:7248\:672c, \:66f4\:52a0\:7ec6\:5316"}
+|>,
+"pos"->{}
+|>;
+
+
+(*\:5f53\:5728\:7b14\:8bb0\:672c\:4e2d\:8fd0\:884c\:65f6\:ff0c\:4f7f\:7528 \:547d\:4ee4\:884c\:8f93\:5165\:6a21\:62df*)
+CmdParser["pseudo"]={$fileName
+,"--part","All"(*\:8981\:8ba1\:7b97\:7684\:79ef\:5206\:5217\:8868\:ff0c\:53c2\:6570\:53d6\:503c\:8303\:56f4\:67e5\:770b Part \:51fd\:6570\:5e2e\:52a9\:9875*)
+,"--ord","full"
+,"--F1F2-expand","False"
+};
+
+
+(*\:89e3\:6790\:53c2\:6570*)
+parseCml[]:=Module[{paras,options},
+(*\:8ba1\:7b97 cmd \:8f93\:5165, \:6216\:7b14\:8bb0\:672c\:6a21\:62df\:8f93\:5165-----------*)
+paras=Query[
+(*<|opt,pos|>*)All,
+(*<|opt1->val1|>*)All,
+(*\:51fd\:6570\:4f5c\:7528\:5728\:6240\:6709 opt\[Rule]val \:7684 val \:4e0a*)
+(*val*)If[SyntaxQ@#,Identity@#,#]&
+]@CmdParser["get"];
+(*\:63d0\:53d6\:51fa\:9009\:9879\:90e8\:5206--------*)
+options=paras@"opt"//EchoFunction[InputForm];
+(*\:6839\:636e\:53c2\:6570\:ff0c\:8fdb\:884c\:76f8\:5e94\:7684\:8bbe\:7f6e------------------------------*)
+(*\:5982\:679c\:53ea\:662f\:6253\:5370\:5e2e\:52a9\:4fe1\:606f\:ff0c\:5219\:505c\:6b62\:8ba1\:7b97*)
+Switch[ToExpression@options@"help",
+False,Null,
+_,Abort[]];
+(*++++++++++++++++\:6839\:636e\:6536\:5230\:7684\:53c2\:6570\:ff0c\:8fdb\:884c\:5904\:7406++++++++++++++++++++++++++*)
+(*\:8ba1\:7b97\:9879\:76ee\:6307\:5b9a*)
+Check[
+$fyAmpTagPartSpec=ToExpression@options@"part";
+fyAmpTagPart=fyAmpLoopLst[[$fyAmpTagPartSpec]],
+echo["para 2: Part speciation is not valid"];Abort[]
 ];
+(*\:5708\:79ef\:5206\:5c55\:5f00\:9636\:6570,\:68c0\:67e5\:8f93\:5165\:7684\:53c2\:6570\:662f\:5426\:5408\:6cd5,*)
+$parOrder=enString@options@"ord";
+If[Not@StringMatchQ[$parOrder,{"ord0","ord1","full"}],
+echo["para 2: specify Refine orders, must be one of 'ord0', 'ord1', 'full'"];
+Abort[]];
+(*\:5728\:8f6c\:79fb\:78c1\:77e9\:56fe\:ff0c\:662f\:5426\:6309 (mo2-mo1) \:7684\:7ea7\:6570\:5c55\:5f00*)
+$F1F2Expand=ToExpression@options@"F1F2-expand";
+(*\:53c2\:6570\:5904\:7406\:7ed3\:675f*)]
+
+
+parseCml[]
 
 
 (* ::Section:: *)
@@ -122,6 +133,7 @@ md1;md2;(*\:4e2d\:95f4\:5341\:91cd\:6001\:91cd\:5b50*)
 Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
 p1;p2;(*\:521d\:6001\:52a8\:91cf\:ff0c\:672b\:6001\:52a8\:91cf*)
 k;(*\:5355\:5708\:56fe\:7684\:5708\:52a8\:91cf, \:79ef\:5206\:53d8\:91cf\:9700\:8981\:662f atomatic \:8868\:8fbe\:5f0f*)
+$chopLimit=10^-10;
 
 
 paraInitial=Hold[
@@ -141,7 +153,7 @@ Off[Simplify::time];Off[Refine::time];
 (*\:5e76\:884c\:8ba1\:7b97\:521d\:59cb\:5316*)
 DistributeDefinitions[$srcRoot,$fileName,echo,enList,enString,$inNBook,
 mfilesDir,
-parOrder,ffsF1F2
+$parOrder,ffsF1F2,$chopLimit
 ];
 ReleaseHold@paraInitial
 ParallelEvaluate[ReleaseHold@paraInitial];
@@ -162,7 +174,8 @@ intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)
 intExpr=int@ffsF1F2;(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
 (* \:5982\:679c\:5708\:79ef\:5206\:7684\:5934\:90e8\:662f Plus\:ff0c\:624d\:80fd\:4f7f\:7528 ParallelMap *)
 If[AllTrue[MatchQ[Head[#],Plus]&/@intExpr,Identity],
-intExpr=Map[Cancel,intExpr,{2}];(* \:5bf9\:5708\:79ef\:5206\:7684\:8868\:8fbe\:5f0f\:8fdb\:884c\:9884\:5316\:7b80*)
+(* \:5bf9\:5708\:79ef\:5206\:7684\:8868\:8fbe\:5f0f\:8fdb\:884c\:9884\:5316\:7b80*)
+intExpr=Map[Cancel,intExpr,{2}];
 time0Result=ParallelMap[
 loopRefine,#,{2},(* \:8ba1\:7b97\:89e3\:6790\:8868\:8fbe\:5f0f, Mapping loopRefine \:5230 \:5708\:79ef\:5206\:8868\:8fbe\:5f0f\:7684\:6bcf\:4e00\:9879\:4e0a*)
 Method->"FinestGrained"(*Method->Automatic*)
@@ -173,7 +186,7 @@ chTagKey["chTag"]->chTag[intTag],
 ffsF1F2->Last@time0Result
 |>;
 (*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:4fdd\:5b58\:8ba1\:7b97\:51fa\:7684\:7ed3\:679c*)
-path=FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
+path=FileNameJoin[{mfilesDir,"analytic.strange."<>$parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
 Export[path,anaExpr];
 echo[DateString[],": Exporting finished: ", path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:754c\:9762,\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*)
@@ -208,7 +221,7 @@ chTagKey["chTag"]->chTag[intTag],
 ffsF1F2->Last@time0Result
 |>;
 (*\:9009\:5b9a\:5bfc\:51fa\:683c\:5f0f\:ff0c\:4fdd\:5b58\:8ba1\:7b97\:51fa\:7684\:7ed3\:679c*)
-path=FileNameJoin[{mfilesDir,"analytic.strange."<>parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
+path=FileNameJoin[{mfilesDir,"analytic.strange."<>$parOrder<>"."<>StringRiffle[intTag,"."]<>".wdx"}];
 Export[path,anaExpr];
 echo[DateString[],": Exporting finished: ", path];
 (*\:5982\:679c\:5728\:7b14\:8bb0\:672c\:754c\:9762,\:8fd4\:56de\:8ba1\:7b97\:51fa\:7684\:89e3\:6790\:8868\:8fbe\:5f0f*)
@@ -217,23 +230,44 @@ If[$inNBook,anaExpr]
 
 
 (*\:6839\:636e\:811a\:672c\:53c2\:6570\:ff0c\:7ed9\:51fa\:5e76\:884c\:8ba1\:7b97\:65f6 paraLRefine \:7684\:5177\:4f53\:5b9a\:4e49, \:8fdb\:884c\:7ea7\:6570\:5c55\:5f00\:ff0c\:6216\:8005\:8ba1\:7b97\:5b8c\:6574\:8868\:8fbe\:5f0f *)
-Switch[parOrder,
-(* +++++++++++++++++++++++++++++++++++++ order0 +++++++++++++++++++++++++++++++++++++  *)
-"ord0",
-paraLRefine[tag_]:=paraEnvIO[tag,
-LoopRefineSeries[#,{Q2,0,0},Organization->Function]&
+paraLRefine[tag_]:=Switch[{$F1F2Expand,$parOrder,tag},
+(*+++++++++++++++++++ order0,RB F1,F2 +++++++++++++++++++*)
+{True,"ord0",{"RB","oct","F1"}|{"RB","oct","F2"}},
+paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,0},Organization->Function]&],
+(*+++++++++++++++++++ order0,others +++++++++++++++++++*)
+{_,"ord0",_},
+(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49\:ff0c\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+paraEnvIO[tag,
+Piecewise[{
+{LoopRefineSeries[#,{mo2,mo1,0},{Q2,0,0},Organization->Function],Abs[mo2-mo1]<$chopLimit},
+{LoopRefineSeries[#,{Q2,0,0},Organization->Function],Abs[mo2-mo1]>=$chopLimit}
+}]&
 ],
-(* +++++++++++++++++++ order1  ++++++++++++++++++ *)
-"ord1",
-paraLRefine[tag_]:=paraEnvIO[tag,
-LoopRefineSeries[#,{Q2,0,1},Organization->Function]&
+(* +++++++++++++++++++ order1,RB F1,F2 ++++++++++++++++++ *)
+{True,"ord1",{"RB","oct","F1"}|{"RB","oct","F2"}},
+paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,1},Organization->Function]&],
+(*+++++++++++++++++++ order1,others +++++++++++++++++++*)
+{_,"ord1",_},
+(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49\:ff0c\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+paraEnvIO[tag,
+Piecewise[{
+{LoopRefineSeries[#,{mo2,mo1,0},{Q2,0,1},Organization->Function],Abs[mo2-mo1]<$chopLimit},
+{LoopRefineSeries[#,{Q2,0,1},Organization->Function],Abs[mo2-mo1]>=$chopLimit}
+}]&
 ],
-(* +++++++++++++++++++ full  ++++++++++++++++++ *)
-"full",
-paraLRefine[tag_]:=paraEnvIO[tag,
-LoopRefine[#,Organization->Function]&
+(*+++++++++++++++++++ full,RB F1,F2 +++++++++++++++++++*)
+{True,"full",{"RB","oct","F1"}|{"RB","oct","F2"}},
+paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},Organization->Function]&],
+(*+++++++++++++++++++ full,others +++++++++++++++++++*)
+{_,"full",_},
+(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49\:ff0c\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+paraEnvIO[tag,
+Piecewise[{
+{LoopRefineSeries[#,{mo2,mo1,0},Organization->Function],Abs[mo2-mo1]<$chopLimit},
+{LoopRefine[#,Organization->Function],Abs[mo2-mo1]>=$chopLimit}
+}]&
 ]
-];
+]
 
 
 (* ::Section:: *)
