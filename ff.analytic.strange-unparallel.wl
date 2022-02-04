@@ -56,6 +56,9 @@ Get["coes.interface.wl"];
 Get["ff.numeric-interface.wl"];
 
 
+$chopLimit=10^-10;
+
+
 (* ::Section:: *)
 (*cmd args*)
 
@@ -190,19 +193,37 @@ paraLRefine[tag_]:=Switch[{$F1F2Expand,$parOrder,tag},
 paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,0},Organization->Function]&],
 (*+++++++++++++++++++ order0,others +++++++++++++++++++*)
 {_,"ord0",_},
-paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,0},Organization->Function]&],
+(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49\:ff0c\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+paraEnvIO[tag,
+Piecewise[{
+{LoopRefineSeries[#,{mo2,mo1,0},{Q2,0,0},Organization->Function],Abs[mo2-mo1]<$chopLimit},
+{LoopRefineSeries[#,{Q2,0,0},Organization->Function],Abs[mo2-mo1]>=$chopLimit}
+}]&
+],
 (* +++++++++++++++++++ order1,RB F1,F2 ++++++++++++++++++ *)
 {True,"ord1",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,1},Organization->Function]&],
 (*+++++++++++++++++++ order1,others +++++++++++++++++++*)
 {_,"ord1",_},
-paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,1},Organization->Function]&],
+(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49\:ff0c\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+paraEnvIO[tag,
+Piecewise[{
+{LoopRefineSeries[#,{mo2,mo1,0},{Q2,0,1},Organization->Function],Abs[mo2-mo1]<$chopLimit},
+{LoopRefineSeries[#,{Q2,0,1},Organization->Function],Abs[mo2-mo1]>=$chopLimit}
+}]&
+],
 (*+++++++++++++++++++ full,RB F1,F2 +++++++++++++++++++*)
 {True,"full",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},Organization->Function]&],
 (*+++++++++++++++++++ full,others +++++++++++++++++++*)
 {_,"full",_},
-paraEnvIO[tag,LoopRefine[#,Organization->Function]&]
+(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49\:ff0c\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+paraEnvIO[tag,
+Piecewise[{
+{LoopRefineSeries[#,{mo2,mo1,0},Organization->Function],Abs[mo2-mo1]<$chopLimit},
+{LoopRefine[#,Organization->Function],Abs[mo2-mo1]>=$chopLimit}
+}]&
+]
 ]
 
 
