@@ -379,10 +379,12 @@ unq[oct["pb"],oct["p"],mes["\[Pi]+"],mesout["\[Pi]-"],coeIn[I/4]]
 ,unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],mes["\[Pi]+"],mesout["\[Pi]-"],coeIn[I/2]]
 ,unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],mes["K0b"],mesout["K0"],coeIn[I/4]]
 ,unq[oct["\[CapitalSigma]+b"],oct["\[CapitalSigma]+"],mes["K+"],mesout["K-"],coeIn[I/4]]
+
 (*+++ Sigma0 +++*)
 ,unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],mes["\[Pi]+"],mesout["\[Pi]-"],coeIn[0]]
-(*,unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],mes["K0b"],mesout["K0"],coeIn[0]]
-,unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],mes["K+"],mesout["K-"],coeIn[0]]*)
+,unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],mes["K0b"],mesout["K0"],coeIn[0]]
+,unq[oct["\[CapitalSigma]0b"],oct["\[CapitalSigma]0"],mes["K+"],mesout["K-"],coeIn[0]]
+
 (*+++ Sigma- +++*)
 ,unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],mes["\[Pi]+"],mesout["\[Pi]-"],coeIn[-I/2]]
 ,unq[oct["\[CapitalSigma]-b"],oct["\[CapitalSigma]-"],mes["K0b"],mesout["K0"],coeIn[-I/4]]
@@ -395,10 +397,12 @@ unq[oct["pb"],oct["p"],mes["\[Pi]+"],mesout["\[Pi]-"],coeIn[I/4]]
 ,unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["\[Pi]+"],mesout["\[Pi]-"],coeIn[-I/4]]
 ,unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["K0b"],mesout["K0"],coeIn[I/4]]
 ,unq[oct["\[CapitalXi]-b"],oct["\[CapitalXi]-"],mes["K+"],mesout["K-"],coeIn[-I/2]]
+
 (*+++ Lambda +++*)
 ,unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["\[Pi]+"],mesout["\[Pi]-"],coeIn[0]]
-(*,unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0b"],mesout["K0"],coeIn[0]]
-,unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K+"],mesout["K-"],coeIn[0]]*)
+,unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K0b"],mesout["K0"],coeIn[0]]
+,unq[oct["\[CapitalLambda]b"],oct["\[CapitalLambda]"],mes["K+"],mesout["K-"],coeIn[0]]
+
 };
 
 
@@ -796,7 +800,7 @@ vtxtpEMFlip->(#@vtxtpEM)
 ]@vtx[unq["type"->vtxtp]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*F1,BT\[Phi]A, C*)
 
 
@@ -839,7 +843,12 @@ unq[oct["\[CapitalSigma]+b"],mes["K+"],dec["\[CapitalXi]*0"],coeIn[(-I(ch["u"]-c
 coeInStr[1/Sqrt[3]]],
 unq[oct["\[CapitalSigma]+b"],mes["K0b"],dec["\[CapitalDelta]+"],coeIn[(-I(ch["d"]-ch["s"]))/Sqrt[3]],
 coeInStr[-1/Sqrt[3]]],
+
 (*+++ \[CapitalSigma]0 +++*)
+(*\:4e3a KR-decuplet-additional quarkflow \:6dfb\:52a0\:7684\:989d\:5916\:9876\:70b9*)
+unq[oct["\[CapitalSigma]0b"],mes["\[Eta]8"],dec["\[CapitalSigma]*0"],coeIn[-(0)/Sqrt[2]],
+coeInStr[-1/(Sqrt[2])]],
+
 unq[oct["\[CapitalSigma]0b"],mes["\[Pi]-"],dec["\[CapitalSigma]*+"],coeIn[(-I(ch["u"]-ch["d"]))/Sqrt[6]],
 coeInStr[-1/(Sqrt[6])]],
 unq[oct["\[CapitalSigma]0b"],mes["\[Pi]+"],dec["\[CapitalSigma]*-"],coeIn[(I(ch["u"]-ch["d"]))/Sqrt[6]],
@@ -852,6 +861,7 @@ unq[oct["\[CapitalSigma]0b"],mes["K0b"],dec["\[CapitalDelta]0"],coeIn[(I(ch["d"]
 coeInStr[Sqrt[2/3]]],
 unq[oct["\[CapitalSigma]0b"],mes["K0"],dec["\[CapitalXi]*0"],coeIn[(I(ch["d"]-ch["s"]))/Sqrt[6]],
 coeInStr[-1/(Sqrt[6])]],
+
 (*+++ \[CapitalSigma]- +++*)
 unq[oct["\[CapitalSigma]-b"],mes["\[Pi]-"],dec["\[CapitalSigma]*0"],coeIn[(-I(ch["u"]-ch["d"]))/Sqrt[6]],
 coeInStr[-1/(Sqrt[6])]],
@@ -879,7 +889,12 @@ unq[oct["\[CapitalXi]-b"],mes["K-"],dec["\[CapitalSigma]*0"],coeIn[(I(ch["u"]-ch
 coeInStr[1/(Sqrt[6])]],
 unq[oct["\[CapitalXi]-b"],mes["K0b"],dec["\[CapitalSigma]*-"],coeIn[(I(ch["d"]-ch["s"]))/Sqrt[3]],
 coeInStr[1/Sqrt[3]]],
+
 (*+++ \[CapitalLambda] +++*)
+(*\:4e3a KR-decuplet-additional quarkflow \:6dfb\:52a0\:7684\:989d\:5916\:9876\:70b9*)
+unq[oct["\[CapitalLambda]b"],mes["\[Pi]0"],dec["\[CapitalSigma]*0"],coeIn[(0)/Sqrt[2]],
+coeInStr[(1/Sqrt[2])]],
+
 unq[oct["\[CapitalLambda]b"],mes["\[Pi]-"],dec["\[CapitalSigma]*+"],coeIn[(-I(ch["u"]-ch["d"]))/Sqrt[2]],
 coeInStr[-(1/Sqrt[2])]],
 unq[oct["\[CapitalLambda]b"],mes["\[Pi]+"],dec["\[CapitalSigma]*-"],coeIn[(-I(ch["u"]-ch["d"]))/Sqrt[2]],
@@ -1213,7 +1228,7 @@ unq[oct["\[CapitalSigma]0b"],oct["\[CapitalLambda]"],coeIn[(cc["c1"](ch["u"]-ch[
 };
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*octet,order2,BB\[Phi]\[Phi]A*)
 
 

@@ -101,7 +101,7 @@ fqdData["sea","oct"]=Association@KeyValueMap[
 (*quarkflow*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-meson,octet*)
 
 
@@ -115,12 +115,13 @@ qchPoss={qchTp1,qchTp2,"poss"};
 totEq={qchTp1,qchTp2,"totEq"};
 symEq={qchTp1,qchTp2,"symEq"};
 qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
 (*--------\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
 Get["coes.quarkflow-rainbow.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-fyTag={"RB","mes","oct"};qchTp1="sea";
 If[$inNBook,
 Query[Cases@KeyValuePattern[
 chTagKey["in"]->chTag@ff["\[CapitalSigma]0"]
@@ -128,7 +129,6 @@ chTagKey["in"]->chTag@ff["\[CapitalSigma]0"]
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-fyTag={"RB","mes","oct"};qchTp1="sea";qchTp2="qch";
 If[$inNBook,
 Query[Cases@KeyValuePattern[
 chTagKey["in"]->chTag@fd[2,1,0]
@@ -140,20 +140,12 @@ coeJoin[{fyTag,quaFlow}]//testFmt[1]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman ,A-meson,octet,left*)
 
 
 (* ::Input:: *)
-(*(* \:56fe\:5f62\:8868\:793a *)*)
-(*end=4;delta=0.05;*)
-(*Graphics[{*)
-(*Black,Line[{{0,0},{end,0}}],*)
-(*Arrowheads[{{Automatic,.53}}],*)
-(*Circle[{end/2,0},end/4,{0,\[Pi]}],*)
-(*Line[{{end/4,0},{end/4,-end/5}}],*)
-(*Text["v1",{end/4-4delta,+4delta}],Text["v2",{3/4end,-4delta}]*)
-(*},ImageSize->Small]*)
+(*diagIllus@chTag@{"KR","mes","oct","left"}*)
 
 
 (*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
@@ -167,7 +159,6 @@ Get["coes.quarkflow-rainbow.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-fyTag={"KR","mes","oct","left"};qchTp1="sea";
 If[$inNBook,
 Query[Cases@KeyValuePattern[
 chTagKey["in"]->chTag@ff["p"]
@@ -175,30 +166,24 @@ chTagKey["in"]->chTag@ff["p"]
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-fyTag={"KR","mes","oct","left"};qchTp1="sea";qchTp2="qch";
 If[$inNBook,
 Query[Cases@KeyValuePattern[
 chTagKey["in"]->chTag@fd[2,1,0]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,coeJoin[{fyTag,quaFlow}]//testFmt[1]]
+If[$inNBook,
+coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman ,A-meson,octet,right*)
 
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(*end=4;delta=0.05;*)
-(*Graphics[{*)
-(*Black,Line[{{0,0},{end,0}}],*)
-(*Arrowheads[{{Automatic,.53}}],*)
-(*Circle[{end/2,0},end/4,{0,\[Pi]}],*)
-(*Line[{{3/4end,0},{3/4end,-end/5}}],*)
-(*Text["v1",{end/4-4delta,+4delta}],Text["v2",{3/4end+4delta,+4delta}]*)
-(*},ImageSize->Small]*)
+(*diagIllus@chTag@{"KR","mes","oct","right"}*)
 
 
 (*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
@@ -207,12 +192,13 @@ qchPoss={qchTp1,qchTp2,"poss"};
 totEq={qchTp1,qchTp2,"totEq"};
 symEq={qchTp1,qchTp2,"symEq"};
 qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
 (*--------\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
 Get["coes.quarkflow-rainbow.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-fyTag={"KR","mes","oct","right"};qchTp1="sea";qchTp2="qch";
 If[$inNBook,
 Query[Cases@KeyValuePattern[
 chTagKey["in"]->chTag@fd[2,1,0]
@@ -220,7 +206,6 @@ chTagKey["in"]->chTag@fd[2,1,0]
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-fyTag={"KR","mes","oct","right"};qchTp1="sea";qchTp2="qch";
 If[$inNBook,
 Query[Cases@KeyValuePattern[
 chTagKey["in"]->chTag@ff["p"]
@@ -232,33 +217,31 @@ coeJoin[{fyTag,quaFlow}]//testFmt[1]
 ]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-octet,F1F2,nonlocal*)
 
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(*end=4;delta=0.05;*)
-(*Graphics[{*)
-(*Black,Line[{{0,0},{end,0}}],*)
-(*Arrowheads[{{Automatic,.53}}],*)
-(*Circle[{end/2,0},end/4,{0,\[Pi]}],*)
-(*Line[{{end/2,-end/8},{end/2,0}}],*)
-(*Text["v1",{end/4,-4delta}],Text["v2",{end/2,4delta}],Text["v3",{3/4end,-4delta}]*)
-(*},ImageSize->Small]*)
+(*diagIllus@chTag@{"RB","oct","F1"}*)
 
 
 (*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
-fyTag={"RB","oct","F1F2"};qchTp1="sea";qchTp2="qch";
+fyTag={"RB","oct","F1"};qchTp1="sea";qchTp2="qch";
 qchPoss={qchTp1,qchTp2,"poss"};
 totEq={qchTp1,qchTp2,"totEq"};
 symEq={qchTp1,qchTp2,"symEq"};
 qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3, octet F1-----------------*)
+Get["coes.quarkflow-oct-f1f2.wl"];
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3, octet F2-----------------*)
+fyTag={"RB","oct","F2"};
 Get["coes.quarkflow-oct-f1f2.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-fyTag={"RB","oct","F1F2"};qchTp1="sea";qchTp2="qch";
 If[$inNBook,
 Query[Cases@KeyValuePattern[
 chTagKey["in"]->chTag@ff["p"]
@@ -266,7 +249,6 @@ chTagKey["in"]->chTag@ff["p"]
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
-fyTag={"RB","oct","F1F2"};qchTp1="sea";qchTp2="qch";
 If[$inNBook,
 Query[Cases@KeyValuePattern[
 chTagKey["in"]->chTag@ff["p"]
@@ -284,29 +266,67 @@ coeJoin[{fyTag,quaFlow}]//testFmt[4]
 
 (* ::Input:: *)
 (*(* \:56fe\:5f62\:8868\:793a *)*)
-(*end=4;delta=0.05;*)
-(*Graphics[{*)
-(*Black,Line[{{0,0},{end,0}}],*)
-(*Arrowheads[{{Automatic,.53}}],*)
-(*Arrow@BezierCurve[{*)
-(*{end/2,0},{0,end/2},{end,end/2},{end/2,0}*)
-(*}],*)
-(*Line[{{end/2,-end/6},{end/2,0}}],*)
-(*Text["v1",{end/2,+5delta}]*)
-(*},ImageSize->Small]*)
+(*diagIllus@chTag@{"tad","oct","F1"}*)
 
 
-(*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
-fyTag={"tad","oct","F1F2"};
-qchTp1="sea";qchTp2="qch";
+(*Tag \:521d\:59cb\:5316 +++++++++++++++++++++++++++*)
+fyTag={"tad","oct","F1"};qchTp1="sea";qchTp2="qch";
 qchPoss={qchTp1,qchTp2,"poss"};
-totEq={qchTp1,qchTp2,"totEq"};
-symEq={qchTp1,qchTp2,"symEq"};
+totEq={qchTp1,qchTp2,"totEq"};symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3, octet F1-----------------*)
+Get["coes.quarkflow-tadpole.wl"];
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3, tadpole F2-----------------*)
+fyTag={"tad","oct","F2"};
+Get["coes.quarkflow-tadpole.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
 If[$inNBook,
-fyTag={"tad","oct","F1F2"};qchTp1="sea";qchTp2="qch";
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section:: *)
+(*tadpole,A-octet,addition,o2,nonlocal*)
+
+
+(* ::Input:: *)
+(*(* \:56fe\:5f62\:8868\:793a *)*)
+(*diagIllus@chTag@{"tad","oct","F1","add"}*)
+
+
+(*Tag \:521d\:59cb\:5316 +++++++++++++++++++++++++++*)
+fyTag={"tad","oct","F1","add"};qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3 -----------------*)
+Get["coes.quarkflow-tadpole.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
 Query[Cases@KeyValuePattern[
 chTagKey["in"]->chTag@fd[2,1,0]
 ]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
@@ -314,11 +334,447 @@ chTagKey["in"]->chTag@fd[2,1,0]
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
 If[$inNBook,
-fyTag={"tad","oct","F1F2"};qchTp1="sea";qchTp2="qch";
 Query[Cases@KeyValuePattern[
 chTagKey["in"]->chTag@fd[2,1,0]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
 If[$inNBook,
-coeJoin[{fyTag,quaFlow}]//testFmt[1]]
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section:: *)
+(*bubble, A-meson,order2*)
+
+
+(* ::Input:: *)
+(*(* \:56fe\:5f62\:8868\:793a *)*)
+(*diagIllus@chTag@{"bub","mes","o2"}*)
+
+
+(*Tag \:521d\:59cb\:5316 +++++++++++++++++++++++++++*)
+fyTag={"bub","mes","o2"};qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3 -----------------*)
+Get["coes.quarkflow-tadpole.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@fd[2,1,0]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section::Closed:: *)
+(*bubble,A-meson,tensor,order 2*)
+
+
+(* ::Input:: *)
+(*(* \:56fe\:5f62\:8868\:793a *)*)
+(*diagIllus@chTag@{"bub","mes","ten","o2"}*)
+
+
+(*Tag \:521d\:59cb\:5316 +++++++++++++++++++++++++++*)
+fyTag={"bub","mes","ten","o2"};
+qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3 -----------------*)
+Get["coes.quarkflow-tadpole.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section::Closed:: *)
+(*RainBow,A-meson,decuplet mediate*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"RB","mes","dec"}*)
+
+
+(*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
+fyTag={"RB","mes","dec"};qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};
+symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
+Get["coes.quarkflow-rainbow-decuplet.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["\[CapitalSigma]0"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section::Closed:: *)
+(*RainBow,A-decuplet,F1F2,nonlocal*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"RB","dec","F1"}*)
+
+
+(*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
+fyTag={"RB","dec","F1"};qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};
+symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3,decuplet F1------------*)
+Get["coes.quarkflow-dec-f1f2.wl"];
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3,decuplet F2------------*)
+fyTag={"RB","dec","F2"};
+Get["coes.quarkflow-dec-f1f2.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section::Closed:: *)
+(*RainBow,A-decuplet,trans,left*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"RB","trans","left"}*)
+
+
+(*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
+fyTag={"RB","trans","left"};qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};
+symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
+Get["coes.quarkflow-trans.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section::Closed:: *)
+(*RainBow,A-decuplet,trans,right*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"RB","trans","right"}*)
+
+
+(*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
+fyTag={"RB","trans","right"};qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};
+symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
+Get["coes.quarkflow-trans.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){4},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section::Closed:: *)
+(*Kroll-Ruderman, A-meson,decuplet,left*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"KR","mes","dec","left"}*)
+
+
+(*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
+fyTag={"KR","mes","dec","left"};qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};
+symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
+Get["coes.quarkflow-rainbow-decuplet.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section::Closed:: *)
+(*Kroll-Ruderman, A-meson,decuplet,right*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"KR","mes","dec","right"}*)
+
+
+(*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
+fyTag={"KR","mes","dec","right"};qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};
+symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
+Get["coes.quarkflow-rainbow-decuplet.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section::Closed:: *)
+(*Kroll-Ruderman, A-meson,decuplet,addition,left*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"KR","mes","dec","add","left"}*)
+
+
+(*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
+fyTag={"KR","mes","dec","add","left"};qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};
+symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
+Get["coes.quarkflow-rainbow-decuplet.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section:: *)
+(*Kroll-Ruderman, A-meson,decuplet,addition,right*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"KR","mes","dec","add","right"}*)
+
+
+(*+++++++++++++++++++++++++++Tag \:521d\:59cb\:5316 sea+++++++++++++++++++++++++++*)
+fyTag={"KR","mes","dec","add","right"};qchTp1="sea";qchTp2="qch";
+qchPoss={qchTp1,qchTp2,"poss"};
+totEq={qchTp1,qchTp2,"totEq"};
+symEq={qchTp1,qchTp2,"symEq"};
+qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
+(*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
+Get["coes.quarkflow-rainbow-decuplet.wl"];
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp1,"poss"}]//dsetFmt]
+
+
+(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
+If[$inNBook,
+Query[Cases@KeyValuePattern[
+chTagKey["in"]->chTag@ff["p"]
+]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
+
+
+If[$inNBook,
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(* ::Section:: *)
+(*export*)
+
+
+(*DumpSave[localPath["coes"]["coes.chpt.mx"],coeJoin];*)
+(*\:4fdd\:5b58\:6570\:636e*)
+serialize["coes"]["coes.quarkflow.wdx",coeJoin]
