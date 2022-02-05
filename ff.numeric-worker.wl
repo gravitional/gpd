@@ -115,7 +115,9 @@ adjust->Query[
 (*-------------- \:5708\:79ef\:5206*\:7cfb\:6570,\:5e76\:6570\:503c\:5316 --------------*)
 (Append[#,
 ffsF1F2->Simplify[chop[Times[
-Normal[#@ffsF1F2]/.numPaVe,#@fyCoeKeycAll
+(*\:79ef\:5206\:89e3\:6790\:5f0f;Normal\:5904\:7406SeriesData;\:81f3\:591a Map \:5230\:7b2c\:4e8c\:5c42\:ff0c\:5982\:679c\:8fd8\:6709 PieceWise \:7ed3\:6784*)
+Map[Normal,#@ffsF1F2,2]/.numPaVe,
+(*\:79ef\:5206\:5bf9\:5e94\:7684\:7cfb\:6570*)#@fyCoeKeycAll
 ]/.medRule[#]]]
 ]&)/*
 (*-------------- \:7531 F1F2 expr \:7ebf\:6027\:7ec4\:5408\:51fa GE,GM --------------*)
