@@ -6,8 +6,11 @@
 
 (*\[Pi]0,\[Eta]0,\[Eta]8 \:4ecb\:5b50 \:7684 chpt \:56fe\:5bf9\:5e94\:76f8\:540c\:7684 quarkflow \:56fe*)
 mesNeutRule={ff["\[Eta]0"]->ff["\[Pi]\[Eta]"],ff["\[Pi]0"]->ff["\[Pi]\[Eta]"],ff["\[Eta]8"]->ff["\[Pi]\[Eta]"]};
-(*\[CapitalSigma]0b,\[CapitalLambda]b \:91cd\:5b50 chpt \:56fe\:5bf9\:5e94\:76f8\:540c\:7684 quarkflow \:56fe*)
-octbNeutRule={ff["\[CapitalSigma]0b"]->ff["\[CapitalSigma]0b\[CapitalLambda]b"],ff["\[CapitalLambda]b"]->ff["\[CapitalSigma]0b\[CapitalLambda]b"]};
+
+
+(* ::Input:: *)
+(*(*\[CapitalSigma]0b,\[CapitalLambda]b \:91cd\:5b50 chpt \:56fe\:5bf9\:5e94\:76f8\:540c\:7684 quarkflow \:56fe*)*)
+(*octbNeutRule={ff["\[CapitalSigma]0b"]->ff["\[CapitalSigma]0b\[CapitalLambda]b"],ff["\[CapitalLambda]b"]->ff["\[CapitalSigma]0b\[CapitalLambda]b"]};*)
 
 
 (*+++++++++++++++++++++++++++ Key \:521d\:59cb\:5316+++++++++++++++++++++++++++*)
@@ -213,6 +216,54 @@ coeJoin[{fyTag,quaFlow}]=Query[(*<oct>*)All
 DeleteDuplicates@Cases[#,Blank@fqdTag["sea"]|Blank@fqdTag["qch"],
 Infinity]]&
 ]@coeJoin[{fyTag,qfEqs}];
+
+
+(* ::Section:: *)
+(*rebuild channels*)
+
+
+(*\:4ece quarkflow \:4e2d\:63d0\:53d6\:51fa tag \:4fe1\:606f*)
+extractChptTags[key_,val_]:=Module[{chptTag},
+chptTag=Last@key;
+<|
+inOct->chptTag[[1]]
+,medMes1->chptTag[[2]]
+,medOct1->chptTag[[3]]
+,fqdTagQFlow->Most@key
+,fyCoeKeyQFStr->val
+,fqdTagQFlowExa->key
+|>
+]
+
+
+(*\:4ece quarkflow \:5bf9\:5e94\:7684 chpt-channel \:4e2d\:63d0\:53d6\:51fa \:5404\:79cd key\[Rule]value;
+\:5bf9\:4e8e\:7b80\:5e76\:7684\:60c5\:5f62\:ff0c\:53ea\:9700\:63d0\:53d6\:51fa Fisrt \:5143\:7d20*)
+fetchChptKW[coeJoin_,qfChannel_]:=First@KeyTake[
+Query[
+(*\:63d0\:53d6\:51fa\:6ee1\:8db3\:7279\:5f81\:7684 chpt-channel*)
+Cases@KeyValuePattern[{
+inOct->qfChannel@inOct
+,medOct1 ->qfChannel@medOct1
+,medMes1 ->qfChannel@medMes1
+}]
+]@coeJoin,
+(*\:63d0\:53d6\:9700\:8981\:7684 tag*)
+{mE,mo1,mm1,fyCoeKeycAll,fyCoeKeycEM}
+]
+
+
+tea=Query[(*<oct>*)All
+,(*{channel}*)All
+(*<tag\[Rule]val..>; \:5bf9 chpt-channel \:4f7f\:7528 \:4ecb\:5b50\:7b80\:5e76\:89c4\:5219;\:5c06\:67e5\:8be2\:5230\:7684 key\[Rule]val \:8fde\:63a5\:8d77\:6765*)
+,(Join[#,fetchChptKW[coeJoin[fyTag]/.mesNeutRule,#]]&)/*
+(*\:9644\:52a0 quarkflow \:7684\:5b8c\:6574\:7cfb\:6570:EM\:7cfb\:6570*Str\:7cfb\:6570*)
+(Append[#,
+fyCoeKeyQFAll->fyCoe[#@fyCoeKeycEM,#@fyCoeKeyQFStr]
+]&)
+(*\:4ece quarkflow \:5bf9\:5e94\:7684 chpt-channel \:4e2d\:63d0\:53d6\:51fa \:5404\:79cd key\[Rule]value*)
+]@Query[(*<oct>*){1}
+,(*{channel}*)Association/*KeyValueMap[extractChptTags]
+]@coeJoin[{fyTag,quaFlow}]
 
 
 (* ::Section:: *)
