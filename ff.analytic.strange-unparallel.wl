@@ -69,7 +69,7 @@ CmdParser["template"]=<|
 "opt"-><|
 {"part"}->{"All","\:8ba1\:7b97\:5217\:8868\:4e2d\:7684\:54ea\:4e9b\:79ef\:5206,\:53c2\:6570\:5c06\:4f20\:5165 fyAmpLoopLst[[]]"}
 ,{"ord"}->{"full","\:5708\:79ef\:5206\:5c55\:5f00\:7684\:9636\:6570, {ord0,ord1,full}"}
-,{"mag-expand"}->{"True","\:662f\:5426\:5bf9\:8f6c\:79fb\:78c1\:77e9\:56fe,\:6309\:8d28\:91cf\:7ea7\:6570\:5c55\:5f00"}
+,{"F1F2-expand"}->{"False","\:662f\:5426\:5bf9\:8f6c\:79fb\:78c1\:77e9\:56fe,\:6309\:8d28\:91cf\:7ea7\:6570\:5c55\:5f00"}
 |>,
 "pos"->{}
 |>;
@@ -79,7 +79,7 @@ CmdParser["template"]=<|
 CmdParser["pseudo"]={$fileName
 ,"--part","All"(*\:8981\:8ba1\:7b97\:7684\:79ef\:5206\:5217\:8868\:ff0c\:53c2\:6570\:53d6\:503c\:8303\:56f4\:67e5\:770b Part \:51fd\:6570\:5e2e\:52a9\:9875*)
 ,"--ord","full"
-,"--mag-expand","True"
+,"--F1F2-expand","False"
 };
 
 
@@ -112,8 +112,8 @@ If[Not@StringMatchQ[$parOrder,{"ord0","ord1","full"}],
 echo["para 2: specify Refine orders, must be one of 'ord0', 'ord1', 'full'"];
 Abort[]];
 (*\:5728\:8f6c\:79fb\:78c1\:77e9\:56fe\:ff0c\:662f\:5426\:6309 (mo2-mo1) \:7684\:7ea7\:6570\:5c55\:5f00*)
-$magExpand=ToExpression@options@"mag-expand";
-(*\:53c2\:6570\:5904\:7406\:7ed3\:675f*)]
+$F1F2Expand=ToExpression@options@"F1F2-expand";
+(*\:53c2\:6570\:5904\:7406\:7ed3\:675f*)];
 
 
 parseCml[]
@@ -132,6 +132,7 @@ md1;md2;(*\:4e2d\:95f4\:5341\:91cd\:6001\:91cd\:5b50*)
 Q2;(*Q2=-q^2,\:8f6c\:79fb\:52a8\:91cf\:5e73\:65b9\:7684\:8d1f\:503c*)
 p1;p2;(*\:521d\:6001\:52a8\:91cf\:ff0c\:672b\:6001\:52a8\:91cf*)
 k;(*\:5355\:5708\:56fe\:7684\:5708\:52a8\:91cf, \:79ef\:5206\:53d8\:91cf\:9700\:8981\:662f atomatic \:8868\:8fbe\:5f0f*)
+$chopLimit=10^-10;
 
 
 paraInitial=Hold[
@@ -162,7 +163,8 @@ paraEnvIO[tag_,loopRefine_]:=Block[{int,intTag,intExpr,time0Result,anaExpr,path}
 echo[DateString[],": Refine loop integral of: ",tag];
 int=Import[FileNameJoin[{mfilesDir,"integral.strange."<>StringRiffle[tag,"."]<>".wdx"}]];
 intTag=int[["tag"]];(*\:63d0\:53d6 Loop Integral Tag*)
-intExpr=int@ffsF1F2;(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f*)
+(*\:63d0\:53d6 Loop Integral \:8868\:8fbe\:5f0f,{int-F1,int-F2}*)
+intExpr=int@ffsF1F2;
 (* \:5bf9\:5708\:79ef\:5206\:7684\:8868\:8fbe\:5f0f\:8fdb\:884c\:9884\:5316\:7b80*)
 intExpr=If[MatchQ[Head[#],Plus],Cancel/@#,Cancel@#
 ]&/@intExpr;
@@ -183,27 +185,51 @@ echo[DateString[],": Exporting finished: ", path];
 If[$inNBook,anaExpr]]
 
 
-(*\:6839\:636e\:811a\:672c\:53c2\:6570\:ff0c\:7ed9\:51fa\:5e76\:884c\:8ba1\:7b97\:65f6 paraLRefine \:7684\:5177\:4f53\:5b9a\:4e49, \:8fdb\:884c\:7ea7\:6570\:5c55\:5f00\:ff0c\:6216\:8005\:8ba1\:7b97\:5b8c\:6574\:8868\:8fbe\:5f0f *)
-paraLRefine[tag_]:=Switch[{$magExpand,$parOrder,tag},
+(*\:6839\:636e\:811a\:672c\:53c2\:6570,\:7ed9\:51fa\:5e76\:884c\:8ba1\:7b97\:65f6 paraLRefine \:7684\:5177\:4f53\:5b9a\:4e49, \:8fdb\:884c\:7ea7\:6570\:5c55\:5f00,\:6216\:8005\:8ba1\:7b97\:5b8c\:6574\:8868\:8fbe\:5f0f *)
+paraLRefine[tag_]:=Switch[{$F1F2Expand,$parOrder,tag},
 (*+++++++++++++++++++ order0,RB F1,F2 +++++++++++++++++++*)
 {True,"ord0",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,0},Organization->Function]&],
 (*+++++++++++++++++++ order0,others +++++++++++++++++++*)
 {_,"ord0",_},
-paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,0},Organization->Function]&],
+(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49,\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+paraEnvIO[tag,
+Function[{loopInt},
+Piecewise[{
+{LoopRefineSeries[loopInt,{mo2,mo1,0},{Q2,0,0},Organization->Function],Abs[mo2-mo1]<$chopLimit},
+{LoopRefineSeries[loopInt,{Q2,0,0},Organization->Function],Abs[mo2-mo1]>=$chopLimit}
+}]
+]/@#&(*\:5206\:522b\:4f5c\:7528\:5728 F1,F2 \:4e0a*)
+],
 (* +++++++++++++++++++ order1,RB F1,F2 ++++++++++++++++++ *)
 {True,"ord1",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,1},Organization->Function]&],
 (*+++++++++++++++++++ order1,others +++++++++++++++++++*)
 {_,"ord1",_},
-paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,1},Organization->Function]&],
+(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49,\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+paraEnvIO[tag,
+Function[{loopInt},
+Piecewise[{
+{LoopRefineSeries[loopInt,{mo2,mo1,0},{Q2,0,1},Organization->Function],Abs[mo2-mo1]<$chopLimit},
+{LoopRefineSeries[loopInt,{Q2,0,1},Organization->Function],Abs[mo2-mo1]>=$chopLimit}
+}]
+]/@#&(*\:5206\:522b\:4f5c\:7528\:5728 F1,F2 \:4e0a*)
+],
 (*+++++++++++++++++++ full,RB F1,F2 +++++++++++++++++++*)
 {True,"full",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},Organization->Function]&],
 (*+++++++++++++++++++ full,others +++++++++++++++++++*)
 {_,"full",_},
-paraEnvIO[tag,LoopRefine[#,Organization->Function]&]
+(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49,\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+paraEnvIO[tag,
+Function[{loopInt},
+Piecewise[{
+{LoopRefineSeries[loopInt,{mo2,mo1,0},Organization->Function],Abs[mo2-mo1]<$chopLimit},
+{LoopRefine[loopInt,Organization->Function],Abs[mo2-mo1]>=$chopLimit}
+}]
+]/@#&(*\:5206\:522b\:4f5c\:7528\:5728 F1,F2 \:4e0a*)
 ]
+(*Switch end*)]
 
 
 (* ::Section:: *)

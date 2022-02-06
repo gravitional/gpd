@@ -4,11 +4,31 @@
 (*fields in human-readable form*)
 
 
-recordLocationInMessage[ff,fd,fdDisp]
+recordLocationInMessage[ff,fd,fdDisp,mesRule,octetRule,decupletRule,quarkRule]
 
 
 (* ::Section:: *)
 (*meson*)
+
+
+(*\:4ecb\:5b50\:573a\:7684\:7ea6\:675f\:ff0c\:7c92\:5b50\:548c\:53cd\:7c92\:5b50\:4e4b\:95f4\:7684\:5173\:7cfb*)
+{
+fd[1,0,1],(*\[Eta]0b*)
+fd[1,1,1],fd[1,2,1],fd[1,3,1],(*\[Pi]+b,\[Pi]0b,\[Pi]-b*)
+fd[1,4,1],fd[1,5,1],fd[1,6,1],fd[1,7,1],(*K+b,K-b,\[Pi]+b,K0b,K0bb*)
+fd[1,8,1](*\[Eta]8b*)
+}={
+fd[1,0,0],(*\[Eta]0*)
+fd[1,3,0],fd[1,2,0],fd[1,1,0],(*\[Pi]-,\[Pi]0,\[Pi]+*)
+fd[1,5,0],fd[1,4,0],fd[1,7,0],fd[1,6,0],(*K-,K+,K0b,K0*)
+fd[1,8,0](*\[Eta]8*)
+};
+(*\:5c06\:4ecb\:5b50\:6620\:5c04\:5230\:53cd\:4ecb\:5b50\:7684\:66ff\:6362\:89c4\:5219*)
+mesRule["reverse"]={
+fd[1,3,0]->fd[1,1,0],fd[1,1,0]->fd[1,3,0],(*\[Pi]-,\[Pi]+*)
+fd[1,5,0]->fd[1,4,0],fd[1,4,0]->fd[1,5,0],(*K-,K+*)
+fd[1,7,0]->fd[1,6,0],fd[1,6,0]->fd[1,7,0](*K0b,K0*)
+};
 
 
 (*\:516b\:91cd\:6001\:4ecb\:5b50\:7684\:8f93\:5165\:63a5\:53e3 ++++++++++++++++++++++++++++++++*)
