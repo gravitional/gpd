@@ -128,6 +128,13 @@ fyCoeKeycEMF2=fyCoeKey["cEM","F2"];
 (*\:7535\:78c1\:4f5c\:7528\:7cfb\:6570 GEGM---------*)
 fyCoeKeyGE=fyCoeKey["cEM","GE"];
 fyCoeKeyGM=fyCoeKey["cEM","GM"];
+
+(*\:5938\:514b\:6d41\:7684\:5f3a\:4e92\:4f5c\:7528\:7cfb\:6570------------------*)
+fyCoeKeyQFAll=fyCoeKey["qFAll"];
+fyCoeKeyQFStr=fyCoeKey["qFStr"];
+fqdTagQFlow=fqdTag["qFlow"];
+fqdTagQFlowExa=fqdTag["qFlowExa"];
+fqdTagQFType=fqdTag["qfType"];(*quarkflow \:7c7b\:578b*)
 (* --------- \:6807\:8bb0\:5165\:5c04\:ff0c\:4e2d\:95f4\:6001\:4fe1\:606f --------- *)
 inOct;outOct;
 medOct1;medOct2;
