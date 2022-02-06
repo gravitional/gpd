@@ -134,6 +134,7 @@ fyCoeKeyQFAll=fyCoeKey["qFAll"];
 fyCoeKeyQFStr=fyCoeKey["qFStr"];
 fqdTagQFlow=fqdTag["qFlow"];
 fqdTagQFlowExa=fqdTag["qFlowExa"];
+fqdTagQFType=fqdTag["qfType"];(*quarkflow \:7c7b\:578b*)
 (* --------- \:6807\:8bb0\:5165\:5c04\:ff0c\:4e2d\:95f4\:6001\:4fe1\:606f --------- *)
 inOct;outOct;
 medOct1;medOct2;

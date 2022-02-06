@@ -38,7 +38,7 @@ qua45=Join[#,Reverse[#,2]/.quarkRule["reverse"]]&@
 (*\:53d6\:51fa\:4f4d\:7f6e4,5 \:7684\:5938\:514b*)x[fqdKey[fyTag,qchTp1]][fqdpos[4,5]];
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
 chOct=x@inOct;(*\:5165\:5c04 oct*)
-chOctb=x@inOct;(*\:4e2d\:95f4 octb*)
+chOctb=x@outOct;(*\:51fa\:5c04 octb*)
 (*\:4e2d\:95f4 mes; \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 ----------------- *)
 chMes=x@medMes1/.mesNeutRule;
 (*chpt\:56fe\:7684tag\:ff0c\:65b9\:4fbf\:5bf9quarkflow\:5206\:7ec4;--------------------*)
@@ -102,7 +102,7 @@ qua123=x[fqdKey[fyTag,qchTp2]]@fqdpos[1,2,3];(*\:63d0\:53d6\:51fa123\:4f4d\:7f6e
 qua45=x[fqdKey[fyTag,qchTp2]]@fqdpos[4,5];(*\:63d0\:53d6\:51fa45\:4f4d\:7f6e\:4e0a\:7684\:5938\:514b\:ff0cfqdList*)
 (* --------------- \:5b57\:6bb5\:4e2d\:7684 oct,octb, mes --------------- *)
 chOct=x@inOct;(*\:5165\:5c04 oct*)
-chOctb=x@inOct;(*\:4e2d\:95f4 octb*)
+chOctb=x@outOct;(*\:51fa\:5c04 octb*)
 (*\:4e2d\:95f4 mes, \:5c06\[Pi]0,\[Eta]0,\[Eta]8,\:6620\:5c04\:5230\:540c\:6837\:7684\:7c92\:5b50 --------------- *)
 chMes=x@medMes1/.mesNeutRule;
 (*chpt\:56fe\:7684tag\:ff0c\:65b9\:4fbf\:5bf9quarkflow\:5206\:7ec4,\:628a \[Pi]0,\[Eta]0,\[Eta]8 \:5206\:5230\:540c\:4e00\:7ec4, \[CapitalSigma]0b,\[CapitalLambda]b\:5206\:5230\:540c\:4e00\:7ec4*)
@@ -225,6 +225,60 @@ coeJoin[{fyTag,quaFlow}]=Query[(*<oct>*)All
 DeleteDuplicates@Cases[#,Blank@fqdTag["sea"]|Blank@fqdTag["qch"],
 Infinity]]&
 ]@coeJoin[{fyTag,qfEqs}];
+
+
+(* ::Section:: *)
+(*rebuild channels*)
+
+
+(*\:4ece quarkflow \:4e2d\:63d0\:53d6\:51fa tag \:4fe1\:606f*)
+extractChptTags[key_,val_]:=Module[{qfHead,chptTag},
+qfHead=Head@key;
+chptTag=Last@key;
+<|
+inOct->chptTag[[1]]
+,medMes1->chptTag[[2]]
+,outOct->chptTag[[3]]
+,fqdTagQFType->qfHead
+,fqdTagQFlow->Most@key
+,fyCoeKeyQFStr->val
+,fqdTagQFlowExa->key
+|>
+]
+
+
+(*\:4ece quarkflow \:5bf9\:5e94\:7684 chpt-channel \:4e2d\:63d0\:53d6\:51fa \:5404\:79cd key\[Rule]value;
+\:5bf9\:4e8e\:7b80\:5e76\:7684\:60c5\:5f62\:ff0c\:53ea\:9700\:63d0\:53d6\:51fa Fisrt \:5143\:7d20*)
+fetchChptKW[coeJoin_,qfChannel_]:=First@KeyTake[
+Query[
+(*\:63d0\:53d6\:51fa\:6ee1\:8db3\:7279\:5f81\:7684 chpt-channel*)
+Cases@KeyValuePattern[{
+inOct->qfChannel@inOct
+,medMes1 ->qfChannel@medMes1
+,outOct ->qfChannel@outOct
+}]
+]@coeJoin,
+(*\:63d0\:53d6\:9700\:8981\:7684 tag*)
+{mE,mm1,fyCoeKeycAll,fyCoeKeycEM}
+]
+
+
+(*\:4ece quarkflow \:5bf9\:5e94\:7684 chpt-channel \:4e2d\:63d0\:53d6\:51fa \:5404\:79cd key\[Rule]value +++++++++++++++++++++*)
+coeQFlow[fyTag]=Query[(*<oct>*)Catenate
+,(*{channel}*)All
+(*<tag\[Rule]val..>; \:5bf9 chpt-channel \:4f7f\:7528 \:4ecb\:5b50\:7b80\:5e76\:89c4\:5219;\:5c06\:67e5\:8be2\:5230\:7684 key\[Rule]val \:8fde\:63a5\:8d77\:6765*)
+,(Join[#,
+fetchChptKW[coeJoin[fyTag]/.mesNeutRule,#]
+]&)/*
+(*\:9644\:52a0 quarkflow \:7684\:5b8c\:6574\:7cfb\:6570:EM\:7cfb\:6570*Str\:7cfb\:6570--------------------*)
+(Append[#,
+fyCoeKeyQFAll->fyCoe[#@fyCoeKeycEM,#@fyCoeKeyQFStr]
+]&)
+]@
+(*\:4ece quarkflow \:4e2d\:63d0\:53d6\:51fa tag \:4fe1\:606f++++++++++++++++++++*)
+Query[(*<oct>*)All
+,(*{channel}*)Association/*KeyValueMap[extractChptTags]
+]@coeJoin[{fyTag,quaFlow}];
 
 
 (* ::Section:: *)

@@ -47,6 +47,10 @@ Get["coes.interface.wl"];
 coeJoin=Import@localPath["coes"]["coes.chpt.wdx"];
 
 
+(*\:521d\:59cb\:5316 quarkflow \:8bb0\:5f55*)
+Once[coeQFlow=<||>];
+
+
 (* ::Section:: *)
 (*format*)
 
@@ -118,7 +122,7 @@ qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
 
 
 (*--------\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
-Get["coes.quarkflow-rainbow.wl"];
+Get["coes.quarkflow-rainbow-oct.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
@@ -135,8 +139,19 @@ chTagKey["in"]->chTag@fd[2,1,0]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
 If[$inNBook,
-coeJoin[{fyTag,quaFlow}]//testFmt[1]
+Query[(*<oct>*){4},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]
+]
+
+
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
 ]
 
 
@@ -154,8 +169,10 @@ qchPoss={qchTp1,qchTp2,"poss"};
 totEq={qchTp1,qchTp2,"totEq"};
 symEq={qchTp1,qchTp2,"symEq"};
 qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
+
+
 (*--------\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
-Get["coes.quarkflow-rainbow.wl"];
+Get["coes.quarkflow-rainbow-oct.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
@@ -172,8 +189,19 @@ chTagKey["in"]->chTag@fd[2,1,0]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
 If[$inNBook,
-coeJoin[{fyTag,quaFlow}]//testFmt[1]
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]
+]
+
+
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
 ]
 
 
@@ -195,7 +223,7 @@ qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
 
 
 (*--------\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
-Get["coes.quarkflow-rainbow.wl"];
+Get["coes.quarkflow-rainbow-oct.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
@@ -212,8 +240,19 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
 If[$inNBook,
-coeJoin[{fyTag,quaFlow}]//testFmt[1]
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]
+]
+
+
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
 ]
 
 
@@ -235,10 +274,10 @@ qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
 
 
 (*\:8ba1\:7b97 quarkflow \:5206\:89e3, octet F1-----------------*)
-Get["coes.quarkflow-oct-f1f2.wl"];
+Get["coes.quarkflow-f1f2-oct.wl"];
 (*\:8ba1\:7b97 quarkflow \:5206\:89e3, octet F2-----------------*)
 fyTag={"RB","oct","F2"};
-Get["coes.quarkflow-oct-f1f2.wl"];
+Get["coes.quarkflow-f1f2-oct.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
@@ -255,8 +294,19 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
+(*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
 If[$inNBook,
-coeJoin[{fyTag,quaFlow}]//testFmt[4]
+Query[(*<oct>*){1},
+Normal/*TableForm
+]@coeJoin[{fyTag,quaFlow}]
+]
+
+
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
 ]
 
 
@@ -297,11 +347,19 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+If[$inNBook,
 Query[(*<oct>*){1},
 Normal/*TableForm
 ]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]
+
+
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
 ]
 
 
@@ -339,11 +397,19 @@ chTagKey["in"]->chTag@fd[2,1,0]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+If[$inNBook,
 Query[(*<oct>*){1},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
+]
+
+
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
 ]
 
 
@@ -381,15 +447,23 @@ chTagKey["in"]->chTag@fd[2,1,0]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+If[$inNBook,
 Query[(*<oct>*){1},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
 ]
 
 
-(* ::Section::Closed:: *)
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
+]
+
+
+(* ::Section:: *)
 (*bubble,A-meson,tensor,order 2*)
 
 
@@ -424,15 +498,23 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
-Query[(*<oct>*){1},
+If[$inNBook,
+Query[(*<oct>*){4},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
 ]
 
 
-(* ::Section::Closed:: *)
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
+]
+
+
+(* ::Section:: *)
 (*RainBow,A-meson,decuplet mediate*)
 
 
@@ -449,7 +531,7 @@ qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
 
 
 (*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
-Get["coes.quarkflow-rainbow-decuplet.wl"];
+Get["coes.quarkflow-rainbow-dec.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
@@ -466,15 +548,23 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+If[$inNBook,
 Query[(*<oct>*){1},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
 ]
 
 
-(* ::Section::Closed:: *)
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
+]
+
+
+(* ::Section:: *)
 (*RainBow,A-decuplet,F1F2,nonlocal*)
 
 
@@ -491,10 +581,10 @@ qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
 
 
 (*\:8ba1\:7b97 quarkflow \:5206\:89e3,decuplet F1------------*)
-Get["coes.quarkflow-dec-f1f2.wl"];
+Get["coes.quarkflow-f1f2-dec.wl"];
 (*\:8ba1\:7b97 quarkflow \:5206\:89e3,decuplet F2------------*)
 fyTag={"RB","dec","F2"};
-Get["coes.quarkflow-dec-f1f2.wl"];
+Get["coes.quarkflow-f1f2-dec.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
@@ -511,15 +601,23 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+If[$inNBook,
 Query[(*<oct>*){1},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
 ]
 
 
-(* ::Section::Closed:: *)
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
+]
+
+
+(* ::Section:: *)
 (*RainBow,A-decuplet,trans,left*)
 
 
@@ -553,15 +651,23 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+If[$inNBook,
 Query[(*<oct>*){1},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
 ]
 
 
-(* ::Section::Closed:: *)
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
+]
+
+
+(* ::Section:: *)
 (*RainBow,A-decuplet,trans,right*)
 
 
@@ -595,15 +701,23 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
-Query[(*<oct>*){4},
+If[$inNBook,
+Query[(*<oct>*){1},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
 ]
 
 
-(* ::Section::Closed:: *)
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
+]
+
+
+(* ::Section:: *)
 (*Kroll-Ruderman, A-meson,decuplet,left*)
 
 
@@ -620,7 +734,7 @@ qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
 
 
 (*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
-Get["coes.quarkflow-rainbow-decuplet.wl"];
+Get["coes.quarkflow-rainbow-dec.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
@@ -637,15 +751,23 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+If[$inNBook,
 Query[(*<oct>*){1},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
 ]
 
 
-(* ::Section::Closed:: *)
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
+]
+
+
+(* ::Section:: *)
 (*Kroll-Ruderman, A-meson,decuplet,right*)
 
 
@@ -662,7 +784,7 @@ qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
 
 
 (*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
-Get["coes.quarkflow-rainbow-decuplet.wl"];
+Get["coes.quarkflow-rainbow-dec.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
@@ -679,15 +801,23 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+If[$inNBook,
 Query[(*<oct>*){1},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
 ]
 
 
-(* ::Section::Closed:: *)
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
+]
+
+
+(* ::Section:: *)
 (*Kroll-Ruderman, A-meson,decuplet,addition,left*)
 
 
@@ -704,7 +834,7 @@ qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
 
 
 (*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
-Get["coes.quarkflow-rainbow-decuplet.wl"];
+Get["coes.quarkflow-rainbow-dec.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
@@ -721,11 +851,19 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+If[$inNBook,
 Query[(*<oct>*){1},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
+]
+
+
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
 ]
 
 
@@ -746,7 +884,7 @@ qfEqs={qchTp1,qchTp2,"qfEqs"};quaFlow="quaFlow";(* \:8bbe\:7f6etag *)
 
 
 (*\:8ba1\:7b97 quarkflow \:5206\:89e3------------*)
-Get["coes.quarkflow-rainbow-decuplet.wl"];
+Get["coes.quarkflow-rainbow-dec.wl"];
 
 
 (*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)
@@ -763,11 +901,19 @@ chTagKey["in"]->chTag@ff["p"]
 ]]@coeJoin[{fyTag,qchTp2,"poss"}]//dsetFmt]
 
 
-If[$inNBook,
 (*\:67e5\:770b quarkflow \:6c42\:89e3\:7ed3\:679c*)
+If[$inNBook,
 Query[(*<oct>*){1},
 Normal/*TableForm
-]@coeJoin[{fyTag,quaFlow}]//testFmt[1]
+]@coeJoin[{fyTag,quaFlow}]
+]
+
+
+(*\:67e5\:770b quarkflow channels*)
+If[$inNBook,
+Query[(*{<channel>..}*){1}/*(Column[#,Frame->All]&),
+Normal/*TableForm
+]@coeQFlow[fyTag]
 ]
 
 
@@ -777,4 +923,4 @@ Normal/*TableForm
 
 (*DumpSave[localPath["coes"]["coes.chpt.mx"],coeJoin];*)
 (*\:4fdd\:5b58\:6570\:636e*)
-serialize["coes"]["coes.quarkflow.wdx",coeJoin]
+serialize["coes"]["coes.quarkflow.wdx",coeQFlow]
