@@ -175,10 +175,14 @@ numOctMaget
 },(First[#]-Last[#])/Last[#]&];(* (clac-expr)/expr*)
 (* fitting \:51fd\:6570: \:5bf9\:4e8e\:7ed9\:5b9a\:7684 C \:503c, \:8fdb\:884c\:62df\:5408; \:5bf9\:5404\:79cd\:53ef\:80fd\:7684 fitting \:5e8f\:5217,\:6c42\:89e3c1,c2 \:7684fitting \:503c*)
 testFit[ccNum_,testList_]:=NMinimize[{
+(*\:62df\:5408\:7684\:76ee\:6807\:51fd\:6570*)
 Query[(Key/@testList)/*ReplaceAll[cc["C"]->ccNum]/*Total,Power[#,2]&]@testMagMerged,
-{cc["c1"],cc["c2"]}\[Element]Reals},
-{cc["c1"],cc["c2"]},
-WorkingPrecision->$precision];(*\:7ed9\:5b9a\:6b64\:5904\:62df\:5408\:7684\:7cbe\:5ea6*)
+(*\:7ed9\:51fa\:5404\:53c2\:6570\:7684\:6570\:503c\:8303\:56f4*)
+{cc["c1"],cc["c2"],cc["b9"],cc["b10"],cc["b11"]}\[Element]Reals
+}
+(*\:8981\:62df\:5408\:7684\:53d8\:91cf*)
+,{cc["c1"],cc["c2"],cc["b9"],cc["b10"],cc["b11"]}
+,WorkingPrecision->$precision];(*\:7ed9\:5b9a\:6b64\:5904\:62df\:5408\:7684\:7cbe\:5ea6*)
 (*\:521d\:59cb\:5316 C \:7684\:5b57\:7b26\:5f62\:5f0f-----*)
 ccNumStr=enString@NumberForm[ccNum,{3,2}];
 (*\:5faa\:73af\:8fdb\:5ea6\:63d0\:793a*)
@@ -198,15 +202,16 @@ cc["C",ccNumStr]->Association@KeyValueMap[#1->testFit[ccNum,#2]&,$fittingScheme]
 
 
 (* ::Section:: *)
-(*add manual configur*)
+(*add manual configuration*)
 
 
 ccFittings["v"]=Query[(*<cc[\[CapitalLambda],0.70]>*)All
 ,(*<bub>*)All
 ,(*<cc["C","1.00"]>*)All
-,(*<scheme>*)Append[{
-"he1"->{1,{cc["c1"]->2.081,cc["c2"]->0.788}},
-"he2"->{1,{cc["c1"]->3.077,cc["c2"]->1.05133}}
+(*<scheme>;\:6dfb\:52a0\:624b\:52a8\:6307\:5b9a\:7684\:4f4e\:80fd\:8026\:5408\:5e38\:6570\:53d6\:503c*)
+,Append[{
+"he1"->{1,{cc["c1"]->2.081,cc["c2"]->0.788,cc["b9"]->1.36,cc["b10"]->1.24,cc["b11"]->0.46}},
+"he2"->{1,{cc["c1"]->3.077,cc["c2"]->1.05133,cc["b9"]->1.36,cc["b10"]->1.24,cc["b11"]->0.46}}
 }]
 ]@ccFittings["tmp"];
 
@@ -225,10 +230,10 @@ serialize[fittingsDir]["nums.ccFittings.wdx",ccFittings["v"]]
 
 (* ::Input:: *)
 (*Query[(*<\[CapitalLambda] value>*)Normal/*(Column[#,Frame->All]&)*)
-(*,(*<bub>*)coesAdjBub/*Normal/*(Column[#,Frame->All]&)*)
-(*,(*<C value>*)Normal/*(Column[#,Frame->All]&)*)
-(*,(*<scheme>*)Normal/*(Column[#,Frame->All]&)*)
-(*,Normal/*(TableForm[#,TableSpacing->{2,1}]&)*)
+(*,(*<bub>*)coesAdjBub*)
+(*,(*<C value>*)Normal/*(Column[#,Frame->False]&)*)
+(*,(*<scheme>*){"many"}/*Normal/*(TableForm[#,TableSpacing->{2,1}]&)*)
+(*,(*{error,{values}}*)All*)
 (*]@Import@localPath[fittingsDir]["nums.ccFittings.wdx"]*)
 
 
