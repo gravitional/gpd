@@ -236,7 +236,8 @@ extractChptTags[key_,val_]:=Module[{qfHead,chptTag},
 qfHead=Head@key;
 chptTag=Last@key;
 <|
-inOct->chptTag[[1]]
+chTagKey@"chTag"->chTag@fyTag
+,inOct->chptTag[[1]]
 ,medMes1->chptTag[[2]]
 ,outOct->chptTag[[3]]
 ,fqdTagQFType->qfHead
