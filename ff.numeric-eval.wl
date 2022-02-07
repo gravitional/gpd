@@ -223,7 +223,7 @@ gridTable["GEGM",dataBackground]@Query[
 Key@coesAdjBub
 ,(*<order>*)$ord0
 ,(*<cc-values>*)Key@cc["C","1.50"]
-,(*<fitting-scheme>*)Key@"\[CapitalSigma]+-"
+,(*<fitting-scheme>*)Key@"many"
 ,(*<octet>*)All
 ,(*<tree-loop-uds>*)All
 ,(*{pair}*)NumberForm[#,{4,3}]&

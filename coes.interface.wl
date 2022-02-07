@@ -305,11 +305,12 @@ quaCharge["s"]={ch["u"]->0,ch["d"]->0,ch["s"]->1};
 recordLocationInMessage@{numOctMaget,numExper}
 
 
+(*\:516b\:91cd\:6001\:78c1\:77e9\:7684\:5b9e\:9a8c\:503c*)
 numOctMaget=<|
-ff["p"]->2.7928473446`30,ff["n"]->\[Minus]1.9130427`30,
-ff["\[CapitalSigma]+"]->2.458`30,ff["\[CapitalSigma]0"]->0.60`30,ff["\[CapitalSigma]-"]->\[Minus]1.160`30,
-ff["\[CapitalXi]0"]->\[Minus]1.250`30,ff["\[CapitalXi]-"]->\[Minus]0.6507`30,
-ff["\[CapitalLambda]"]->\[Minus]0.613`30
+ff["p"]->2.7928473446`30,ff["n"]->\[Minus]1.9130427`30
+,ff["\[CapitalSigma]+"]->2.458`30,ff["\[CapitalSigma]0"]->0.60`30,ff["\[CapitalSigma]-"]->\[Minus]1.160`30
+,ff["\[CapitalXi]0"]->\[Minus]1.250`30,ff["\[CapitalXi]-"]->\[Minus]0.6507`30
+,ff["\[CapitalLambda]"]->\[Minus]0.613`30
 |>;
 
 

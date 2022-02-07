@@ -292,13 +292,13 @@ plotData["tot"][Q2_][lst_]:=Plot[Evaluate@lst,{Q2,$Q2Cut,0.9}
 
 (*\:516c\:5171\:8bbe\:7f6e,\:5168\:5c40\:53d8\:91cf*)
 (*coesAdjBub, coesAdjNoBub*)
-tmp`bub=Key@coesAdjNoBub;
+tmp`bub=Key@coesAdjBub;
 (* $ord0,$ordFull*)
 tmp`ord=Key@$ordFull;
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
-tmp`cc=Key@cc["C","1.00"];
+tmp`cc=Key@cc["C","1.50"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
-tmp`scheme=Key@"he1";
+tmp`scheme=Key@"many";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
 tmp`oct=Key@ff["n"];
 (*\:516b\:91cd\:6001, bub+tadu, \:5341\:91cd\:6001\:ff0c\:78c1\:77e9\:76f8\:5173\:56fe\:5206\:522b\:662f\:ff1asectOct,sectBub,sectDec,sectMag*)
@@ -394,10 +394,12 @@ chTag@{"RB","mes","oct"}->1
 
 
 plotData["tot"][Q2]@Total@Values@Query[
-(*<bub>*)Key@coesAdjNoBub,(*<order>*)tmp`ord
-,(*<cc-values>*)tmp`cc,(*<fitting-scheme>*)Key@"he1"
+(*<bub>*)Key@coesAdjBub
+,(*<order>*)tmp`ord
+,(*<cc-values>*)tmp`cc
+,(*<fitting-scheme>*)Key@"many"
 ,(*<octet>*)Key@ff["n"]
-,(*<diagram>*)sectOctNorm/*(Association@KeyValueMap[#1->(Identity@@fyCoesTune[#1]*#2)&,#]&)
+,(*<diagram>*)All/*(Association@KeyValueMap[#1->(Identity@@fyCoesTune[#1]*#2)&,#]&)
 ,(*<loop-FFactors>*)Key@tagNum["lo","s"]
 ,(*<numVal>*)ReplaceAll[{numVal->Identity}]
 ,(*{GeGm pair}*)1
@@ -418,13 +420,11 @@ LightCyan,{None,LightBlue}
 
 
 (*coesAdjBub, coesAdjNoBub*)
-tmp`bub=Key@coesAdjNoBub;
+tmp`bub=Key@coesAdjBub;
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
-tmp`cc=Key@cc["C","1.00"];
+tmp`cc=Key@cc["C","1.50"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
-tmp`scheme=Key@"most";
-(*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
-tmp`oct=Key@ff["p"];
+tmp`scheme=Key@"many";
 (*\:663e\:793a\:8868\:683c---------------------------------------------*)
 With[{
 (*\:5408\:5e76\:6570\:636e, \:5d4c\:5957\:5173\:8054\:ff0c\:9012\:5f52 Merge*)
@@ -470,7 +470,7 @@ gridTable["GEGM",dataBackground]@data]
 (*(*<\[CapitalLambda] value>*)All*)
 (*,(*<bub>*)All*)
 (*,(*<C value>*)All*)
-(*,(*<scheme>*){"most"}*)
+(*,(*<scheme>*){"many"}*)
 (*]@Import@localPath[fittingsDir]["nums.ccFittings.wdx"]*)
 
 
