@@ -48,7 +48,7 @@ CmdParser["pseudo"]={$fileName
 ,"--parallel-Lbd","False"
 ,"--interp","False"
 ,"--ord","$ordFull"
-,"--Lbd-num","0.80"
+,"--Lbd-num","1.00"
 };
 
 
@@ -84,7 +84,8 @@ annotated[Legended_][assoc_Association]:=KeyValueMap[Legended,assoc];
 
 
 (*\:6311\:51fa\:8981\:5c55\:793a\:7684\:8d21\:732e, tree,loop,uds, sea,valence*)
-contribTag=Key/@{tagNum["lo","uds"],
+contribTag=Key/@{
+tagNum["tr","uds"],tagNum["lo","uds"],
 tagNum["lo","u"],tagNum["lo","d"],tagNum["lo","s"],
 tagNum["tr+lo","uds"]};
 
@@ -103,13 +104,13 @@ Legended[#2,Placed[#1,legPos]]&,assoc];
 (*\:516c\:5171\:8bbe\:7f6e,\:5168\:5c40\:53d8\:91cf*)
 tmp`bub=coesAdjBub;
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
-tmp`cc=Key@cc["C","1.00"];
+tmp`cc=Key@cc["C","1.50"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
-tmp`scheme=Key@"many";
+tmp`scheme=Key@"N";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
-tmp`oct=Key@ff["n"];
+tmp`oct=Key@ff["p"];
 (*1:GE,2:GM*)
-tmp`gegm=1;
+tmp`gegm=2;
 (*\:53c2\:6570\:68c0\:67e5-----*)
 tmp`oct::OutRange="Only \"p\", \"n\" experiment data aquired for now";
 If[!MemberQ[Key/@{ff["p"],ff["n"]},tmp`oct],
@@ -183,7 +184,7 @@ data=Nest[Merge,Identity,2]@{
 Query[
 (*<bub,nobub>*)Key@coesAdjNoBub
 ,(*cc-values*)Key@cc["C","1.50"]
-,(*fitting-scheme*)Key@"most"
+,(*fitting-scheme*)Key@"many"
 ,(*octet*)All
 ,(*{contrib}*)All
 ,(*{GEGM}*)All
