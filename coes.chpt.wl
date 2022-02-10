@@ -608,7 +608,7 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 (*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tree-level,A-octet,F1F2,nonlocal*)
 
 
@@ -634,16 +634,16 @@ inOct->#@fyVtx2@fdTypeOct,(*\:9876\:70b92 oct \:5165\:5c04\:573a*)
 outOct->#@fyVtx2@fdTypeOctb,(*\:9876\:70b92 oct \:51fa\:5c04\:573a*)
 (*--------------- \:751f\:6210\:8026\:5408\:7cfb\:6570\:4e58\:79ef ---------------*)
 fyCoeKeycAllF1->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
-#@fyVtx2@vtxF1(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
+#@fyVtx2@vtxF1*vtxCoe[\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2](* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F1 *)
 ],
 fyCoeKeycAllF2->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
-#@fyVtx2@vtxF2(* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
+#@fyVtx2@vtxF2*vtxCoe[\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2](* \:9876\:70b92\:7684\:8026\:5408\:7cfb\:6570,F2 *)
 ],
 fyCoeKeyGE->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
-#@fyVtx2@vtxGE(* \:7535\:78c1\:9876\:70b9\:7684 GE *)
+#@fyVtx2@vtxGE*vtxCoe[\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2](* \:7535\:78c1\:9876\:70b9\:7684 GE *)
 ],
 fyCoeKeyGM->fyCoe[(*\:8026\:5408\:7cfb\:6570\:4e58\:79ef\:7684\:5934\:90e8*)
-#@fyVtx2@vtxGM(* \:7535\:78c1\:9876\:70b9\:7684 GM *)
+#@fyVtx2@vtxGM*vtxCoe[\[CapitalLambda]^4/(Q2+\[CapitalLambda]^2)^2](* \:7535\:78c1\:9876\:70b9\:7684 GM *)
 ]
 |>&
 ]@vtx2;
@@ -691,10 +691,12 @@ fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGE
 (*(*\:67e5\:8be2\:5c5e\:4e8e\:7279\:5b9a\:7c92\:5b50\:7684\:53cd\:5e94\:9053*)*)
 (*If[$inNBook,*)
 (*fyTag={"tree","oct","F1F2"};*)
-(*coeJoin[fyTag]//dsetFmt]*)
+(*Query[Cases@KeyValuePattern[*)
+(*inOct->_*)
+(*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,A-octet,F1F2,nonlocal*)
 
 
@@ -1012,7 +1014,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RainBow,A-meson,decuplet mediate*)
 
 
