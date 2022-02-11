@@ -48,7 +48,7 @@ CmdParser["pseudo"]={$fileName
 ,"--parallel-Lbd","False"
 ,"--interp","False"
 ,"--ord","$ordFull"
-,"--Lbd-num","1.00"
+,"--Lbd-num","0.90"
 };
 
 
@@ -68,7 +68,14 @@ Get["coes.interface.wl"];
 Get["ff.numeric-interface.wl"];
 
 
-interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo.wdx"];
+Check[
+(*GEGM\:89e3\:6790\:8868\:8fbe\:5f0f\:ff0c\:672a\:63d2\:503c*)
+fullGEGM["v"]=Import@localPathResult[resultsDir]["fullGEGM.wdx"];
+(*GEGM\:89e3\:6790\:8868\:8fbe\:5f0f, \:63d2\:503c\:7684\:7ed3\:679c*)
+interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo.wdx"];,
+(*\:5982\:679c\:8fd8\:6ca1\:6709\:7f13\:5b58\:7ed3\:679c\:ff0c*)
+echo["Cached results not found!"];Abort[]
+]
 
 
 (* \:5bf9 \:51fd\:6570\:7684\:5217\:8868 \:753b\:56fe *)
@@ -106,9 +113,9 @@ tmp`bub=coesAdjBub;
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
 tmp`cc=Key@cc["C","1.50"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
-tmp`scheme=Key@"N";
+tmp`scheme=Key@"many";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
-tmp`oct=Key@ff["p"];
+tmp`oct=Key@ff["n"];
 (*1:GE,2:GM*)
 tmp`gegm=2;
 (*\:53c2\:6570\:68c0\:67e5-----*)
@@ -189,7 +196,7 @@ Query[
 ,(*{contrib}*)All
 ,(*{GEGM}*)All
 ,(*InterpolatingFunction*)NumberForm[Chop[#@0],4]&
-]@interpoGEGM["v"],
+]@fullGEGM["v"],
 (*\:5b9e\:9a8c\:503c*)
 Query["exp."]@numExper/.{numAround->Around,$tempNone->0}
 }},
