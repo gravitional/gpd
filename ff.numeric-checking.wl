@@ -70,6 +70,8 @@ Get["coes.interface.wl"];
 Get["ff.numeric-interface.wl"];
 
 
+(*GEGM\:89e3\:6790\:8868\:8fbe\:5f0f\:ff0c\:672a\:63d2\:503c*)
+fullGEGM["v"]=Import@localPathResult[resultsDir]["fullGEGM.wdx"];
 (*\:5bfc\:5165\:4e4b\:524d\:603b\:8d21\:732e\:7684\:63d2\:503c\:51fd\:6570*)
 interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo.wdx"];
 
@@ -438,7 +440,7 @@ Query[
 ,(*{contrib}*)All
 ,(*{GEGM}*)All
 ,(*InterpolatingFunction*)NumberForm[Chop[#@0],4]&
-]@interpoGEGM["v"],
+]@fullGEGM["v"],
 (*\:5b9e\:9a8c\:503c*)
 Query["exp."]@numExper/.{numAround->Around,$tempNone->0}
 }},
