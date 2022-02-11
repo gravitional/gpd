@@ -116,7 +116,7 @@ cc["C",ccNumStr]->Query[
 ,(*cc-values*)Key@cc["C",ccNumStr]
 ,(*fitting-scheme*)All
 (*ccfitted$Err \:6570\:636e\:5c42, ccfitted \:7684\:9996\:5143\:7d20\:662f\:8bef\:5dee,\:672b\:5143\:7d20\:662f c \:7684\:66ff\:6362\:89c4\:5219, \:5982:
-{-5.551115123125783`*^-17,{cc["c1"]\[Rule]1.9165025864434668`,cc["c2"]\[Rule]0.5439905713541093`}}
+{0.0116,{cc["c1"]\[Rule]1.141,cc["c2"]\[Rule]0.233,cc["b9"]\[Rule]-1.2586,cc["b10"]\[Rule]0.493,cc["b11"]\[Rule]0.377}}
 \:5c06\:751f\:6210\:7684 ccc \:66ff\:6362\:89c4\:5219\:5e94\:7528\:5230 \:5f62\:72b6\:56e0\:5b50\:7684\:8868\:8fbe\:5f0f\:4e0a*)
 ,Query[
 (*<bub,nobub>*)Key@adjust
@@ -223,12 +223,52 @@ gridTable["GEGM",dataBackground]@Query[
 Key@coesAdjBub
 ,(*<order>*)$ord0
 ,(*<cc-values>*)Key@cc["C","1.50"]
-,(*<fitting-scheme>*)Key@"\[CapitalSigma]+-"
+,(*<fitting-scheme>*)Key@"many"
 ,(*<octet>*)All
 ,(*<tree-loop-uds>*)All
 ,(*{pair}*)NumberForm[#,{4,3}]&
 ]@numFFs["v",keyTreeAndLoop]
 ]
+
+
+(* ::Section:: *)
+(*build GEGM PieceWise*)
+
+
+(*\:5bf9\:4e8e ordFull \:7684\:6570\:636e, \:5728 Q2=0\:5904\:9700\:8981\:4f7f\:7528\:5206\:6bb5\:51fd\:6570\:ff0c\:5c06 ord0 \:7684\:503c\:5408\:5e76\:8fdb\:6765. 
+\:76f4\:63a5\:5bf9 ordFull \:7684\:8868\:8fbe\:5f0f\:53d6 Q2\[Rule]0 \:4f1a\:4ea7\:751f\:6570\:503c\:9519\:8bef*)
+(*\:5206\:6bb5\:51fd\:6570, \:5219 Q2\[Equal]0 \:5904\:4f7f\:7528\:7cbe\:786e\:503c, \:5728 Q2>Q2Cut \:65f6\:4f7f\:7528\:5168\:8868\:8fbe\:5f0f\:4f5c\:56fe*)
+(*\:53c2\:6570; root: Q2\[Equal]0 \:7684\:503c; branch: Q2 >0 \:65f6\:7684\:8868\:8fbe\:5f0f*)
+pieceWise[root_,branch_]:=Piecewise[{
+{root,0<=Q2<=$Q2Cut},
+{branch,Q2>$Q2Cut}
+}];
+(*\:5c06 \:5206\:6bb5\:51fd\:6570 MapThread \:5230 ge,gm \:4e0a*)
+mapthread[{ge_,gm_}]:=MapThread[pieceWise,{ge,gm}/.{numVal->Identity}]
+
+
+(*\:9012\:5f52 Merge \:5173\:8054, \:4e00\:76f4\:5408\:5e76\:5230 numKey->numVal \:5c42, \:5c06\:8fd9\:4e00\:5c42\:7684\:6570\:636e\:653e\:5165\:5206\:6bb5\:51fd\:6570*)
+mergeRecur[{
+x:KeyValuePattern[{_numKey->_numVal}],
+y:KeyValuePattern[{_numKey->_numVal}]
+}]:=Merge[{x,y},mapthread];
+(*\:5bf9\:4e8e\:5176\:4ed6\:5c42\:ff0c\:9012\:5f52\:5408\:5e76*)
+mergeRecur[{x_Association,y_Association}]:=Merge[{x,y},mergeRecur];
+
+
+(*\:751f\:6210 GEGM \:7684\:5206\:6bb5\:51fd\:6570*)
+fullGEGM["v",keyTreeAndLoop]=Query[
+(*<bub,nobub>*)All
+,(*<order>*)
+Merge[{
+Query[$ord0]@#,
+Query[$ordFull]@#
+},mergeRecur]&
+]@numFFs["v",keyTreeAndLoop];
+
+
+(*\:4fdd\:5b58 GEGM\:89e3\:6790\:8868\:8fbe\:5f0f \:7ed3\:679c*)
+serializeResult[resultsDir]["fullGEGM.wdx",fullGEGM["v",keyTreeAndLoop]]
 
 
 (* ::Chapter:: *)
