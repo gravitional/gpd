@@ -69,8 +69,6 @@ Get["ff.numeric-interface.wl"];
 
 
 Check[
-(*GEGM\:89e3\:6790\:8868\:8fbe\:5f0f\:ff0c\:672a\:63d2\:503c*)
-fullGEGM["v"]=Import@localPathResult[resultsDir]["fullGEGM.wdx"];
 (*GEGM\:89e3\:6790\:8868\:8fbe\:5f0f, \:63d2\:503c\:7684\:7ed3\:679c*)
 interpoGEGM["v"]=Import@localPathResult[resultsDir]["interpo.wdx"];,
 (*\:5982\:679c\:8fd8\:6ca1\:6709\:7f13\:5b58\:7ed3\:679c\:ff0c*)
@@ -196,7 +194,7 @@ Query[
 ,(*{contrib}*)All
 ,(*{GEGM}*)All
 ,(*InterpolatingFunction*)NumberForm[Chop[#@0],4]&
-]@fullGEGM["v"],
+]@interpoGEGM["v"],
 (*\:5b9e\:9a8c\:503c*)
 Query["exp."]@numExper/.{numAround->Around,$tempNone->0}
 }},
