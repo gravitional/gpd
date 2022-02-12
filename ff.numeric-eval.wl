@@ -231,46 +231,6 @@ Key@coesAdjBub
 ]
 
 
-(* ::Section:: *)
-(*build GEGM PieceWise*)
-
-
-(*\:5bf9\:4e8e ordFull \:7684\:6570\:636e, \:5728 Q2=0\:5904\:9700\:8981\:4f7f\:7528\:5206\:6bb5\:51fd\:6570\:ff0c\:5c06 ord0 \:7684\:503c\:5408\:5e76\:8fdb\:6765. 
-\:76f4\:63a5\:5bf9 ordFull \:7684\:8868\:8fbe\:5f0f\:53d6 Q2\[Rule]0 \:4f1a\:4ea7\:751f\:6570\:503c\:9519\:8bef*)
-(*\:5206\:6bb5\:51fd\:6570, \:5219 Q2\[Equal]0 \:5904\:4f7f\:7528\:7cbe\:786e\:503c, \:5728 Q2>Q2Cut \:65f6\:4f7f\:7528\:5168\:8868\:8fbe\:5f0f\:4f5c\:56fe*)
-(*\:53c2\:6570; root: Q2\[Equal]0 \:7684\:503c; branch: Q2 >0 \:65f6\:7684\:8868\:8fbe\:5f0f*)
-pieceWise[root_,branch_]:=Piecewise[{
-{root,0<=Q2<=$Q2Cut},
-{branch,Q2>$Q2Cut}
-}];
-(*\:5c06 \:5206\:6bb5\:51fd\:6570 MapThread \:5230 ge,gm \:4e0a*)
-mapthread[{ge_,gm_}]:=MapThread[pieceWise,{ge,gm}/.{numVal->Identity}]
-
-
-(*\:9012\:5f52 Merge \:5173\:8054, \:4e00\:76f4\:5408\:5e76\:5230 numKey->numVal \:5c42, \:5c06\:8fd9\:4e00\:5c42\:7684\:6570\:636e\:653e\:5165\:5206\:6bb5\:51fd\:6570*)
-mergeRecur[{
-x:KeyValuePattern[{_numKey->_numVal}],
-y:KeyValuePattern[{_numKey->_numVal}]
-}]:=Merge[{x,y},mapthread];
-(*\:5bf9\:4e8e\:5176\:4ed6\:5c42\:ff0c\:9012\:5f52\:5408\:5e76*)
-mergeRecur[{x_Association,y_Association}]:=Merge[{x,y},mergeRecur];
-
-
-(*\:751f\:6210 GEGM \:7684\:5206\:6bb5\:51fd\:6570*)
-fullGEGM["v",keyTreeAndLoop]=Query[
-(*<bub,nobub>*)All
-,(*<order>*)
-Merge[{
-Query[$ord0]@#,
-Query[$ordFull]@#
-},mergeRecur]&
-]@numFFs["v",keyTreeAndLoop];
-
-
-(*\:4fdd\:5b58 GEGM\:89e3\:6790\:8868\:8fbe\:5f0f \:7ed3\:679c*)
-serializeResult[resultsDir]["fullGEGM.wdx",fullGEGM["v",keyTreeAndLoop]]
-
-
 (* ::Chapter:: *)
 (*interpolation; order full*)
 
