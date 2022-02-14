@@ -8,7 +8,7 @@
 (*Association Table*)
 
 
-recordLocationInMessage[Association];
+recordLocationInMessage[AssocTable];
 (*\:7c7b\:4f3c Table \:5faa\:73af\:ff0c\:751f\:6210\:5173\:8054\:7684\:5d4c\:5957\:5217\:8868*)
 AssocTable[expr_,{a_,aList_List},other:{_,_List}..
 ]:=Association@Table[a->AssocTable[expr,other],{a,aList}];
@@ -19,6 +19,7 @@ AssocTable[expr_,{a_,aList_List}]:=Association@Table[a->expr,{a,aList}]
 (*flatten Assoc Recursively*)
 
 
+recordLocationInMessage[flatAssocRec];
 (*\:9012\:5f52\:5c55\:5e73\:5d4c\:5957\:5173\:8054, \:5c06\:6d45\:5c42 key \:524d\:7f00\:5230\:6df1\:5c42 key \:4e0a*)
 SetAttributes[flatAssocRec,Orderless];
 flatAssocRec[x___Rule,key_->flatAssocRec[rules__Rule]]:=flatAssocRec@@Join[{x},

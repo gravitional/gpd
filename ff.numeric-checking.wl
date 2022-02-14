@@ -465,11 +465,10 @@ gridTable["GEGM",dataBackground]@data]
 
 
 (* ::Input:: *)
-(*Query[Normal/*(TableForm[#,TableSpacing->{2,1}]&)*)
-(*]@flatAssoc@Query[*)
-(*(*<\[CapitalLambda] value>*)All*)
-(*,(*<bub>*)All*)
-(*,(*<C value>*)All*)
+(*Query[*)
+(*(*<\[CapitalLambda] value>*)All/*Normal/*(Column[#,Frame->All]&)*)
+(*,(*<bub>*){coesAdjBub}*)
+(*,(*<C value>*)All/*Normal/*TableForm*)
 (*,(*<scheme>*){"many"}*)
 (*]@Import@localPath[fittingsDir]["nums.ccFittings.wdx"]*)
 

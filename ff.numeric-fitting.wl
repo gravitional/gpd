@@ -235,11 +235,11 @@ serialize[fittingsDir]["nums.ccFittings.wdx",ccFittings["v"]]
 
 
 (* ::Input:: *)
-(*Query[(*<\[CapitalLambda] value>*)Normal/*(Column[#,Frame->All]&)*)
-(*,(*<bub>*)coesAdjBub*)
-(*,(*<C value>*)Normal/*(Column[#,Frame->False]&)*)
-(*,(*<scheme>*){"many"}/*Normal/*(TableForm[#,TableSpacing->{2,1}]&)*)
-(*,(*{error,{values}}*)All*)
+(*Query[*)
+(*(*<\[CapitalLambda] value>*)All/*Normal/*(Column[#,Frame->All]&)*)
+(*,(*<bub>*){coesAdjBub}*)
+(*,(*<C value>*)All/*Normal/*TableForm*)
+(*,(*<scheme>*){"many"}*)
 (*]@Import@localPath[fittingsDir]["nums.ccFittings.wdx"]*)
 
 
