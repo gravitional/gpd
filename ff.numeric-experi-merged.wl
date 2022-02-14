@@ -76,7 +76,18 @@ echo["Cached results not found!"];Abort[]
 ]
 
 
-(* \:5bf9 \:51fd\:6570\:7684\:5217\:8868 \:753b\:56fe *)
+(* ::Section:: *)
+(*import experiment*)
+
+
+experiDataset=Import@localPath["experiment"]["nucleon-data.auth-year.non-normalized.wl"];
+
+
+(* ::Section:: *)
+(*plot configuration*)
+
+
+(* \:5bf9 {\:51fd\:6570\:7684\:5217\:8868} \:753b\:56fe *)
 plotList[Q2_][lst_]:=Plot[Evaluate@lst,{Q2,0,1},
 PlotTheme->{"Scientific"},
 PlotRange->{{0,1},Full},
@@ -88,26 +99,24 @@ PlotLegends->None];
 annotated[Legended_][assoc_Association]:=KeyValueMap[Legended,assoc];
 
 
-(*\:6311\:51fa\:8981\:5c55\:793a\:7684\:8d21\:732e, tree,loop,uds, sea,valence*)
+(* ::Input:: *)
+(*(*backup definition*)*)
+(*annotated["experi"][legPos_][assoc_Association]:=KeyValueMap[*)
+(*Legended[#2,Placed[#1,legPos]]&,assoc];*)
+
+
+(* ::Section:: *)
+(*merge expr and calc*)
+
+
+(*\:516c\:5171\:8bbe\:7f6e,\:5168\:5c40\:53d8\:91cf------------------------------*)
+(*\:6311\:9009\:8981\:5c55\:793a\:7684\:8d21\:732e: tree,loop,uds, sea,valence*)
 contribTag=Key/@{
-tagNum["tr","uds"],tagNum["lo","uds"],
-tagNum["lo","u"],tagNum["lo","d"],tagNum["lo","s"],
-tagNum["tr+lo","uds"]};
-
-
-(* ::Chapter:: *)
-(*import experiment*)
-
-
-experiDataset=Import@localPath["experiment"]["nucleon-data.auth-year.non-normalized.wl"];
-
-
-annotated["experi"][legPos_][assoc_Association]:=KeyValueMap[
-Legended[#2,Placed[#1,legPos]]&,assoc];
-
-
-(*\:516c\:5171\:8bbe\:7f6e,\:5168\:5c40\:53d8\:91cf*)
-tmp`bub=coesAdjBub;
+tagNum["tr","uds"],tagNum["lo","uds"]
+(*,tagNum["lo","u"],tagNum["lo","d"],tagNum["lo","s"]*)
+,tagNum["tr+lo","uds"]};
+(*\:8003\:8651/\:4e0d\:8003\:8651 bubble\:56fe: coesAdjBub,coesAdjNoBub*)
+tmp`bub={coesAdjNoBub,coesAdjBub};
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
 tmp`cc=Key@cc["C","1.50"];
 (*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
@@ -115,8 +124,8 @@ tmp`scheme=Key@"many";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
 tmp`oct=Key@ff["n"];
 (*1:GE,2:GM*)
-tmp`gegm=2;
-(*\:53c2\:6570\:68c0\:67e5-----*)
+tmp`gegm=1;
+(*\:53c2\:6570\:68c0\:67e5---------------------*)
 tmp`oct::OutRange="Only \"p\", \"n\" experiment data aquired for now";
 If[!MemberQ[Key/@{ff["p"],ff["n"]},tmp`oct],
 Message[tmp`oct::OutRange];Abort[];
@@ -126,13 +135,13 @@ Message[tmp`oct::OutRange];Abort[];
 (*\:6807\:6ce8\:6570\:636e*)
 (*{{0.58,0.58},{0.,0.}}*)
 legendFn[key_,val_]:=Legended[val,Placed[key,After]];
-(* \:7ed8\:5236\:5b9e\:9a8c\:70b9\:6570\:636e*)
+(* \:7ed8\:5236\:5b9e\:9a8c\:70b9\:6570\:636e-------------------------*)
 figGroup["exper"]=ListPlot[Query[
 (*octet*)tmp`oct
 ,(*FFactors*)ffsGEGM
 ,(*GEGM*)tmp`gegm/*annotated[legendFn]
 ]@experiDataset,
-(*\:753b\:56fe\:9009\:9879*)
+(*\:753b\:56fe\:9009\:9879-------------------*)
 PlotTheme->{"Scientific"},
 ImageSize->Large,
 PlotRange->{{0,1},Full},
@@ -146,26 +155,30 @@ IntervalMarkersStyle->Automatic
 ]
 
 
-(* ::Section:: *)
-(*merge*)
-
-
 (*\:6807\:6ce8\:6570\:636e*)
 (*{{1,0.58},{0.,0.}}*)
 legendFn[key_,val_]:=Legended[val@Q2,
 Placed[key/.{numKey->StringRiffle},After]];
 (*\:901a\:8fc7 Query \:8bed\:6cd5\:ff0c\:8fdb\:884c\:7ed8\:56fe*)
-Show[figGroup["exper"]
-(*\:8ba1\:7b97\:56fe*)
-,Query[
+Show[figGroup["exper"],
+(*\:8ba1\:7b97\:5f97\:5230\:7684\:56fe----------------------*)
+plotList[Q2]@
+(*\:7ed9\:6570\:636e\:6dfb\:52a0\:6ce8\:91ca*)
+annotated[legendFn]@
+(*\:5c55\:5e73\:5d4c\:5957\:5173\:8054*)
+flatAssoc@
+(*\:67e5\:8be2\:6240\:9700\:6570\:636e*)
+flatAssoc@
+Query[
 (*<bub>*)tmp`bub
 ,(*cc-value*)tmp`cc
 ,(*fit-scheme*)tmp`scheme
 ,(*octet*)tmp`oct
-,(*loop-tree-uds*)contribTag/*annotated[legendFn]/*plotList[Q2]
+,(*loop-tree-uds*)contribTag
 ,(*GEGM pair*)tmp`gegm
-]@interpoGEGM["v"],
-PlotRange->{{0,1},Automatic}
+]@interpoGEGM["v"]
+(*Show's Options*)
+,PlotRange->{{0,1},Automatic}
 ]
 
 
@@ -187,7 +200,7 @@ With[{
 data=Nest[Merge,Identity,2]@{
 (*\:8ba1\:7b97\:503c*)
 Query[
-(*<bub,nobub>*)Key@coesAdjNoBub
+(*<bub,nobub>*)Key@coesAdjBub
 ,(*cc-values*)Key@cc["C","1.50"]
 ,(*fitting-scheme*)Key@"many"
 ,(*octet*)All
@@ -202,3 +215,16 @@ Query["exp."]@numExper/.{numAround->Around,$tempNone->0}
 If[$inNBook,
 gridTable["GEGM",dataBackground]@data]
 ]
+
+
+(* ::Section:: *)
+(*scan fittings*)
+
+
+(* ::Input:: *)
+(*Query[*)
+(*(*<\[CapitalLambda] value>*)All/*Normal/*(Column[#,Frame->All]&)*)
+(*,(*<bub>*){coesAdjBub}*)
+(*,(*<C value>*)All/*Normal/*TableForm*)
+(*,(*<scheme>*){"many"}*)
+(*]@Import@localPath[fittingsDir]["nums.ccFittings.wdx"]*)

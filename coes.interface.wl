@@ -8,7 +8,7 @@
 (*Association Table*)
 
 
-recordLocationInMessage[Association];
+recordLocationInMessage[AssocTable];
 (*\:7c7b\:4f3c Table \:5faa\:73af\:ff0c\:751f\:6210\:5173\:8054\:7684\:5d4c\:5957\:5217\:8868*)
 AssocTable[expr_,{a_,aList_List},other:{_,_List}..
 ]:=Association@Table[a->AssocTable[expr,other],{a,aList}];
@@ -19,6 +19,7 @@ AssocTable[expr_,{a_,aList_List}]:=Association@Table[a->expr,{a,aList}]
 (*flatten Assoc Recursively*)
 
 
+recordLocationInMessage[flatAssocRec];
 (*\:9012\:5f52\:5c55\:5e73\:5d4c\:5957\:5173\:8054, \:5c06\:6d45\:5c42 key \:524d\:7f00\:5230\:6df1\:5c42 key \:4e0a*)
 SetAttributes[flatAssocRec,Orderless];
 flatAssocRec[x___Rule,key_->flatAssocRec[rules__Rule]]:=flatAssocRec@@Join[{x},
@@ -305,11 +306,12 @@ quaCharge["s"]={ch["u"]->0,ch["d"]->0,ch["s"]->1};
 recordLocationInMessage@{numOctMaget,numExper}
 
 
+(*\:516b\:91cd\:6001\:78c1\:77e9\:7684\:5b9e\:9a8c\:503c*)
 numOctMaget=<|
-ff["p"]->2.7928473446`30,ff["n"]->\[Minus]1.9130427`30,
-ff["\[CapitalSigma]+"]->2.458`30,ff["\[CapitalSigma]0"]->0.60`30,ff["\[CapitalSigma]-"]->\[Minus]1.160`30,
-ff["\[CapitalXi]0"]->\[Minus]1.250`30,ff["\[CapitalXi]-"]->\[Minus]0.6507`30,
-ff["\[CapitalLambda]"]->\[Minus]0.613`30
+ff["p"]->2.7928473446`30,ff["n"]->\[Minus]1.9130427`30
+,ff["\[CapitalSigma]+"]->2.458`30,ff["\[CapitalSigma]0"]->0.60`30,ff["\[CapitalSigma]-"]->\[Minus]1.160`30
+,ff["\[CapitalXi]0"]->\[Minus]1.250`30,ff["\[CapitalXi]-"]->\[Minus]0.6507`30
+,ff["\[CapitalLambda]"]->\[Minus]0.613`30
 |>;
 
 
