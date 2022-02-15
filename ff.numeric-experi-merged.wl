@@ -124,7 +124,7 @@ tmp`scheme=Key@"many";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
 tmp`oct=Key@ff["n"];
 (*1:GE,2:GM*)
-tmp`gegm=1;
+tmp`gegm=2;
 (*\:53c2\:6570\:68c0\:67e5---------------------*)
 tmp`oct::OutRange="Only \"p\", \"n\" experiment data aquired for now";
 If[!MemberQ[Key/@{ff["p"],ff["n"]},tmp`oct],

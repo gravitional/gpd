@@ -61,7 +61,7 @@ $LambdaNumStr=enString@NumberForm[$LambdaNum,{3,2}];
 (* fitScheme \:5b9a\:4e49\:89c1: $fittingScheme*)
 (*$fitScheme={"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]-p","\[CapitalSigma]N","\[CapitalSigma]-\[CapitalXi]-","N","p\[CapitalXi]-","\[CapitalXi]","charged","many","most","all"};*)
 $fitScheme=Switch[options@"fit-scheme",
-Automatic,{"\[CapitalSigma]+-","\[CapitalSigma]","\[CapitalSigma]N","N","p\[CapitalXi]-","charged","many","most","all","he1"},
+Automatic,{"\[CapitalSigma]+-","\[CapitalSigma]N","N","charged","many","most","he1","he2202"},
 1,{"\[CapitalSigma]+-","N","charged","most"},
 2,{"\[CapitalSigma]+-","N","most"},
 3,{"N","most"},

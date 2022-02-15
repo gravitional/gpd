@@ -122,7 +122,7 @@ cc["C",ccNumStr]->Query[
 (*<bub,nobub>*)Key@adjust
 ,(*<cc-values>*)Key@cc["C",ccNumStr]
 ,(*<fitting-scheme>*)All
-(*ccfitted$Err \:6570\:636e\:5c42, ccfitted \:7684\:9996\:5143\:7d20\:662f\:8bef\:5dee\:ff0c\:672b\:5143\:7d20\:662f c \:7684\:66ff\:6362\:89c4\:5219, \:5982:
+(*{err,{rule}}; ccfitted$Err \:6570\:636e\:5c42, ccfitted \:7684\:9996\:5143\:7d20\:662f\:8bef\:5dee\:ff0c\:672b\:5143\:7d20\:662f c \:7684\:66ff\:6362\:89c4\:5219, \:5982:
 {-5.551115123125783`*^-17,{cc["c1"]\[Rule]1.9165025864434668`,cc["c2"]\[Rule]0.5439905713541093`}}
 \:5c06\:751f\:6210\:7684 ccc \:66ff\:6362\:89c4\:5219\:5e94\:7528\:5230 \:5f62\:72b6\:56e0\:5b50\:7684\:8868\:8fbe\:5f0f\:4e0a*)
 ,Query[
@@ -205,28 +205,52 @@ chopQ2Val[x_]:=numVal[chopQ2[x]]
 
 (* ::Input:: *)
 (*(* \:5bf9\:67d0\:4e9b\:56fe\:7684\:7ed3\:679c\:6c42\:548c\:ff0c*)*)
-(*Query[coesAdjBub,$ord0,kLoopChanSum,*)
-(*{Key@fd[2,1,0]},*)
-(*sectOct/*Total,*)
-(*({Key@ffsF1F2}),All,*)
-(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
+(*Query[(*<bub,nobub>*)coesAdjBub*)
+(*,(*<order>*)$ord0*)
+(*,(*<loopChannels>*)kLoopChanSum*)
+(*,(*<octet>*)(Key/@{ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"]})/*Normal/*Column*)
+(*,(*<diagram>*)sectOct/*Total*)
+(*,(*<FormFactors>*)({Key@ffsGEGM})*)
+(*,(*<F1F2 pairs>*)All*)
+(*,(*numVal[val]*)chopQ2Val/**)
+(*ReplaceAll[quaCharge["uds"]]/**)
+(*ReplaceAll[tmp`rule]/**)
+(*ReplaceAll[numVal->Identity]*)
 (*]@loopResults["v"]*)
 
 
+(* ::Subsection:: *)
+(*diagram*)
+
+
 (* ::Input:: *)
-(*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:7684\:7ed3\:679c *)*)
+(*(*\:83b7\:53d6\:67d0\:4e2a\:8026\:5408\:5e38\:6570\:7684\:503c*)*)
+(*tmp`rule=Query[*)
+(*(*<bub,nobub>*)Key@coesAdjBub*)
+(*,(*<cc-values>*)Key@cc["C","1.50"]*)
+(*,(*<fitting-scheme>*)"many"*)
+(*,(*{err,{rule}};*)(apply$cc$numeric[1.50][Last@#]&)*)
+(*]@ccfitted$Err*)
+
+
+(* ::Input:: *)
+(*(*\:5c55\:793a\:6bcf\:4e2a\:56fe\:7684\:7ed3\:679c*)*)
 (*Query[(*<bub>*)coesAdjBub*)
 (*,(*<order>*)$ord0*)
 (*,(*<loopChannels>*)kLoopChanSum*)
 (*,(*<octet>*)*)
-(*{Key@ff["n"]}/*Normal/*(Column[#,Spacings->2]&)*)
+(*({Key@ff["\[CapitalSigma]-"]})/*Normal/*(Column[#,Spacings->2]&)*)
 (*,(*<diagram>*)*)
 (*All/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&)*)
 (*,(*<FormFactors>*)*)
 (*{Key@ffsGEGM}/*Normal/*(TableForm[#,TableSpacing->{2,1}]&)*)
 (*,(*<F1F2 pairs>*)*)
-(*chopQ2Val/*ReplaceAll[quaCharge["s"]]*)
+(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]/*ReplaceAll[tmp`rule]*)
 (*]@loopResults["v"]*)
+
+
+(* ::Subsection::Closed:: *)
+(*channel*)
 
 
 (* ::Input:: *)
