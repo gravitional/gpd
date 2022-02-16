@@ -201,7 +201,7 @@ LTensor[MetricG,\[Alpha],\[Beta]] Dirac1 -1/3 DiracMatrix[LTensor[DiracG,\[Alpha
  ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*kinematic quantities*)
 
 
@@ -289,7 +289,7 @@ ffsF1F2->Last@time0Result
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,mes,oct*)
 
 
@@ -338,7 +338,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,left*)
 
 
@@ -653,7 +653,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,oct,F1,add*)
 
 
@@ -677,7 +677,7 @@ fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
 paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
-(-1)LTensor[2k+(p2-p1),\[Mu]]*Spur[
+LTensor[2k+(p2-p1),\[Mu]]*Spur[
 2 LDot[DiracG,k],(*\:79ef\:5206\:5728 k\[Rule]-k \:53d8\:6362\:4e0b,\:6d88\:53bb\:5947\:51fd\:6570\:7684\:90e8\:5206,*)
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
@@ -697,7 +697,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,oct,F2*)
 
 
@@ -877,7 +877,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,dec,F1*)
 
 
@@ -923,7 +923,7 @@ tag
 ]];
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*RB,dec,F2*)
 
 
