@@ -212,7 +212,7 @@ chopQ2Val[x_]:=numVal[chopQ2[x]]
 (*,(*<diagram>*)sectOct/*Total*)
 (*,(*<FormFactors>*)({Key@ffsGEGM})*)
 (*,(*<F1F2 pairs>*)All*)
-(*,(*numVal[val]*)chopQ2Val/**)
+(*,(*{val}*)ReplaceAll[Q2->0]/**)
 (*ReplaceAll[quaCharge["uds"]]/**)
 (*ReplaceAll[tmp`rule]/**)
 (*ReplaceAll[numVal->Identity]*)
@@ -228,7 +228,7 @@ chopQ2Val[x_]:=numVal[chopQ2[x]]
 (*tmp`rule=Query[*)
 (*(*<bub,nobub>*)Key@coesAdjBub*)
 (*,(*<cc-values>*)Key@cc["C","1.50"]*)
-(*,(*<fitting-scheme>*)"many"*)
+(*,(*<fitting-scheme>*)"he2202"*)
 (*,(*{err,{rule}};*)(apply$cc$numeric[1.50][Last@#]&)*)
 (*]@ccfitted$Err*)
 
@@ -244,12 +244,12 @@ chopQ2Val[x_]:=numVal[chopQ2[x]]
 (*All/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&)*)
 (*,(*<FormFactors>*)*)
 (*{Key@ffsGEGM}/*Normal/*(TableForm[#,TableSpacing->{2,1}]&)*)
-(*,(*<F1F2 pairs>*)*)
-(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]/*ReplaceAll[tmp`rule]*)
+(*,(*{F1F2 pairs}*)ReplaceAll[Q2->0]/**)
+(*ReplaceAll[quaCharge["uds"]]/*ReplaceAll[tmp`rule]*)
 (*]@loopResults["v"]*)
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*channel*)
 
 
@@ -261,8 +261,9 @@ chopQ2Val[x_]:=numVal[chopQ2[x]]
 (*,(*<octet>*)(Key/@{ff["p"],ff["n"]})/*Normal/*(Column[#,Spacings->2]&)*)
 (*,(*<diagram>*)({4})/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]",Frame->All]&)*)
 (*,(*<channels>*)Normal/*(TableForm[legendDisp@#,TableSpacing->{1,1}]&)*)
-(*,(*key\[Rule]<channel>*)All,(*<FormFactors>*)All*)
-(*,(*<F1F2 pairs>*)chop/*ReplaceAll[quaCharge["s"]]*)
+(*,(*meson\[Rule]<channel>*)All*)
+(*,(*<channel detail>*)All*)
+(*,(*{F1F2 pairs}*)chop/*ReplaceAll[quaCharge["s"]]*)
 (*]@loopResults["v"]*)
 
 
@@ -334,7 +335,7 @@ tagNum["tr","uds"],tagNum["tr","u"]..d,s,
 tagNum["tr+lo","uds"]*)
 tmp`confTot=Key/@{tagNum["lo","s"]};
 (*1:GE,2:GM*)
-tmp`gegm=1;
+tmp`gegm=2;
 
 
 (*\:5c06 key\[Rule]val \:8f6c\:6362\:6210 Callout[f,label] \:7684\:683c\:5f0f*)
@@ -405,7 +406,7 @@ chTag@{"RB","mes","oct"}->1
 ,chTag@{"tad","oct","F1","add"}->1
 ,chTag@{"tad","oct","F2"}->1
 ,chTag@{"bub","mes","o2"}->1
-,chTag@{"bub","mes","ten","o2"}->-1
+,chTag@{"bub","mes","ten","o2"}->1
 
 (* \:5341\:91cd\:6001\:4e2d\:95f4\:6001 *)
 ,chTag@{"RB","mes","dec"}->1
