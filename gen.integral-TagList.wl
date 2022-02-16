@@ -79,7 +79,7 @@ fyAmpTreeLst={
 (*chTag@{"tree","oct","F1F2"}->fyCoe[1],*)
 (**)
 (*chTag@{"tad","oct","F1"}->fyCoe[I],*)
-(*chTag@{"tad","oct","F1","add"}->fyCoe[-I],*)
+(*chTag@{"tad","oct","F1","add"}->fyCoe[I],*)
 (**)
 (*chTag@{"tad","oct","F2"}->fyCoe[I],*)
 (**)

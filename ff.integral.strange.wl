@@ -180,7 +180,7 @@ LoopIntegrate[1,k,{-p1+p2,\[CapitalLambda],2},{k,\[CapitalLambda],2},{-k,\[Capit
 cltcom::usage="\:6b63\:89c4\:5b50\:7684\:7ec4\:5408";
 cltcom[{-k_,q_},{m\[Phi]_,\[CapitalLambda]_}]:=cltcom[{k,-q},{m\[Phi],\[CapitalLambda]}];
 cltcom[{k_,q_},{m\[Phi]_,\[CapitalLambda]_}]:=intgd[
-num[-\[CapitalLambda]^4*(LDot[k,k]+LDot[k+q,k+q]-2m\[Phi]^2-2\[CapitalLambda]^2)],(*(2k+q)^\[Mu] \:653e\:5728\:65cb\:91cf\:90e8\:5206\:8003\:8651 *)
+num[(-1)\[CapitalLambda]^4*(LDot[k,k]+LDot[k+q,k+q]-2m\[Phi]^2-2\[CapitalLambda]^2)],(*(2k+q)^\[Mu] \:653e\:5728\:65cb\:91cf\:90e8\:5206\:8003\:8651 *)
 prp[{k,Sqrt[\[CapitalLambda]^2+m\[Phi]^2],2}],prp[{k+q,Sqrt[\[CapitalLambda]^2+m\[Phi]^2],2}]
 ] 
 (*(Overscript[\[CapitalLambda], _]^4(k.k+(k+q).(k+q)-2\[CapitalLambda]^2))/((k.k-\[CapitalLambda]^2)^2((k+q).(k+q)-\[CapitalLambda]^2)^2)(-1)(2k+q)^\[Mu], \:989d\:5916\:9876\:70b9\:7684\:6b63\:89c4\:5b50\:7ec4\:5408.*)
@@ -659,7 +659,7 @@ tag
 ]];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,oct,F1,add*)
 
 
@@ -683,7 +683,7 @@ fyAmp[fyTag,{"intg","eid"}]=With[{tag=fyTag},
 paraLintConst[
 (*\:5708\:79ef\:5206\:7684\:88ab\:79ef\:5f0f\:7684\:65cb\:91cf\:90e8\:5206*)
 Contract[
-(-1)LTensor[2k+(p2-p1),\[Mu]]*Spur[
+LTensor[2k+(p2-p1),\[Mu]]*Spur[
 2 LDot[DiracG,k],(*\:79ef\:5206\:5728 k\[Rule]-k \:53d8\:6362\:4e0b,\:6d88\:53bb\:5947\:51fd\:6570\:7684\:90e8\:5206,*)
 #]]&/@{
 Projector["F1",\[Mu]][{p1,mE},{p2,mE}],
