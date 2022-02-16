@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*gen_lagrangian_uds.nb*)
+(*gen.lagrangian.uds.wl*)
 
 
 (* ::Text:: *)
@@ -11,29 +11,36 @@
 (*\:4f7f\:7528\:7684\:8bb0\:53f7\:53c2\:8003\:ff1ahttps://arxiv.org/pdf/1806.07551.pdf*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*initial*)
 
 
 (*\:672c\:6587\:4ef6\:7684\:540d\:79f0*)
 $fileName=If[$Notebooks,NotebookFileName[],$InputFileName];
 (*\:5982\:679c\:5728\:524d\:7aef\:6267\:884c\:ff0c\:5c31\:5237\:65b0\:7b14\:8bb0\:672c\:7684\:6807\:9898*)
-Once@If[!$Notebooks,NotebookWrite[Cells[][[1]],Cell[Last@FileNameSplit[$fileName],"Title"]]];
+Once@If[$Notebooks,NotebookWrite[Cells[][[1]],Cell[Last@FileNameSplit[$fileName],"Title"]]];
 (*\:67e5\:627e init.wl, \:5bfc\:5165\:6839\:76ee\:5f55\:548c\:51fd\:6570\:5b9a\:4e49.*)
-Catch@Module[{recurFind,start=1,depMax},
+Once@Catch@Module[{recurFind,start=1,depMax},
 depMax=FileNameDepth[$fileName];(*\:8def\:5f84\:7684\:6700\:5927\:5c42\:6b21*)
 (*-------\:5b9a\:4e49\:9012\:5f52\:51fd\:6570-------*)
 recurFind[dep_Integer]:=If[dep<=depMax,
-SetDirectory[DirectoryName[$fileName,dep]];(*SetDirectory[]\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
-If[FileExistsQ["init.wl"],Get["init.wl"];Throw["The base directory is : "<>$srcRoot],recurFind[dep+1](*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)];
-ResetDirectory[];,
+SetDirectory[DirectoryName[$fileName,dep]];(*SetDirectory[]:\:8bbe\:7f6e\:5de5\:4f5c\:76ee\:5f55\:4e3a\:5bb6\:76ee\:5f55*)
+(*\:5982\:679c\:5728\:5f53\:524d\:5c42\:80fd\:627e\:5230 init.wl,\:5c31\:8fd0\:884c\:5b83,\:5e76\:628a\:6839\:76ee\:5f55\:6dfb\:52a0\:5230\:641c\:7d22\:8def\:5f84*)
+If[FileExistsQ["init.wl"],
+Get["init.wl"];PrependTo[$Path,$srcRoot];
+Throw["The base directory is : "<>$srcRoot];,
+(*\:5982\:679c\:8fd9\:4e00\:5c42\:627e\:4e0d\:5230\:ff0c\:5c31\:4e0a\:5347\:4e00\:5c42*)
+recurFind[dep+1]];
+ResetDirectory[];(*\:91cd\:8bbe\:4e3a\:4e4b\:524d\:7684\:76ee\:5f55*),
 Throw["I cann't find any init.wl in this project"]
 ];
 recurFind[start];
 ]
+(* \:8bb0\:5f55 master Kernel \:7684\:8fd0\:884c\:6a21\:5f0f, \:53ef\:5728\:5e76\:884c\:8ba1\:7b97\:4e2d\:4f7f\:7528 *)
+$inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
-Get[FileNameJoin[{$srcRoot,"gen.format.wl"}]](*\:8bfb\:5165\:5b9a\:4e49\:4ee5\:53ca\:6392\:7248\:76f8\:5173\:7684\:6587\:4ef6*)
+Get["gen.format.wl"];(*\:8bfb\:5165\:5b9a\:4e49\:4ee5\:53ca\:6392\:7248\:76f8\:5173\:7684\:6587\:4ef6*)
 
 
 (* ::Chapter:: *)
@@ -345,7 +352,7 @@ Background->{Automatic,{{LightOrange,White}}},Frame->All,FrameStyle->White
 
 (*\:624b\:5f81 Lagrangian \:7684\:5404\:9879,\:6309\:7167\:8026\:5408\:5e38\:6570\:8fdb\:884c\:6392\:5217\:ff1a*)
 lag=<||>;
-ordRule={lecs["f"]^x_/;x<-2->0};
+ordRule={lecs["f"]^x_/;(x<-2)->0};
 
 
 (*\:624b\:5f81\:5f3a\:5b50\:6d41*)
@@ -480,24 +487,17 @@ ContainsAny,{(*fd[3,2,0],*)fd[3,1,1]}(*\:53ea\:67e5\:770b\[CapitalDelta]++*)
 
 
 (*\:5f20\:91cf\:8026\:5408\:9879, 1/2 \[ImaginaryI] b9 Tr[Bbar Subscript[A, \[Mu]]].\[Sigma]^\[Mu]\[Nu].Tr[Subscript[A, \[Nu]].B]+1/2 \[ImaginaryI] b10 Tr[Bbar[Subscript[A, \[Mu]],Subscript[A, \[Nu]]].\[Sigma]^\[Mu]\[Nu].B]+1/2 \[ImaginaryI] b11 Tr[Bbar {Subscript[A, \[Mu]],Subscript[A, \[Nu]]}.\[Sigma]^\[Mu]\[Nu].B] *)
-SymIdx[A\[Mu]_,A\[Nu]_]:=Module[{U\[Mu],U\[Nu],L\[Mu],L\[Nu],D\[Mu],D\[Nu]},
-U\[Mu]=UpperTriangularize[A\[Mu]];U\[Nu]=UpperTriangularize[A\[Nu]];
-L\[Mu]=LowerTriangularize[A\[Mu]];L\[Nu]=LowerTriangularize[A\[Nu]];
-D\[Mu]=DiagonalMatrix[Diagonal[A\[Mu]]];D\[Nu]=DiagonalMatrix[Diagonal[A\[Nu]]];
-D\[Mu] . D\[Nu]-D\[Mu] . L\[Nu]-D\[Mu] . U\[Nu]+L\[Mu] . L\[Nu]+U\[Mu] . U\[Nu]+L\[Mu] . U\[Nu]+L\[Nu] . D\[Mu]+U\[Nu] . D\[Mu]-U\[Nu] . L\[Mu]
-](*\:8fd9\:4e2a\:51fd\:6570\:7528\:6765\:628a\:504f\:5bfc\:6570\:7684\:6307\:6807\:5bf9\:79f0\:5316\:ff0c\:628a\:4ecb\:5b50\:77e9\:9635\:6309\:4e0a\:4e0b\:4e09\:89d2\:548c\:5bf9\:89d2\:7ebf\:5206\:89e3*)
-
-
+(*4 \:6765\:81ea\:4e8e\:4e0d\:540c\:7684\:7ea6\:5b9a*)
 lag["bbb"]=Expand[4*I/2 (
-lecs["b9"]*(Tr[mat["Bbar"] . crt["u","\[Mu]","hd"]]*Tr[crt["u","\[Nu]","hd"] . ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]])
--lecs["b10"]*Tr[mat["Bbar"] . acmt[Dot,2*SymIdx[crt["u","\[Nu]","hd"],crt["u","\[Mu]","hd"]],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]
--lecs["b11"]*Tr[mat["Bbar"] . cmt[Dot,2*SymIdx[crt["u","\[Nu]","hd"],crt["u","\[Mu]","hd"]],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]
+lecs["b9"]*(Tr[mat["Bbar"] . crt["u","\[Mu]","hd"]] * Tr[crt["u","\[Nu]","hd"] . ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]])
++lecs["b10"]*Tr[mat["Bbar"] . acmt[Dot,2*(crt["u","\[Mu]","hd"] . crt["u","\[Nu]","hd"]),ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]
++lecs["b11"]*Tr[mat["Bbar"] . cmt[Dot,2*(crt["u","\[Mu]","hd"] . crt["u","\[Nu]","hd"]),ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]
 )
 ];
 (*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
 laglkp1[
 lag["bbb"],
-ContainsAll,{fd[2,8,0],fd[2,8,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
+ContainsAll,{fd[2,1,0],fd[2,1,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
 ]
 
 

@@ -608,7 +608,7 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 (*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tree-level,A-octet,F1F2,nonlocal*)
 
 
@@ -696,7 +696,7 @@ fyCoeKeycAllF1,fyCoeKeycAllF2,fyCoeKeyGE
 (*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*tadpole,A-octet,F1F2,nonlocal*)
 
 
@@ -812,7 +812,7 @@ fyCoeKeycEMF1,fyCoeKeycEMF2
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,A-octet,addition,o2,nonlocal*)
 
 
@@ -924,7 +924,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*]]@coeJoin[fyTag]//dsetFmt*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble,A-meson,tensor,order 2*)
 
 
@@ -1010,7 +1010,7 @@ MassMes1->(#@medMes1/.fd[a_,b_,0]:>massV@fd[a,b,2])(*\:751f\:6210\:4e2d\:95f4\:4
 (*If[$inNBook,*)
 (*fyTag={"bub","mes","ten","o2"};*)
 (*Query[Cases@KeyValuePattern[*)
-(*inOct->fd[2,4,0]*)
+(*inOct->fd[2,1,0]*)
 (*]]@coeJoin[fyTag]//dsetFmt]*)
 
 
