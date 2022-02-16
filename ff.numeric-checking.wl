@@ -48,7 +48,7 @@ CmdParser["pseudo"]={$fileName
 ,"--parallel-Lbd","False"(*\:4ee3\:5165\:8026\:5408\:5e38\:6570\:6570\:503c\:65f6,\:662f\:5426\:8fd0\:884c\:5e76\:884c\:5185\:6838*)
 ,"--interp","False"(*\:662f\:5426\:8fd0\:884c\:5bf9 full order \:7684\:63d2\:503c\:7a0b\:5e8f*)
 ,"--ord","$ordFull"(*$ordFull","\:5708\:79ef\:5206\:7684\:7ea7\:6570 order: \:6709 ord0, ord1, ordFull*)
-,"--Lbd-num","0.90"(*\:6570\:503c\:8ba1\:7b97\:4e2d Lambda \:7684\:53d6\:503c: 0.80,0.90,1.00*)
+,"--Lbd-num","1.00"(*\:6570\:503c\:8ba1\:7b97\:4e2d Lambda \:7684\:53d6\:503c: 0.80,0.90,1.00*)
 ,"--Lbd-fit","Undefined"(*\:5f15\:7528\:7684 fitting \:57fa\:4e8e\:7684 Lambda, \:800c\:4e0d\:662f\:6570\:503c\:8ba1\:7b97\:4e2d\:4f7f\:7528\:7684 Lambda: 0.80,0.90,1.00*)
 };
 
@@ -122,7 +122,7 @@ cc["C",ccNumStr]->Query[
 (*<bub,nobub>*)Key@adjust
 ,(*<cc-values>*)Key@cc["C",ccNumStr]
 ,(*<fitting-scheme>*)All
-(*ccfitted$Err \:6570\:636e\:5c42, ccfitted \:7684\:9996\:5143\:7d20\:662f\:8bef\:5dee\:ff0c\:672b\:5143\:7d20\:662f c \:7684\:66ff\:6362\:89c4\:5219, \:5982:
+(*{err,{rule}}; ccfitted$Err \:6570\:636e\:5c42, ccfitted \:7684\:9996\:5143\:7d20\:662f\:8bef\:5dee\:ff0c\:672b\:5143\:7d20\:662f c \:7684\:66ff\:6362\:89c4\:5219, \:5982:
 {-5.551115123125783`*^-17,{cc["c1"]\[Rule]1.9165025864434668`,cc["c2"]\[Rule]0.5439905713541093`}}
 \:5c06\:751f\:6210\:7684 ccc \:66ff\:6362\:89c4\:5219\:5e94\:7528\:5230 \:5f62\:72b6\:56e0\:5b50\:7684\:8868\:8fbe\:5f0f\:4e0a*)
 ,Query[
@@ -205,28 +205,52 @@ chopQ2Val[x_]:=numVal[chopQ2[x]]
 
 (* ::Input:: *)
 (*(* \:5bf9\:67d0\:4e9b\:56fe\:7684\:7ed3\:679c\:6c42\:548c\:ff0c*)*)
-(*Query[coesAdjBub,$ord0,kLoopChanSum,*)
-(*{Key@fd[2,1,0]},*)
-(*sectOct/*Total,*)
-(*({Key@ffsF1F2}),All,*)
-(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]*)
+(*Query[(*<bub,nobub>*)coesAdjBub*)
+(*,(*<order>*)$ord0*)
+(*,(*<loopChannels>*)kLoopChanSum*)
+(*,(*<octet>*)(Key/@{ff["\[CapitalSigma]+"],ff["\[CapitalSigma]-"]})/*Normal/*Column*)
+(*,(*<diagram>*)sectOct/*Total*)
+(*,(*<FormFactors>*)({Key@ffsGEGM})*)
+(*,(*<F1F2 pairs>*)All*)
+(*,(*numVal[val]*)chopQ2Val/**)
+(*ReplaceAll[quaCharge["uds"]]/**)
+(*ReplaceAll[tmp`rule]/**)
+(*ReplaceAll[numVal->Identity]*)
 (*]@loopResults["v"]*)
 
 
+(* ::Subsection:: *)
+(*diagram*)
+
+
 (* ::Input:: *)
-(*(* \:5c55\:793a\:6bcf\:4e2a\:56fe\:7684\:7ed3\:679c *)*)
+(*(*\:83b7\:53d6\:67d0\:4e2a\:8026\:5408\:5e38\:6570\:7684\:503c*)*)
+(*tmp`rule=Query[*)
+(*(*<bub,nobub>*)Key@coesAdjBub*)
+(*,(*<cc-values>*)Key@cc["C","1.50"]*)
+(*,(*<fitting-scheme>*)"many"*)
+(*,(*{err,{rule}};*)(apply$cc$numeric[1.50][Last@#]&)*)
+(*]@ccfitted$Err*)
+
+
+(* ::Input:: *)
+(*(*\:5c55\:793a\:6bcf\:4e2a\:56fe\:7684\:7ed3\:679c*)*)
 (*Query[(*<bub>*)coesAdjBub*)
 (*,(*<order>*)$ord0*)
 (*,(*<loopChannels>*)kLoopChanSum*)
 (*,(*<octet>*)*)
-(*{Key@ff["n"]}/*Normal/*(Column[#,Spacings->2]&)*)
+(*({Key@ff["\[CapitalSigma]-"]})/*Normal/*(Column[#,Spacings->2]&)*)
 (*,(*<diagram>*)*)
 (*All/*Normal/*(Column[#,Spacings->1,Alignment->"\[Rule]"]&)*)
 (*,(*<FormFactors>*)*)
 (*{Key@ffsGEGM}/*Normal/*(TableForm[#,TableSpacing->{2,1}]&)*)
 (*,(*<F1F2 pairs>*)*)
-(*chopQ2Val/*ReplaceAll[quaCharge["s"]]*)
+(*chopQ2Val/*ReplaceAll[quaCharge["uds"]]/*ReplaceAll[tmp`rule]*)
 (*]@loopResults["v"]*)
+
+
+(* ::Subsection::Closed:: *)
+(*channel*)
 
 
 (* ::Input:: *)
@@ -297,10 +321,10 @@ tmp`bub=Key@coesAdjBub;
 tmp`ord=Key@$ordFull;
 (*cc["C","1.00"],cc["C","1.10"],cc["C","1.20"],cc["C","1.30"],cc["C","1.40"],cc["C","1.50"]*)
 tmp`cc=Key@cc["C","1.50"];
-(*"all","charged","many","most","N","p\[CapitalXi]-","\[CapitalSigma]","\[CapitalSigma]+-","\[CapitalSigma]N"*)
-tmp`scheme=Key@"many";
+(* "\[CapitalSigma]+-","\[CapitalSigma]N","N","charged","many","most","he1","he2202" *)
+tmp`scheme=Key@"he2202";
 (*"p","n","\[CapitalSigma]+","\[CapitalSigma]0","\[CapitalSigma]-","\[CapitalXi]0","\[CapitalXi]-","\[CapitalLambda]"*)
-tmp`oct=Key@ff["n"];
+tmp`oct=Key@ff["p"];
 (*\:516b\:91cd\:6001, bub+tadu, \:5341\:91cd\:6001\:ff0c\:78c1\:77e9\:76f8\:5173\:56fe\:5206\:522b\:662f\:ff1asectOct,sectBub,sectDec,sectMag*)
 tmp`diag=sectOct~Join~sectBub~Join~sectDec;
 (*tagNum["lo","uds"],tagNum["lo","u"],tagNum["lo","d"],tagNum["lo","s"]*)
@@ -330,7 +354,7 @@ Query[
 ,(*cc-values*)tmp`cc
 ,(*fitting-scheme*)tmp`scheme
 ,(*octet*)tmp`oct
-,(*diagram*)(sectOct)/*SortBy[Abs@ReplaceAll[Q2->0.1]]
+,(*diagram*)(sectBub)/*SortBy[Abs@ReplaceAll[Q2->0.1]]
 ,(*loop-FFactors*)tmp`conf
 ,(*numVal*)ReplaceAll[{numVal->Identity}]
 ,(*GEGM*)tmp`gegm
@@ -381,7 +405,7 @@ chTag@{"RB","mes","oct"}->1
 ,chTag@{"tad","oct","F1","add"}->1
 ,chTag@{"tad","oct","F2"}->1
 ,chTag@{"bub","mes","o2"}->1
-,chTag@{"bub","mes","ten","o2"}->1
+,chTag@{"bub","mes","ten","o2"}->-1
 
 (* \:5341\:91cd\:6001\:4e2d\:95f4\:6001 *)
 ,chTag@{"RB","mes","dec"}->1
@@ -397,12 +421,12 @@ plotData["tot"][Q2]@Total@Values@Query[
 (*<bub>*)Key@coesAdjBub
 ,(*<order>*)tmp`ord
 ,(*<cc-values>*)tmp`cc
-,(*<fitting-scheme>*)Key@"many"
-,(*<octet>*)Key@ff["n"]
+,(*<fitting-scheme>*)Key@"he2202"
+,(*<octet>*)Key@ff["p"]
 ,(*<diagram>*)All/*(Association@KeyValueMap[#1->(Identity@@fyCoesTune[#1]*#2)&,#]&)
 ,(*<loop-FFactors>*)Key@tagNum["lo","s"]
 ,(*<numVal>*)ReplaceAll[{numVal->Identity}]
-,(*{GeGm pair}*)1
+,(*{GeGm pair}*)2
 ]@numFFs["v",kLoopChanSum]
 
 
@@ -469,7 +493,7 @@ gridTable["GEGM",dataBackground]@data]
 (*(*<\[CapitalLambda] value>*)All/*Normal/*(Column[#,Frame->All]&)*)
 (*,(*<bub>*){coesAdjBub}*)
 (*,(*<C value>*)All/*Normal/*TableForm*)
-(*,(*<scheme>*){"many"}*)
+(*,(*<scheme>*){"he2202"}*)
 (*]@Import@localPath[fittingsDir]["nums.ccFittings.wdx"]*)
 
 
