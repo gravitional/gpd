@@ -250,3 +250,29 @@ $ord0->numFFs[<|"ord"->$ord0|>,ffsMerged["WithRen"][[$ord0]]],
 $parOrdStr->numFFs[<|"ord"->$parOrdStr|>,ffsMerged["WithRen"][[$parOrdStr]]]
 |>
 ];
+
+
+(* ::Section:: *)
+(*Lagrangian:b9,b10,b11*)
+
+
+(*\:5f20\:91cf\:8026\:5408\:9879, 1/2 \[ImaginaryI] b9 Tr[Bbar Subscript[A, \[Mu]]].\[Sigma]^\[Mu]\[Nu].Tr[Subscript[A, \[Nu]].B]+1/2 \[ImaginaryI] b10 Tr[Bbar[Subscript[A, \[Mu]],Subscript[A, \[Nu]]].\[Sigma]^\[Mu]\[Nu].B]+1/2 \[ImaginaryI] b11 Tr[Bbar {Subscript[A, \[Mu]],Subscript[A, \[Nu]]}.\[Sigma]^\[Mu]\[Nu].B] *)
+SymIdx[A\[Mu]_,A\[Nu]_]:=Module[{U\[Mu],U\[Nu],L\[Mu],L\[Nu],D\[Mu],D\[Nu]},
+U\[Mu]=UpperTriangularize[A\[Mu]];U\[Nu]=UpperTriangularize[A\[Nu]];
+L\[Mu]=LowerTriangularize[A\[Mu]];L\[Nu]=LowerTriangularize[A\[Nu]];
+D\[Mu]=DiagonalMatrix[Diagonal[A\[Mu]]];D\[Nu]=DiagonalMatrix[Diagonal[A\[Nu]]];
+D\[Mu] . D\[Nu]-D\[Mu] . L\[Nu]-D\[Mu] . U\[Nu]+L\[Mu] . L\[Nu]+U\[Mu] . U\[Nu]+L\[Mu] . U\[Nu]+L\[Nu] . D\[Mu]+U\[Nu] . D\[Mu]-U\[Nu] . L\[Mu]
+](*\:8fd9\:4e2a\:51fd\:6570\:7528\:6765\:628a\:504f\:5bfc\:6570\:7684\:6307\:6807\:5bf9\:79f0\:5316\:ff0c\:628a\:4ecb\:5b50\:77e9\:9635\:6309\:4e0a\:4e0b\:4e09\:89d2\:548c\:5bf9\:89d2\:7ebf\:5206\:89e3*)
+
+
+lag["bbb"]=Expand[4*I/2 (
+lecs["b9"]*(Tr[mat["Bbar"] . crt["u","\[Mu]","hd"]]*Tr[crt["u","\[Nu]","hd"] . ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]])
+-lecs["b10"]*Tr[mat["Bbar"] . acmt[Dot,2*SymIdx[crt["u","\[Nu]","hd"],crt["u","\[Mu]","hd"]],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]
+-lecs["b11"]*Tr[mat["Bbar"] . cmt[Dot,2*SymIdx[crt["u","\[Nu]","hd"],crt["u","\[Mu]","hd"]],ltz[mat["B"],"tp"->"\[Sigma]","idx"->"\[Mu]\[Nu]"]]]
+)
+];
+(*\:6311\:9009\:51fa\:5176\:4e2d\:67d0\:4e9b\:9879*)
+laglkp1[
+lag["bbb"],
+ContainsAll,{fd[2,3,0],fd[2,3,1](*\:53ea\:67e5\:770b\:6838\:5b50*)}
+]
