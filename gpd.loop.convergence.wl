@@ -112,7 +112,7 @@ lcq=momentum[momentQ]/.momentum->lConeMember
 },
 (*\:4f7f\:7528 *)
 Expand[
-1/2 (lcp[[1]]*lcq[[2]]+lcp[[2]]*lcq[[1]])-ed[lcp[[3]],lcq[[3]]]
+(lcp[[1]]*lcq[[2]]+lcp[[2]]*lcq[[1]])-ed[lcp[[3]],lcq[[3]]]
 ]]
 
 
@@ -120,7 +120,7 @@ Expand[
 lConeKinematics={
 (*\:8d28\:5b50\:521d\:6001\:52a8\:91cf-------------------*)
 p1[1]->(1+\[Xi])P[1],
-p1[2]->(mN^2+ed[\[CapitalDelta][3],\[CapitalDelta][3]]/4)/(1+\[Xi])P[1],
+p1[2]->(mN^2+ed[\[CapitalDelta][3],\[CapitalDelta][3]]/4)/(2(1+\[Xi])P[1]),
 p1[3]->\[CapitalDelta][3]/2,
 (*\:4ecb\:5b50\:521d\:6001\:52a8\:91cf*)
 k[1]->(y+\[Xi])P[1],
@@ -128,7 +128,7 @@ k[1]->(y+\[Xi])P[1],
 k[3]->k[3]+\[CapitalDelta][3]/2,
 (*\:8d28\:5b50\:672b\:6001\:52a8\:91cf------------------*)
 p2[1]->(1-\[Xi])P[1],
-p2[2]->(mN^2+ed[\[CapitalDelta][3],\[CapitalDelta][3]]/4)/(1-\[Xi])P[1],
+p2[2]->(mN^2+ed[\[CapitalDelta][3],\[CapitalDelta][3]]/4)/(2(1-\[Xi])P[1]),
 p2[3]->-\[CapitalDelta][3]/2,
 (*\:4ecb\:5b50\:672b\:6001\:52a8\:91cf*)
 k2[1]->(y-\[Xi])P[1],
@@ -136,8 +136,8 @@ k2[1]->(y-\[Xi])P[1],
 k2[3]->k[3]-\[CapitalDelta][3]/2,
 
 \[CapitalDelta][1]->\[Xi](2P[1]),
-\[CapitalDelta][2]->(t+ed[\[CapitalDelta][3],\[CapitalDelta][3]])/(\[Xi]*2P[1])
-(*\[CapitalDelta][3]->\[CapitalDelta][3],*)
+\[CapitalDelta][2]->(\[CapitalDelta]2+ed[\[CapitalDelta][3],\[CapitalDelta][3]])/(4\[Xi]*P[1])
+(*\[CapitalDelta][3]\[Rule]\[CapitalDelta][3]*)
 };
 
 
@@ -195,8 +195,10 @@ gatorShow[expr_]:=(expr/.fadTmp1->fadTmp3)
 
 
 (*\:8fd0\:52a8\:5b66\:5173\:7cfb\:ff0c\:6807\:91cffix*)
-SP[p1,p1]=mN^2;SP[p2,p2]=mN^2;SP[p1,p2]=Q2/2+mN^2;
-SP[p1,\[CapitalDelta]]=Q2/2;SP[p2,\[CapitalDelta]]=-Q2/2;
+SP[p1,p1]=mN^2;SP[p2,p2]=mN^2;
+SP[p1,\[CapitalDelta]]=\[CapitalDelta]2/2;
+SP[p2,\[CapitalDelta]]=-\[CapitalDelta]2/2;
+SP[p1,p2]=mN^2-\[CapitalDelta]2/2;
 
 
 (*\:628a\:81ea\:7531\:6307\:6807\:7684\:52a8\:91cf\:90fd\:66ff\:6362\:6210 plus \:5206\:91cf*)
@@ -224,11 +226,11 @@ traceExpr[Amp\[Mu] . projector["FB",\[Nu]]]
 (*\:5c06FA,FB\:4f5c\:7ebf\:6027\:7ec4\:5408,\:91cd\:65b0\:7ec4\:6210f1,f2---------------------*)
 FAFBToF1F2[{FA_,FB_}]:=Module[
 (*\:5e38\:89c1\:7684plus\:52a8\:91cf\:7ec4\:5408*)
-{pSum=p1[1]+p2[1],pMin=p1[1]-p2[1],pTimes=p1[1]*p2[1]},
+{Pp=(p1[1]+p2[1])/2,\[CapitalDelta]p=p1[1]-p2[1],p12p=p1[1]*p2[1]},
 (*-----*)
 {
-(-FA*Q2*pSum^2+4FB*mN^2*pMin^2)/(8pSum^2(mN^2*pMin^2-pTimes*Q2)),
-(-FA*mN^2*pSum^2+4FB*pTimes)/(2pSum^2(mN^2*pMin^2-pTimes*Q2))
+(FA*\[CapitalDelta]2*Pp^2+4FB*mN^2*\[CapitalDelta]p^2)/(8Pp^2(mN^2*\[CapitalDelta]p^2+p12p*\[CapitalDelta]2)),
+(-FA*mN^2*Pp^2+FB*mN^2*p12p)/(2Pp^2(mN^2*\[CapitalDelta]p^2+p12p*\[CapitalDelta]2))
 }]
 (*FA,FB \:4f5c\:7ec4\:5408\:6210f1,f2,\:7559\:4f5c\:989d\:5916\:5904\:7406 --------------------*)
 projToF1F2[FAFBList_]:=FAFBToF1F2@FAFBList
@@ -251,10 +253,10 @@ fyTag={"RB","mes","oct"};
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
 splt[{fyTag,"cls"}]=preFactor*fad[
-{k+\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2,{k+\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,mo1}->-1
+{k-\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spr",\[Mu]}]=GS[k+\[CapitalDelta]] . GA5 . (FV[2k+\[CapitalDelta],\[Mu]]) . (GS[p1-k]+mo1) . GA5 . GS[k];
+splt[{fyTag,"spr",\[Mu]}]=GS[k-\[CapitalDelta]] . GA5 . (FV[2k-\[CapitalDelta],\[Mu]]) . (GS[p1-k]+mo1) . GA5 . GS[k];
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
 splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 
@@ -262,9 +264,9 @@ splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
 ruleScalar=FCI[{
 SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2,(*\:5bf9k.k\:4f5c\:66ff\:6362*)
-SP[k,\[CapitalDelta]]->1/2(fad[{k+\[CapitalDelta],\[CapitalLambda]}->1]-fad[{k,\[CapitalLambda]}->1]+Q2),
+SP[k,\[CapitalDelta]]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-fad[{k,\[CapitalLambda]}->1]-\[CapitalDelta]2),
 SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2),(*\:5bf9k.p1\:4f5c\:66ff\:6362*)
-SP[k,p2]->1/2(fad[{k+\[CapitalDelta],\[CapitalLambda]}->1]+Q2-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2)
+SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2)
 }];
 
 
