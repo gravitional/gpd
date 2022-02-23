@@ -141,6 +141,13 @@ k2[3]->k[3]-\[CapitalDelta][3]/2,
 };
 
 
+kTIntegralKinematics={
+ed[\[CapitalDelta][3],\[CapitalDelta][3]]->(-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2)),
+ed[k[3],\[CapitalDelta][3]]->0,
+ed[k[3],k[3]]->ktr^2
+};
+
+
 (*\:4f20\:64ad\:5b50\:7684\:5149\:9525\:5f62\:5f0f--------------*)
 LConegator[{k_,\[CapitalLambda]_}]:=lightConeSP[k,k]-\[CapitalLambda]^2;
 
@@ -250,7 +257,7 @@ SetOptions[Simplify,TimeConstraint->1];
 (*\:56fe\:7684\:7f16\:53f7---------------------*)
 fyTag={"RB","mes","oct"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
-preFactor=1;
+preFactor=(I)/(2\[Pi])^4;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
 splt[{fyTag,"cls"}]=preFactor*fad[
 {k-\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,mo1}->-1
@@ -292,6 +299,7 @@ splt[{fyTag,"FAFB","res"}]=Query[
 (*\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
 Key/@{
 {k,\[CapitalLambda]},{k,mm1},
+{k-\[CapitalDelta],\[CapitalLambda]},{k-\[CapitalDelta],mm1},
 {p1-k,mo1}
 }
 (*\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
@@ -302,16 +310,27 @@ Key/@{
 splt[{fyTag,"F1F2","res"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
 
 
-(* ::Input:: *)
-(*(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)*)
-(*splt[{fyTag,"F1F2","0<y<\[Zeta]"}]=(-2\[Pi]*I)*)
-(**)
-(*(splt[{fyTag,"F1F2","res"}][[1,All]]+splt[{fyTag,"F1F2","res"}][[2,All]]);*)
-(*splt[{fyTag,"F1F2","\[Zeta]<y<1"}]=(2\[Pi]*I)(splt[if,"f1f2","res"][[5,All]]);*)
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Piecewise[{
+{
+(2\[Pi]*I)Query[
+({Key@{k,\[CapitalLambda]},Key@{k,mm1}})/*Total,
+ReplaceAll[lConeKinematics]/*ReplaceAll[kTIntegralKinematics]
+]@splt[{fyTag,"F1F2","res"}],
+-\[Xi]<=y<\[Xi]
+},
+{
+(-2\[Pi]*I)Query[
+({Key@{p1-k,mo1}})/*Total,
+ReplaceAll[lConeKinematics]/*ReplaceAll[kTIntegralKinematics]
+]@splt[{fyTag,"F1F2","res"}],
+\[Xi]<=y<=1
+}
+}];
 
 
 (* ::Input:: *)
-(*if="a";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
+(*fyTag={"RB","mes","oct"};$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 
@@ -462,7 +481,8 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Input:: *)
-(*if="d";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}];*)
+(*fyTag={"RB","mes","oct"};*)
+(*$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}];*)
 (*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 
 
