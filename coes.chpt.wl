@@ -452,7 +452,7 @@ inOct->fd[2,1,0]
 ]]@coeJoin[fyTag]//dsetFmt]
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-octet,F1F2,nonlocal*)
 
 

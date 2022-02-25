@@ -191,7 +191,7 @@ chTag@{"RB","mes","oct"}->fyCoe[1]
 |>;
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*diagram illustration*)
 
 
