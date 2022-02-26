@@ -649,7 +649,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,add,right*)
 
 
@@ -916,11 +916,17 @@ Piecewise[{
 
 
 (* ::Section::Closed:: *)
-(*h*)
+(*tree-level,A-octet,F1F2,nonlocal*)
 
 
-(* ::Text:: *)
-(*tadpole,*)
+fyTag={"tree","oct","F1F2"};
+
+
+(* ::Section::Closed:: *)
+(*tadpole,A-octet,F1F2,nonlocal*)
+
+
+fyTag={"tad","oct","F1F2"};
 
 
 prfactor=(-I*C\[Phi]\[Phi])/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;if="h";(*\:56fe\:7684\:7f16\:53f7*)mo1=MB;mo2=MB;(*\:4e2d\:95f4\:6001\:91cd\:5b50\:7684\:8d28\:91cf*)
@@ -985,11 +991,10 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Section::Closed:: *)
-(*i*)
+(*tadpole,A-octet,addition,o2,nonlocal*)
 
 
-(* ::Text:: *)
-(*tadpole \:89c4\:8303\:94fe\:63a5*)
+fyTag={"tad","oct","F1"};
 
 
 prfactor=(I*C\[Phi]\[Phi])/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;if="i";(*\:56fe\:7684\:7f16\:53f7*)mo1=MB;mo2=MB;(*\:4e2d\:95f4\:6001\:91cd\:5b50\:7684\:8d28\:91cf*)
@@ -1054,11 +1059,10 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Section::Closed:: *)
-(*j*)
+(*bubble, A-meson,order2*)
 
 
-(* ::Text:: *)
-(*bubble \:56fe*)
+fyTag={"bub","mes","o2"};
 
 
 prfactor=(I*C\[Phi]\[Phi])/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;if="j";(*\:56fe\:7684\:7f16\:53f7*)mo1=MB;mo2=MB;(*\:4e2d\:95f4\:6001\:91cd\:5b50\:7684\:8d28\:91cf*)
@@ -1125,56 +1129,67 @@ splt[if,"f1f2","res"]//Dimensions
 
 
 (* ::Section::Closed:: *)
-(*k*)
+(*bubble,A-meson,tensor,order 2*)
 
 
-(* ::Text:: *)
-(*tadpole \:78c1\:77e9*)
+fyTag={"bub","mes","ten","o2"};
 
 
-(* ::Section::Closed:: *)
-(*l*)
-
-
-(* ::Text:: *)
-(*\:9ad8\:9636 bubble*)
-
-
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*split decuplet*)
 
 
 (* ::Section:: *)
-(*m*)
+(*RainBow,A-meson,decuplet mediate*)
+
+
+fyTag={"RB","mes","dec"};
 
 
 (* ::Section:: *)
-(*n*)
+(*RainBow,A-decuplet,F1F2,nonlocal*)
+
+
+fyTag={"RB","dec","F1F2"};
 
 
 (* ::Section:: *)
-(*o*)
+(*RainBow,A-decuplet,trans,left*)
+
+
+fyTag={"RB","trans","left"};
 
 
 (* ::Section:: *)
-(*p*)
+(*RainBow,A-decuplet,trans,right*)
+
+
+fyTag={"RB","trans","right"};
 
 
 (* ::Section:: *)
-(*q*)
+(*Kroll-Ruderman, A-meson,decuplet,left*)
+
+
+fyTag={"KR","mes","dec","left"};
 
 
 (* ::Section:: *)
-(*r*)
+(*Kroll-Ruderman, A-meson,decuplet,right*)
+
+
+fyTag={"KR","mes","dec","right"};
 
 
 (* ::Section:: *)
-(*s*)
+(*Kroll-Ruderman, A-meson,decuplet,addition,left*)
+
+
+fyTag={"KR","mes","dec","add","left"};
 
 
 (* ::Section:: *)
-(*t*)
+(*Kroll-Ruderman, A-meson,decuplet,addition,right*)
 
 
-(* ::Section:: *)
-(*u*)
+fyTag={"KR","mes","dec","add","right"};
