@@ -162,8 +162,9 @@ LConegator[{k_,\[CapitalLambda]_}]:=lightConeSP[k,k]-\[CapitalLambda]^2;
 gatorConfigs={
 {k,\[CapitalLambda]},{k,mm1},(*1,2*)
 {k-\[CapitalDelta],\[CapitalLambda]},{k-\[CapitalDelta],mm1},(*3,4*)
-{p1-k,mo1},{p2-k,mo2},(*5,6*)
-{k+\[CapitalDelta],\[CapitalLambda]},{k+\[CapitalDelta],mm1}(*7,8*)
+{k+\[CapitalDelta],\[CapitalLambda]},{k+\[CapitalDelta],mm1},(*5,6*)
+{p1-k,mo1},{p2-k,mo2},(*7,8*)
+{p1-k,md1},{p2-k,md2}(*7,8*)
 };
 (*\:4f20\:64ad\:5b50\:5728\:5149\:9525\:5750\:6807\:4e0b\:7684\:5f62\:5f0f,\:5173\:8054*)
 gatorAssoc=AssociationMap[LConegator,gatorConfigs];
@@ -206,32 +207,21 @@ gatorShow[expr_]:=(expr/.fadTmp1->fadTmp3)
 (*regulator*)
 
 
-regulatorR::usage="\:6b63\:89c4\:5b50\:7684\:7ec4\:5408";
-regulatorR[{-k_,q_},{m\[Phi]_,\[CapitalLambda]_}]:=regulatorR[{k,-q},{m\[Phi],\[CapitalLambda]}];
-regulatorR[{k_,q_},{m\[Phi]_,\[CapitalLambda]_}]:=intgd[
-num[(\[CapitalLambda]^2-m\[Phi]^2)^2*(LDot[k,k]+LDot[k+q,k+q]-2 \[CapitalLambda]^2)(-1)],(*(2k+q)^\[Mu] \:653e\:5728\:65cb\:91cf\:90e8\:5206\:8003\:8651 *)
-prp[{k,\[CapitalLambda],2}],prp[{k+q,\[CapitalLambda],2}]
-] 
-
-
-dgam3::usage="\:5341\:91cd\:6001F1\:9876\:89d2\:4f3d\:9a6c\:77e9\:9635";
-dgam3[\[Mu]_,\[Nu]_,\[Rho]_]:=(-I)/2 (
-DiracMatrix[LTensor[DiracS,\[Mu],\[Nu]],LTensor[DiracG, \[Rho]]]+
-DiracMatrix[LTensor[DiracG,\[Rho]],LTensor[DiracS,\[Mu],\[Nu]]]
-)
+decGamma3::usage="decGamma3[\[Mu]_,\[Nu]_,\[Rho]_],\:5341\:91cd\:6001F1\:9876\:89d2\:4f3d\:9a6c\:77e9\:9635";
+decGamma3[\[Mu]_,\[Nu]_,\[Rho]_]:=(-I)/2*(
+DiracSigma[GA[\[Mu]],GA[\[Nu]]] . GA[\[Rho]]+GA[\[Rho]] . DiracSigma[GA[\[Mu]],GA[\[Nu]]])
 
 
 \[CapitalTheta]::usage="\:5341\:91cd\:6001\:79bb\:58f3\:53c2\:6570\:6240\:5728\:7684 \[Gamma] \:77e9\:9635";
-\[CapitalTheta][\[Mu]_,\[Nu]_]:=I LTensor[DiracS,\[Mu],\[Nu]]
-spDec::usage="\:5341\:91cd\:6001\:4f20\:64ad\:5b50\:7684\:65cb\:91cf\:90e8\:5206";
-spDec[{\[Alpha]_,\[Beta]_},{p_,md_}]:=DiracMatrix[-(LDot[DiracG,p] +md Dirac1),
-LTensor[MetricG,\[Alpha],\[Beta]] Dirac1 -1/3 DiracMatrix[LTensor[DiracG,\[Alpha]],LTensor[DiracG,\[Beta]]]
--(LTensor[DiracG,\[Alpha]] LTensor[p,\[Beta]]-LTensor[DiracG,\[Beta]] LTensor[p,\[Alpha]])/(3md)
--(2LTensor[p,\[Alpha]] LTensor[p,\[Beta]] Dirac1)/(3md^2) 
- ]
+\[CapitalTheta][\[Mu]_,\[Nu]_]:=I*DiracSigma[GA[\[Mu]],GA[\[Nu]]]
 
 
-(* ::Section:: *)
+decGator::usage="decGator[{\[Alpha]_,\[Beta]_},{p_,md_}],\:5341\:91cd\:6001\:4f20\:64ad\:5b50\:7684\:65cb\:91cf\:90e8\:5206";
+decGator[{\[Alpha]_,\[Beta]_},{p_,md_}]:=(-(GS[p]+md) . (
+MT[\[Alpha],\[Beta]]-1/3 GA[\[Alpha]] . GA[\[Beta]]-(GA[\[Alpha]] . FV[p,\[Beta]]-GA[\[Beta]] . FV[p,\[Alpha]])/(3md)-(2FV[p,\[Alpha]] . FV[p,\[Beta]])/(3md^2)))
+
+
+(* ::Section::Closed:: *)
 (*splitting function projectors*)
 
 
@@ -284,7 +274,7 @@ SetOptions[Simplify,TimeConstraint->1];
 (*Split function octet*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Rainbow,meson,octet*)
 
 
@@ -301,7 +291,7 @@ splt[{fyTag,"cls"}]=preFactor*fad[
 {k-\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spr",\[Mu]}]=GS[k-\[CapitalDelta]] . GA5 . (FV[2k-\[CapitalDelta],\[Mu]]) . (GS[p1-k]+mo1) . GS[k] . GA5;
+splt[{fyTag,"spr",\[Mu]}]=(FV[2k-\[CapitalDelta],\[Mu]] . GS[k-\[CapitalDelta]] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
 splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 
@@ -309,9 +299,9 @@ splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
 ruleScalar=FCI[{
 SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2,(*\:5bf9k.k\:4f5c\:66ff\:6362*)
-SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]+\[CapitalDelta]2),
-SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2),(*\:5bf9k.p1\:4f5c\:66ff\:6362*)
-SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2)
+SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2)),
+SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2)),(*\:5bf9k.p1\:4f5c\:66ff\:6362*)
+SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
 }];
 
 
@@ -324,8 +314,9 @@ splt[{fyTag,"cls"}]*
 fadTmp1[__],Simplify];
 
 
-(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+(* ::Input:: *)
+(*(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)*)
+(*splt[{fyTag,"FAFB","integ"}]//First//gatorShow*)
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
@@ -384,7 +375,7 @@ Piecewise[{
 (*]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,octet,left*)
 
 
@@ -455,11 +446,15 @@ splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
 (*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
 Piecewise[{
 {
-(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}]],
 -\[Xi]<=y<1-2\[Xi]
 },
 {
-(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+(2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1},{p2-k,mo2}
+}]],
 1-2\[Xi]<=y<=1
 }
 }]&
@@ -471,7 +466,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,octet,right*)
 
 
@@ -497,7 +492,7 @@ splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 ruleScalar=FCI[{
 SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
 ,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
-,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2)
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
 ,SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
 }];
 
@@ -524,7 +519,7 @@ splt[{fyTag,"FAFB","res"}]=Query[
 (*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
 Key/@{
 {k,\[CapitalLambda]},{k,mm1},
-{p2-k,mo2}
+{p1-k,mo1}
 }
 (*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
 ,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
@@ -542,12 +537,10 @@ splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
 (*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
 Piecewise[{
 {
-(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
--\[Xi]<=y<1-2\[Xi]
-},
-{
-(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
-1-2\[Xi]<=y<=1
+(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}]],
+-\[Xi]<=y<=1
 }
 }]&
 ]@splt[{fyTag,"F1F2","res"}];
@@ -558,7 +551,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,add,left*)
 
 
@@ -573,13 +566,14 @@ preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
 splt[{fyTag,"cls"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,mo2}->-1,
-{k,\[CapitalLambda]}->-2,{k+\[CapitalDelta],\[CapitalLambda]}->-2(*\:76f8\:5f53\:4e8e-k+q*)
+(*\:6b63\:89c4\:5b50 -R\[Mu](-k,q) *)
+{k,\[CapitalLambda]}->-2,{k+\[CapitalDelta],\[CapitalLambda]}->-2
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
 splt[{fyTag,"spr",\[Mu]}]=(
 (*\:6b63\:89c4\:5b50\:7ec4\:5408: -R\[Mu](-k,q) *)
 (-1)(SP[k,k]+SP[k+\[CapitalDelta],k+\[CapitalDelta]]-2\[CapitalLambda]^2)*(-1)FV[-2k+p2-p1,\[Mu]] .
-GS[k] . GA5 . (GS[p2-k]+mo2) . GS[k-(p2-p1)] . GA5);
+GS[k] . GA5 . (GS[p2-k]+mo2) . GS[k-p2+p1] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
 splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 
@@ -614,8 +608,8 @@ splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 splt[{fyTag,"FAFB","res"}]=Query[
 (*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
 Key/@{
-{k,\[CapitalLambda]},{k,mm1},
-{p2-k,mo2}
+{k,\[CapitalLambda]},{k+\[CapitalDelta],\[CapitalLambda]}->-2,{k,mm1}
+,{p2-k,mo2}
 }
 (*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
 ,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
@@ -624,7 +618,7 @@ Key/@{
 
 (*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
 splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
-(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+(*\:7ffb\:8f6c\:5d4c\:5957\:6b21\:5e8f----*)
 splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
 
 
@@ -632,14 +626,22 @@ splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{f
 splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
 (*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
 Piecewise[{
+(*-----*)
 {
-(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+(+2\[Pi]*I)Total@#[[Key/@{
+{p2-k,mo2}
+}]],
 -\[Xi]<=y<1-2\[Xi]
 },
+(*-----*)
 {
-(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+(*(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1},{k+\[CapitalDelta],\[CapitalLambda]},{p2-k,mo2}
+}]]*)
+0,
 1-2\[Xi]<=y<=1
 }
+(*-----*)
 }]&
 ]@splt[{fyTag,"F1F2","res"}];
 
@@ -649,7 +651,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,add,right*)
 
 
@@ -664,12 +666,13 @@ preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
 splt[{fyTag,"cls"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p1-k,mo1}->-1,
-{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2(*\:76f8\:5f53\:4e8e k+q*)
+(*\:6b63\:89c4\:5b50 R\[Mu](k,q)*)
+{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
 splt[{fyTag,"spr",\[Mu]}]=(
-(*\:6b63\:89c4\:5b50\:7ec4\:5408: -R\[Mu](-k,q) *)
-(SP[k,k]+SP[k-\[CapitalDelta],k-\[CapitalDelta]]-2\[CapitalLambda]^2)*(-1)FV[2k+p2-p1,\[Mu]] .
+(*\:6b63\:89c4\:5b50\:7ec4\:5408: R\[Mu](k,q) *)
+(SP[k,k]+SP[k-\[CapitalDelta],k-\[CapitalDelta]]-2\[CapitalLambda]^2)(-1)FV[2k+p2-p1,\[Mu]] .
 GS[k+p2-p1] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
 splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
@@ -679,7 +682,7 @@ splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 ruleScalar=FCI[{
 SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
 ,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
-,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2)
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
 ,SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
 }];
 
@@ -705,8 +708,8 @@ splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 splt[{fyTag,"FAFB","res"}]=Query[
 (*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
 Key/@{
-{k,\[CapitalLambda]},{k,mm1},
-{p2-k,mo2}
+{k,\[CapitalLambda]},{k-\[CapitalDelta],\[CapitalLambda]},{k,mm1}
+,{p1-k,mo1}
 }
 (*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
 ,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
@@ -723,13 +726,19 @@ splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{f
 splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
 (*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
 Piecewise[{
+(*--------------*)
 {
-(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
--\[Xi]<=y<1-2\[Xi]
+(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}]],
+-\[Xi]<=y<\[Xi]
 },
+(*--------------*)
 {
-(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
-1-2\[Xi]<=y<=1
+(+2\[Pi]*I)Total@#[[Key/@{
+{p1-k,mo1}
+}]],
+\[Xi]<=y<=1
 }
 }]&
 ]@splt[{fyTag,"F1F2","res"}];
@@ -740,7 +749,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-octet,F1,nonlocal*)
 
 
@@ -757,7 +766,8 @@ splt[{fyTag,"cls"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,mo2}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spr",\[Mu]}]=GS[k] . GA5 . (GS[p2-k]+mo2) . GA[\[Mu]] . (GS[p1-k]+mo1) . GS[k] . GA5;
+splt[{fyTag,"spr",\[Mu]}]=(GS[k] . GA5 . (GS[p2-k]+mo2) .
+GA[\[Mu]] . (GS[p1-k]+mo1) . GS[k] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
 splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 
@@ -792,8 +802,8 @@ splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 splt[{fyTag,"FAFB","res"}]=Query[
 (*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
 Key/@{
-{k,\[CapitalLambda]},{k,mm1},
-{p2-k,mo2}
+{k,\[CapitalLambda]},{k,mm1}
+,{p2-k,mo2},{p1-k,mo1}
 }
 (*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
 ,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
@@ -810,12 +820,18 @@ splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{f
 splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
 (*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
 Piecewise[{
+(*--------------*)
 {
-(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}]],
 -\[Xi]<=y<1-2\[Xi]
 },
+(*--------------*)
 {
-(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+(+2\[Pi]*I)Total@#[[Key/@{
+{p1-k,mo1}
+}]],
 1-2\[Xi]<=y<=1
 }
 }]&
@@ -827,7 +843,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-octet,F2,nonlocal*)
 
 
@@ -880,6 +896,195 @@ splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 splt[{fyTag,"FAFB","res"}]=Query[
 (*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
 Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+,{p2-k,mo2},{p1-k,mo1}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+(*--------------*)
+{
+(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+(*--------------*)
+{
+(+2\[Pi]*I)Total@#[[Key/@{
+{p1-k,mo1}
+}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
+
+
+(* ::Section:: *)
+(*tadpole,A-octet,F1,nonlocal*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"tad","oct","F1"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
+fyTag={"tad","oct","F1"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-4,{k,mm1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=GA[\[Mu]];
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
+
+
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+(*---------------*)
+{
+(*(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}]]*)
+0,
+-\[Xi]<=y<1-2\[Xi]
+},
+(*---------------*)
+{
+(*(+2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}]]*)
+0,
+1-2\[Xi]<=y<=1
+}
+(*---------------*)
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
+
+
+(* ::Section::Closed:: *)
+(*tadpole,A-octet,F1,addition*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"tad","oct","F1","add"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
+fyTag={"tad","oct","F1","add"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-2,{k,mm1}->-1,
+{k-\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=(fad[{k,\[CapitalLambda]}->1]+fad[{k-\[CapitalDelta],\[CapitalLambda]}->1])*2GS[k] . (-FV[2k-\[CapitalDelta],\[Mu]]);
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
+
+
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
 {k,\[CapitalLambda]},{k,mm1},
 {p2-k,mo2}
 }
@@ -916,223 +1121,266 @@ Piecewise[{
 
 
 (* ::Section::Closed:: *)
-(*tree-level,A-octet,F1F2,nonlocal*)
-
-
-fyTag={"tree","oct","F1F2"};
-
-
-(* ::Section::Closed:: *)
-(*tadpole,A-octet,F1F2,nonlocal*)
-
-
-fyTag={"tad","oct","F1F2"};
-
-
-prfactor=(-I*C\[Phi]\[Phi])/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;if="h";(*\:56fe\:7684\:7f16\:53f7*)mo1=MB;mo2=MB;(*\:4e2d\:95f4\:6001\:91cd\:5b50\:7684\:8d28\:91cf*)
-splt[if,"cls"]=(prfactor*fad[{k,\[CapitalLambda]}->-4,{k,mm1}->-1])
-
-
-if="h";
-\[CapitalGamma][if,"spr",\[Mu]]:=GA[\[Mu]]
-
-
-if="h";
-splt[if,"FAFB","spr"]=toFaFb[\[CapitalGamma][if,"spr",\[Mu]],\[Nu]];(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf*)
-
-
-(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
-scalars:=FCI[{
-SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2,(*\:5bf9k.k\:4f5c\:66ff\:6362*)
-SP[k,q]->1/2(fad[{k+q,\[CapitalLambda]}->1]-fad[{k,\[CapitalLambda]}->1]+Q2),
-SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2),(*\:5bf9k.p1\:4f5c\:66ff\:6362*)
-SP[k,p2]->1/2(fad[{k+q,\[CapitalLambda]}->1]+Q2-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2)
-}]
-
-
-if="h";
-splt[if,"FAFB"]=Collect[
-Expand[(splt[if,"cls"])*(splt[if,"FAFB","spr"]/.scalars)],(*\:6700\:7ec8\:7ed3\:679c*)
-fadTmp1[__],(*\:6574\:7406\:4e00\:4e0b*)
-Simplify
-];
-
-
-if="h";
-splt[if, "FAFB"][[1]]//gatorShow(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-
-
-if="h";
-splt[if,"FAFB","lcc"]=splt[if,"FAFB"]/.fadTmp1->fadTmp2;
-
-
-if="h";
-Monitor[
-splt[if,"FAFB","res"]=Table[
-gatorConfigs[[res]]->Residue[splt[if,"FAFB","lcc"][[ff]],
-{km,gatorZs[[res]]}
-]
-,{res,{1,2}}
-,{ff,1,2,1}
-]
-,{res,ff}(*\:76d1\:89c6\:8fd0\:884c\:8fc7\:7a0b*)
-];//AbsoluteTiming
-splt[if,"FAFB","res"]//Dimensions
-
-
-if="h";
-splt[if,"f1f2","res"]=toF1F2/@splt[if,"FAFB","res"];
-splt[if,"f1f2","res"]//Dimensions
+(*tadpole,A-octet,F2,nonlocal*)
 
 
 (* ::Input:: *)
-(*if="h";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
-(*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*diagIllus@chTag@{"tad","oct","F2"}*)
 
 
-(* ::Section::Closed:: *)
-(*tadpole,A-octet,addition,o2,nonlocal*)
-
-
-fyTag={"tad","oct","F1"};
-
-
-prfactor=(I*C\[Phi]\[Phi])/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;if="i";(*\:56fe\:7684\:7f16\:53f7*)mo1=MB;mo2=MB;(*\:4e2d\:95f4\:6001\:91cd\:5b50\:7684\:8d28\:91cf*)
-splt[if,"cls"]=prfactor*fad[{k+q,\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-4,{k,mm1}->-1]*(fad[{k,\[CapitalLambda]}->1]+fad[{k+q,\[CapitalLambda]}->1])*(FV[2k+q,\[Mu]])*2
-
-
-if="i";
-\[CapitalGamma][if,"spr",\[Mu]]:=GS[k]
-
-
-if="i";
-splt[if,"FAFB","spr"]=toFaFb[\[CapitalGamma][if,"spr",\[Mu]],\[Nu]];(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf*)
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
+fyTag={"tad","oct","F2"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-4,{k,mm1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=I/(2mN)*DiracSigma[GA[\[Mu]],GA[\[Nu]]] . FV[-\[CapitalDelta],\[Nu]];
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
-scalars:=FCI[{
-SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2,(*\:5bf9k.k\:4f5c\:66ff\:6362*)
-SP[k,q]->1/2(fad[{k+q,\[CapitalLambda]}->1]-fad[{k,\[CapitalLambda]}->1]+Q2),
-SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2),(*\:5bf9k.p1\:4f5c\:66ff\:6362*)
-SP[k,p2]->1/2(fad[{k+q,\[CapitalLambda]}->1]+Q2-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2)
-}]
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
 
 
-if="i";
-splt[if,"FAFB"]=Collect[
-Expand[(splt[if,"cls"])*(splt[if,"FAFB","spr"]/.scalars)],(*\:6700\:7ec8\:7ed3\:679c*)
-fadTmp1[__],(*\:6574\:7406\:4e00\:4e0b*)
-Simplify
-];
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
 
 
-if="i";
-splt[if, "FAFB"][[1]]//gatorShow(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
-if="i";
-splt[if,"FAFB","lcc"]=splt[if,"FAFB"]/.fadTmp1->fadTmp2;
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
 
 
-if="i";
-Monitor[
-splt[if,"FAFB","res"]=Table[
-gatorConfigs[[res]]->Residue[splt[if,"FAFB","lcc"][[ff]],
-{km,gatorZs[[res]]}
-]
-,{res,{7}}
-,{ff,1,2,1}
-]
-,{res,ff}(*\:76d1\:89c6\:8fd0\:884c\:8fc7\:7a0b*)
-];//AbsoluteTiming
-splt[if,"FAFB","res"]//Dimensions
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
 
 
-if="i";
-splt[if,"f1f2","res"]=toF1F2/@splt[if,"FAFB","res"];
-splt[if,"f1f2","res"]//Dimensions
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
 
 
 (* ::Input:: *)
-(*if="i";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
-(*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
 (* ::Section::Closed:: *)
 (*bubble, A-meson,order2*)
 
 
+(* ::Input:: *)
+(*diagIllus@chTag@{"bub","mes","o2"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
 fyTag={"bub","mes","o2"};
-
-
-prfactor=(I*C\[Phi]\[Phi])/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;if="j";(*\:56fe\:7684\:7f16\:53f7*)mo1=MB;mo2=MB;(*\:4e2d\:95f4\:6001\:91cd\:5b50\:7684\:8d28\:91cf*)
-splt[if,"cls"]=(prfactor*fad[
-{k,\[CapitalLambda]}->-4,{k,mm1}->-1,{k+q,mm1}->-1
-])
-
-
-if="j";
-\[CapitalGamma][if,"spr",\[Mu]]:=FV[2k+q,\[Mu]] . GS[k]
-
-
-if="j";
-splt[if,"FAFB","spr"]=toFaFb[\[CapitalGamma][if,"spr",\[Mu]],\[Nu]];(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf*)
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2,
+{k,mm1}->-1,{k-\[CapitalDelta],mm1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=4(GS[k] . FV[k,\[Mu]]);
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
-scalars:=FCI[{
-SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2,(*\:5bf9k.k\:4f5c\:66ff\:6362*)
-SP[k,q]->1/2(fad[{k+q,\[CapitalLambda]}->1]-fad[{k,\[CapitalLambda]}->1]+Q2),
-SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2),(*\:5bf9k.p1\:4f5c\:66ff\:6362*)
-SP[k,p2]->1/2(fad[{k+q,\[CapitalLambda]}->1]+Q2-fad[{p1-k,mo1}->1]+\[CapitalLambda]^2-mo1^2+mN^2)
-}]
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
 
 
-if="j";
-splt[if,"FAFB"]=Collect[
-Expand[(splt[if,"cls"])*(splt[if,"FAFB","spr"]/.scalars)],(*\:6700\:7ec8\:7ed3\:679c*)
-fadTmp1[__],(*\:6574\:7406\:4e00\:4e0b*)
-Simplify
-];
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
 
 
-if="j";
-splt[if, "FAFB"][[1]]//gatorShow(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
-if="j";
-splt[if,"FAFB","lcc"]=splt[if,"FAFB"]/.fadTmp1->fadTmp2;
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
 
 
-if="j";
-Monitor[
-splt[if,"FAFB","res"]=Table[
-gatorConfigs[[res]]->Residue[splt[if,"FAFB","lcc"][[ff]],
-{km,gatorZs[[res]]}
-]
-,{res,{1,2}}
-,{ff,1,2,1}
-]
-,{res,ff}(*\:76d1\:89c6\:8fd0\:884c\:8fc7\:7a0b*)
-];//AbsoluteTiming
-splt[if,"FAFB","res"]//Dimensions
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
 
 
-if="j";
-splt[if,"f1f2","res"]=toF1F2/@splt[if,"FAFB","res"];
-splt[if,"f1f2","res"]//Dimensions
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
 
 
 (* ::Input:: *)
-(*if="j";$outDir=FileNameJoin[{$srcRoot,"/mfiles/"}]*)
-(*Export[FileNameJoin[{$outDir,"residue_f1f2_"<>if<>".m"}],splt[if,"f1f2","res"]](*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
 (* ::Section::Closed:: *)
-(*bubble,A-meson,tensor,order 2*)
+(*bubble, A-meson,order2*)
 
 
+(* ::Input:: *)
+(*diagIllus@chTag@{"bub","mes","ten","o2"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
 fyTag={"bub","mes","ten","o2"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2,
+{k,mm1}->-1,{k-\[CapitalDelta],mm1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=FV[k-\[CapitalDelta],\[Rho]] . FV[k,\[Nu]]*DiracSigma[GA[\[Rho]],GA[\[Nu]]] . FV[2k-\[CapitalDelta],\[Mu]];
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
+
+
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
 (* ::Chapter:: *)
@@ -1140,56 +1388,792 @@ fyTag={"bub","mes","ten","o2"};
 
 
 (* ::Section:: *)
-(*RainBow,A-meson,decuplet mediate*)
+(*bubble, A-meson,order2*)
 
 
+(* ::Input:: *)
+(*diagIllus@chTag@{"RB","mes","dec"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
 fyTag={"RB","mes","dec"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2,
+{k-\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,md1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=(FV[k-\[CapitalDelta],\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] .
+decGator[{\[Beta],\[Rho]},{p1-k,md1}] . \[CapitalTheta][\[Rho],\[Nu]] . FV[k,\[Nu]] . FV[2k-\[CapitalDelta],\[Mu]]);
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 
 
-(* ::Section:: *)
-(*RainBow,A-decuplet,F1F2,nonlocal*)
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
 
 
-fyTag={"RB","dec","F1F2"};
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
+
+
+(* ::Section::Closed:: *)
+(*RainBow,A-decuplet,F1*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"RB","dec","F1"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
+fyTag={"RB","dec","F1"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md2}->-1,{p1-k,md1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=(FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . decGator[{\[Beta],\[Theta]},{p2-k,md2}] .
+decGamma3[\[Theta],\[Nu],\[Mu]] . decGator[{\[Nu],\[Rho]},{p1-k,md1}] . \[CapitalTheta][\[Rho],\[Eta]] . FV[k,\[Eta]]);
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
+
+
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
+
+
+(* ::Section::Closed:: *)
+(*RainBow,A-decuplet,F2*)
+
+
+(* ::Input:: *)
+(*diagIllus@chTag@{"RB","dec","F2"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
+fyTag={"RB","dec","F2"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md2}->-1,{p1-k,md1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=I/(2mN) (FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . decGator[{\[Beta],\[Theta]},{p2-k,md2}] .
+DiracSigma[GA[\[Mu]],GA[\[Nu]]] . FV[-\[CapitalDelta],\[Nu]] . decGator[{\[Theta],\[Rho]},{p1-k,md1}] . \[CapitalTheta][\[Rho],\[Eta]] . FV[k,\[Eta]]);
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
+
+
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
 (* ::Section:: *)
 (*RainBow,A-decuplet,trans,left*)
 
 
+(* ::Input:: *)
+(*diagIllus@chTag@{"RB","trans","left"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
 fyTag={"RB","trans","left"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md1}->-1,{p1-k,mo1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=(
+GS[k] . GA5 . (GS[p2-k]+mo1) . FV[-\[CapitalDelta],\[Nu]] . (
+GA[\[Nu]] . GA5 . decGator[{\[Mu],\[Beta]},{p1-k,md1}]-GA[\[Mu]] . GA5 . decGator[{\[Nu],\[Beta]},{p1-k,md1}]) .
+\[CapitalTheta][\[Beta],\[Alpha]] . FV[k,\[Alpha]]);
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
+
+
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
 (* ::Section:: *)
 (*RainBow,A-decuplet,trans,right*)
 
 
+(* ::Input:: *)
+(*diagIllus@chTag@{"RB","trans","right"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
 fyTag={"RB","trans","right"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p1-k,md1}->-1,{p2-k,mo1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=(FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . FV[-\[CapitalDelta],\[Nu]] . (
+decGator[{\[Beta],\[Nu]},{p2-k,md1}] . GA[\[Mu]] . GA5-decGator[{\[Beta],\[Mu]},{p2-k,md1}] . GA[\[Nu]] . GA5) .
+(GS[p1-k]+mo1) . GS[k] . GA5);
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 
 
-(* ::Section:: *)
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
+
+
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman, A-meson,decuplet,left*)
 
 
+(* ::Input:: *)
+(*diagIllus@chTag@{"KR","mes","dec","left"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
 fyTag={"KR","mes","dec","left"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=FV[k,\[Rho]] . \[CapitalTheta][\[Rho],\[Beta]] . decGator[{\[Beta],\[Nu]},{p2-k,md1}] . \[CapitalTheta][\[Nu],\[Mu]];
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
+
+
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
 (* ::Section:: *)
 (*Kroll-Ruderman, A-meson,decuplet,right*)
 
 
+(* ::Input:: *)
+(*diagIllus@chTag@{"KR","mes","dec","right"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
 fyTag={"KR","mes","dec","right"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p1-k,md1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=\[CapitalTheta][\[Mu],\[Nu]] . decGator[{\[Nu],\[Rho]},{p1-k,md1}] . \[CapitalTheta][\[Rho],\[Beta]] . FV[k,\[Beta]];
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
 
 
-(* ::Section:: *)
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
+
+
+(* ::Section::Closed:: *)
 (*Kroll-Ruderman, A-meson,decuplet,addition,left*)
 
 
+(* ::Input:: *)
+(*diagIllus@chTag@{"KR","mes","dec","add","left"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
 fyTag={"KR","mes","dec","add","left"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,md1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . decGator[{\[Beta],\[Nu]},{p2-k,md1}] . \[CapitalTheta][\[Nu],\[Rho]] . FV[k+\[CapitalDelta],\[Rho]];
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
+
+
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
 (* ::Section:: *)
 (*Kroll-Ruderman, A-meson,decuplet,addition,right*)
 
 
+(* ::Input:: *)
+(*diagIllus@chTag@{"KR","mes","dec","add","right"}*)
+
+
+(*\:56fe\:7684\:7f16\:53f7---------------------*)
 fyTag={"KR","mes","dec","add","right"};
+(*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
+preFactor=1;
+(*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
+splt[{fyTag,"cls"}]=preFactor*fad[
+{k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p1-k,md1}->-1
+]
+(*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
+splt[{fyTag,"spr",\[Mu]}]=FV[k-\[CapitalDelta],\[Rho]] . \[CapitalTheta][\[Rho],\[Nu]] . decGator[{\[Nu],\[Alpha]},{p1-k,md1}] . \[CapitalTheta][\[Alpha],\[Beta]] . FV[k,\[Beta]];
+(*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
+splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
+
+
+(*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
+ruleScalar=FCI[{
+SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*)
+,SP[k,\[CapitalDelta]]->1/2(fad[{k,\[CapitalLambda]}->1]-(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2))
+,SP[k,p1]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p1-k,mo1}->1]+mo1^2-mN^2))
+,SP[k,p2]->1/2(fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2-(fad[{p2-k,mo2}->1]+mo2^2-mN^2))
+}];
+
+
+(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
+splt[{fyTag,"FAFB","integ"}]=Collect[
+Expand[
+splt[{fyTag,"cls"}]*
+(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
+],
+fadTmp1[__],Simplify];
+
+
+(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
+
+
+splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
+(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
+]@splt[{fyTag,"FAFB","integ"}];
+
+
+splt[{fyTag,"FAFB","res"}]=Query[
+(*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
+Key/@{
+{k,\[CapitalLambda]},{k,mm1},
+{p2-k,mo2}
+}
+(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
+,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
+]@gatorZeros;
+
+
+(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
+splt[{fyTag,"F1F2","res","tmp1"}]=projToF1F2/@splt[{fyTag,"FAFB","res"}];
+(*\:7ffb\:8f6c\:6b21\:5e8f----*)
+splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{ffs,2}];
+
+
+(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
+splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
+(*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
+Piecewise[{
+{
+(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
+-\[Xi]<=y<1-2\[Xi]
+},
+{
+(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
+1-2\[Xi]<=y<=1
+}
+}]&
+]@splt[{fyTag,"F1F2","res"}];
+
+
+(* ::Input:: *)
+(*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
+(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
