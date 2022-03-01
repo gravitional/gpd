@@ -1032,7 +1032,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,A-octet,F1,addition*)
 
 
@@ -1085,8 +1085,7 @@ splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 splt[{fyTag,"FAFB","res"}]=Query[
 (*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
 Key/@{
-{k,\[CapitalLambda]},{k,mm1},
-{p2-k,mo2}
+{k,\[CapitalLambda]},{k,mm1},{k-\[CapitalDelta],\[CapitalLambda]}
 }
 (*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
 ,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
@@ -1104,12 +1103,16 @@ splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
 (*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
 Piecewise[{
 {
-(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
--\[Xi]<=y<1-2\[Xi]
+(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}]],
+-\[Xi]<=y<\[Xi]
 },
 {
-(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
-1-2\[Xi]<=y<=1
+(*(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1},{k-\[CapitalDelta],\[CapitalLambda]}
+}]]*)0,
+\[Xi]<=y<=1
 }
 }]&
 ]@splt[{fyTag,"F1F2","res"}];
@@ -1120,7 +1123,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,A-octet,F2,nonlocal*)
 
 
@@ -1172,8 +1175,7 @@ splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 splt[{fyTag,"FAFB","res"}]=Query[
 (*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
 Key/@{
-{k,\[CapitalLambda]},{k,mm1},
-{p2-k,mo2}
+{k,\[CapitalLambda]},{k,mm1}
 }
 (*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
 ,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
@@ -1190,14 +1192,13 @@ splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{f
 splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
 (*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
 Piecewise[{
+(*-----------*)
 {
-(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
--\[Xi]<=y<1-2\[Xi]
-},
-{
-(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
-1-2\[Xi]<=y<=1
+(*(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]]*)
+0,
+-\[Xi]<=y<=1
 }
+(*-----------*)
 }]&
 ]@splt[{fyTag,"F1F2","res"}];
 
@@ -1207,7 +1208,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble, A-meson,order2*)
 
 
@@ -1260,8 +1261,8 @@ splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 splt[{fyTag,"FAFB","res"}]=Query[
 (*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
 Key/@{
-{k,\[CapitalLambda]},{k,mm1},
-{p2-k,mo2}
+{k,\[CapitalLambda]},{k,mm1}
+,{k-\[CapitalDelta],\[CapitalLambda]},{k-\[CapitalDelta],mm1}
 }
 (*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
 ,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
@@ -1278,13 +1279,19 @@ splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{f
 splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
 (*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
 Piecewise[{
+
 {
-(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
--\[Xi]<=y<1-2\[Xi]
+(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}]],
+-\[Xi]<=y<\[Xi]
 },
 {
-(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
-1-2\[Xi]<=y<=1
+(*(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1},{p1-k,mo1}
+}]]*)
+0,
+\[Xi]<=y<=1
 }
 }]&
 ]@splt[{fyTag,"F1F2","res"}];
@@ -1295,7 +1302,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble, A-meson,order2*)
 
 
@@ -1348,8 +1355,8 @@ splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 splt[{fyTag,"FAFB","res"}]=Query[
 (*<propgator\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
 Key/@{
-{k,\[CapitalLambda]},{k,mm1},
-{p2-k,mo2}
+{k,\[CapitalLambda]},{k,mm1}
+,{k-\[CapitalDelta],\[CapitalLambda]},{k-\[CapitalDelta],mm1}
 }
 (*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
 ,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
@@ -1366,14 +1373,22 @@ splt[{fyTag,"F1F2","res"}]=Table[splt[{fyTag,"F1F2","res","tmp1"}][[All,ffs]],{f
 splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
 (*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
 Piecewise[{
+(*-----------*)
 {
-(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
--\[Xi]<=y<1-2\[Xi]
+(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1}
+}]],
+-\[Xi]<=y<\[Xi]
 },
+(*-----------*)
 {
-(2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1},Key@{p1-k,mo1}}]],
-1-2\[Xi]<=y<=1
+(*(-2\[Pi]*I)Total@#[[Key/@{
+{k,\[CapitalLambda]},{k,mm1},{k-\[CapitalDelta],\[CapitalLambda]},{k-\[CapitalDelta],mm1}
+}]]*)
+0,
+\[Xi]<=y<=1
 }
+(*-----------*)
 }]&
 ]@splt[{fyTag,"F1F2","res"}];
 
