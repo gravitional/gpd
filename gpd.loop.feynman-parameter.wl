@@ -68,13 +68,13 @@ f
 (*(p1+p2)/2,p1-p2*)
 ,P,\[CapitalDelta],
 (*\:8d39\:66fc\:53c2\:6570-----------*)
-fPar
+fp
 ];
 
 
 (*\:8d39\:66fc\:53c2\:6570\:5316\:ff1a\:4f20\:64ad\:5b50\:7684\:7ec4\:5408*)
 feynmanParameter[props_List]:=Module[{len=Length@props,coes},
-coes=Prepend[fPar/@Range[len-1],1]-Append[fPar/@Range[len-1],0];
+coes=Prepend[fp/@Range[len-1],1]-Append[fp/@Range[len-1],0];
 props . coes
 ]
 
@@ -87,13 +87,20 @@ p1->Subscript[p,1],p2->Subscript[p, 2]
 ,mo1->Subscript[M,B],mo2->Subscript[M,B2]
 ,mm1->Subscript[m,\[Phi]]
 (*\:8d39\:66fc\:53c2\:6570\:5316*)
-,Splice@Normal@AssociationThread[fPar/@Range[10],ToExpression@CharacterRange[97,106]]
+,Splice@Normal@AssociationThread[fp/@Range[10],ToExpression@CharacterRange[97,106]]
 };
-(*\:9006\:66ff\:6362\:89c4\:5219\:ff0c\:4ea4\:6362 Rule \:4e2d\:4e24\:4e2a\:53c2\:6570\:7684\:4f4d\:7f6e*)
+(*\:9006\:66ff\:6362\:89c4\:5219\:ff0c\:4ea4\:6362 ruleTeX \:4e2d\:4e24\:4e2a\:53c2\:6570\:7684\:4f4d\:7f6e ----------------*)
 ruleTexRev=ruleTeX/.Rule->ReverseApplied[Rule];
 
 
-(* ::Chapter:: *)
+(*ward \:6052\:7b49\:5f0f\:ff0c\:65b9\:4fbf\:53bb\:6389\:6b63\:6bd4\:4e8e \[CapitalDelta] \:7684\:9879*)
+ruleWard=MomentumExpand@{
+Momentum[p1]->Momentum[P]+Momentum[\[CapitalDelta]]/2,
+Momentum[p2]->Momentum[P]-Momentum[\[CapitalDelta]]/2
+};
+
+
+(* ::Section:: *)
 (*kinematics*)
 
 
@@ -109,7 +116,7 @@ SP[\[CapitalDelta],\[CapitalDelta]]=\[CapitalDelta]2;
 SP[P,\[CapitalDelta]]=0;
 
 
-(*\:53bb\:6389 Dirac \:65cb\:91cf\:94fe \:4e24\:8fb9\:7684\:65cb\:91cf*)
+(*\:53bb\:6389 Dirac Spinor \:4e24\:7aef\:7684\:65cb\:91cf*)
 dropSpinorDot[ubar_Spinor,expr__,u_Spinor]:=dropSpinorDot[expr]
 dropSpinorDot[ubar_Spinor,u_Spinor]:=1
 dropSpinor[expr_]:=expr/.{Dot->dropSpinorDot}/.{dropSpinorDot->Dot}
@@ -120,21 +127,16 @@ dropSpinor[expr_]:=expr/.{Dot->dropSpinorDot}/.{dropSpinorDot->Dot}
 
 
 (*\:4f20\:64ad\:5b50*)
-propg[k_,m_]:=k^2-m^2
+propg[k_,m_]:=SP[k,k]-m^2
 
 
+(*CompleteSquare[a p^2+b p+c, p, q] -> {a q^2-b^2/(4 a)+c, q\[Rule]p+b/(2 a)}.*)
 (*\:5c06\:5408\:5e76\:540e\:7684\:4f20\:64ad\:5b50\:914d\:9f50\:6210\:5b8c\:5168\:5e73\:65b9*)
 toSquare[expr_,k_,l_]:=Module[
-{a=Coefficient[expr,k,2],
-b=Coefficient[expr,k,1],
-c=Coefficient[expr,k,0]
-},
-(*\:52a8\:91cf\:914d\:9f50\:9700\:8981\:6ee1\:8db3\:7684\:5173\:7cfb---------*)
-{
-l->k+b/(2a),
-k->l-b/(2a),
--l^2->b^2/(4a)-c
-}
+{res,kRule},
+res=CompleteSquare[expr,k,l];
+kRule=First@First@Solve[Equal@@Last@FCI@res,Momentum[k]];
+Append[kRule]@res
 ]
 
 
@@ -176,60 +178,74 @@ splt[{fyTag,"propg"}]=Collect[
 feynmanParameter[{
 propg[k-\[CapitalDelta],\[CapitalLambda]],propg[k,\[CapitalLambda]]
 ,propg[k-\[CapitalDelta],mm1],propg[k,mm1]
-,propg[p-k,mo1]
+,propg[p1-k,mo1]
 }],
 k,Simplify
 ];
-splt[{fyTag,"propg"}]/.ruleTeX
+
+
+(* ::Input:: *)
+(*splt[{fyTag,"propg"}]/.ruleTeX*)
 
 
 (*TeXForm*)
-Simplify[
-toSquare[splt[{fyTag,"propg"}],k,l]/.ruleTeX
-]//TableForm
-
-
+splt[{fyTag,"square"}]=Simplify[
+toSquare[splt[{fyTag,"propg"}],k,l]
+];
 (*\:8d39\:66fc\:53c2\:6570\:5316,\:5e73\:79fb\:79ef\:5206\:53d8\:91cf----------*)
-ruleMoment=MomentumExpand@{
-Momentum[k]->Momentum[l]-(fPar[1]-fPar[2]+fPar[3]-1)Momentum[p1-p2]+fPar[4]*Momentum[p1]
-};
+ruleMoment=Last@splt[{fyTag,"square"}];
 
 
-(*ward \:6052\:7b49\:5f0f\:ff0c\:53bb\:6389\:6b63\:6bd4\:4e8e \[CapitalDelta] \:7684\:9879*)
-ruleWard=MomentumExpand@{
-Momentum[p1]->Momentum[P]+Momentum[\[CapitalDelta]]/2,
-Momentum[p2]->Momentum[P]-Momentum[\[CapitalDelta]]/2
-};
+(* ::Input:: *)
+(*splt[{fyTag,"square"}]/.ruleTeX//TableForm*)
 
 
-ruleIntegral=MomentumExpand@FCI@{
+ruleNumerator=MomentumExpand@FCI@{
 FV[\[CapitalDelta],\[Mu]]->0,
 SP[l,\[CapitalDelta]]->0,
-GS[l]*FV[l,\[Mu]]->1/4*GA[\[Mu]]*SP[l,l],
+GS[l] FV[l,\[Mu]]->1/4*GA[\[Mu]]*SP[l,l],
 SP[l,P]*FV[l,\[Mu]]->1/4*FV[P,\[Mu]]*SP[l,l],
-SP[l,P]GS[l]->1/4*mN*SP[l,l]
+SP[l,P]GS[l]->1/4*mN*SP[l,l],
+GS[l]FV[P,\[Mu]]->1/4*mN*SP[l,l]
 };
 
 
 (*\:5e94\:7528 Ward \:6052\:7b49\:5f0f\:ff0c\:4ee5\:53ca\:6839\:636e\:5708\:79ef\:5206\:5947\:5076\:6027\:ff0c\:91cf\:7eb2\:63a8\:5bfc\:7684\:66ff\:6362\:89c4\:5219*)
-refineLoop[expr_]:=ExpandAll2[
-FCI@expr/.ruleWard//ExpandScalarProduct
-]/.ruleIntegral/.ruleIntegral
-
-
-teb=Simplify@
-refineLoop@
-dropSpinor@
+refineLoop[numerator_]:=Nest[
+(*\:628a\:79ef\:5206\:4e2d\:5206\:5b50\:66ff\:6362\:6210\:5316\:7b80\:7684\:7ed3\:679c,\:4f7f\:7528 Ward-Identity \:7b49\:7ed3\:679c --------*)
+ReplaceAll[ruleNumerator],
+(*\:5c55\:5f00\:5206\:5b50\:4e2d\:7684\:6807\:91cf\:4e58\:79ef-----------*)
+ExpandAll2[
+ExpandScalarProduct[
 DiracSimplify[
-FCI@splt[{fyTag,"spin",\[Mu]}]/.ruleMoment
+(*\:4f5c\:52a8\:91cf\:5e73\:79fbk\[Rule]l\:ff0c\:518d\:6b21\:4f7f\:7528 Dirac\:65b9\:7a0b\:5316\:7b80*)
+FCI@numerator/.ruleMoment,
+DiracEquation->True
+(*\:51c6\:5907\:4f7f\:7528 Ward-Identity\:ff0c\:53bb\:6389\:6b63\:6bd4\:4e8e \[CapitalDelta]\[Mu] \:7684\:9879*)
+]/.ruleWard
+]]
+(*\:91cd\:590d\:66ff\:6362\:4e09\:6b21------*)
+,4]
+
+
+(*\:5316\:7b80\:4e00\:6b21\:7684\:7ed3\:679c--------------*)
+splt[{fyTag,"spinTmp",\[Mu]}]=Simplify[
+dropSpinor@
+refineLoop@
+splt[{fyTag,"spin",\[Mu]}]
 ];
-teb/.ruleTeX
 
 
-Simplify[
+(* ::Input:: *)
+(*splt[{fyTag,"spinTmp",\[Mu]}]/.ruleTeX*)
+
+
+tec=Collect[
 1/2(
-(teb/.{l->-l})+teb
-)
+(splt[{fyTag,"spinTmp",\[Mu]}]/.{Momentum[l]->Momentum[-l]})+splt[{fyTag,"spinTmp",\[Mu]}]
+),
+FCI/@{FV[P,\[Mu]],GA[\[Mu]]},
+Simplify
 ]/.ruleTeX
 
 
