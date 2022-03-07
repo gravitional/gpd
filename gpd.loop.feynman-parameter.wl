@@ -72,6 +72,7 @@ fp
 ];
 
 
+SetAttributes[fp,NumericFunction]
 (*\:8d39\:66fc\:53c2\:6570\:5316\:ff1a\:4f20\:64ad\:5b50\:7684\:7ec4\:5408*)
 feynmanParameter[props_List]:=Module[{len=Length@props,coes},
 coes=Prepend[fp/@Range[len-1],1]-Append[fp/@Range[len-1],0];
@@ -114,16 +115,47 @@ SP[p1,p2]=mN^2-\[CapitalDelta]2/2;
 SP[P,P]=mN^2-\[CapitalDelta]2/4;
 SP[\[CapitalDelta],\[CapitalDelta]]=\[CapitalDelta]2;
 SP[P,\[CapitalDelta]]=0;
+(*\:6a2a\:5411\:52a8\:91cf---------*)
+SP[\[CapitalDelta]T,\[CapitalDelta]T]=(-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2));
 
 
 (*\:66ff\:6362\:89c4\:5219*)
-rule\[CapitalDelta]ToPP={\[CapitalDelta]->p1-p2};
+ruleMomToExternal={\[CapitalDelta]->p1-p2};
 
 
 (*\:53bb\:6389 Dirac Spinor \:4e24\:7aef\:7684\:65cb\:91cf*)
 dropSpinorDot[ubar_Spinor,expr__,u_Spinor]:=dropSpinorDot[expr]
 dropSpinorDot[ubar_Spinor,u_Spinor]:=1
 dropSpinor[expr_]:=expr/.{Dot->dropSpinorDot}/.{dropSpinorDot->Dot}
+
+
+(* ::Section:: *)
+(*LightCone  Form*)
+
+
+(*gpd \:4e2d\:4f7f\:7528\:7684\:5149\:9525\:52a8\:91cf\:53c2\:6570\:5316*)
+lConeKinematics=FCI@{
+(*\:8d28\:5b50\:521d\:6001\:52a8\:91cf-------------------*)
+FV[p1,p]->(1+\[Xi])FV[P,p],
+FV[p1,m]->(mN^2+SP[\[CapitalDelta]T,\[CapitalDelta]T]/4)/(2(1+\[Xi])FV[P,p]),
+FV[p1,t]->FV[\[CapitalDelta]T,t]/2,
+(*\:4ecb\:5b50\:521d\:6001\:52a8\:91cf*)
+FV[k1,p]->(y+\[Xi])FV[P,p],
+(*k1[m]\[Rule]k[2],*)
+FV[k1,t]->FV[k,t]+FV[\[CapitalDelta]T,t]/2,
+(*\:8d28\:5b50\:672b\:6001\:52a8\:91cf------------------*)
+FV[p2,p]->(1-\[Xi])FV[P,p],
+FV[p2,m]->(mN^2+SP[\[CapitalDelta]T,\[CapitalDelta]T]/4)/(2(1-\[Xi])FV[P,p]),
+FV[p2,t]->-FV[\[CapitalDelta]T,t]/2,
+(*\:4ecb\:5b50\:672b\:6001\:52a8\:91cf*)
+FV[k2,p]->(y-\[Xi])FV[P,p],
+(*k2[m]\[Rule]k2[m],*)
+FV[k2,t]->FV[k,t]-FV[\[CapitalDelta]T,t]/2,
+(*\[CapitalDelta]=p1-(p2 --------------------*)
+FV[\[CapitalDelta],p]->\[Xi](2FV[P,p]),
+FV[\[CapitalDelta],m]->(\[CapitalDelta]2+SP[\[CapitalDelta]T,\[CapitalDelta]T])/(4\[Xi]*FV[P,p]),
+FV[\[CapitalDelta],t]->\[CapitalDelta]T
+};
 
 
 (* ::Section:: *)
@@ -149,7 +181,7 @@ Append[kRule]@res
 ]
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*Propagator representation*)
 
 
@@ -212,9 +244,9 @@ preFactor=1;
 split[{fyTag,"spin",\[Mu]}]=DiracSimplify[
 ExpandScalarProduct[
 SpinorUBar[p2,mN] . ( 
-FV[2k-\[CapitalDelta],\[Mu]] . GS[k-\[CapitalDelta]] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5
+FV[2k1-\[CapitalDelta],\[Mu]] . GS[k1-\[CapitalDelta]] . GA5 . (GS[p1-k1]+mo1) . GS[k1] . GA5
 ) .
-SpinorU[p1,mN]/.rule\[CapitalDelta]ToPP
+SpinorU[p1,mN]/.ruleMomToExternal
 ],
 DiracEquation->True
 ]
@@ -229,10 +261,10 @@ DiracEquation->True
 
 (*\:4f20\:64ad\:5b50\:5217\:8868------------------*)
 split[{fyTag,"propg"}]={
-feynPropg[k-\[CapitalDelta],\[CapitalLambda],2],feynPropg[k,\[CapitalLambda],2]
-,feynPropg[k-\[CapitalDelta],mm1],feynPropg[k,mm1]
-,feynPropg[p1-k,mo1]
-}/.rule\[CapitalDelta]ToPP;
+feynPropg[k1-\[CapitalDelta],\[CapitalLambda],2],feynPropg[k1,\[CapitalLambda],2]
+,feynPropg[k1-\[CapitalDelta],mm1],feynPropg[k1,mm1]
+,feynPropg[p1-k1,mo1]
+}/.ruleMomToExternal;
 (*\:4f20\:64ad\:5b50\:57fa------*)
 feynIntBasis=Query[All
 ,(Key@"basis")
@@ -253,11 +285,22 @@ split[{fyTag,"square"}]=Simplify@ExpandScalarProduct[
 toSquare[
 (*\:8d39\:66fc\:53c2\:6570\:5316*)
 feynmanParameter@feynIntBasis
-,k,l]];
+,k1,l]];
+
+
 (*\:8d39\:66fc\:53c2\:6570\:5316,\:5e73\:79fb\:79ef\:5206\:53d8\:91cf----------*)
-ruleMomentShift=Last@split[{fyTag,"square"}];
-(*\:914d\:9f50\:4e4b\:540e\:ff0c\:5708\:79ef\:5206\:7684\:5206\:6bcd, l^2-\[Beta] *)
-denominator=First@split[{fyTag,"square"}];
+ruleMomentShift=FCI[Last@split[{fyTag,"square"}]];
+(*\:52a8\:91cf\:5e73\:79fb, l\[Rule]k*)
+ruleMomentShiftTok=FCI@split[{fyTag,"square"}][[2]];
+(*\:5408\:5e76\:4f20\:64ad\:5b50\:4e4b\:540e,\:5708\:79ef\:5206\:5206\:6bcd l^2-\[Beta] \:7684\:5e38\:6570\[Beta],  *)
+denominator=FCI[First@split[{fyTag,"square"}]-SP[l,l]];
+(* \:52a8\:91cf\:5206\:91cf\:7684\:66ff\:6362\:89c4\:5219------------------- *)
+ruleLConeMomShiftTok=FCI[KeyValueMap[
+RuleDelayed@@{
+#1/.{Momentum[l_]:>FV[l,\[Mu]_]},
+#2/.{Momentum[l_]:>FV[l,\[Mu]]}
+}&
+]@Association@ruleMomentShiftTok];
 
 
 (* ::Input:: *)
@@ -321,6 +364,7 @@ expr+
 
 
 split[{fyTag,"FAFB",\[Mu]}]=Module[{
+(*\:8003\:8651\:5708\:79ef\:5206\:7684\:5947\:5076\:6027*)
 expr=symmetryLoop@split[{fyTag,"spinTmp",\[Mu]}]
 },
 
@@ -337,16 +381,32 @@ expr=symmetryLoop@split[{fyTag,"spinTmp",\[Mu]}]
 
 
 ted=(split[{fyTag,"FAFB",\[Mu]}][["P\[Mu]"]]/.{
-FCI@SP[l,l]->fad[{l,\[Beta]}->-1]+\[Beta]^2
+FCI@SP[l,l]->fad[{l,\[Beta]}->-1]+\[Beta]
 })*fad[{l,\[Beta]}->-7]//Expand//Simplify
 
 
-tef[{k_,m_}->pow_]:=(-2\[Pi] I)/(n-1)! D[
-Sqrt[k[1]^2+k[3]^3+m^2]
-,{m,-pow}]/;pow<=-1
+tef[{k_,m2_}->n_]:=(-2\[Pi] I)/(-n-1)! D[
+Sqrt[FV[k,p]^2+FV[k,t]*FV[k,t]+m2]
+,{m2,-n}]/;n<=-1
 
 
-ted/.fadTmp1->tef//Simplify
+teq=ted/.fadTmp1->tef//Simplify
+
+
+(* ::Section:: *)
+(*dasf*)
+
+
+lConeKinematics
+ruleLConeMomShiftTok
+
+
+FCI[FV[l,#]&/@{p,m,t}]/.ruleLConeMomShiftTok
+FCI[FCI[FV[l,#]&/@{p,m,t}]/.ruleLConeMomShiftTok]/.lConeKinematics//TableForm
+
+
+FCI[FCI@teq/.ruleLConeMomShiftTok]/.lConeKinematics//
+ExpandScalarProduct//Contract
 
 
 (* ::Chapter::Closed:: *)
@@ -379,7 +439,7 @@ ted/.fadTmp1->tef//Simplify
 (*]*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*backup*)
 
 
@@ -416,3 +476,28 @@ ted/.fadTmp1->tef//Simplify
 (*-l^2->b^2/(4a)-c*)
 (*}*)
 (*]*)
+
+
+(* ::Input:: *)
+(*lConeKinematics=FCI@{*)
+(*(*\:8d28\:5b50\:521d\:6001\:52a8\:91cf-------------------*)*)
+(*FV[p1,1]->(1+\[Xi])FV[P,1],*)
+(*FV[p1,2]->(mN^2+ed[FV[\[CapitalDelta],3],FV[\[CapitalDelta],3]]/4)/(2(1+\[Xi])FV[P,1]),*)
+(*FV[p1,3]->FV[\[CapitalDelta],3]/2,*)
+(*(*\:4ecb\:5b50\:521d\:6001\:52a8\:91cf*)*)
+(*FV[k,1]->(y+\[Xi])FV[P,1],*)
+(*(*k[2]\[Rule]k[2],*)*)
+(*FV[k,3]->FV[k,3]+FV[\[CapitalDelta],3]/2,*)
+(*(*\:8d28\:5b50\:672b\:6001\:52a8\:91cf------------------*)*)
+(*FV[p2,1]->(1-\[Xi])FV[P,1],*)
+(*FV[p2,2]->(mN^2+ed[FV[\[CapitalDelta],3],FV[\[CapitalDelta],3]]/4)/(2(1-\[Xi])FV[P,1]),*)
+(*FV[p2,3]->-FV[\[CapitalDelta],3]/2,*)
+(*(*\:4ecb\:5b50\:672b\:6001\:52a8\:91cf*)*)
+(*FV[k2,1]->(y-\[Xi])FV[P,1],*)
+(*(*k2[2]\[Rule]k2[2],*)*)
+(*FV[k2,3]->FV[k,3]-FV[\[CapitalDelta],3]/2,*)
+(**)
+(*FV[\[CapitalDelta],1]->\[Xi](2FV[P,1]),*)
+(*FV[\[CapitalDelta],2]->(\[CapitalDelta]2+ed[FV[\[CapitalDelta],3],FV[\[CapitalDelta],3]])/(4\[Xi]*FV[P,1])*)
+(*(*\[CapitalDelta][3]\[Rule]\[CapitalDelta][3]*)*)
+(*};*)
