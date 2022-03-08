@@ -52,7 +52,7 @@ Get["gen.integral-TagList.wl"];
 
 
 (* ::Section:: *)
-(*symbols*)
+(*symbols,Feynman parameterization*)
 
 
 (*\:516b\:91cd\:6001\:90e8\:5206\:547d\:540d------------*)
@@ -72,13 +72,19 @@ f
 ];
 
 
-(*\:4ee4 f \:662f\:6570\:503c\:51fd\:6570*)
+(*\:4ee4 f \:662f\:6570\:503c\:51fd\:6570,\:8fd9\:6837\:5728\:7ebf\:6027\:51fd\:6570\:4e2d,\:53ef\:4ee5\:81ea\:52a8\:63d0\:5230\:51fd\:6570\:5916*)
 SetAttributes[f,NumericFunction]
 (*\:8d39\:66fc\:53c2\:6570\:5316\:ff1a\:4f20\:64ad\:5b50\:7684\:7ec4\:5408*)
 feynmanParameter[props_List]:=Module[{len=Length@props,coes},
 coes=Prepend[f/@Range[len-1],1]-Append[f/@Range[len-1],0];
 props . coes
 ]
+
+
+(*\:8d39\:66fc\:53c2\:6570 f[n] \:8f6c\:6362\:5230\:7eaf\:7b26\:53f7\:5f62\:5f0f fn *)
+ruleFeynParaToSymbol=AssociationThread[f/@Range[10],Symbol@StringTemplate["f``"]@#&/@Range@10];
+(*\:9006\:53d8\:6362----------*)
+ruleSymbolToFeynPara=Association[Normal@ruleFeynParaToSymbol/.Rule->OperatorApplied[Rule]];
 
 
 (*\:5c06 Symbol \:663e\:793a\:6210 Humam \:6837\:5f0f*)
@@ -164,7 +170,7 @@ FV[\[CapitalDelta],t]->\[CapitalDelta]T
 
 
 (* ::Section:: *)
-(*Feynman parameterization*)
+(*Feynman basis*)
 
 
 (*\:4f20\:64ad\:5b50\:7684\:5b9a\:4e49\:ff0c\:53ef\:4ee5\:5177\:6709\:5e42\:6b21----------------------*)
@@ -392,9 +398,9 @@ FCI@SP[l,l]->fad[{l,\[Beta]}->-1]+\[Beta]
 })*fad[{l,\[Beta]}->-7]//Expand//Simplify
 
 
-tef[{k_,m2_}->n_]:=(-\[Pi]/\[Delta])/(-n-1)! D[
-FCI@Log[
-FV[k,p]+I*\[Delta](ed[k[t],k[t]]+m2)
+tef[{k_,m2_}->n_]:=(I*\[Pi])/(-n-1)!*D[
+FCI[
+(m2*Log[\[CapitalLambda]cut/(ed[k[t],k[t]]+m2)]+ed[k[t],k[t]]+m2)*DiracDelta[FV[k,p]]
 ]
 ,{m2,-n}]/;n<=-1
 
