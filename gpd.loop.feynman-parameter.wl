@@ -68,14 +68,15 @@ f
 (*(p1+p2)/2,p1-p2*)
 ,P,\[CapitalDelta],
 (*\:8d39\:66fc\:53c2\:6570-----------*)
-fp
+f
 ];
 
 
-SetAttributes[fp,NumericFunction]
+(*\:4ee4 f \:662f\:6570\:503c\:51fd\:6570*)
+SetAttributes[f,NumericFunction]
 (*\:8d39\:66fc\:53c2\:6570\:5316\:ff1a\:4f20\:64ad\:5b50\:7684\:7ec4\:5408*)
 feynmanParameter[props_List]:=Module[{len=Length@props,coes},
-coes=Prepend[fp/@Range[len-1],1]-Append[fp/@Range[len-1],0];
+coes=Prepend[f/@Range[len-1],1]-Append[f/@Range[len-1],0];
 props . coes
 ]
 
@@ -88,7 +89,7 @@ p1->Subscript[p,1],p2->Subscript[p, 2]
 ,mo1->Subscript[M,B],mo2->Subscript[M,B2]
 ,mm1->Subscript[m,\[Phi]]
 (*\:8d39\:66fc\:53c2\:6570\:5316*)
-,Splice@Normal@AssociationThread[fp/@Range[10],ToExpression@CharacterRange[97,106]]
+,Splice@Normal@AssociationThread[f/@Range[10],ToExpression@CharacterRange[97,106]]
 };
 (*\:9006\:66ff\:6362\:89c4\:5219\:ff0c\:4ea4\:6362 ruleTeX \:4e2d\:4e24\:4e2a\:53c2\:6570\:7684\:4f4d\:7f6e ----------------*)
 ruleTexRev=ruleTeX/.Rule->ReverseApplied[Rule];
@@ -115,8 +116,6 @@ SP[p1,p2]=mN^2-\[CapitalDelta]2/2;
 SP[P,P]=mN^2-\[CapitalDelta]2/4;
 SP[\[CapitalDelta],\[CapitalDelta]]=\[CapitalDelta]2;
 SP[P,\[CapitalDelta]]=0;
-(*\:6a2a\:5411\:52a8\:91cf---------*)
-SP[\[CapitalDelta]T,\[CapitalDelta]T]=(-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2));
 
 
 (*\:66ff\:6362\:89c4\:5219*)
@@ -131,6 +130,12 @@ dropSpinor[expr_]:=expr/.{Dot->dropSpinorDot}/.{dropSpinorDot->Dot}
 
 (* ::Section:: *)
 (*LightCone  Form*)
+
+
+(*\:6700\:540e\:4e24\:4e2a\:5206\:91cf\:4f5c\:6b27\:51e0\:91cc\:5f97\:5185\:79ef;\:5185\:79ef\:4e0d\:4f9d\:8d56\:4e8e\:6b21\:5e8f*)
+SetAttributes[ed,Orderless];
+ed[p_+q_,l_]:=ed[p,l]+ed[q,l](*\:7ebf\:6027\:5f8b*)
+ed[num_*p_,q_]:=num*ed[p,q]/;NumericQ[num](*\:5206\:914d\:5f8b*)
 
 
 (*gpd \:4e2d\:4f7f\:7528\:7684\:5149\:9525\:52a8\:91cf\:53c2\:6570\:5316*)
@@ -293,14 +298,16 @@ ruleMomentShift=FCI[Last@split[{fyTag,"square"}]];
 (*\:52a8\:91cf\:5e73\:79fb, l\[Rule]k*)
 ruleMomentShiftTok=FCI@split[{fyTag,"square"}][[2]];
 (*\:5408\:5e76\:4f20\:64ad\:5b50\:4e4b\:540e,\:5708\:79ef\:5206\:5206\:6bcd l^2-\[Beta] \:7684\:5e38\:6570\[Beta],  *)
-denominator=FCI[First@split[{fyTag,"square"}]-SP[l,l]];
-(* \:52a8\:91cf\:5206\:91cf\:7684\:66ff\:6362\:89c4\:5219------------------- *)
-ruleLConeMomShiftTok=FCI[KeyValueMap[
+denominator=First@split[{fyTag,"square"}]-FCI@SP[l,l];
+(* \:6a2a\:5411\:52a8\:91cf\:7684\:66ff\:6362\:89c4\:5219------------------- *)
+ruleTransMomShiftTok=KeyValueMap[
 RuleDelayed@@{
-#1/.{Momentum[l_]:>FV[l,\[Mu]_]},
-#2/.{Momentum[l_]:>FV[l,\[Mu]]}
+(*Key of Rule*)
+#1/.{Momentum[l_]:>l[t]},
+(*Value of Rule*)
+#2/.{Momentum[p_]:>FCI@FV[p,t]}
 }&
-]@Association@ruleMomentShiftTok];
+]@Association@ruleMomentShiftTok;
 
 
 (* ::Input:: *)
@@ -385,8 +392,10 @@ FCI@SP[l,l]->fad[{l,\[Beta]}->-1]+\[Beta]
 })*fad[{l,\[Beta]}->-7]//Expand//Simplify
 
 
-tef[{k_,m2_}->n_]:=(-2\[Pi] I)/(-n-1)! D[
-Sqrt[FV[k,p]^2+FV[k,t]*FV[k,t]+m2]
+tef[{k_,m2_}->n_]:=(-\[Pi]/\[Delta])/(-n-1)! D[
+FCI@Log[
+FV[k,p]+I*\[Delta](ed[k[t],k[t]]+m2)
+]
 ,{m2,-n}]/;n<=-1
 
 
@@ -398,15 +407,18 @@ teq=ted/.fadTmp1->tef//Simplify
 
 
 lConeKinematics
-ruleLConeMomShiftTok
+ruleTransMomShiftTok
 
 
-FCI[FV[l,#]&/@{p,m,t}]/.ruleLConeMomShiftTok
-FCI[FCI[FV[l,#]&/@{p,m,t}]/.ruleLConeMomShiftTok]/.lConeKinematics//TableForm
-
-
-FCI[FCI@teq/.ruleLConeMomShiftTok]/.lConeKinematics//
-ExpandScalarProduct//Contract
+tew=(
+ExpandScalarProduct[
+FCI@teq/.ruleMomentShiftTok/.ruleTransMomShiftTok
+]/.lConeKinematics
+)/.FCI@{
+ed[FV[k,t],FV[k,t]]->ktr^2,
+ed[FV[k,t],FV[\[CapitalDelta]T,t]]->ktr Sqrt[(-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2))] Cos[\[Phi]],
+ed[FV[\[CapitalDelta]T,t],FV[\[CapitalDelta]T,t]]-> (-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2))
+}
 
 
 (* ::Chapter::Closed:: *)
@@ -439,7 +451,7 @@ ExpandScalarProduct//Contract
 (*]*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*backup*)
 
 
@@ -478,6 +490,10 @@ ExpandScalarProduct//Contract
 (*]*)
 
 
+(* ::Section::Closed:: *)
+(*lConeKinematics,FV,number*)
+
+
 (* ::Input:: *)
 (*lConeKinematics=FCI@{*)
 (*(*\:8d28\:5b50\:521d\:6001\:52a8\:91cf-------------------*)*)
@@ -501,3 +517,45 @@ ExpandScalarProduct//Contract
 (*FV[\[CapitalDelta],2]->(\[CapitalDelta]2+ed[FV[\[CapitalDelta],3],FV[\[CapitalDelta],3]])/(4\[Xi]*FV[P,1])*)
 (*(*\[CapitalDelta][3]\[Rule]\[CapitalDelta][3]*)*)
 (*};*)
+
+
+(* ::Section::Closed:: *)
+(*lConeKinematics,FV*)
+
+
+(* ::Input:: *)
+(*(*gpd \:4e2d\:4f7f\:7528\:7684\:5149\:9525\:52a8\:91cf\:53c2\:6570\:5316*)*)
+(*lConeKinematics=FCI@{*)
+(*(*\:8d28\:5b50\:521d\:6001\:52a8\:91cf-------------------*)*)
+(*FV[p1,p]->(1+\[Xi])FV[P,p],*)
+(*FV[p1,m]->(mN^2+SP[\[CapitalDelta]T,\[CapitalDelta]T]/4)/(2(1+\[Xi])FV[P,p]),*)
+(*FV[p1,t]->FV[\[CapitalDelta]T,t]/2,*)
+(*(*\:4ecb\:5b50\:521d\:6001\:52a8\:91cf*)*)
+(*FV[k1,p]->(y+\[Xi])FV[P,p],*)
+(*(*k1[m]\[Rule]k[2],*)*)
+(*FV[k1,t]->FV[k,t]+FV[\[CapitalDelta]T,t]/2,*)
+(*(*\:8d28\:5b50\:672b\:6001\:52a8\:91cf------------------*)*)
+(*FV[p2,p]->(1-\[Xi])FV[P,p],*)
+(*FV[p2,m]->(mN^2+SP[\[CapitalDelta]T,\[CapitalDelta]T]/4)/(2(1-\[Xi])FV[P,p]),*)
+(*FV[p2,t]->-FV[\[CapitalDelta]T,t]/2,*)
+(*(*\:4ecb\:5b50\:672b\:6001\:52a8\:91cf*)*)
+(*FV[k2,p]->(y-\[Xi])FV[P,p],*)
+(*(*k2[m]\[Rule]k2[m],*)*)
+(*FV[k2,t]->FV[k,t]-FV[\[CapitalDelta]T,t]/2,*)
+(*(*\[CapitalDelta]=p1-(p2 --------------------*)*)
+(*FV[\[CapitalDelta],p]->\[Xi](2FV[P,p]),*)
+(*FV[\[CapitalDelta],m]->(\[CapitalDelta]2+SP[\[CapitalDelta]T,\[CapitalDelta]T])/(4\[Xi]*FV[P,p]),*)
+(*FV[\[CapitalDelta],t]->\[CapitalDelta]T*)
+(*};*)
+
+
+(* ::Section::Closed:: *)
+(*integral*)
+
+
+(* ::Input:: *)
+(*tef[{k_,m2_}->n_]:=(-2\[Pi] I)/(-n-1)! D[*)
+(*FCI@Sqrt[*)
+(*FV[k,p]^2+ed[k[t],k[t]]+m2*)
+(*]*)
+(*,{m2,-n}]/;n<=-1*)

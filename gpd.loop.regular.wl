@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*gpd.loop.convergence.wl*)
+(*gpd.loop.regular.wl*)
 
 
 (* ::Chapter:: *)
