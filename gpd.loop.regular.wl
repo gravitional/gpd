@@ -221,7 +221,7 @@ decGator[{\[Alpha]_,\[Beta]_},{p_,md_}]:=(-(GS[p]+md) . (
 MT[\[Alpha],\[Beta]]-1/3 GA[\[Alpha]] . GA[\[Beta]]-(GA[\[Alpha]] . FV[p,\[Beta]]-GA[\[Beta]] . FV[p,\[Alpha]])/(3md)-(2FV[p,\[Alpha]] . FV[p,\[Beta]])/(3md^2)))
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*splitting function projectors*)
 
 
@@ -230,6 +230,9 @@ SP[p1,p1]=mN^2;SP[p2,p2]=mN^2;
 SP[p1,\[CapitalDelta]]=\[CapitalDelta]2/2;
 SP[p2,\[CapitalDelta]]=-\[CapitalDelta]2/2;
 SP[p1,p2]=mN^2-\[CapitalDelta]2/2;
+
+
+ruleMomToExternal={\[CapitalDelta]->p1-p2};
 
 
 (*\:628a\:81ea\:7531\:6307\:6807\:7684\:52a8\:91cf\:90fd\:66ff\:6362\:6210 plus \:5206\:91cf*)
@@ -347,6 +350,10 @@ splt[{fyTag,"F1F2","pw"}]=Query[(*{f1f2}*)All,
 (*<propgator\[Rule]expr>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570--------------*)
 Piecewise[{
 {
+-1<=y<=-\[Xi],
+0
+},
+{
 (-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
 -\[Xi]<=y<\[Xi]
 },
@@ -375,7 +382,7 @@ Piecewise[{
 (*]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,octet,left*)
 
 
@@ -466,7 +473,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,octet,right*)
 
 
@@ -551,7 +558,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*KR,mes,oct,add,left*)
 
 
@@ -823,16 +830,16 @@ Piecewise[{
 (*--------------*)
 {
 (-2\[Pi]*I)Total@#[[Key/@{
-{k,\[CapitalLambda]},{k,mm1}
+{p2-k,mo2}
 }]],
--\[Xi]<=y<1-2\[Xi]
+-\[Xi]<=y<\[Xi]
 },
 (*--------------*)
 {
 (+2\[Pi]*I)Total@#[[Key/@{
-{p1-k,mo1}
+{k,\[CapitalLambda]},{k,mm1}
 }]],
-1-2\[Xi]<=y<=1
+\[Xi]<=y<=1
 }
 }]&
 ]@splt[{fyTag,"F1F2","res"}];
