@@ -72,6 +72,10 @@ f
 ];
 
 
+(* ::Subsection:: *)
+(*Feynman parameter*)
+
+
 (*\:4ee4 f \:662f\:6570\:503c\:51fd\:6570,\:8fd9\:6837\:5728\:7ebf\:6027\:51fd\:6570\:4e2d,\:53ef\:4ee5\:81ea\:52a8\:63d0\:5230\:51fd\:6570\:5916*)
 SetAttributes[f,NumericFunction]
 (*\:8d39\:66fc\:53c2\:6570\:5316\:ff1a\:4f20\:64ad\:5b50\:7684\:7ec4\:5408*)
@@ -79,8 +83,6 @@ feynmanParameter[props_List]:=Module[{len=Length@props,coes},
 coes=Prepend[f/@Range[len-1],1]-Append[f/@Range[len-1],0];
 props . coes
 ]
-
-
 (*\:8d39\:66fc\:53c2\:6570 f[n] \:8f6c\:6362\:5230\:7eaf\:7b26\:53f7\:5f62\:5f0f fn *)
 ruleFeynParaToSymbol=AssociationThread[f/@Range[10],Symbol@StringTemplate["f``"]@#&/@Range@10];
 (*\:9006\:53d8\:6362----------*)
@@ -285,6 +287,8 @@ split[{fyTag,"basis"}];
 feynIntPower=Query[Total
 ,(Key@"power")
 ]@split[{fyTag,"propg"}];
+(*\:72ec\:7acb\:4f20\:64ad\:5b50\:7684\:4e2a\:6570------*)
+feynIntNumber=split[{fyTag,"propg"}]//Length;
 
 
 (* ::Input:: *)
@@ -331,7 +335,7 @@ Pair[p1,p2] Pair[Momentum[l],Momentum[l]],
 DiracGamma[Momentum[l]] Pair[p_,Momentum[l]]:>1/4*
 DiracGamma[p] Pair[Momentum[l],Momentum[l]]
 
-(*Ward \:6052\:7b49\:5f0f,\:4ee5\:53ca\:72c4\:62c9\:514b\:65b9\:7a0b*)
+(*Ward \:6052\:7b49\:5f0f,\:4ee5\:53ca\:72c4\:62c9\:514b\:65b9\:7a0b------------*)
 ,coes__*DiracGamma[Momentum[\[CapitalDelta]]]:>0
 ,coes__*DiracGamma[Momentum[P]]:>coes*mN
 };
@@ -384,7 +388,7 @@ expr=symmetryLoop@split[{fyTag,"spinTmp",\[Mu]}]
 <|
 "expr"->Collect[expr,FCI/@{FV[P,\[Mu]],GA[\[Mu]]},Simplify],
 "P\[Mu]"->Simplify@Coefficient[expr,FCI@FV[P, \[Mu]]],
-"\[Gamma]\[Mu]"->Simplify@Coefficient[expr,FCI@GA[ \[Mu]]]
+"\[Gamma]\[Mu]"->Simplify@Coefficient[expr,FCI@GA[\[Mu]]]
 |>
 ];
 
@@ -400,7 +404,7 @@ FCI@SP[l,l]->fad[{l,\[Beta]}->-1]+\[Beta]
 
 tef[{k_,m2_}->n_]:=(I*\[Pi])/(-n-1)!*D[
 FCI[
-(m2*Log[\[CapitalLambda]cut/(ed[k[t],k[t]]+m2)]+ed[k[t],k[t]]+m2)*DiracDelta[FV[k,p]]
+(m2*Log[\[CapitalLambda]cut/(ed[k[t],k[t]]+m2)]+ed[k[t],k[t]]+m2)(**DiracDelta[FV[k,p]]*)
 ]
 ,{m2,-n}]/;n<=-1
 
@@ -410,6 +414,16 @@ teq=ted/.fadTmp1->tef//Simplify
 
 (* ::Section:: *)
 (*dasf*)
+
+
+deltaConstrain=(ExpandScalarProduct[
+FCI@FV[l,p]/.ruleMomentShiftTok/.ruleTransMomShiftTok
+]/.lConeKinematics)/Pair[LorentzIndex[p],Momentum[P]]//Simplify
+
+
+ruleDeltaConstrain=First[
+Solve@@({deltaConstrain==0,f[feynIntNumber-1]}/.ruleFeynParaToSymbol)
+]
 
 
 lConeKinematics
@@ -457,7 +471,7 @@ ed[FV[\[CapitalDelta]T,t],FV[\[CapitalDelta]T,t]]-> (-4mN^2 \[Xi]^2+(1-\[Xi]^2)(
 (*]*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*backup*)
 
 
@@ -496,7 +510,7 @@ ed[FV[\[CapitalDelta]T,t],FV[\[CapitalDelta]T,t]]-> (-4mN^2 \[Xi]^2+(1-\[Xi]^2)(
 (*]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*lConeKinematics,FV,number*)
 
 
@@ -525,7 +539,7 @@ ed[FV[\[CapitalDelta]T,t],FV[\[CapitalDelta]T,t]]-> (-4mN^2 \[Xi]^2+(1-\[Xi]^2)(
 (*};*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*lConeKinematics,FV*)
 
 
@@ -555,7 +569,7 @@ ed[FV[\[CapitalDelta]T,t],FV[\[CapitalDelta]T,t]]-> (-4mN^2 \[Xi]^2+(1-\[Xi]^2)(
 (*};*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*integral*)
 
 
@@ -565,3 +579,39 @@ ed[FV[\[CapitalDelta]T,t],FV[\[CapitalDelta]T,t]]-> (-4mN^2 \[Xi]^2+(1-\[Xi]^2)(
 (*FV[k,p]^2+ed[k[t],k[t]]+m2*)
 (*]*)
 (*,{m2,-n}]/;n<=-1*)
+
+
+(* ::Section:: *)
+(*Feynman parameter*)
+
+
+(* ::Input:: *)
+(*(*\:4ee4 f \:662f\:6570\:503c\:51fd\:6570,\:8fd9\:6837\:5728\:7ebf\:6027\:51fd\:6570\:4e2d,\:53ef\:4ee5\:81ea\:52a8\:63d0\:5230\:51fd\:6570\:5916*)*)
+(*SetAttributes[f,NumericFunction]*)
+(*(*\:8d39\:66fc\:53c2\:6570\:5316\:ff1a\:4f20\:64ad\:5b50\:7684\:7ec4\:5408*)*)
+(*feynmanParameter[props_List]:=Module[{len=Length@props,coes},*)
+(*coes=Prepend[f/@Range[len-1],1]-Append[f/@Range[len-1],0];*)
+(*props . coes*)
+(*]*)
+(*(*\:8d39\:66fc\:53c2\:6570 f[n] \:8f6c\:6362\:5230\:7eaf\:7b26\:53f7\:5f62\:5f0f fn *)*)
+(*ruleFeynParaToSymbol=AssociationThread[f/@Range[10],Symbol@StringTemplate["f``"]@#&/@Range@10];*)
+(*(*\:9006\:53d8\:6362----------*)*)
+(*ruleSymbolToFeynPara=Association[Normal@ruleFeynParaToSymbol/.Rule->OperatorApplied[Rule]];*)
+
+
+(* ::Subsection:: *)
+(*scheme 2*)
+
+
+(* ::Input:: *)
+(*(*\:8f93\:5165\:4e00\:4e2a\:6574\:6570 n\:ff0c\:751f\:6210\:53d8\:91cf fn\:ff0c\:8868\:793a\:7b2c n \:4e2a\:8d39\:66fc\:53c2\:6570 *)*)
+(*genFeynmanParameter[integer_]:=Symbol@StringTemplate["f``"]@integer*)
+(*(*\:8d39\:66fc\:53c2\:6570\:5316\:ff1a\:4f20\:64ad\:5b50\:7684\:7ec4\:5408*)*)
+(*feynmanParameter[props_List]:=Module[{len=Length@props,coes},*)
+(*coes=(Prepend[genFeynmanParameter/@Range[len-1],1]-*)
+(*Append[*)
+(*genFeynmanParameter/@Range[len-1],0]);*)
+(*props . coes*)
+(*]*)
+(*(* \:544a\:8bc9 NumericQ \:51fd\:6570, \:8d39\:66fc\:53c2\:6570 f1...f10 \:90fd\:662f\:6570\:5b57----------*)*)
+(*UpSetDelayed[NumericQ[genFeynmanParameter@#],True]&/@Range[10];*)
