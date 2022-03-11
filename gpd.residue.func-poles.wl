@@ -12,6 +12,12 @@ deltaPart={
 };
 
 
+gpdRegion=<|
+"itv1"->-\[Xi]<y<\[Xi],
+"itv2"->\[Xi]<y<1
+|>;
+
+
 (*\:4f20\:64ad\:5b50 Dataset \:7684 record. 
 \:6c42 km \:5373 k[2] \:7684\:7cfb\:6570\:ff0clConeKinematics \:662f\:5177\:4f53\:7684\:5149\:9525\:53c2\:6570\:5316,
 ruleReduce \:662f\:5bf9\:7cfb\:6570\:5316\:7b80\:7684\:89c4\:5219, \:6bd4\:5982\:53bb\:6389\:6574\:4f53\:7684 P[1] \:5373 P+.
@@ -32,13 +38,13 @@ Nothing,
 "pow"->pow,
 "kmCoe"->kmCoe,
 (*-------------------*)
-"itvl1"->Association@Simplify[{
+"itv1"->Association@Simplify[{
 "up"->kmCoe<0,(*pole \:5728\:4e0a\:65b9*)
 "down"->kmCoe>0(*pole \:5728\:4e0b\:65b9*)
 },
 {-\[Xi]<y<\[Xi]&&0<\[Xi]<=1}],
 (*-------------------*)
-"itvl2"->Association@Simplify[{
+"itv2"->Association@Simplify[{
 "up"->kmCoe<0,(*pole \:5728\:4e0a\:65b9*)
 "down"->kmCoe>0(*pole \:5728\:4e0b\:65b9*)
 },
@@ -66,6 +72,11 @@ recordPropa[paras]/@List@@fad[propas]
 )
 
 
+(* ::Section:: *)
+(*find propagator poles*)
+
+
+(*\:627e\:51fa\:8d39\:66fc\:56fe\:6240\:6709\:4f20\:64ad\:5b50\:7684 poles*)
 propaPoles[feynPropgator_]:=(feynPropgator/.
 fadTmp1->dataPropa[k@2,lConeKinematics,ruleKmReduce]);
 
@@ -80,7 +91,7 @@ AssociationThread[vars->coes]
 
 
 (* ::Section:: *)
-(*find delta*)
+(*find delta contribution*)
 
 
 (*\:8f93\:5165\:4f20\:64ad\:5b50\:7684\:6570\:636e\:96c6 {<>...}\:ff0c\:8fd4\:56de\:53ef\:80fd\:7684 Delta \:7ed3\:6784 -----------*)
@@ -107,4 +118,5 @@ Append["coe"->val]@deltaRes
 ]
 ]
 (*----------------*)
-picDeltaContrib[propaCoesAssoc_]:=KeyValueMap[buildDeltaAssoc]@propaCoesAssoc
+picDeltaContrib[propaCoesAssoc_]:=KeyValueMap[
+buildDeltaAssoc]@propaCoesAssoc

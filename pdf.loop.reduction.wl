@@ -256,7 +256,7 @@ Values[fun`def]; (*\:5bf9 octet \:5b9a\:4e49 \:51fd\:6570\:5e93\:89c4\:5219*)
 
 
 prfactor=\[Pi]/(4M*eq\[Phi]);
-splt[{"a","rbw","\[Phi]B"},{"cls"}]=(prfactor*(I*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
+splt[{"a","rbw","\[Phi]B"},{"clas"}]=(prfactor*(I*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
 fad[
 {k+q,\[CapitalLambda]}->2,{k,\[CapitalLambda]}->2,{k+q,m\[Phi]}->1,{k,m\[Phi]}->1,{p-k,Mmd}->1
 ]*(2kp+qp)
@@ -267,14 +267,14 @@ fad[
 (*\:4f7f\:7528 FeynCalc \:5316\:7b80\:65cb\:91cf\:7ed3\:6784*)
 
 
-splt[{"a","rbw","\[Phi]B"},{"spr"}]=DiracTrace[
+splt[{"a","rbw","\[Phi]B"},{"spin"}]=DiracTrace[
 (GS[p]+M) . GS[k] . GA5 . (GS[p1-k]+Mmd) . GS[k] . GA5
 ]//DiracSimplify
 
 
 splt[{"a","rbw","\[Phi]B"}]=Collect2[
 Expand[
-splt[{"a","rbw","\[Phi]B"},{"cls"}]*splt[{"a","rbw","\[Phi]B"},{"spr"}]/.FCI[{
+splt[{"a","rbw","\[Phi]B"},{"clas"}]*splt[{"a","rbw","\[Phi]B"},{"spin"}]/.FCI[{
 SP[k,k]->fad[{k,m\[Phi]}->-1]+m\[Phi]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*),
 SP[k,p]->1/2(fad[{k,m\[Phi]}->-1]-fad[{p-k,Mmd}->-1]+m\[Phi]^2-Mmd^2+M^2),(*\:5bf9k.p\:4f5c\:66ff\:6362*)
 pp->kp/y
@@ -309,7 +309,7 @@ jcb*prfactor*splt[{"a","rbw","\[Phi]B"}]
 
 
 prfactor=\[Pi]/(4M*eq\[Phi]);
-splt[{"c","KR","B"},{"cls"}]=prfactor*((-I)*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
+splt[{"c","KR","B"},{"clas"}]=prfactor*((-I)*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
 fad[
 {k,\[CapitalLambda]}->4,{k,m\[Phi]}->1,{p1-k,Mmd}->1
 ]//ScalarProductExpand
@@ -319,7 +319,7 @@ fad[
 (*\:4f7f\:7528 FeynCalc \:5316\:7b80\:65cb\:91cf\:7ed3\:6784*)
 
 
-splt[{"c","KR","B"},{"spr"}]=DiracSimplify[
+splt[{"c","KR","B"},{"spin"}]=DiracSimplify[
 DiracTrace[
 (GS[p]+M) . (
 GA["+"] . GA5 . (GS[p-k]+Mmd) . GS[k] . GA5+GS[k] . GA5 . (GS[p-k]+Mmd) . GA["+"] . GA5
@@ -330,7 +330,7 @@ GA["+"] . GA5 . (GS[p-k]+Mmd) . GS[k] . GA5+GS[k] . GA5 . (GS[p-k]+Mmd) . GA["+"
 
 splt[{"c","KR","B"}]=Collect2[
 Expand[
-splt[{"c","KR","B"},{"cls"}]*splt[{"c","KR","B"},{"spr"}]/.FCI[{
+splt[{"c","KR","B"},{"clas"}]*splt[{"c","KR","B"},{"spin"}]/.FCI[{
 SP[k,k]->fad[{k,m\[Phi]}->-1]+m\[Phi]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*),
 SP[k,p]->1/2(fad[{k,m\[Phi]}->-1]-fad[{p-k,Mmd}->-1]+m\[Phi]^2-Mmd^2+M^2),(*\:5bf9k.p\:4f5c\:66ff\:6362*)
 pp->kp/y
@@ -366,7 +366,7 @@ jcb*prfactor*splt[{"c","KR","B"}]
 
 
 prfactor=\[Pi]/(4M*eq\[Phi]);
-splt[{"d","\[Delta]KR","B"},{"cls"}]=prfactor*(I*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
+splt[{"d","\[Delta]KR","B"},{"clas"}]=prfactor*(I*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
 fad[
 {k,\[CapitalLambda]}->5,{k,m\[Phi]}->1,{p1-k,Mmd}->1
 ]//ScalarProductExpand
@@ -376,7 +376,7 @@ fad[
 (*\:4f7f\:7528 FeynCalc \:5316\:7b80\:65cb\:91cf\:7ed3\:6784*)
 
 
-splt[{"d","\[Delta]KR","B"},{"spr"}]=DiracSimplify[
+splt[{"d","\[Delta]KR","B"},{"spin"}]=DiracSimplify[
 DiracTrace[
 (GS[p]+M) . (8FV[k,"+"]) . GS[k] . GA5 . (GS[p-k]+Mmd) . GS[k] . GA5
 ]
@@ -385,7 +385,7 @@ DiracTrace[
 
 splt[{"d","\[Delta]KR","B"}]=Collect2[
 Expand[
-splt[{"d","\[Delta]KR","B"},{"cls"}]*splt[{"d","\[Delta]KR","B"},{"spr"}]/.FCI[{
+splt[{"d","\[Delta]KR","B"},{"clas"}]*splt[{"d","\[Delta]KR","B"},{"spin"}]/.FCI[{
 SP[k,k]->fad[{k,m\[Phi]}->-1]+m\[Phi]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*),
 SP[k,p]->1/2(fad[{k,m\[Phi]}->-1]-fad[{p-k,Mmd}->-1]+m\[Phi]^2-Mmd^2+M^2),(*\:5bf9k.p\:4f5c\:66ff\:6362*)
 pp->kp/y
@@ -421,7 +421,7 @@ jcb*prfactor*splt[{"d","\[Delta]KR","B"}]
 
 
 prfactor=\[Pi]/(4M*eq\[Phi]);
-splt[{"e","tad","\[Phi]"},{"cls"}]=prfactor*((-I)*eq\[Phi]*C\[Phi]\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
+splt[{"e","tad","\[Phi]"},{"clas"}]=prfactor*((-I)*eq\[Phi]*C\[Phi]\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
 fad[
 {k,\[CapitalLambda]}->4,{k,m\[Phi]}->1,{-k+p,Mmd}->0
 ]//ScalarProductExpand
@@ -431,7 +431,7 @@ fad[
 (*\:4f7f\:7528 FeynCalc \:5316\:7b80\:65cb\:91cf\:7ed3\:6784*)
 
 
-splt[{"e","tad","\[Phi]"},{"spr"}]=DiracSimplify[
+splt[{"e","tad","\[Phi]"},{"spin"}]=DiracSimplify[
 DiracTrace[
 (GS[p]+M) . GA["+"]
 ]
@@ -440,7 +440,7 @@ DiracTrace[
 
 splt[{"e","tad","\[Phi]"}]=Collect2[
 Expand[
-splt[{"e","tad","\[Phi]"},{"cls"}]*splt[{"e","tad","\[Phi]"},{"spr"}]/.FCI[{
+splt[{"e","tad","\[Phi]"},{"clas"}]*splt[{"e","tad","\[Phi]"},{"spin"}]/.FCI[{
 SP[k,k]->fad[{k,m\[Phi]}->-1]+m\[Phi]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*),
 SP[k,p]->1/2(fad[{k,m\[Phi]}->-1]-fad[{p-k,Mmd}->-1]+m\[Phi]^2-Mmd^2+M^2),(*\:5bf9k.p\:4f5c\:66ff\:6362*)
 pp->kp/y
@@ -476,7 +476,7 @@ jcb*prfactor*splt[{"e","tad","\[Phi]"}]
 
 
 prfactor=\[Pi]/(4M*eq\[Phi]);
-splt[{"f","bub","\[Phi]"},{"cls"}]=prfactor*(I*eq\[Phi]*C\[Phi]\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
+splt[{"f","bub","\[Phi]"},{"clas"}]=prfactor*(I*eq\[Phi]*C\[Phi]\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
 fad[
 {k,\[CapitalLambda]}->4,{k,m\[Phi]}->2,{-k+p,Mmd}->0
 ]//ScalarProductExpand
@@ -486,7 +486,7 @@ fad[
 (*\:4f7f\:7528 FeynCalc \:5316\:7b80\:65cb\:91cf\:7ed3\:6784*)
 
 
-splt[{"f","bub","\[Phi]"},{"spr"}]=DiracSimplify[
+splt[{"f","bub","\[Phi]"},{"spin"}]=DiracSimplify[
 DiracTrace[
 (GS[p]+M) . (2FV[k,"+"]) . GS[k]
 ]
@@ -495,7 +495,7 @@ DiracTrace[
 
 splt[{"f","bub","\[Phi]"}]=Collect2[
 Expand[
-splt[{"f","bub","\[Phi]"},{"cls"}]*splt[{"f","bub","\[Phi]"},{"spr"}]/.FCI[{
+splt[{"f","bub","\[Phi]"},{"clas"}]*splt[{"f","bub","\[Phi]"},{"spin"}]/.FCI[{
 SP[k,k]->fad[{k,m\[Phi]}->-1]+m\[Phi]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*),
 SP[k,p]->1/2(fad[{k,m\[Phi]}->-1]-fad[{p-k,Mmd}->-1]+m\[Phi]^2-Mmd^2+M^2),(*\:5bf9k.p\:4f5c\:66ff\:6362*)
 pp->kp/y
@@ -531,7 +531,7 @@ jcb*prfactor*splt[{"f","bub","\[Phi]"}]
 
 
 prfactor=\[Pi]/(4M*eq\[Phi]);
-splt[{"g","\[Delta]tad","\[Phi]"},{"cls"}]=prfactor*(I*eq\[Phi]*C\[Phi]\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
+splt[{"g","\[Delta]tad","\[Phi]"},{"clas"}]=prfactor*(I*eq\[Phi]*C\[Phi]\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
 fad[
 {k,\[CapitalLambda]}->5,{k,m\[Phi]}->1,{-k+p,Mmd}->0
 ]//ScalarProductExpand
@@ -541,7 +541,7 @@ fad[
 (*\:4f7f\:7528 FeynCalc \:5316\:7b80\:65cb\:91cf\:7ed3\:6784*)
 
 
-splt[{"g","\[Delta]tad","\[Phi]"},{"spr"}]=DiracSimplify[
+splt[{"g","\[Delta]tad","\[Phi]"},{"spin"}]=DiracSimplify[
 DiracTrace[
 (GS[p]+M) . (8FV[k,"+"]) . GS[k]
 ]
@@ -550,7 +550,7 @@ DiracTrace[
 
 splt[{"g","\[Delta]tad","\[Phi]"}]=Collect2[
 Expand[
-splt[{"g","\[Delta]tad","\[Phi]"},{"cls"}]*splt[{"g","\[Delta]tad","\[Phi]"},{"spr"}]/.FCI[{
+splt[{"g","\[Delta]tad","\[Phi]"},{"clas"}]*splt[{"g","\[Delta]tad","\[Phi]"},{"spin"}]/.FCI[{
 SP[k,k]->fad[{k,m\[Phi]}->-1]+m\[Phi]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*),
 SP[k,p]->1/2(fad[{k,m\[Phi]}->-1]-fad[{p-k,Mmd}->-1]+m\[Phi]^2-Mmd^2+M^2),(*\:5bf9k.p\:4f5c\:66ff\:6362*)
 pp->kp/y
@@ -615,7 +615,7 @@ Values[fun`def]; (*\:5bf9 decuplet \:8865\:5145\:51fd\:6570\:5e93\:89c4\:5219*)
 
 
 prfactor=\[Pi]/(4M*eq\[Phi]);
-splt[{"h","rbw","\[Phi]T"},{"cls"}]=prfactor*(I*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
+splt[{"h","rbw","\[Phi]T"},{"clas"}]=prfactor*(I*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
 fad[
 {k+q,\[CapitalLambda]}->2,{k,\[CapitalLambda]}->2,{k+q,m\[Phi]}->1,{k,m\[Phi]}->1,{p-k,Mmd}->1
 ]//ScalarProductExpand
@@ -629,7 +629,7 @@ st[p:_,{\[Alpha]_,\[Beta]_}]:=(-(GS[p]+Mmd)) . (MT[\[Alpha],\[Beta]]-1/3 GA[\[Al
 \[CapitalTheta][a:_,b:_]:=I*DiracSigma[GA[a],GA[b]]
 
 
-splt[{"h","rbw","\[Phi]T"},{"spr"}]=Simplify[DiracSimplify[
+splt[{"h","rbw","\[Phi]T"},{"spin"}]=Simplify[DiracSimplify[
 DiracTrace[
 FV[2k+q,"+"] . (GS[p]+M) . FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . st[p-k,{\[Beta],\[Rho]}] . \[CapitalTheta][\[Rho],\[Sigma]] . FV[k,\[Sigma]]
 ]
@@ -639,7 +639,7 @@ FV[2k+q,"+"] . (GS[p]+M) . FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . 
 
 splt[{"h","rbw","\[Phi]T"}]=Collect2[
 Expand[
-splt[{"h","rbw","\[Phi]T"},{"cls"}]*splt[{"h","rbw","\[Phi]T"},{"spr"}]/.FCI[{
+splt[{"h","rbw","\[Phi]T"},{"clas"}]*splt[{"h","rbw","\[Phi]T"},{"spin"}]/.FCI[{
 SP[k,k]->fad[{k,m\[Phi]}->-1]+m\[Phi]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*),
 SP[k,p]->1/2(fad[{k,m\[Phi]}->-1]-fad[{p-k,Mmd}->-1]+m\[Phi]^2-Mmd^2+M^2),(*\:5bf9k.p\:4f5c\:66ff\:6362*)
 pp->kp/y
@@ -682,7 +682,7 @@ jcb*prfactor*splt[{"h","rbw","\[Phi]T"}]
 
 
 prfactor=\[Pi]/(4M*eqmd);
-splt[{"i","rbw","T\[Phi]"},{"cls"}]=prfactor*(I*eqmd*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
+splt[{"i","rbw","T\[Phi]"},{"clas"}]=prfactor*(I*eqmd*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1*M/(kp/y)*
 fad[
 {k,\[CapitalLambda]}->4,{k,m\[Phi]}->1,{p2-k,Mmd}->1,{p1-k,Mmd}->1
 ]//ScalarProductExpand
@@ -697,7 +697,7 @@ st[p:_,{\[Alpha]_,\[Beta]_}]:=(-(GS[p]+Mmd)) . (MT[\[Alpha],\[Beta]]-1/3 GA[\[Al
 \[Gamma][a:_,b:_,c:_]:=(-I/2)*AntiCommutator[DiracSigma[GA[a],GA[b]],GA[c]]
 
 
-splt[{"i","rbw","T\[Phi]"},{"spr"}]=Simplify[DiracSimplify[
+splt[{"i","rbw","T\[Phi]"},{"spin"}]=Simplify[DiracSimplify[
 DiracTrace[
 (GS[p]+M) . FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . st[p2-k,{\[Beta],\[Theta]}] . \[Gamma][\[Theta],\[Nu],"+"] . st[p1-k,{\[Nu],\[Rho]}] . \[CapitalTheta][\[Rho],\[Sigma]] . FV[k,\[Sigma]]
 ]
@@ -707,7 +707,7 @@ DiracTrace[
 
 splt[{"i","rbw","T\[Phi]"}]=Collect2[
 Expand[
-splt[{"i","rbw","T\[Phi]"},{"cls"}]*splt[{"i","rbw","T\[Phi]"},{"spr"}]/.FCI[{
+splt[{"i","rbw","T\[Phi]"},{"clas"}]*splt[{"i","rbw","T\[Phi]"},{"spin"}]/.FCI[{
 SP[k,k]->fad[{k,m\[Phi]}->-1]+m\[Phi]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*),
 SP[k,p]->1/2(fad[{k,m\[Phi]}->-1]-fad[{p-k,Mmd}->-1]+m\[Phi]^2-Mmd^2+M^2),(*\:5bf9k.p\:4f5c\:66ff\:6362*)
 pp->kp/y
@@ -838,7 +838,7 @@ jcb*prfactor*splt[{"i","rbw","T\[Phi]"}]
 
 
 prfactor=\[Pi]/(4M*eq\[Phi]);
-splt[{"j","KR","T"},{"cls"}]=prfactor*((-I)*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*(M*\[CapitalLambda]l^8)/(kp/y)*
+splt[{"j","KR","T"},{"clas"}]=prfactor*((-I)*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*(M*\[CapitalLambda]l^8)/(kp/y)*
 fad[
 {k,\[CapitalLambda]}->4,{k,m\[Phi]}->1,{p1-k,Mmd}->1
 ]//ScalarProductExpand
@@ -853,7 +853,7 @@ st[p:_,{\[Alpha]_,\[Beta]_}]:=(-(GS[p]+Mmd)) . (MT[\[Alpha],\[Beta]]-1/3 GA[\[Al
 \[Gamma][a:_,b:_,c:_]:=(-I/2)*AntiCommutator[DiracSigma[GA[a],GA[b]],GA[c]]
 
 
-splt[{"j","KR","T"},{"spr"}]=Simplify[DiracSimplify[
+splt[{"j","KR","T"},{"spin"}]=Simplify[DiracSimplify[
 DiracTrace[
 (GS[p]+M) . \[CapitalTheta]["+",\[Nu]] . st[p1-k,{\[Nu],\[Rho]}] . \[CapitalTheta][\[Rho],\[Sigma]] . FV[k,\[Sigma]]+
 (GS[p]+M) . FV[k,\[Rho]] . \[CapitalTheta][\[Rho],\[Sigma]] . st[p1-k,{\[Sigma],\[Nu]}] . \[CapitalTheta][\[Nu],"+"]
@@ -864,7 +864,7 @@ DiracTrace[
 
 splt[{"j","KR","T"}]=Collect2[
 Expand[
-splt[{"j","KR","T"},{"cls"}]*splt[{"j","KR","T"},{"spr"}]/.FCI[{
+splt[{"j","KR","T"},{"clas"}]*splt[{"j","KR","T"},{"spin"}]/.FCI[{
 SP[k,k]->fad[{k,m\[Phi]}->-1]+m\[Phi]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*),
 SP[k,p]->1/2(fad[{k,m\[Phi]}->-1]-fad[{p-k,Mmd}->-1]+m\[Phi]^2-Mmd^2+M^2),(*\:5bf9k.p\:4f5c\:66ff\:6362*)
 pp->kp/y
@@ -977,7 +977,7 @@ jcb*prfactor*splt[{"j","KR","T"}]
 
 
 prfactor=\[Pi]/(4M*eq\[Phi]);
-splt[{"k","\[Delta]KR","T"},{"cls"}]=ScalarProductExpand[
+splt[{"k","\[Delta]KR","T"},{"clas"}]=ScalarProductExpand[
 prfactor*(I*eq\[Phi]*Cmd\[Phi]^2)/((2\[Pi])^4*f^2)*(M*\[CapitalLambda]l^8)/(kp/y)*2*
 fad[{k+q,\[CapitalLambda]}->2,{k,\[CapitalLambda]}->3,{k,m\[Phi]}->1,{p1-k,Mmd}->1]
 ]
@@ -992,7 +992,7 @@ st[p:_,{\[Alpha]_,\[Beta]_}]:=(-(GS[p]+Mmd)) . (MT[\[Alpha],\[Beta]]-1/3 GA[\[Al
 \[Gamma][a:_,b:_,c:_]:=(-I/2)*AntiCommutator[DiracSigma[GA[a],GA[b]],GA[c]]
 
 
-splt[{"k","\[Delta]KR","T"},{"spr"}]=2*Simplify[DiracSimplify[
+splt[{"k","\[Delta]KR","T"},{"spin"}]=2*Simplify[DiracSimplify[
 DiracTrace[
 (GS[p]+M) . (2FV[k,"+"]) . FV[k,\[Rho]] . \[CapitalTheta][\[Rho],\[Nu]] . st[p1-k,{\[Nu],\[Alpha]}] . \[CapitalTheta][\[Alpha],\[Beta]] . FV[k,\[Beta]]
 ]
@@ -1002,7 +1002,7 @@ DiracTrace[
 
 splt[{"k","\[Delta]KR","T"}]=Collect2[
 Expand[
-splt[{"k","\[Delta]KR","T"},{"cls"}]*splt[{"k","\[Delta]KR","T"},{"spr"}]/.FCI[{
+splt[{"k","\[Delta]KR","T"},{"clas"}]*splt[{"k","\[Delta]KR","T"},{"spin"}]/.FCI[{
 SP[k,k]->fad[{k,m\[Phi]}->-1]+m\[Phi]^2(*\:5bf9k.k\:4f5c\:66ff\:6362*),
 SP[k,p]->1/2(fad[{k,m\[Phi]}->-1]-fad[{p-k,Mmd}->-1]+m\[Phi]^2-Mmd^2+M^2),(*\:5bf9k.p\:4f5c\:66ff\:6362*)
 pp->kp/y

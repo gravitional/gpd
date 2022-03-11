@@ -33,7 +33,7 @@ recurFind[start];
 $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*<<modules*)
 
 
@@ -51,7 +51,7 @@ Get["gpd.interface.wl"];
 Get["gen.integral-TagList.wl"];
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*symbols*)
 
 
@@ -66,8 +66,8 @@ f
 ];
 
 
-(* ::Section:: *)
-(*propagator struct*)
+(* ::Section::Closed:: *)
+(*\:4f20\:64ad\:5b50\:7ed3\:6784*)
 
 
 mergeRule::usage="\:5bf9\:4e8e\:8f93\:5165\:7684\:4f20\:64ad\:5b50\:8bb0\:5f55\:ff0c\:4f8b\:5982:{k,\[CapitalLambda]}->1,{k,\[CapitalLambda]}->1, \:8fdb\:884c\:5408\:5e76,\:5c06\:91cd\:590d\:7684\:952e\:503c\:6c42\:548c\:ff0c\:5b58\:5165\:5217\:8868";
@@ -90,26 +90,8 @@ fad::usage="\:8bb0\:5f55\:4f20\:64ad\:5b50\:7ed3\:6784\:ff0c\:4f5c\:4e3a\:8f93\:
 fad[rules:__Rule]:=fadTmp1@@mergeRule[rules]; (*\:5c06\:91cd\:590d\:7684\:4f20\:64ad\:5b50\:7684\:5e42\:6b21,\:7d2f\:52a0\:8d77\:6765*)
 
 
-fadTmp2::usage="fadTmp1\[Rule]fadTmp2,\:628a\:4f20\:64ad\:5b50\:8f6c\:6362\:5230\:5149\:9525\:5206\:91cf\:5f62\:5f0f\:ff0c\:4e5f\:5c31\:662f\:5177\:4f53\:5f62\:5f0f";
-fadTmp2[rules__]:=Times@@KeyValueMap[
-(*Power[propagator,num] \:663e\:793a\:8868\:793a\:51fa\:4f20\:64ad\:5b50\:7684\:5e42\:6b21*)
-Power,
-(*\:4ee3\:5165\:4f20\:64ad\:5b50\:7684\:5149\:9525\:5f62\:5f0f\:ff0ckey\[Rule]val,val \:662f\:4f20\:64ad\:5b50\:7684\:5e42\:6b21*)
-KeyMap[LConegator,Association[rules]]]
-
-
-(*fadTmp3 \:8fd9\:4e2a\:51fd\:6570\:7528\:6765\:6446\:8131\:7cfb\:6570,\:53ea\:5c55\:793a\:5404\:79cd\:4f20\:64ad\:5b50\:7ed3\:6784------------------*)
-Times[coe__,fadTmp3[expr__]]^:=fadTmp3[expr]
-(*\:4f20\:64ad\:5b50\:7684\:6392\:7248,\:5b9a\:4e49\:6613\:8bfb\:7684\:6837\:5f0f------------------------------------*)
-Format[fadTmp3[rules__Rule],TraditionalForm]:=Times@@KeyValueMap[
-Power,
-KeyMap[\[DoubleStruckCapitalD],Association[rules]]];
-(*\:66ff\:6362\:5b8c\:6574\:8868\:8fbe\:5f0f\:4e2d\:7684 fadTmp1 \:4e3a fadTmp3 --------------------*)
-gatorShow[expr_]:=(expr/.fadTmp1->fadTmp3)
-
-
-(* ::Section::Closed:: *)
-(*LightCone  Products*)
+(* ::Section:: *)
+(*LightCone  Form*)
 
 
 (*\:6700\:540e\:4e24\:4e2a\:5206\:91cf\:4f5c\:6b27\:51e0\:91cc\:5f97\:5185\:79ef;\:5185\:79ef\:4e0d\:4f9d\:8d56\:4e8e\:6b21\:5e8f*)
@@ -139,6 +121,31 @@ Expand[
 ]]
 
 
+(*gpd \:4e2d\:4f7f\:7528\:7684\:5149\:9525\:52a8\:91cf\:53c2\:6570\:5316*)
+lConeKinematics={
+(*\:8d28\:5b50\:521d\:6001\:52a8\:91cf-------------------*)
+p1[1]->(1+\[Xi])P[1],
+p1[2]->(mN^2+ed[\[CapitalDelta][3],\[CapitalDelta][3]]/4)/(2(1+\[Xi])P[1]),
+p1[3]->\[CapitalDelta][3]/2,
+(*\:4ecb\:5b50\:521d\:6001\:52a8\:91cf*)
+k[1]->(y+\[Xi])P[1],
+(*k[2]\[Rule]k[2],*)
+k[3]->k[3]+\[CapitalDelta][3]/2,
+(*\:8d28\:5b50\:672b\:6001\:52a8\:91cf------------------*)
+p2[1]->(1-\[Xi])P[1],
+p2[2]->(mN^2+ed[\[CapitalDelta][3],\[CapitalDelta][3]]/4)/(2(1-\[Xi])P[1]),
+p2[3]->-\[CapitalDelta][3]/2,
+(*\:4ecb\:5b50\:672b\:6001\:52a8\:91cf*)
+k2[1]->(y-\[Xi])P[1],
+(*k2[2]\[Rule]k2[2],*)
+k2[3]->k[3]-\[CapitalDelta][3]/2,
+
+\[CapitalDelta][1]->\[Xi](2P[1]),
+\[CapitalDelta][2]->(\[CapitalDelta]2+ed[\[CapitalDelta][3],\[CapitalDelta][3]])/(4\[Xi]*P[1])
+(*\[CapitalDelta][3]\[Rule]\[CapitalDelta][3]*)
+};
+
+
 kTIntegralKinematics={
 ed[\[CapitalDelta][3],\[CapitalDelta][3]]->(-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2)),
 ed[k[3],\[CapitalDelta][3]]->0,
@@ -148,10 +155,6 @@ ed[k[3],k[3]]->ktr^2
 
 (*\:4f20\:64ad\:5b50\:7684\:5149\:9525\:5f62\:5f0f--------------*)
 LConegator[{k_,\[CapitalLambda]_}]:=lightConeSP[k,k]-\[CapitalLambda]^2;
-
-
-(* ::Section::Closed:: *)
-(*propagator poles*)
 
 
 (*++++++++++++++++++++++++++++++++++++++++++++*)
@@ -167,25 +170,41 @@ gatorConfigs={
 gatorAssoc=AssociationMap[LConegator,gatorConfigs];
 
 
-(*k- \:5206\:91cf\:524d\:7684\:7cfb\:6570, \:4e0d\:4ee3\:5165\:5177\:4f53\:53c2\:6570\:5316 *)
+fadTmp2::usage="fadTmp1\[Rule]fadTmp2,\:628a\:4f20\:64ad\:5b50\:8f6c\:6362\:5230\:5149\:9525\:5206\:91cf\:5f62\:5f0f\:ff0c\:4e5f\:5c31\:662f\:5177\:4f53\:5f62\:5f0f";
+fadTmp2[rules__]:=Times@@KeyValueMap[
+(*Power[propagator,num] \:663e\:793a\:8868\:793a\:51fa\:4f20\:64ad\:5b50\:7684\:5e42\:6b21*)
+Power,
+(*\:4ee3\:5165\:4f20\:64ad\:5b50\:7684\:5149\:9525\:5f62\:5f0f\:ff0ckey\[Rule]val,val \:662f\:4f20\:64ad\:5b50\:7684\:5e42\:6b21*)
+KeyMap[LConegator,Association[rules]]]
+
+
+(*k- \:5206\:91cf\:524d\:7684\:7cfb\:6570-------------------*)
 kminusCoes=Query[(*<propagator\[Rule]LightCone exprs>*)All
 (*LightCone exprs*)
 ,(Coefficient[#1,k[2],1]&)/*Simplify
 ]@gatorAssoc;
-
-
-(*\:4f20\:64ad\:5b50\:5149\:9525\:5f62\:5f0f \[Equal]0 \:65f6, k- pole\:7684\:4f4d\:7f6e,\:4e0d\:4ee3\:5165\:5177\:4f53\:53c2\:6570\:5316 *)
+(*\:4f20\:64ad\:5b50\:5149\:9525\:5f62\:5f0f \[Equal]0 \:65f6, k- \:7684\:89e3-----------------*)
 gatorZeros=Query[All,
 List@@First@First@Solve[#==0,{k[2]}]&
 ]@gatorAssoc;
 
 
 (*\:6c42\:51faFAFB\:8868\:8fbe\:5f0f\:ff0c\:5728 k- \:96f6\:70b9\:7684\:7559\:6570;Echo \:6253\:5370\:8fdb\:5ea6*)
-FAFBResidue[point_,FAFB_]:=Residue[#,(*Echo@*)point]&/@FAFB
+FAFBResidue[point_,FAFB_]:=Residue[#,point//Echo]&/@FAFB
+
+
+(*fadTmp3 \:8fd9\:4e2a\:51fd\:6570\:7528\:6765\:6446\:8131\:7cfb\:6570,\:53ea\:5c55\:793a\:5404\:79cd\:4f20\:64ad\:5b50\:7ed3\:6784------------------*)
+Times[coe__,fadTmp3[expr__]]^:=fadTmp3[expr]
+(*\:4f20\:64ad\:5b50\:7684\:6392\:7248,\:5b9a\:4e49\:6613\:8bfb\:7684\:6837\:5f0f------------------------------------*)
+Format[fadTmp3[rules__Rule],TraditionalForm]:=Times@@KeyValueMap[
+Power,
+KeyMap[\[DoubleStruckCapitalD],Association[rules]]];
+(*\:66ff\:6362\:5b8c\:6574\:8868\:8fbe\:5f0f\:4e2d\:7684 fadTmp1 \:4e3a fadTmp3 --------------------*)
+gatorShow[expr_]:=(expr/.fadTmp1->fadTmp3)
 
 
 (* ::Section::Closed:: *)
-(*spinor struct*)
+(*regulator*)
 
 
 decGamma3::usage="decGamma3[\[Mu]_,\[Nu]_,\[Rho]_],\:5341\:91cd\:6001F1\:9876\:89d2\:4f3d\:9a6c\:77e9\:9635";
@@ -271,7 +290,7 @@ fyTag={"RB","mes","oct"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k-\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -290,9 +309,9 @@ SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2+\[Ca
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
@@ -300,12 +319,12 @@ fadTmp1[__],Simplify];
 
 (* ::Input:: *)
 (*(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)*)
-(*splt[{fyTag,"FAFB","int"}][[2]]//gatorShow*)
+(*splt[{fyTag,"FAFB","integ"}]//First//gatorShow*)
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -317,7 +336,7 @@ Key/@{
 }
 (*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570----------------*)
 ,FAFBResidue[#,splt[{fyTag,"FAFB","lcone"}]]&
-]@gatorZeros;//AbsoluteTiming
+]@gatorZeros;
 
 
 (*\:4ece FAFB \:7ec4\:5408\:5230 F1F2 *)
@@ -376,7 +395,7 @@ fyTag={"KR","mes","oct","left"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,mo2}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -395,21 +414,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -467,7 +486,7 @@ fyTag={"KR","mes","oct","right"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -486,21 +505,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -552,7 +571,7 @@ fyTag={"KR","mes","oct","add","left"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,mo2}->-1,
 (*\:6b63\:89c4\:5b50 -R\[Mu](-k,q) *)
 {k,\[CapitalLambda]}->-2,{k+\[CapitalDelta],\[CapitalLambda]}->-2
@@ -576,21 +595,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -639,7 +658,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*KR,mes,oct,add,right*)
 
 
@@ -652,7 +671,7 @@ fyTag={"KR","mes","oct","add","right"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p1-k,mo1}->-1,
 (*\:6b63\:89c4\:5b50 R\[Mu](k,q)*)
 {k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2
@@ -676,21 +695,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -737,7 +756,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-octet,F1,nonlocal*)
 
 
@@ -750,7 +769,7 @@ fyTag={"RB","oct","F1"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,mo2}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -770,21 +789,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -831,7 +850,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-octet,F2,nonlocal*)
 
 
@@ -844,7 +863,7 @@ fyTag={"RB","oct","F2"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,mo2}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -864,21 +883,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -925,7 +944,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,A-octet,F1,nonlocal*)
 
 
@@ -938,7 +957,7 @@ fyTag={"tad","oct","F1"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -957,21 +976,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1020,7 +1039,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,A-octet,F1,addition*)
 
 
@@ -1033,7 +1052,7 @@ fyTag={"tad","oct","F1","add"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,
 {k-\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2
 ]
@@ -1053,21 +1072,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1111,7 +1130,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*tadpole,A-octet,F2,nonlocal*)
 
 
@@ -1124,7 +1143,7 @@ fyTag={"tad","oct","F2"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -1143,21 +1162,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1196,7 +1215,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble, A-meson,order2*)
 
 
@@ -1209,7 +1228,7 @@ fyTag={"bub","mes","o2"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2,
 {k,mm1}->-1,{k-\[CapitalDelta],mm1}->-1
 ]
@@ -1229,21 +1248,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1290,7 +1309,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble, A-meson,order2*)
 
 
@@ -1303,7 +1322,7 @@ fyTag={"bub","mes","ten","o2"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2,
 {k,mm1}->-1,{k-\[CapitalDelta],mm1}->-1
 ]
@@ -1323,21 +1342,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1386,11 +1405,11 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*split decuplet*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*bubble, A-meson,order2*)
 
 
@@ -1403,7 +1422,7 @@ fyTag={"RB","mes","dec"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2,
 {k-\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,md1}->-1
 ]
@@ -1424,21 +1443,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1492,7 +1511,7 @@ fyTag={"RB","dec","F1"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md2}->-1,{p1-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -1512,21 +1531,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1580,7 +1599,7 @@ fyTag={"RB","dec","F2"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md2}->-1,{p1-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -1600,21 +1619,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1655,7 +1674,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-decuplet,trans,left*)
 
 
@@ -1668,7 +1687,7 @@ fyTag={"RB","trans","left"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md1}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -1690,21 +1709,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1745,7 +1764,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*RainBow,A-decuplet,trans,right*)
 
 
@@ -1758,7 +1777,7 @@ fyTag={"RB","trans","right"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p1-k,md1}->-1,{p2-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -1779,21 +1798,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1847,7 +1866,7 @@ fyTag={"KR","mes","dec","left"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -1866,21 +1885,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -1921,7 +1940,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman, A-meson,decuplet,right*)
 
 
@@ -1934,7 +1953,7 @@ fyTag={"KR","mes","dec","right"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p1-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -1953,21 +1972,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -2021,7 +2040,7 @@ fyTag={"KR","mes","dec","add","left"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -2040,21 +2059,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -2095,7 +2114,7 @@ Piecewise[{
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*Kroll-Ruderman, A-meson,decuplet,addition,right*)
 
 
@@ -2108,7 +2127,7 @@ fyTag={"KR","mes","dec","add","right"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p1-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
@@ -2127,21 +2146,21 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-splt[{fyTag,"FAFB","int"}]=Collect[
+splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"class"}]*
+splt[{fyTag,"clas"}]*
 (splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
 
 (*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)
-splt[{fyTag,"FAFB","int"}]//First//gatorShow
+splt[{fyTag,"FAFB","integ"}]//First//gatorShow
 
 
 splt[{fyTag,"FAFB","lcone"}]=Query[(*{FA,FB}*)All
 (*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@splt[{fyTag,"FAFB","int"}];
+]@splt[{fyTag,"FAFB","integ"}];
 
 
 splt[{fyTag,"FAFB","res"}]=Query[
@@ -2180,36 +2199,3 @@ Piecewise[{
 (* ::Input:: *)
 (*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
 (*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
-
-
-(* ::Chapter:: *)
-(*backup*)
-
-
-(* ::Section::Closed:: *)
-(*light-cone parameterization*)
-
-
-(*gpd \:4e2d\:4f7f\:7528\:7684\:5149\:9525\:52a8\:91cf\:53c2\:6570\:5316*)
-lConeKinematics={
-(*\:8d28\:5b50\:521d\:6001\:52a8\:91cf-------------------*)
-p1[1]->(1+\[Xi])P[1],
-p1[2]->(mN^2+ed[\[CapitalDelta][3],\[CapitalDelta][3]]/4)/(2(1+\[Xi])P[1]),
-p1[3]->\[CapitalDelta][3]/2,
-(*\:4ecb\:5b50\:521d\:6001\:52a8\:91cf*)
-k[1]->(y+\[Xi])P[1],
-(*k[2]\[Rule]k[2],*)
-k[3]->k[3]+\[CapitalDelta][3]/2,
-(*\:8d28\:5b50\:672b\:6001\:52a8\:91cf------------------*)
-p2[1]->(1-\[Xi])P[1],
-p2[2]->(mN^2+ed[\[CapitalDelta][3],\[CapitalDelta][3]]/4)/(2(1-\[Xi])P[1]),
-p2[3]->-\[CapitalDelta][3]/2,
-(*\:4ecb\:5b50\:672b\:6001\:52a8\:91cf*)
-k2[1]->(y-\[Xi])P[1],
-(*k2[2]\[Rule]k2[2],*)
-k2[3]->k[3]-\[CapitalDelta][3]/2,
-
-\[CapitalDelta][1]->\[Xi](2P[1]),
-\[CapitalDelta][2]->(\[CapitalDelta]2+ed[\[CapitalDelta][3],\[CapitalDelta][3]])/(4\[Xi]*P[1])
-(*\[CapitalDelta][3]\[Rule]\[CapitalDelta][3]*)
-};

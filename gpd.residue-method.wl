@@ -1,7 +1,7 @@
 (* ::Package:: *)
 
 (* ::Title:: *)
-(*gpd.loop.projector.wl*)
+(*gpd.residue-method.wl*)
 
 
 (* ::Chapter:: *)
@@ -37,8 +37,11 @@ $inNBook=$Notebooks;echo[DateString[]," <<",$fileName];
 (*<<modules*)
 
 
-(*\:5bfc\:5165\:65cb\:91cf\:8ba1\:7b97\:7a0b\:5e8f--------------*)
-Once[<<"FeynCalc`"]
+(*\:5bfc\:5165\:65cb\:91cf\:8ba1\:7b97\:7a0b\:5e8f, FeynHelpers \:4f7f\:7528 Package-X \:79ef\:5206\:5e93\:7ed9\:51fa\:89e3\:6790\:5f62\:5f0f *)
+Once[
+Global`$LoadAddOns={"FeynHelpers"};
+<<FeynCalc`
+]
 
 
 (*\:67e5\:770b FeynCalc External,Interal \:7684\:6807\:51c6\:5f62\:5f0f------------------*)
@@ -50,9 +53,9 @@ Get["gpd.interface.wl"];
 (*\:8d39\:66fc\:56fe\:7684\:540d\:79f0\:548c\:6837\:5f0f---------------------*)
 Get["gen.integral-TagList.wl"];
 (*\:5149\:9525\:5750\:6807\:7cfb\:51fd\:6570------------------*)
-Get["gpd.loop.lightcone.wl"];
+Get["gpd.residue.func-lightcone.wl"];
 (*make Propagator Dataset*)
-Get["gpd.loop.poles.wl"];
+Get["gpd.residue.func-poles.wl"];
 
 
 (* ::Section:: *)
@@ -74,9 +77,6 @@ f
 lConeParaConstraint={0<=\[Xi]<=1,-\[Xi]<=y<=1};
 
 
-ruleKmReduce={P[1]->1};
-
-
 (* ::Chapter:: *)
 (*Split function octet*)
 
@@ -93,26 +93,18 @@ ruleKmReduce={P[1]->1};
 fyTag={"RB","mes","oct"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
+(*\:5316\:7b80 km \:7cfb\:6570\:4f7f\:7528\:7684\:89c4\:5219*)
+ruleKmReduce={P[1]->1};
+
+
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"class"}]=preFactor*fad[
+splt[{fyTag,"clas"}]=preFactor*fad[
 {k-\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spr",\[Mu]}]=(FV[2k-\[CapitalDelta],\[Mu]] . GS[k-\[CapitalDelta]] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5);
+splt[{fyTag,"spin",\[Mu]}]=(FV[2k-\[CapitalDelta],\[Mu]] . GS[k-\[CapitalDelta]] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spr"}]=projToFAFB[splt[{fyTag,"spr",\[Mu]}],\[Nu]];
-
-
-pickPoles=AssociationThread[
-{"itv1","itv2"},
-Query[All,KeyTake[{"propa","pow","kmCoe"}]
-]@{
-Select[#,#[["itvl1","up"]]&],
-Select[#,#[["itvl2","up"]]&]
-}
-]&@propaPoles@splt[{fyTag,"class"}];
-(*----------------*)
-regularPoles=Query[All,All,"propa"]@pickPoles
+splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -124,71 +116,12 @@ SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2+\[Ca
 }];
 
 
-(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-spltTmp=Expand[
-splt[{fyTag,"class"}]*
-(splt[{fyTag,"FAFB","spr"}]/.ruleScalar)
-];
-(*\:72ec\:7acb\:79ef\:5206\:5f0f\[Rule]\:7cfb\:6570 \:7684\:5173\:8054*)
-spltIntAssoc=findIntegrate/@spltTmp;
-(*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
-spltIntScalar=Collect[spltTmp,fadTmp1[__],Simplify];
+Get["gpd.residue.per-diagram.wl"];
 
 
 (* ::Input:: *)
 (*(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)*)
-(*spltTmp//First//gatorShow*)
-
-
-picDeltaContrib/@spltIntAssoc
-
-
-spltIntLCone=Query[(*{FA,FB}*)All
-(*FA,FB*),ReplaceAll[fadTmp1->fadTmp2]
-]@spltIntScalar;
-
-
-(*\:8fd4\:56de\:7684\:7ed3\:679c\:662f <pole->{FAFB}..>*)
-spltIntResidue=Query[
-(*<propa-poles\[Rule]expr>;\:5728\:8fd9\:4e9b\:4f20\:64ad\:5b50\:7684\:96f6\:70b9\:5904\:6c42\:7559\:6570-------------------*)
-Key/@DeleteDuplicates@Values@Map[Splice]@regularPoles
-(*{FA,FB};\:5e94\:7528\:6c42\:7559\:6570\:7684\:51fd\:6570---------------*)
-,FAFBResidue[#,spltIntLCone]&
-]@gatorZeros;
-
-
-(*\:4ece FAFB \:7ec4\:5408\:5230 F1F2, <pole->{FAFB}..>*)
-spltF1F2ResTmp=projToF1F2/@spltIntResidue;
-(*\:7ffb\:8f6c\:6b21\:5e8f----*)
-spltF1F2Res=Table[spltF1F2ResTmp[[All,ffs]],{ffs,2}];
-
-
-splt[{fyTag,"F1F2","pw"}]=Query[
-(*<propa-poles\[Rule]{FAFB}>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570*)All
-,(KeyTake[spltF1F2ResTmp,#]&)
-]@regularPoles;
-
-
-(*\:5bf9 y, \[Zeta]\:5206\:7c7b\:8ba8\:8bba,\:5bf9\:7559\:6570\:6c42\:548c,\:7ed9\:51fa\:7ed3\:679c*)
-splt[{fyTag,"F1F2","pw"}]=Query[
-(*<propa-poles\[Rule]{FAFB}>; \:5404\:4f20\:64ad\:5b50\:96f6\:70b9\:7684\:7559\:6570*)
-All,
-(*{FAFB}------*)
-Piecewise[{
-{
--1<=y<=-\[Xi],
-0
-},
-{
-(-2\[Pi]*I)Total@#[[{Key@{k,\[CapitalLambda]},Key@{k,mm1}}]],
--\[Xi]<=y<\[Xi]
-},
-{
-(2\[Pi]*I)Total@#[[{Key@{p1-k,mo1}}]],
-\[Xi]<=y<=1
-}
-}]&
-]@spltF1F2Res;
+(*spltIntTmp//First//gatorShow*)
 
 
 (* ::Input:: *)
@@ -199,7 +132,7 @@ Piecewise[{
 (* ::Input:: *)
 (*ruleMass={\[Xi]->0.1,y->0.5,\[CapitalDelta]2->-0.036,mN->0.94,mo1->0.94,mm1->0.138,\[CapitalLambda]->0.9};*)
 (*tec=Simplify@Chop@Cancel[*)
-(*(splt[{fyTag,"F1F2","pw"}][[1]]*I*ktr*P[1])/.lConeKinematics/.kTIntegralKinematics/.ruleMass];*)
+(*(splt[{fyTag,"F1F2"}][[1]]*I*ktr*P[1])/.lConeKinematics/.kTIntegralKinematics/.ruleMass];*)
 (*tec//fceStd*)
 (*(-4\[Xi]^2mN^2)/(1-\[Xi]^2)/.ruleMass*)
 (*Plot[tec*)

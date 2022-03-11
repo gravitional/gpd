@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*propagator struct*)
 
 
@@ -42,7 +42,7 @@ KeyMap[\[DoubleStruckCapitalD],Association[rules]]];
 gatorShow[expr_]:=(expr/.fadTmp1->fadTmp3)
 
 
-(* ::Section::Closed:: *)
+(* ::Section:: *)
 (*LightCone  Struct*)
 
 
