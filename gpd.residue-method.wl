@@ -116,7 +116,7 @@ SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2+\[Ca
 }];
 
 
-Get["gpd.residue.per-diagram.wl"];
+Get["gpd.residue.subrout.wl"];
 
 
 (* ::Input:: *)
@@ -141,11 +141,11 @@ Get["gpd.residue.per-diagram.wl"];
 (*]*)
 
 
-(* ::Chapter:: *)
+(* ::Chapter::Closed:: *)
 (*backup*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*recordPropa*)
 
 
@@ -191,7 +191,7 @@ Get["gpd.residue.per-diagram.wl"];
 (*]*)
 
 
-(* ::Section:: *)
+(* ::Section::Closed:: *)
 (*findIntegrate*)
 
 
