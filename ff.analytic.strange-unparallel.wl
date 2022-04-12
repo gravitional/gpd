@@ -190,9 +190,8 @@ paraLRefine[tag_]:=Switch[{$F1F2Expand,$parOrder,tag},
 (*+++++++++++++++++++ order0,RB F1,F2 +++++++++++++++++++*)
 {True,"ord0",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,0},Organization->Function]&],
-(*+++++++++++++++++++ order0,others +++++++++++++++++++*)
-{_,"ord0",_},
-(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49,\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+(*---\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49,\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-----------*)
+{_,"ord0",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,
 Function[{loopInt},
 Piecewise[{
@@ -201,12 +200,15 @@ Piecewise[{
 }]
 ]/@#&(*\:5206\:522b\:4f5c\:7528\:5728 F1,F2 \:4e0a*)
 ],
+(*--------order1,others-----------*)
+{_,"ord0",_},
+paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,0},Organization->Function]&],
+
 (* +++++++++++++++++++ order1,RB F1,F2 ++++++++++++++++++ *)
 {True,"ord1",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},{Q2,0,1},Organization->Function]&],
-(*+++++++++++++++++++ order1,others +++++++++++++++++++*)
-{_,"ord1",_},
-(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49,\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+(*---\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49,\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-----------*)
+{_,"ord1",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,
 Function[{loopInt},
 Piecewise[{
@@ -215,12 +217,14 @@ Piecewise[{
 }]
 ]/@#&(*\:5206\:522b\:4f5c\:7528\:5728 F1,F2 \:4e0a*)
 ],
+(*------- order1,others-----------*)
+paraEnvIO[tag,LoopRefineSeries[#,{Q2,0,1},Organization->Function]&],
+
 (*+++++++++++++++++++ full,RB F1,F2 +++++++++++++++++++*)
 {True,"full",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,LoopRefineSeries[#,{mo2,mo1,1},Organization->Function]&],
-(*+++++++++++++++++++ full,others +++++++++++++++++++*)
-{_,"full",_},
-(*\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49,\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------------------*)
+(*------------\:6839\:636e mo1,mo2 \:662f\:5426\:76f8\:7b49,\:9009\:62e9\:5408\:9002\:7684\:5f62\:5f0f-------------*)
+{_,"full",{"RB","oct","F1"}|{"RB","oct","F2"}},
 paraEnvIO[tag,
 Function[{loopInt},
 Piecewise[{
@@ -228,7 +232,10 @@ Piecewise[{
 {LoopRefine[loopInt,Organization->Function],Abs[mo2-mo1]>=$chopLimit}
 }]
 ]/@#&(*\:5206\:522b\:4f5c\:7528\:5728 F1,F2 \:4e0a*)
-]
+],
+(*---- full,others ------*)
+{_,"full",_},
+paraEnvIO[tag,LoopRefine[#,Organization->Function]&]
 (*Switch end*)]
 
 
