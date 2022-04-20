@@ -54,7 +54,7 @@ Get["gpd.interface.wl"];
 Get["gen.integral-TagList.wl"];
 (*\:5149\:9525\:5750\:6807\:7cfb\:51fd\:6570------------------*)
 Get["gpd.residue.func-lightcone.wl"];
-(*make Propagator Dataset*)
+(*make \:4f20\:64ad\:5b50 Dataset*)
 Get["gpd.residue.func-poles.wl"];
 
 
@@ -116,7 +116,7 @@ SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2+\[Ca
 }];
 
 
-Get["gpd.residue.subrout.wl"];
+Get["gpd.residue-subrout.wl"];
 
 
 (* ::Input:: *)
@@ -141,7 +141,7 @@ Get["gpd.residue.subrout.wl"];
 (*]*)
 
 
-(* ::Chapter::Closed:: *)
+(* ::Chapter:: *)
 (*backup*)
 
 

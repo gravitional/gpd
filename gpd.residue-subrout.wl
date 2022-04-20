@@ -13,11 +13,12 @@ pickPoles=AssociationThread[
 {"itv1","itv2"},
 Query[All,KeyTake[{"propa","pow","kmCoe"}]
 ]@{
+(*\:5728\:533a\:95f4 -\[Xi]<y<\[Xi], \[Xi]<y<1 \:4e0a\:ff0c\:53d6\:6781\:70b9\:5728 x\:8f74\:4e0a\:65b9\:7684 \:4f20\:64ad\:5b50\:ff0c*)
 Select[#,#[["itv1","up"]]&],
 Select[#,#[["itv2","up"]]&]
 }
 ]&@propaPoles@splt[{fyTag,"clas"}];
-(*\:5728\:533a\:95f4 -\[Xi]<y<\[Xi], \[Xi]<y<1 \:4e0a\:ff0c\:5206\:522b\:53d6x\:8f74\:4e0a\:65b9\:6781\:70b9\:ff0c\:8fd9\:4e9b\:6781\:70b9\:5bf9\:5e94\:7684\:4f20\:64ad\:5b50 --------*)
+(*\:5728\:533a\:95f4 -\[Xi]<y<\[Xi], \[Xi]<y<1 \:4e0a\:ff0c\:6781\:70b9\:5728x\:8f74\:4e0a\:65b9\:7684\:4f20\:64ad\:5b50\:ff0c\:5177\:4f53\:7684\:8bb0\:53f7 --------*)
 regularPoles=Query[All,All,"propa"]@pickPoles;
 
 
