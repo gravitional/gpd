@@ -134,7 +134,7 @@ Get["gpd.residue-subrout.wl"];
 
 
 (* ::Input:: *)
-(*ruleMass={\[Xi]->0.1,y->0.5,\[CapitalDelta]2->-0.04,mN->0.94,mo1->0.94,mm1->0.138,\[CapitalLambda]->0.9};*)
+(*ruleMass={\[Xi]->0.1,y->0.5,\[CapitalDelta]2->-0.05,mN->0.94,mo1->0.94,mm1->0.138,\[CapitalLambda]->0.9};*)
 (*tec=Simplify@Chop@Cancel[*)
 (*(spltF1F2["regular"][[1]]*I*kTr*P[1])/.lConeKinematics/.kTIntegralKinematics/.ruleMass];*)
 (*{tec//fceStd,(-4\[Xi]^2mN^2)/(1-\[Xi]^2)/.ruleMass}*)
