@@ -17,7 +17,7 @@ Query[All,KeyTake[{"propa","pow","kmCoe"}]
 Select[#,#[["itv1","up"]]&],
 Select[#,#[["itv2","up"]]&]
 }
-]&@propaPoles@splt[{fyTag,"clas"}];
+]&@propaPoles@spltNum;
 (*\:5728\:533a\:95f4 -\[Xi]<y<\[Xi], \[Xi]<y<1 \:4e0a\:ff0c\:6781\:70b9\:5728x\:8f74\:4e0a\:65b9\:7684\:4f20\:64ad\:5b50\:ff0c\:5177\:4f53\:7684\:8bb0\:53f7 --------*)
 regularPoles=Query[All,All,"propa"]@pickPoles;
 
@@ -28,8 +28,8 @@ regularPoles=Query[All,All,"propa"]@pickPoles;
 
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 spltIntTmp=Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ];
 (*\:72ec\:7acb\:79ef\:5206\:5f0f\[Rule]\:7cfb\:6570 \:7684\:5173\:8054*)
 spltIntAssoc=findIntegrate/@spltIntTmp;
@@ -77,7 +77,7 @@ spltF1F2=Query[(*<itvl\[Rule]v..>*)All
 
 
 (*\:8f6c\:6362\:5d4c\:5957\:683c\:5f0f\:ff0c\:6700\:5916\:5c42\:662f {f1,f2}, \:4e4b\:540e\:662f\:5206\:6bb5\:51fd\:6570 Piecewise*)
-splt[{fyTag,"F1F2","regul"}]=Table[
+spltF1F2["regular"]=Table[
 Piecewise[
 {(*val,condition*)
 spltF1F2[[#,f1f2]],gpdRegion@#}&/@Keys@gpdRegion
@@ -121,7 +121,7 @@ PaXEvaluate[decomposed, k,
 ]
 
 
-splt[{fyTag,"F1F2","delta"}]=Query[
+spltF1F2["delta"]=Query[
 (*{F1,F2}*)All
 (*{<Integral records>..}*),All
 ,Append[#,"int"->paveEvaluate[#@"int",k]]&

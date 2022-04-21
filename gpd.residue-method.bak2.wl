@@ -290,13 +290,13 @@ fyTag={"RB","mes","oct"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k-\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(FV[2k-\[CapitalDelta],\[Mu]] . GS[k-\[CapitalDelta]] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5);
+spltMatrix[\[Mu]]=(FV[2k-\[CapitalDelta],\[Mu]] . GS[k-\[CapitalDelta]] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -311,8 +311,8 @@ SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2+\[Ca
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -395,13 +395,13 @@ fyTag={"KR","mes","oct","left"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,mo2}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=GS[k] . GA5 . (GS[p2-k]+mo2) . GA[\[Mu]] . GA5;
+spltMatrix[\[Mu]]=GS[k] . GA5 . (GS[p2-k]+mo2) . GA[\[Mu]] . GA5;
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -416,8 +416,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -486,13 +486,13 @@ fyTag={"KR","mes","oct","right"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=GA[\[Mu]] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5;
+spltMatrix[\[Mu]]=GA[\[Mu]] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5;
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -507,8 +507,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -571,18 +571,18 @@ fyTag={"KR","mes","oct","add","left"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,mo2}->-1,
 (*\:6b63\:89c4\:5b50 -R\[Mu](-k,q) *)
 {k,\[CapitalLambda]}->-2,{k+\[CapitalDelta],\[CapitalLambda]}->-2
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(
+spltMatrix[\[Mu]]=(
 (*\:6b63\:89c4\:5b50\:7ec4\:5408: -R\[Mu](-k,q) *)
 (-1)(SP[k,k]+SP[k+\[CapitalDelta],k+\[CapitalDelta]]-2\[CapitalLambda]^2)*(-1)FV[-2k+p2-p1,\[Mu]] .
 GS[k] . GA5 . (GS[p2-k]+mo2) . GS[k-p2+p1] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -597,8 +597,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -671,18 +671,18 @@ fyTag={"KR","mes","oct","add","right"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p1-k,mo1}->-1,
 (*\:6b63\:89c4\:5b50 R\[Mu](k,q)*)
 {k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(
+spltMatrix[\[Mu]]=(
 (*\:6b63\:89c4\:5b50\:7ec4\:5408: R\[Mu](k,q) *)
 (SP[k,k]+SP[k-\[CapitalDelta],k-\[CapitalDelta]]-2\[CapitalLambda]^2)(-1)FV[2k+p2-p1,\[Mu]] .
 GS[k+p2-p1] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -697,8 +697,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -769,14 +769,14 @@ fyTag={"RB","oct","F1"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,mo2}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(GS[k] . GA5 . (GS[p2-k]+mo2) .
+spltMatrix[\[Mu]]=(GS[k] . GA5 . (GS[p2-k]+mo2) .
 GA[\[Mu]] . (GS[p1-k]+mo1) . GS[k] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -791,8 +791,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -863,14 +863,14 @@ fyTag={"RB","oct","F2"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,mo2}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(I (FV[p2-p1,\[Nu]]/(2mN)) . GS[k] . GA5 . (GS[p2-k]+mo2) .
+spltMatrix[\[Mu]]=(I (FV[p2-p1,\[Nu]]/(2mN)) . GS[k] . GA5 . (GS[p2-k]+mo2) .
 DiracSigma[GA[\[Mu]],GA[\[Nu]]] . (GS[p1-k]+mo1) . GS[k] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -885,8 +885,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -957,13 +957,13 @@ fyTag={"tad","oct","F1"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=GA[\[Mu]];
+spltMatrix[\[Mu]]=GA[\[Mu]];
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -978,8 +978,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1052,14 +1052,14 @@ fyTag={"tad","oct","F1","add"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,
 {k-\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(fad[{k,\[CapitalLambda]}->1]+fad[{k-\[CapitalDelta],\[CapitalLambda]}->1])*2GS[k] . (-FV[2k-\[CapitalDelta],\[Mu]]);
+spltMatrix[\[Mu]]=(fad[{k,\[CapitalLambda]}->1]+fad[{k-\[CapitalDelta],\[CapitalLambda]}->1])*2GS[k] . (-FV[2k-\[CapitalDelta],\[Mu]]);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1074,8 +1074,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1143,13 +1143,13 @@ fyTag={"tad","oct","F2"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=I/(2mN)*DiracSigma[GA[\[Mu]],GA[\[Nu]]] . FV[-\[CapitalDelta],\[Nu]];
+spltMatrix[\[Mu]]=I/(2mN)*DiracSigma[GA[\[Mu]],GA[\[Nu]]] . FV[-\[CapitalDelta],\[Nu]];
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1164,8 +1164,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1228,14 +1228,14 @@ fyTag={"bub","mes","o2"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2,
 {k,mm1}->-1,{k-\[CapitalDelta],mm1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=4(GS[k] . FV[k,\[Mu]]);
+spltMatrix[\[Mu]]=4(GS[k] . FV[k,\[Mu]]);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1250,8 +1250,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1322,14 +1322,14 @@ fyTag={"bub","mes","ten","o2"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2,
 {k,mm1}->-1,{k-\[CapitalDelta],mm1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=FV[k-\[CapitalDelta],\[Rho]] . FV[k,\[Nu]]*DiracSigma[GA[\[Rho]],GA[\[Nu]]] . FV[2k-\[CapitalDelta],\[Mu]];
+spltMatrix[\[Mu]]=FV[k-\[CapitalDelta],\[Rho]] . FV[k,\[Nu]]*DiracSigma[GA[\[Rho]],GA[\[Nu]]] . FV[2k-\[CapitalDelta],\[Mu]];
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1344,8 +1344,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1422,15 +1422,15 @@ fyTag={"RB","mes","dec"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],\[CapitalLambda]}->-2,
 {k-\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(FV[k-\[CapitalDelta],\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] .
+spltMatrix[\[Mu]]=(FV[k-\[CapitalDelta],\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] .
 decGator[{\[Beta],\[Rho]},{p1-k,md1}] . \[CapitalTheta][\[Rho],\[Nu]] . FV[k,\[Nu]] . FV[2k-\[CapitalDelta],\[Mu]]);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1445,8 +1445,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1511,14 +1511,14 @@ fyTag={"RB","dec","F1"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md2}->-1,{p1-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . decGator[{\[Beta],\[Theta]},{p2-k,md2}] .
+spltMatrix[\[Mu]]=(FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . decGator[{\[Beta],\[Theta]},{p2-k,md2}] .
 decGamma3[\[Theta],\[Nu],\[Mu]] . decGator[{\[Nu],\[Rho]},{p1-k,md1}] . \[CapitalTheta][\[Rho],\[Eta]] . FV[k,\[Eta]]);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1533,8 +1533,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1599,14 +1599,14 @@ fyTag={"RB","dec","F2"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md2}->-1,{p1-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=I/(2mN) (FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . decGator[{\[Beta],\[Theta]},{p2-k,md2}] .
+spltMatrix[\[Mu]]=I/(2mN) (FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . decGator[{\[Beta],\[Theta]},{p2-k,md2}] .
 DiracSigma[GA[\[Mu]],GA[\[Nu]]] . FV[-\[CapitalDelta],\[Nu]] . decGator[{\[Theta],\[Rho]},{p1-k,md1}] . \[CapitalTheta][\[Rho],\[Eta]] . FV[k,\[Eta]]);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1621,8 +1621,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1687,16 +1687,16 @@ fyTag={"RB","trans","left"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md1}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(
+spltMatrix[\[Mu]]=(
 GS[k] . GA5 . (GS[p2-k]+mo1) . FV[-\[CapitalDelta],\[Nu]] . (
 GA[\[Nu]] . GA5 . decGator[{\[Mu],\[Beta]},{p1-k,md1}]-GA[\[Mu]] . GA5 . decGator[{\[Nu],\[Beta]},{p1-k,md1}]) .
 \[CapitalTheta][\[Beta],\[Alpha]] . FV[k,\[Alpha]]);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1711,8 +1711,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1777,15 +1777,15 @@ fyTag={"RB","trans","right"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p1-k,md1}->-1,{p2-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . FV[-\[CapitalDelta],\[Nu]] . (
+spltMatrix[\[Mu]]=(FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . FV[-\[CapitalDelta],\[Nu]] . (
 decGator[{\[Beta],\[Nu]},{p2-k,md1}] . GA[\[Mu]] . GA5-decGator[{\[Beta],\[Mu]},{p2-k,md1}] . GA[\[Nu]] . GA5) .
 (GS[p1-k]+mo1) . GS[k] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1800,8 +1800,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1866,13 +1866,13 @@ fyTag={"KR","mes","dec","left"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p2-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=FV[k,\[Rho]] . \[CapitalTheta][\[Rho],\[Beta]] . decGator[{\[Beta],\[Nu]},{p2-k,md1}] . \[CapitalTheta][\[Nu],\[Mu]];
+spltMatrix[\[Mu]]=FV[k,\[Rho]] . \[CapitalTheta][\[Rho],\[Beta]] . decGator[{\[Beta],\[Nu]},{p2-k,md1}] . \[CapitalTheta][\[Nu],\[Mu]];
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1887,8 +1887,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -1953,13 +1953,13 @@ fyTag={"KR","mes","dec","right"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-4,{k,mm1}->-1,{p1-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=\[CapitalTheta][\[Mu],\[Nu]] . decGator[{\[Nu],\[Rho]},{p1-k,md1}] . \[CapitalTheta][\[Rho],\[Beta]] . FV[k,\[Beta]];
+spltMatrix[\[Mu]]=\[CapitalTheta][\[Mu],\[Nu]] . decGator[{\[Nu],\[Rho]},{p1-k,md1}] . \[CapitalTheta][\[Rho],\[Beta]] . FV[k,\[Beta]];
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -1974,8 +1974,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -2040,13 +2040,13 @@ fyTag={"KR","mes","dec","add","left"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p2-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . decGator[{\[Beta],\[Nu]},{p2-k,md1}] . \[CapitalTheta][\[Nu],\[Rho]] . FV[k+\[CapitalDelta],\[Rho]];
+spltMatrix[\[Mu]]=FV[k,\[Alpha]] . \[CapitalTheta][\[Alpha],\[Beta]] . decGator[{\[Beta],\[Nu]},{p2-k,md1}] . \[CapitalTheta][\[Nu],\[Rho]] . FV[k+\[CapitalDelta],\[Rho]];
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -2061,8 +2061,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 
@@ -2127,13 +2127,13 @@ fyTag={"KR","mes","dec","add","right"};
 (*\:989d\:5916\:56e0\:5b50; preFactor=(I*CB\[Phi]^2)/((2\[Pi])^4*f^2)*\[CapitalLambda]l^8/1;*)
 preFactor=1;
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k,\[CapitalLambda]}->-2,{k,mm1}->-1,{p1-k,md1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=FV[k-\[CapitalDelta],\[Rho]] . \[CapitalTheta][\[Rho],\[Nu]] . decGator[{\[Nu],\[Alpha]},{p1-k,md1}] . \[CapitalTheta][\[Alpha],\[Beta]] . FV[k,\[Beta]];
+spltMatrix[\[Mu]]=FV[k-\[CapitalDelta],\[Rho]] . \[CapitalTheta][\[Rho],\[Nu]] . decGator[{\[Nu],\[Alpha]},{p1-k,md1}] . \[CapitalTheta][\[Alpha],\[Beta]] . FV[k,\[Beta]];
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -2148,8 +2148,8 @@ SP[k,k]->fad[{k,\[CapitalLambda]}->1]+\[CapitalLambda]^2(*\:5bf9k.k\:4f5c\:66ff\
 (*\:5c06\:4e24\:90e8\:5206\:7ed3\:679c\:76f8\:4e58\:ff0c\:5e76\:6574\:7406*)
 splt[{fyTag,"FAFB","integ"}]=Collect[
 Expand[
-splt[{fyTag,"clas"}]*
-(splt[{fyTag,"FAFB","spin"}]/.ruleScalar)
+spltNum*
+(spltFAFBMatrix/.ruleScalar)
 ],
 fadTmp1[__],Simplify];
 

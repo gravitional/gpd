@@ -98,13 +98,13 @@ ruleKmReduce={P[1]->1};
 
 
 (*-\:5708\:79ef\:5206\:7684\:5206\:6bcd\:90e8\:5206\:ff0c\:5373\:4f20\:64ad\:5b50-----------------------*)
-splt[{fyTag,"clas"}]=preFactor*fad[
+spltNum=preFactor*fad[
 {k-\[CapitalDelta],\[CapitalLambda]}->-2,{k,\[CapitalLambda]}->-2,{k-\[CapitalDelta],mm1}->-1,{k,mm1}->-1,{p1-k,mo1}->-1
 ]
 (*\:5708\:79ef\:5206\:7684\:65cb\:91cf\:90e8\:5206-------------------------*)
-splt[{fyTag,"spin",\[Mu]}]=(FV[2k-\[CapitalDelta],\[Mu]] . GS[k-\[CapitalDelta]] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5);
+spltMatrix[\[Mu]]=(FV[2k-\[CapitalDelta],\[Mu]] . GS[k-\[CapitalDelta]] . GA5 . (GS[p1-k]+mo1) . GS[k] . GA5);
 (*\:91c7\:7528\:5f20\:91cf\:7ea6\:5316\:7684\:505a\:6cd5,\:6700\:540e\:518d\:628a\:6307\:6807\:90fd\:6362\:6210plus\:5206\:91cf-----------------*)
-splt[{fyTag,"FAFB","spin"}]=projToFAFB[splt[{fyTag,"spin",\[Mu]}],\[Nu]];
+spltFAFBMatrix=projToFAFB[spltMatrix[\[Mu]],\[Nu]];
 
 
 (*\:632f\:5e45\:5206\:5b50\:4e0a\:7684\:6807\:91cf\:79ef\:6309\:5206\:6bcd\:4e0a\:7684\:4f20\:64ad\:5b50\:7ebf\:6027\:5c55\:5f00*)
@@ -136,7 +136,7 @@ Get["gpd.residue-subrout.wl"];
 (* ::Input:: *)
 (*ruleMass={\[Xi]->0.1,y->0.5,\[CapitalDelta]2->-0.04,mN->0.94,mo1->0.94,mm1->0.138,\[CapitalLambda]->0.9};*)
 (*tec=Simplify@Chop@Cancel[*)
-(*(splt[{fyTag,"F1F2","regul"}][[1]]*I*kTr*P[1])/.lConeKinematics/.kTIntegralKinematics/.ruleMass];*)
+(*(spltF1F2["regular"][[1]]*I*kTr*P[1])/.lConeKinematics/.kTIntegralKinematics/.ruleMass];*)
 (*{tec//fceStd,(-4\[Xi]^2mN^2)/(1-\[Xi]^2)/.ruleMass}*)
 (*ReImPlot[tec*)
 (*,{kTr,0,5}*)
