@@ -101,7 +101,7 @@ k2[3]->k[3]-\[CapitalDelta][3]/2,
 kTIntegralKinematics={
 ed[\[CapitalDelta][3],\[CapitalDelta][3]]->(-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2)),
 ed[k[3],\[CapitalDelta][3]]->0,
-ed[k[3],k[3]]->ktr^2
+ed[k[3],k[3]]->kTr^2
 };
 
 

@@ -78,7 +78,7 @@ recordPropa[paras]/@List@@fad[propas]
 
 (*\:627e\:51fa\:8d39\:66fc\:56fe\:6240\:6709\:4f20\:64ad\:5b50\:7684 poles*)
 propaPoles[feynPropgator_]:=(feynPropgator/.
-fadTmp1->dataPropa[k@2,lConeKinematics,ruleKmReduce]);
+fadTmp1->dataPropa[k[2],lConeKinematics,ruleKmReduce]);
 
 
 (*\:627e\:51fa\:6240\:6709\:72ec\:7acb\:7684\:79ef\:5206*)

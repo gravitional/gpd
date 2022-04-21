@@ -93,6 +93,10 @@ spltF1F2[[#,f1f2]],gpdRegion@#}&/@Keys@gpdRegion
 (*singular*)
 
 
+(* ::Text:: *)
+(*\:5947\:5f02\:7684\:90e8\:5206\:ff0c\:4f7f\:7528\:5f85\:5b9a\:7cfb\:6570\:6cd5\:ff0c\:540c\:65f6\:4e5f\:5b8c\:6210\:4e86\:5bf9  kT \:6a2a\:52a8\:91cf \:7684\:79ef\:5206*)
+
+
 (*\:4ece \:5708\:79ef\:5206\[Rule] \:7a00\:758f\:7684 Association \:4e2d\:ff0c\:63d0\:53d6\:51fa\:5b58\:5728\:7684\:53d1\:6563\:7ed3\:6784, \:4f8b\:5982\:6b63\:6bd4\:4e8e \[Delta][x] \:7684\:9879*)
 splitIntDelta=picDeltaContrib/@spltIntAssoc;
 
@@ -101,7 +105,7 @@ splitIntDelta=picDeltaContrib/@spltIntAssoc;
 fadToFAD[propa__Rule]:=FAD@@KeyValueMap[Append[#1,-#2]&]@Association[propa]
 
 
-(*\:5e94\:7528 \:7b26\:53f7\:8f6c\:6362\:51fd\:6570*)
+(*\:5e94\:7528 \:7b26\:53f7\:8f6c\:6362 \:51fd\:6570*)
 splitIntDeltaTmp1=Query[(*{F1,F2}*)All
 (*{<Integral records>..}*),All
 (*<fields of integral>*)

@@ -119,6 +119,10 @@ SP[k,p2]->1/2(fad[{k-\[CapitalDelta],\[CapitalLambda]}->1]-\[CapitalDelta]2+\[Ca
 Get["gpd.residue-subrout.wl"];
 
 
+(* ::Subsection:: *)
+(*inspect and save*)
+
+
 (* ::Input:: *)
 (*(*\:67e5\:770b\:4f20\:64ad\:5b50\:7684\:53ef\:80fd\:7ed3\:6784*)*)
 (*spltIntTmp//First//gatorShow*)
@@ -130,14 +134,14 @@ Get["gpd.residue-subrout.wl"];
 
 
 (* ::Input:: *)
-(*ruleMass={\[Xi]->0.1,y->0.5,\[CapitalDelta]2->-0.036,mN->0.94,mo1->0.94,mm1->0.138,\[CapitalLambda]->0.9};*)
+(*ruleMass={\[Xi]->0.1,y->0.5,\[CapitalDelta]2->-0.04,mN->0.94,mo1->0.94,mm1->0.138,\[CapitalLambda]->0.9};*)
 (*tec=Simplify@Chop@Cancel[*)
-(*(splt[{fyTag,"F1F2"}][[1]]*I*ktr*P[1])/.lConeKinematics/.kTIntegralKinematics/.ruleMass];*)
-(*tec//fceStd*)
-(*(-4\[Xi]^2mN^2)/(1-\[Xi]^2)/.ruleMass*)
-(*Plot[tec*)
-(*,{ktr,0,5}*)
+(*(splt[{fyTag,"F1F2","regul"}][[1]]*I*kTr*P[1])/.lConeKinematics/.kTIntegralKinematics/.ruleMass];*)
+(*{tec//fceStd,(-4\[Xi]^2mN^2)/(1-\[Xi]^2)/.ruleMass}*)
+(*ReImPlot[tec*)
+(*,{kTr,0,5}*)
 (*,PlotRange->{Automatic,Full}*)
+(*,PlotLegends->"ReIm"*)
 (*]*)
 
 

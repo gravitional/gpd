@@ -142,7 +142,7 @@ Expand[
 kTIntegralKinematics={
 ed[\[CapitalDelta][3],\[CapitalDelta][3]]->(-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2)),
 ed[k[3],\[CapitalDelta][3]]->0,
-ed[k[3],k[3]]->ktr^2
+ed[k[3],k[3]]->kTr^2
 };
 
 
@@ -354,11 +354,11 @@ Piecewise[{
 (* ::Input:: *)
 (*ruleMass={\[Xi]->0.1,y->0.5,\[CapitalDelta]2->-0.036,mN->0.94,mo1->0.94,mm1->0.138,\[CapitalLambda]->0.9};*)
 (*tec=Simplify@Chop@Cancel[*)
-(*(splt[{fyTag,"F1F2","pw"}][[1]]*I*ktr*P[1])/.lConeKinematics/.kTIntegralKinematics/.ruleMass];*)
+(*(splt[{fyTag,"F1F2","pw"}][[1]]*I*kTr*P[1])/.lConeKinematics/.kTIntegralKinematics/.ruleMass];*)
 (*tec//fceStd*)
 (*(-4\[Xi]^2mN^2)/(1-\[Xi]^2)/.ruleMass*)
 (*Plot[tec*)
-(*,{ktr,0,5}*)
+(*,{kTr,0,5}*)
 (*,PlotRange->{Automatic,Full}*)
 (*]*)
 

@@ -214,8 +214,8 @@ ExpandScalarProduct[
 FCI@teq/.ruleMomentShiftBack/.ruleTransMomShiftBack
 ]/.lConeKinematics
 )/.FCI@{
-ed[FV[k,t],FV[k,t]]->ktr^2,
-ed[FV[k,t],FV[\[CapitalDelta]T,t]]->ktr Sqrt[(-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2))] Cos[\[Phi]],
+ed[FV[k,t],FV[k,t]]->kTr^2,
+ed[FV[k,t],FV[\[CapitalDelta]T,t]]->kTr Sqrt[(-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2))] Cos[\[Phi]],
 ed[FV[\[CapitalDelta]T,t],FV[\[CapitalDelta]T,t]]->(-4mN^2 \[Xi]^2+(1-\[Xi]^2)(-\[CapitalDelta]2))
 }
 
