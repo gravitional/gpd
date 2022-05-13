@@ -130,7 +130,7 @@ Get["gpd.residue-subrout.wl"];
 
 (* ::Input:: *)
 (*(*\:5bfc\:51fa\:5230\:786c\:76d8*)*)
-(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)
+(*(*serialize[gpdResidueDir][Flatten@{"residue-F1F2",fyTag,".wdx"},splt[{fyTag,"F1F2","pw"}]]*)*)
 
 
 (* ::Input:: *)
